@@ -4,7 +4,8 @@ import express from "express";
 
 
 //Database Model
-import {FoodModel} from "../../database/allModels";
+import { FoodModel } from "../../database/allModels";
+import getUserStatus from "../../middlewares/getUserStatus";
 
 
 //validation
@@ -20,44 +21,140 @@ const Router = express.Router();
     Method   Get
  */
 
- Router.get("/:id",async(req,res)=>{
-     try{
+Router.get("/:id", async (req, res) => {
+   try {
 
       await ValidateRestaurantId(req.params);
 
-        const{_id}=req.params;
-        const foods = await FoodModel.find({ restaurant: _id});
-        return res.json({foods});
-     }
-     catch(error){
-        return res.status(500).json({error: error.message});
-     }
+      const { _id } = req.params;
+      const foods = await FoodModel.find({ restaurant: _id });
+      return res.json({ foods });
+   }
+   catch (error) {
+      return res.status(500).json({ error: error.message });
+   }
 
- });
+});
 
- /* 
-    Route    /r
-    Des      Get all foods based on particular category
-    Params    category
-    Access    Public
-    Method   Get
- */
+/* 
+   Route    /r
+   Des      Get all foods based on particular category
+   Params    category
+   Access    Public
+   Method   Get
+*/
 
 
- Router.get("/r/:category",async(req,res)=>{
-     try{
+Router.get("/r/:category", async (req, res) => {
+   try {
       await ValidateCategory(req.params);
 
-        const {category}= req.params;
-        const foods = await FoodModel.find({
-            category: {$regex: category,$options:"i"}
-        })
-        return res.json({foods});
-     }
-     catch(error){
-        return res.status(500).json({error: error.message});
-     }
- })
+      const { category } = req.params;
+      const foods = await FoodModel.find({
+         category: { $regex: category, $options: "i" }
+      })
+      return res.json({ foods });
+   }
+   catch (error) {
+      return res.status(500).json({ error: error.message });
+   }
+})
+
+/* 
+   Route    /food/
+   Des      post food from a particular restaurant
+   Params   category
+   Access   Public
+   Method   Get
+*/
+
+Router.post("/food/:id", getUserStatus, async (req, res) => {
+   try {
+      console.log("1");
+      await ValidateRestaurantId(req.params.id);
+      if (req.user.status === "restaurant" && req.user.id===req.params.id) {
+         console.log("2");
+         const restaurant = req.params.id
+         // const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
+         const food = await FoodModel.create(req.body, restaurant)
+         
+         console.log("3");
+         return res.json({ food });
+      }
+      else {
+         return res.status(401).send("user cant add restaurant food")
+      }
+
+   }
+   catch (error) {
+      return res.status(500).json({ error: error.message + ' 500' });
+   }
+})
+
+/* 
+   Route    /r
+   Des      Get all foods based on particular category
+   Params    category
+   Access    Public
+   Method   Get
+*/
+
+Router.put("/editfood/:id", getUserStatus, async (req, res) => {
+   try {
+      await ValidateRestaurantId(req.params.id);
+      if (req.user.status === "restaurant" && req.user.id===req.params.id){
+         const restaurant = req.params.id
+         const {name, descript, isContainEgg, category, photos, price} = req.body
+         const newFood = {}
+         if (name) { newFood.name = name };
+         if (descript) { newFood.descript = descript };
+         if (isContainEgg) { newFood.isContainEgg = isContainEgg };
+         if (category) { newFood.category = category };
+         if (photos) { newFood.photos = photos };
+         if (price) { newFood.price = price };
+         
+         food = await FoodModel.findByIdAndUpdate(req.params.id, {
+            $set: newFood
+         }, {new: true})
+         return res.json({ food });
+      }
+      else {
+         return res.status(401).send("user cant add restaurant food")
+      }
+      
+   }
+   catch (error) {
+      return res.status(500).json({ error: error.message });
+   }
+})
+
+/* 
+   Route    /r
+   Des      Get all foods based on particular category
+   Params    category
+   Access    Public
+   Method   Get
+*/
+
+Router.post("/deletefood/:id", getUserStatus, async (req, res) => {
+   try {
+      await ValidateRestaurantId(req.params.id);
+      if (req.user.status === "restaurant" && req.user.id===req.params.id) {
+         const restaurant = req.params.id
+         // const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
+         const food = await FoodModel.create(req.body, restaurant)
+
+         return res.json({ food });
+      }
+      else {
+         return res.status(401).send("user cant add restaurant food")
+      }
+
+   }
+   catch (error) {
+      return res.status(500).json({ error: error.message });
+   }
+})
 
 
 export default Router;
