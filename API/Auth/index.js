@@ -26,17 +26,15 @@ Router.post("/signup",async(req,res)=>{
         
         await ValidateSignup(req.body.credentials);
         //check whether email or phone already exists
-        
         await UserModel.findUserName(req.body.credentials);
 
         //DB
-
         const newUser=await UserModel.create(req.body.credentials)
 
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token, user: newUser.status});
+        return res.status(200).json({token, status: newUser.status});
 
 
     } catch(error){
@@ -57,7 +55,6 @@ Router.post("/signin",async(req,res)=>{
     try{
         await ValidateSignin(req.body.credentials);
         
-      
       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
 
         //JWT AUth Token
@@ -83,7 +80,6 @@ Router.get("/google",passport.authenticate("google",{
   scope:[
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email"
-
   ],
 }));
 
@@ -103,3 +99,4 @@ Router.get("/google/callback",passport.authenticate("google",{
 });
 
 export default Router;
+//google signup is not there 

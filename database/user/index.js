@@ -17,7 +17,10 @@ const UserSchema = new mongoose.Schema({
     { 
         type: String 
     },
-    status:{type: String,required: true},
+    status:{
+        type: String,
+        required: true
+    },
     address: [
         { detail: { type: String },
         for: { type: String } }],
@@ -42,8 +45,7 @@ async({email})=>{
 
 
 //custom signup
-UserSchema.statics.findUserName =
-async({userName})=>{ 
+UserSchema.statics.findUserName = async({userName})=>{ 
     //check whether userName exists
     const checkUserByuserName = await UserModel.findOne({userName});
     if(checkUserByuserName){

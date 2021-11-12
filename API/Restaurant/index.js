@@ -1,6 +1,6 @@
 import {RestaurantModel} from "../../database/allModels";
 import express from 'express'
-
+import { UserModel } from "../../database/user";
 
 //validation
  import { ValidateRestaurantCity, ValidateRestaurantId, ValidateRestaurantSearchString } from "../../validation/restaurant";
@@ -89,7 +89,9 @@ const Router = express.Router();
   // ye bunny ka kaam
   Router.get("/addrest",async(req,res)=>{
      try{
-        const {searchString}=req.body;
+        const data =req.body;
+        const user = UserModel.findById(req.user);
+        
         const restaurants = await RestaurantModel.find({
            name:{$regex: searchString, $options:"i"},
          });
