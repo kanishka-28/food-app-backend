@@ -65,7 +65,7 @@ Router.get("/r/:category", async (req, res) => {
    Des      post food from a particular restaurant
    Params   category
    Access   Public
-   Method   Get
+   Method   post
 */
 
 Router.post("/addfood/:id", getUserStatus, async (req, res) => {
@@ -105,7 +105,7 @@ Router.post("/addfood/:id", getUserStatus, async (req, res) => {
    Des      Get all foods based on particular category
    Params    category
    Access    Public
-   Method   Get
+   Method   put
 */
 
 Router.put("/editfood/:id", getUserStatus, async (req, res) => {
@@ -149,9 +149,8 @@ Router.post("/deletefood/:id", getUserStatus, async (req, res) => {
    try {
       await ValidateRestaurantId(req.params.id);
       if (req.user.status === "restaurant" && req.user.id===req.params.id) {
-         const restaurant = req.params.id
-         // const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
-         const food = await FoodModel.create(req.body, restaurant)
+         
+         const food = await FoodModel.findByIdAndDelete(req.params.id)
 
          return res.json({ food });
       }

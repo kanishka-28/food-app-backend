@@ -68,7 +68,7 @@ Router.post("/signin",async(req,res)=>{
 })
 /* 
 Route     /google
-descrip   Google signin 
+descrip   Google signin/signup 
 params    none
 access    public
 method    GET
@@ -84,7 +84,7 @@ Router.get("/google",passport.authenticate("google",{
 
 /* 
 Route     /google/callback
-descrip   Google signin callback
+descrip   Google signin/signup callback
 params    none
 access    public
 method    GET

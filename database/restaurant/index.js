@@ -11,25 +11,12 @@ const RestaurantSchema = new mongoose.Schema({
     website: { type: String },
 
     amenities: [{ type: String }],
-    menuImages: 
-        
-            {
-                type: String,
-
-            }
-        
-    ,
+    menuImages: {type: String,},
     menu: {
         type: mongoose.Types.ObjectId,
         ref: "Menus"
     },
-    
-    photos: 
-       [
-           {
-               type:String
-           }
-       ]
+    photos: [{type:String}]
 }, {
     timestamps: true
 });
