@@ -87,14 +87,13 @@ const Router = express.Router();
    Method   Get
    */
   // ye bunny ka kaam
+  //middle-ware will give req.user
   Router.get("/addrest",async(req,res)=>{
      try{
         const data =req.body;
         const user = UserModel.findById(req.user);
+         
         
-        const restaurants = await RestaurantModel.find({
-           name:{$regex: searchString, $options:"i"},
-         });
          return res.json({restaurants});
       }
       catch(error){
