@@ -36,7 +36,6 @@ Router.post("/signup",async(req,res)=>{
 
         return res.status(200).json({token, status: newUser.status});
 
-
     } catch(error){
         return res.status(500).json({error: error.message});
     }

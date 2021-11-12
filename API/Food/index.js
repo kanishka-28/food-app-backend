@@ -68,17 +68,26 @@ Router.get("/r/:category", async (req, res) => {
    Method   Get
 */
 
-Router.post("/food/:id", getUserStatus, async (req, res) => {
+Router.post("/addfood/:id", getUserStatus, async (req, res) => {
    try {
-      console.log("1");
-      await ValidateRestaurantId(req.params.id);
-      if (req.user.status === "restaurant" && req.user.id===req.params.id) {
-         console.log("2");
+      const id = { _id: req.params.id }
+      await ValidateRestaurantId(id);
+
+      console.log(req.user.id,req.params.id);
+      if (req.user.status === "restaurant" ) {
+
          const restaurant = req.params.id
-         // const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
-         const food = await FoodModel.create(req.body, restaurant)
+         const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
+         const food = await FoodModel.create({
+            name: name,
+            descript: descript,
+            isVeg: isVeg,
+            isContainEgg: isContainEgg,
+            category: category,
+            price: price,
+            restaurant : restaurant
+         })
          
-         console.log("3");
          return res.json({ food });
       }
       else {
