@@ -3,11 +3,11 @@ import joi from "joi";
 export const ValidateSignup = (userData) => {
 
 const Schema = joi.object({
-  userName: joi.string().min(4),
+  userName: joi.string().min(2),
   email: joi.string().email(),
   password: joi.string().min(5),
-  status: joi.string(),
   address: joi.array().items(joi.object({detail: joi.string(), for:joi.string()})),
+ status: joi.string().required()
 });
 
 return Schema.validateAsync(userData);
@@ -16,7 +16,7 @@ return Schema.validateAsync(userData);
 export const ValidateSignin = (userData) => {
 
 const Schema = joi.object({
-  userName: joi.string().email().required(),
+  userName: joi.string().required(),
   password: joi.string().min(5).required(),
   
 });

@@ -63,6 +63,21 @@ Router.post("/new/:_id",passport.authenticate("jwt",{session: false})  , async (
 });
 
 // agr reastaurant h delete api bnaadena bunny bnana
+//_id is order id
+//insert middleware here
+Router.delete("/deleteOrder/:_id",async (req,res)=>{
+    //user fetched from middleware req.user with id of user
+    try{
+        const order= await OrderModel.findById(req.params._id);
+        if(req.user!==order.user){
+           return  res.status(401).json({error:"not Authorized"});
+        }
+        const result= await OrderModel.findByIdAndDelete(req.params._id);
+        res.json({message:"deleted successfuly", result});
 
+    }catch(error){
+        return res.status(500).json({error: error.message});
+    }
+})
 
 export default Router;
