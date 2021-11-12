@@ -62,6 +62,7 @@ Router.post("/new/:_id",passport.authenticate("jwt",{session: false})  , async (
     }
 });
 
+// agr reastaurant h delete api bnaadena bunny bnana
 
 
 export default Router;

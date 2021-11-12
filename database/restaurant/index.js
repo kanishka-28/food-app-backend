@@ -1,32 +1,37 @@
 import mongoose from "mongoose";
 
-const RestaurantSchema= new mongoose.Schema({
-    name:{type:String, required:true},
-    city:{type:String, required:true},
-    address:{type:String, required:true},
-    mapLocation: {type:String, required:true},
-    cuisine: [{type:String}],
-    restauarntTimings: {type:String},
-    contactNumber: {type:Number},
-    website: {type:String},
-    popularDishes: [{type : String}],
-    averageCost : {type:Number},
-    amenities: [{type: String}],
-    menuImages:{
+const RestaurantSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    city: { type: String, required: true },
+    address: { type: String, required: true },
+    mapLocation: { type: String, required: true },
+
+    restauarntTimings: { type: String },
+    contactNumber: { type: Number },
+    website: { type: String },
+
+    amenities: [{ type: String }],
+    menuImages: 
+        
+            {
+                type: String,
+
+            }
+        
+    ,
+    menu: {
         type: mongoose.Types.ObjectId,
-        ref:"Images"
+        ref: "Menus"
     },
-    menu:{
-        type: mongoose.Types.ObjectId,
-        ref:"Menus"
-    },
-    reviews: [{type: mongoose.Types.ObjectId, ref:"Reviews"}],
-    photos:{
-        type:mongoose.Types.ObjectId,
-        ref:"Images"
-    }
-},{
-    timestamps:true
+    
+    photos: 
+       [
+           {
+               type:String
+           }
+       ]
+}, {
+    timestamps: true
 });
 
-export const RestaurantModel =mongoose.model("Restaurants",RestaurantSchema);
+export const RestaurantModel = mongoose.model("Restaurants", RestaurantSchema);

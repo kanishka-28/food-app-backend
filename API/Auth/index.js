@@ -27,10 +27,7 @@ Router.post("/signup",async(req,res)=>{
         await ValidateSignup(req.body.credentials);
         //check whether email or phone already exists
         
-        await UserModel.findByUserNameAndPassword(req.body.credentials);
-
-        
-
+        await UserModel.findUserName(req.body.credentials);
 
         //DB
 
@@ -39,7 +36,7 @@ Router.post("/signup",async(req,res)=>{
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token});
+        return res.status(200).json({token, user: newUser.status});
 
 
     } catch(error){
@@ -49,7 +46,7 @@ Router.post("/signup",async(req,res)=>{
 
 /* 
 Route     /signin
-descrip   signin with email and password
+descrip   signin with userName and password
 params    none
 access    public
 method    post
@@ -66,7 +63,7 @@ Router.post("/signin",async(req,res)=>{
         //JWT AUth Token
         const token = user.generateJwtToken();
 
-        return res.status(200).json({token, status:"Success"});
+        return res.status(200).json({token, status:"Success", user: user.status});
 
 
     } catch(error){

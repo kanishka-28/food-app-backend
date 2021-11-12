@@ -77,7 +77,6 @@ const Router = express.Router();
 
  })
 
- export default Router;
 
    /* 
    Route    /search
@@ -87,7 +86,7 @@ const Router = express.Router();
    Access    Public
    Method   Get
    */
-  
+  // ye bunny ka kaam
   Router.get("/addrest",async(req,res)=>{
      try{
         const {searchString}=req.body;

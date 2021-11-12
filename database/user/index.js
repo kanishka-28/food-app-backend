@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
     { 
         type: String 
     },
+    status:{type: String},
     address: [
         { detail: { type: String },
         for: { type: String } }],
@@ -38,6 +39,19 @@ async({email})=>{
     }
     return false;
 };
+
+
+//custom signup
+UserSchema.statics.findUserName =
+async({userName})=>{ 
+    //check whether userName exists
+    const checkUserByuserName = await UserModel.findOne({userName});
+    if(checkUserByuserName){
+        throw new Error("User already exists");
+    }
+    return ;
+};
+
 
 //custom login
 UserSchema.statics.findByUserNameAndPassword =
