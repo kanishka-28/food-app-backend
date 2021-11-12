@@ -36,7 +36,6 @@ Router.post("/signup",async(req,res)=>{
 
         return res.status(200).json({token, status: newUser.status});
 
-
     } catch(error){
         return res.status(500).json({error: error.message});
     }
@@ -69,11 +68,10 @@ Router.post("/signin",async(req,res)=>{
 })
 /* 
 Route     /google
-descrip   Google signin 
+descrip   Google signin/signup 
 params    none
 access    public
 method    GET
-
 */
 
 Router.get("/google",passport.authenticate("google",{
@@ -85,7 +83,7 @@ Router.get("/google",passport.authenticate("google",{
 
 /* 
 Route     /google/callback
-descrip   Google signin callback
+descrip   Google signin/signup callback
 params    none
 access    public
 method    GET
