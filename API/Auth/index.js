@@ -8,7 +8,6 @@ import {UserModel} from "../../database/user/index";
 
 
 //validation
-
 import { ValidateSignup,ValidateSignin } from "../../validation/auth";
 
 
@@ -18,7 +17,6 @@ descrip   signup with email and password
 params    none
 access    public
 method    post
-
 */
 
 Router.post("/signup",async(req,res)=>{
@@ -28,20 +26,14 @@ Router.post("/signup",async(req,res)=>{
         //check whether email or phone already exists
         
         await UserModel.findEmailAndPhone(req.body.credentials);
-
-        
-
-
         //DB
 
-        const newUser=await UserModel.create(req.body.credentials
-        )
+        const newUser=await UserModel.create(req.body.credentials)
 
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
         return res.status(200).json({token});
-
 
     } catch(error){
         return res.status(500).json({error: error.message});

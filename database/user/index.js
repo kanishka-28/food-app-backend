@@ -5,15 +5,13 @@ import jwt from 'jsonwebtoken';
 //schema is the structure of our database
 
 const UserSchema = new mongoose.Schema({
-    fullname: 
+    userName: 
     { 
         type: String,
-        required: true 
     },
     email: 
     { 
-        type: String, 
-        required: true 
+        type: String,  
     },
     password: 
     { 
@@ -21,8 +19,7 @@ const UserSchema = new mongoose.Schema({
     },
     address: [
         { detail: { type: String },
-         for: { type: String } }],
-    phoneNumber: [{ type: Number }]
+        for: { type: String } }],
 },{
     timestamps:true
 });
@@ -31,23 +28,22 @@ UserSchema.methods.generateJwtToken = function(){
     return jwt.sign({user:this._id.toString()}, "ZomatoApp");
 };
 
-UserSchema.statics.findEmailAndPhone =
-async({email,phoneNumber})=>{ 
+//google login
+UserSchema.statics.findEmail =
+async({email})=>{ 
     //check whether email exists
     const checkUserByEmail = await UserModel.findOne({email});
-    // check whether phone number exists 
-    const checkUserByPhone = await UserModel.findOne({phoneNumber});
-    if(checkUserByEmail || checkUserByPhone){
+    if(checkUserByEmail){
         throw new Error("User already exists");
-
     }
     return false;
 };
 
-UserSchema.statics.findByEmailAndPassword =
-async({email,password})=>{ 
-    //check whether email exists
-    const user = await UserModel.findOne({email});
+//custom login
+UserSchema.statics.findByUserNameAndPassword =
+async({userName,password})=>{ 
+    //check whether user exists
+    const user = await UserModel.findOne({userName});
     if(!user){
         throw new Error("User does not exist");
     }
@@ -55,13 +51,12 @@ async({email,password})=>{
     const doesPasswordMatch = await bcrypt.compare(password,user.password);
     if(!doesPasswordMatch){
         throw new Error("Invalid password");
-
     }
     return user;
 };
 
-//hashing and salting
 
+//hashing and salting
 
 UserSchema.pre("save",function(next){
     const user= this;

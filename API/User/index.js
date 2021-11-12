@@ -10,7 +10,6 @@ descrip   Get an user data
 params    :_id
 access    PUBLIC
 method    GET
-
 */
 
 Router.get("/:_id", async (req,res)=>{

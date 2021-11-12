@@ -78,3 +78,28 @@ const Router = express.Router();
  })
 
  export default Router;
+
+   /* 
+   Route    /search
+   Des      add Restaurant 
+   Params    none
+   body      searchString
+   Access    Public
+   Method   Get
+   */
+  
+  Router.get("/addrest",async(req,res)=>{
+     try{
+        const {searchString}=req.body;
+        const restaurants = await RestaurantModel.find({
+           name:{$regex: searchString, $options:"i"},
+         });
+         return res.json({restaurants});
+      }
+      catch(error){
+         return res.status(500).json({error: error.message});
+    }
+
+ })
+
+ export default Router;
