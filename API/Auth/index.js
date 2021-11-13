@@ -23,8 +23,9 @@ method    post
 
 Router.post("/signup",async(req,res)=>{
     try{
-        
-        await ValidateSignup(req.body.credentials);
+      await ValidateSignup(req.body.credentials);
+      console.log("signup");
+      console.log(req.body);
         //check whether email or phone already exists
         await UserModel.findUserName(req.body.credentials);
 
