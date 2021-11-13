@@ -164,13 +164,10 @@ Router.post("/login", getUserStatus, async (req, res) => {
    */
   // ye bunny ka kaam
   //middle-ware will give req.user
-  Router.post("/addrest",getUserStatus,async(req,res)=>{
+  Router.post("/addrest",async(req,res)=>{
      try{
         const data =req.body;
-        const user = req.user;
-        if(user.status!=="restaurant"){
-           res.status(401).json({error: "not authorized"})
-        }
+        console.log(req.body);
         const check= await RestaurantModel.find({name:data.name});
         if(check.length>0){
            
@@ -178,9 +175,7 @@ Router.post("/login", getUserStatus, async (req, res) => {
                return res.status(400).json({error:"restaurant already exists"});
            }
         }
-        const restaurant= await RestaurantModel.create(data);
-         
-        
+        const restaurant= await RestaurantModel.create(data);        
          return res.json({restaurant});
       }
       
