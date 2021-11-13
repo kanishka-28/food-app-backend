@@ -1,5 +1,5 @@
 import express from "express";
-import cors from 'cors';
+import cors from "cors";
 import helmet from 'helmet';
 import passport from 'passport'
 
@@ -26,8 +26,8 @@ import routeConfig from "./config/route.config";
 const zomato = express();
 zomato.use(express.json());
 zomato.use(express.urlencoded({extended:false}));
-zomato.use(helmet());
 zomato.use(cors());
+zomato.use(helmet());
 zomato.use(passport.initialize());
 zomato.use(passport.session());
 

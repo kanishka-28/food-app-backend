@@ -18,10 +18,12 @@ export default (passport)=>{
             const newUser= {
                 fullname: profile.displayName,
                 email:profile.emails[0].value,
-                profilePic: profile.photos[0].value
+                profilePic: profile.photos[0].value,
+                status: "user"
             };
             try{
                 //check whether user exists or not
+                
                 const user= await UserModel.findOne({email: newUser.email});
                 if(user){
                     //generating jwt token
