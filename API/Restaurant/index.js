@@ -107,38 +107,7 @@ Router.get("/search", async (req, res) => {
 
 
 
-/* 
-Route    /search
-Des      Get Restaurant details on search
-Params    none
-body      searchString
-Access    Public
-Method   post
-*/
 
-Router.get("/search", async (req, res) => {
-   try {
-      await ValidateRestaurantSearchString(req.params);
-      const { searchString } = req.body;
-      const restaurants = await RestaurantModel.find({
-         name: { $regex: searchString, $options: "i" },
-      });
-      return res.json({ restaurants });
-   }
-   catch (error) {
-      return res.status(500).json({ error: error.message });
-   }
-
-})
-
-/* 
-Route    /search
-Des      add Restaurant 
-Params    none
-body      searchString
-Access    Public
-Method   Get
-*/
 
 Router.post("/login", getUserStatus, async (req, res) => {
    try {
