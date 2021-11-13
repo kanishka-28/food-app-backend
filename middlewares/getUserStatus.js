@@ -12,7 +12,7 @@ const getUserStatus= async (req,res,next)=>{
     }
         const data = verify(token, "ZomatoApp");
         // req.user = data.user;
-        req.user = await UserModel.findById(data.user)
+        req.user = await UserModel.findById(data.user).select("-password")
         next();
 
     }

@@ -1,6 +1,6 @@
 import { RestaurantModel } from "../../database/allModels";
 import express from 'express'
-import { UserModel } from "../../database/user";
+
 
 //validation
 import { ValidateRestaurantCity, ValidateRestaurantId, ValidateRestaurantSearchString } from "../../validation/restaurant";
@@ -16,11 +16,15 @@ const Router = express.Router();
     Method   Get
  */
 
-Router.get('/', async (req, res) => {
+Router.get('/', getUserStatus,async (req, res) => {
    try {
-      await ValidateRestaurantCity(req.query);
-
-      const { city } = req.query;
+      
+      if (req.user.status !== "user"){
+         res.status(401).json({error:"Not Authorized"});
+      }
+      
+      // await ValidateRestaurantCity(req.user.address.city);
+      const  city  = req.user.address.city;
       const restaurants = await RestaurantModel.find({ city });
       return res.json({ restaurants });
    }
@@ -78,27 +82,7 @@ Router.get("/search", async (req, res) => {
 
 })
 
-/* 
-Route    /search
-Des      add Restaurant 
-Params    none
-body      searchString
-Access    Public
-Method   post
-*/
-// ye bunny ka kaam
-Router.post("/addrest", getUserStatus, async (req, res) => {
-   try {
 
-      const newRes=await RestaurantModel.create(req.body)
-      return res.json({ newRes });
-      
-   }
-   catch (error) {
-      return res.status(500).json({ error: error.message });
-   }
-
-})
 
 /* 
 Route    /search
@@ -140,11 +124,44 @@ Router.post("/login", getUserStatus, async (req, res) => {
       if(res) {
          return res.status(400).json({error: `restaurant does not exist`, name: `${req.body.name}`})
       }
-      else{
-         return res.json({ res });
+   }
+      catch(error){
+         return res.status(500).json({error: error.message});
+
+ }})
+
+
+   /* 
+   Route    /search
+   Des      add Restaurant 
+   Params    none
+   body      searchString
+   Access    Public
+   Method   Get
+   */
+  // ye bunny ka kaam
+  //middle-ware will give req.user
+  Router.post("/addrest",getUserStatus,async(req,res)=>{
+     try{
+        const data =req.body;
+        const user = req.user;
+        if(user.status!=="restaurant"){
+           res.status(401).json({error: "not authorized"})
+        }
+        const check= await RestaurantModel.find({name:data.name});
+        if(check.length>0){
+           
+           if(check[0].city===data.city){
+               return res.status(400).json({error:"restaurant already exists"});
+           }
+        }
+        const restaurant= await RestaurantModel.create(data);
+         
+        
+         return res.json({restaurant});
       }
       
-   }
+   
    catch (error) {
       return res.status(500).json({ error: error.message });
    }

@@ -72,7 +72,6 @@ descrip   Google signin/signup
 params    none
 access    public
 method    GET
-
 */
 
 Router.get("/google",passport.authenticate("google",{

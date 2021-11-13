@@ -6,7 +6,7 @@ const Schema = joi.object({
   userName: joi.string().min(2),
   email: joi.string().email(),
   password: joi.string().min(5),
-  address: joi.array().items(joi.object({detail: joi.string(), for:joi.string()})),
+  address: joi.object({detail: joi.string(), city:joi.string()}),
  status: joi.string().required()
 });
 
