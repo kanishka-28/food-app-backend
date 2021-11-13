@@ -56,6 +56,10 @@ Router.post("/signin",async(req,res)=>{
         
       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
 
+      if(req.body.credentials.city){
+        
+      }
+
         //JWT AUth Token
         const token = user.generateJwtToken();
 
