@@ -5,6 +5,7 @@ import passport from 'passport'
 import { OrderModel } from "../../database/allModels";
 import { ValidateUserId } from "../../validation/user";
 import { ValidateOrder} from "../../validation/order";
+import getUserStatus from '../../middlewares/getUserStatus';
 
 const Router= express.Router();
 
@@ -62,14 +63,13 @@ Router.post("/new/:_id",passport.authenticate("jwt",{session: false})  , async (
     }
 });
 
-// agr reastaurant h delete api bnaadena bunny bnana
 //_id is order id
 //insert middleware here
-Router.delete("/deleteOrder/:_id",async (req,res)=>{
+Router.delete("/deleteOrder/:_id",getUserStatus,async (req,res)=>{
     //user fetched from middleware req.user with id of user
     try{
         const order= await OrderModel.findById(req.params._id);
-        if(req.user!==order.user){
+        if(req.user._id!==order.user){
            return  res.status(401).json({error:"not Authorized"});
         }
         const result= await OrderModel.findByIdAndDelete(req.params._id);
