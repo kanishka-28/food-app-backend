@@ -27,7 +27,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2=0,lon2=0) {
      ; 
    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
    var d = R * c; // Distance in km
-   // console.log(d);
+   console.log(d);
    return d;
  }
  
@@ -47,7 +47,7 @@ Router.get('/', getUserStatus,async (req, res) => {
       const  city  = req.user.address.city;
       let restaurants = await RestaurantModel.find({ city });
       restaurants=restaurants.filter(restaurant=>(
-         getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
+         getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<10// radius of 3 km is too low
       ));
       return res.json({ restaurants });
    }
