@@ -49,8 +49,8 @@ zomato.use('/order',Order);
 
 
 zomato.get("/",(req,res)=> res.json({message: "setup success !!"}));
-
-zomato.listen(4000,()=>
+const PORT= process.env.PORT || 4000
+zomato.listen(PORT,()=>
     ConnectDB().then(()=> 
  console.log("Server is up and running"))
  .catch(()=>console.log("DB connection failed"))
