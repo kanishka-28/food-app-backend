@@ -24,8 +24,7 @@ method    post
 Router.post("/signup",async(req,res)=>{
     try{
       await ValidateSignup(req.body.credentials);
-      console.log("signup");
-      console.log(req.body);
+      
         //check whether email or phone already exists
         await UserModel.findUserName(req.body.credentials);
 
@@ -57,9 +56,9 @@ Router.post("/signin",async(req,res)=>{
         
       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
 
-      if(req.body.credentials.city){
+      
 
-      }
+      
 
         //JWT AUth Token
         const token = user.generateJwtToken();

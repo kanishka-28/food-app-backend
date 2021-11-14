@@ -16,7 +16,7 @@ const Router = express.Router();
     Method   Get
  */
 //function for calculating distance in KM
-function getDistanceFromLatLonInKm(lat1,lon1,lat2=0,lon2=0) {
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
    var R = 6371; // Radius of the earth in km
    var dLat = deg2rad(lat2-lat1);  // deg2rad below
    var dLon = deg2rad(lon2-lon1); 
@@ -44,8 +44,13 @@ Router.get('/', getUserStatus,async (req, res) => {
       }
       
       // await ValidateRestaurantCity(req.user.address.city);
-      const  city  = req.user.address.city;
+      const  city  = req.user.city;
+      
       let restaurants = await RestaurantModel.find({ city });
+      
+      if(!latitude || !longitude){
+         return res.json({restaurants});
+      }
       restaurants=restaurants.filter(restaurant=>(
          getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<10// radius of 3 km is too low
       ));
@@ -136,13 +141,17 @@ Router.post("/login", getUserStatus, async (req, res) => {
   Router.post("/addrest",async(req,res)=>{
      try{
         const data =req.body;
+        
         console.log(req.body);
         const check= await RestaurantModel.find({name:data.name});
+        console.log(check);
         if(check.length>0){
-           
-           if(check[0].city===data.city){
-               return res.status(400).json({error:"restaurant already exists"});
-           }
+           check.map(rest =>{
+              
+              if(rest.city===data.city){
+                  return res.status(400).json({error:"restaurant already exists"});
+              }
+           })
         }
         const restaurant= await RestaurantModel.create(data);        
          return res.json({restaurant});
@@ -154,5 +163,22 @@ Router.post("/login", getUserStatus, async (req, res) => {
    }
 
 })
+
+
+//here _id is id of restaurant
+Router.put("/updaterestaurant/:_id",getUserStatus, async (req,res)=>{
+   try {
+      if (req.user.status!=="restaurant"){
+         return res.status(401).send({error:"Not Authorized"});
+      }
+      const updatedRestaurant= await RestaurantModel.findByIdAndUpdate(req.params._id,{
+         $set: req.body},
+         {new:true}
+      );
+      res.json({updatedRestaurant});
+   } catch (error) {
+      return res.status(500).json({ error: error.message }); 
+   }
+});
 
 export default Router;
