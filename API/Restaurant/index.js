@@ -105,21 +105,16 @@ Router.get("/search", async (req, res) => {
 
 })
 
-
-
-
-
 Router.post("/login", getUserStatus, async (req, res) => {
    try {
-
       const res = await RestaurantModel.findOne(req.body.name && req.body.city)
       if(res) {
+         console.log(req.body);
          return res.status(400).json({error: `restaurant does not exist`, name: `${req.body.name}`})
       }
    }
-      catch(error){
-         return res.status(500).json({error: error.message});
-
+   catch(error){
+      return res.status(500).json({error: error.message});
  }})
 
 
