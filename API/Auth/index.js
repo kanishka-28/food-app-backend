@@ -52,9 +52,32 @@ method    post
 
 Router.post("/signin",async(req,res)=>{
     try{
+      const {userName, password} = req.body.credentials
         await ValidateSignin(req.body.credentials);
-        
-       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
+        console.log(req.body.credentials);
+        const user = await UserModel.findByUserNameAndPassword({userName, password});
+        console.log(req.body.credentials);
+        //JWT AUth Token
+        const token = user.generateJwtToken();
+
+        return res.status(200).json({token, status:"Success", user: user.status, details: user});
+
+    } catch(error){
+        return res.status(500).json({error: error.message});
+    }
+})
+
+Router.post("/googlesignin",async(req,res)=>{
+    try{
+      const {userName, password , email} = req.body.credentials
+
+        const user = await UserModel.findOne({email})
+        if(!user){
+
+          const newUser=await UserModel.create(req.body.credentials)
+          const token = newUser.generateJwtToken();
+          return res.status(200).json({token, status: newUser.status, details: newUser});
+        }
         //JWT AUth Token
         const token = user.generateJwtToken();
 

@@ -59,7 +59,7 @@ UserSchema.statics.findUserName = async ({ userName }) => {
     }
     return;
 };
-
+ 
 
 //custom login
 UserSchema.statics.findByUserNameAndPassword =
