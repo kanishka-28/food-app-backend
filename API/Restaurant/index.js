@@ -115,7 +115,7 @@ Router.get("/search", async (req, res) => {
 
 })
 
-Router.post("/login", getUserStatus, async (req, res) => {
+Router.post("/login", async (req, res) => {
    try {
       const {name, city} = req.body.credentials
       const result = await RestaurantModel.findOne({
