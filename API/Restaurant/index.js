@@ -51,10 +51,15 @@ Router.get('/', getUserStatus,async (req, res) => {
       if(!latitude || !longitude){
          return res.json({restaurants});
       }
-      restaurants=restaurants.filter(restaurant=>(
+      const newrestaurants=restaurants.filter(restaurant=>(
          getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
       ));
-      return res.json({ restaurants });
+      if (newrestaurants.length===0){
+         return res.json({ restaurants });
+         
+      }
+      return res.json({ newrestaurants });
+
    }
    catch (error) {
       return res.status(500).json({ error: error.message });
