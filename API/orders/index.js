@@ -29,7 +29,7 @@ Router.get("/user/:_id", getUserStatus, async (req, res) => {
             }
             return res.json({ getOrders });
         } else {
-            return res.statusCode(401).send("unauthorized")
+            return res.status(401).send("unauthorized")
         }
     }
     catch (error) {
@@ -47,10 +47,9 @@ method    GET
 
 Router.get("/res/:_id", getUserStatus, async (req, res) => {
     try {
-        if (req.user.status === "restaurant") {
+        const { _id } = req.params;
+        if (req.user.status === "restaurant" && _id===req.user._id.toString()) {
             await ValidateRestaurantId(req.params);
-            const { _id } = req.params;
-            console.log(_id, req.user._id);
             const getOrders = await OrderModel.findOne({
                 "orderDetails.restaurant": _id
             });
@@ -60,7 +59,7 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
             return res.json({ getOrders });
         }
         else {
-            return res.statusCode(401).send("unauthorized")
+            return res.status(401).send("unauthorized")
         }
     }
     catch (error) {

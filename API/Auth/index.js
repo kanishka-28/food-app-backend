@@ -34,7 +34,7 @@ Router.post("/signup",async(req,res)=>{
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token, status: newUser.status});
+        return res.status(200).json({token, status: newUser.status, details: newUser});
 
     } catch(error){
         return res.status(500).json({error: error.message});
@@ -59,7 +59,6 @@ Router.post("/signin",async(req,res)=>{
         const token = user.generateJwtToken();
 
         return res.status(200).json({token, status:"Success", user: user.status, details: user});
-
 
     } catch(error){
         return res.status(500).json({error: error.message});

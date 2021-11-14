@@ -25,13 +25,12 @@ Router.get("/:id", async (req, res) => {
    try {
 
       await ValidateRestaurantId(req.params);
-
-      const { _id } = req.params;
-      const foods = await FoodModel.find({ restaurant: _id });
+      const { id } = req.params;
+      const foods = await FoodModel.find({ restaurant: id });
       return res.json({ foods });
    }
    catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message + "hnji hm h"});
    }
 
 });
@@ -73,7 +72,9 @@ Router.post("/addfood/:id", getUserStatus, async (req, res) => {
       const id = { _id: req.params.id }
       await ValidateRestaurantId(id);
 
-      console.log(req.user.id,req.params.id);
+      if(req.user._id.toString()!==req.params.id){
+         return res.status(401).json({error: "not allowed to add food"})
+      }
       if (req.user.status === "restaurant" ) {
 
          const restaurant = req.params.id
