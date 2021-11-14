@@ -82,17 +82,21 @@ Router.post("/new/:_id", getUserStatus, async (req, res) => {
         // await ValidateOrder(req.body);
         const { _id } = req.params;
         const { orderDetails } = req.body;
-
-        if (req.user.status === "user" && req.user._id.toString() === _id) {
+        if(req.user._id.toString() !== _id){
+            return res.status(401).send("user does not match")
+        }
+        if (req.user.status === "user") {
             const user = await OrderModel.findOne({ user: _id })
+        
             if (!user) {
                 const addNewOrder = await OrderModel.create({
                     user: _id,
                     orderDetails: orderDetails
-                    }
+                }
                 );
                 return res.json({ order: addNewOrder });
             }
+            console.log(orderDetails);
             const addNewOrder = await OrderModel.findOneAndUpdate({
                 user: _id
             }, {

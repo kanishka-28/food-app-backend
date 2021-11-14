@@ -13,10 +13,9 @@ const getUserStatus= async (req,res,next)=>{
         // req.user = data.user;
         req.user = await UserModel.findById(data.user).select("-password")
         next();
-
     }
     catch(error){
-        res.status(401).send({error: "please authenticate using a valid token"})
+        res.status(401).send({error: "please authenticate using a valid token 500"})
     }
 }
 

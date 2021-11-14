@@ -55,16 +55,12 @@ Router.post("/signin",async(req,res)=>{
     try{
         await ValidateSignin(req.body.credentials);
         
-      const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
-
-      if(req.body.credentials.city){
-
-      }
-
+       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
+       console.log(user);
         //JWT AUth Token
         const token = user.generateJwtToken();
 
-        return res.status(200).json({token, status:"Success", user: user.status});
+        return res.status(200).json({token, status:"Success", user: user.status, details: user});
 
 
     } catch(error){
