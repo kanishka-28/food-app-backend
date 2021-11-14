@@ -11,11 +11,13 @@ const getUserStatus= async (req,res,next)=>{
     }
         const data = verify(token, "ZomatoApp");
         // req.user = data.user;
-        req.user = await UserModel.findById(data.user).select("-password")
+        const result = await UserModel.findById(data.user).select("-password")
+        
+        req.user= result
         next();
     }
     catch(error){
-        res.status(401).send({error: "please authenticate using a valid token 500"})
+        res.status(401).send({error: "please authenticate using a valid token",message:error})
     }
 }
 
