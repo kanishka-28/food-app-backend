@@ -58,7 +58,7 @@ Router.post("/signin",async(req,res)=>{
       const user = await UserModel.findByUserNameAndPassword(req.body.credentials);
 
       if(req.body.credentials.city){
-        
+
       }
 
         //JWT AUth Token
@@ -98,7 +98,8 @@ method    GET
 Router.get("/google/callback",passport.authenticate("google",{
   failureRedirect:"/"
 } ),(req,res)=>{
-  return res.json({token: req.session.passport.user.token});
+  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
+   res.json({token: req.session.passport.user.token});
 });
 
 export default Router;
