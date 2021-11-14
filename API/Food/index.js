@@ -69,16 +69,14 @@ Router.get("/r/:category", async (req, res) => {
 
 Router.post("/addfood/:id", getUserStatus, async (req, res) => {
    try {
-      const id = { _id: req.params.id }
-      await ValidateRestaurantId(id);
+     
+      // await ValidateRestaurantId(id);
 
-      if(req.user._id.toString()!==req.params.id){
-         return res.status(401).json({error: "not allowed to add food"})
-      }
+     
       if (req.user.status === "restaurant" ) {
 
          const restaurant = req.params.id
-         const {name, descript, isVeg, isContainEgg, category, photos, price} = req.body
+         const {name, descript, isVeg, isContainEgg, category, price} = req.body
          const food = await FoodModel.create({
             name: name,
             descript: descript,
