@@ -39,9 +39,9 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 Router.get('/', getUserStatus,async (req, res) => {
    try {
       const {latitude, longitude}= req.query;
-      if (req.user.status !== "user"){
-         res.status(401).json({error:"Not Authorized"});
-      }
+      // if (req.user.status !== "user"){
+      //    res.status(401).json({error:"Not Authorized"});
+      // }
       
       // await ValidateRestaurantCity(req.user.address.city);
       const  city  = req.user.city;
@@ -52,7 +52,7 @@ Router.get('/', getUserStatus,async (req, res) => {
          return res.json({restaurants});
       }
       restaurants=restaurants.filter(restaurant=>(
-         getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<10// radius of 3 km is too low
+         getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
       ));
       return res.json({ restaurants });
    }

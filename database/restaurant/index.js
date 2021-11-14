@@ -11,7 +11,7 @@ const RestaurantSchema = new mongoose.Schema({
     restauarntTimings: { type: String },
     contactNumber: { type: Number },
     website: { type: String },
-
+    limit:{type:Number},
     amenities: [{ type: String }],
     menuImages: { type: String, },
     menu: {
