@@ -76,6 +76,7 @@ Router.post("/addfood/:id", getUserStatus, async (req, res) => {
       if (req.user.status === "restaurant" ) {
 
          const restaurant = req.params.id
+         console.log(restaurant);
          const {name, descript, isVeg, isContainEgg, category, price} = req.body
          const food = await FoodModel.create({
             name: name,
