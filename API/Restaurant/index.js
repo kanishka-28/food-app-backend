@@ -114,22 +114,21 @@ Router.get("/search", async (req, res) => {
    }
 
 })
-
+//login as restaurant
 Router.post("/login", async (req, res) => {
    try {
       const {name, city} = req.body.credentials
       const result = await RestaurantModel.findOne({
          name: name, 
          city: city
-      })
+      }) 
+      console.log(name, city);
       if(!result) {
          return res.status(400).json({error: `restaurant does not exist`, name: `${name}`})
       }
-      // console.log(res);
       return res.json({result})
    }
-   catch(error){
-      console.log("hnji");
+   catch(error){ 
       return res.status(500).json({error: error.message});
  }})
 
@@ -147,23 +146,19 @@ Router.post("/login", async (req, res) => {
   Router.post("/addrest",async(req,res)=>{
      try{
         const data =req.body;
-        
         console.log(req.body);
         const check= await RestaurantModel.find({name:data.name});
         console.log(check);
         if(check.length>0){
            check.map(rest =>{
-              
               if(rest.city===data.city){
                   return res.status(400).json({error:"restaurant already exists"});
               }
            })
         }
         const restaurant= await RestaurantModel.create(data);        
-         return res.json({restaurant});
-      }
-      
-   
+        return res.json({restaurant});
+      }   
    catch (error) {
       return res.status(500).json({ error: error.message });
    }
