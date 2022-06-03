@@ -14,7 +14,6 @@ function App() {
             <Route path=":type" element={'delivery'} />
           </Route>
           <Route path="/restaurant/:id"  element={<h1>restaurant</h1>}/>
-             
         </Routes>
       </Router>
     </>
