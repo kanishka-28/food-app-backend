@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
     email:
     {
         type: String,
+        required: true
     },
     password:
     {
@@ -46,7 +47,7 @@ UserSchema.statics.findEmail =
         if (checkUserByEmail) {
             throw new Error("User already exists");
         }
-        return false;
+        return checkUserByEmail;
     };
 
 
@@ -57,15 +58,15 @@ UserSchema.statics.findUserName = async ({ userName }) => {
     if (checkUserByuserName) {
         throw new Error("User already exists");
     }
-    return;
+    return checkUserByuserName;
 };
  
 
 //custom login
-UserSchema.statics.findByUserNameAndPassword =
-    async ({ userName, password }) => {
+UserSchema.statics.findByEmailAndPassword =
+    async ({ email, password}) => {
         //check whether user exists
-        const user = await UserModel.findOne({ userName });
+        const user = await UserModel.findOne({ email });
         if (!user) {
             throw new Error("User does not exist");
         }
