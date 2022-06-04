@@ -24,10 +24,10 @@ method    post
 Router.post("/signup",async(req,res)=>{
     try{
       await ValidateSignup(req.body.credentials);
-      
-        //check whether email or phone already exists
-        await UserModel.findUserName(req.body.credentials);
-
+      const { email} = req.body.credentials
+      console.log(email);
+      const user = await UserModel.findOne({email})
+      if(!user){
         //DB
         const newUser=await UserModel.create(req.body.credentials)
 
@@ -35,6 +35,8 @@ Router.post("/signup",async(req,res)=>{
         const token = newUser.generateJwtToken();
 
         return res.status(200).json({token, status: newUser.status, details: newUser});
+      }
+      throw new Error('User Already Exists');
 
     } catch(error){
         return res.status(500).json({error: error.message});
@@ -52,10 +54,10 @@ method    post
 
 Router.post("/signin",async(req,res)=>{
     try{
-      const {userName, password} = req.body.credentials
+      const {userName, password , email} = req.body.credentials
         await ValidateSignin(req.body.credentials);
         // console.log(req.body.credentials);
-        const user = await UserModel.findByUserNameAndPassword({userName, password});
+        const user = await UserModel.findByEmailAndPassword({email, password});
         // console.log(req.body.credentials);
         //JWT AUth Token
         const token = user.generateJwtToken();

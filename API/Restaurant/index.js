@@ -47,18 +47,18 @@ Router.get('/', getUserStatus,async (req, res) => {
       const  city  = req.user.city;
       
       let restaurants = await RestaurantModel.find({ city });
-      
-      if(!latitude || !longitude){
-         return res.json({restaurants});
-      }
-      const newrestaurants=restaurants.filter(restaurant=>(
-         getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
-      ));
-      if (newrestaurants.length===0){
-         return res.json({ restaurants });
+      res.json({restaurants})
+      // if(!latitude || !longitude){
+      //    return res.json({restaurants});
+      // }
+      // const newrestaurants=restaurants.filter(restaurant=>(
+      //    getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
+      // ));
+      // if (newrestaurants.length===0){
+      //    return res.json({ restaurants });
          
-      }
-      return res.json({ newrestaurants });
+      // }
+      // return res.json({ newrestaurants });
 
    }
    catch (error) {
