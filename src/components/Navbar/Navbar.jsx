@@ -55,7 +55,7 @@ const ProfileDisclosure = () => {
 
 const Nav = () => {
     // const {open, setOpen, loginOpen, setLoginOpen, loggedIn} = useContext(SignupContext);
-    const [searchString, setsearchString] = useState(null);
+    const [searchString, setsearchString] = useState("");
     const onchange  = (e)=>{
         setsearchString(e.target.value);
     }

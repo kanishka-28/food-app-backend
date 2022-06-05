@@ -45,7 +45,7 @@ const AllCards = () => {
                 {
                     restaurant.map(oneRestaurant=>{
                       
-                        return <FoodCards name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
+                        return <FoodCards key={oneRestaurant._id} name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
                     })
                 }
             </div>
@@ -56,7 +56,7 @@ const AllCards = () => {
                     restaurant.map(oneRestaurant=>{
                        
                         return (
-                            <div className="w-1/3">
+                            <div key={oneRestaurant._id} className="w-1/3">
 
                                 <FoodCards name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
                             </div>

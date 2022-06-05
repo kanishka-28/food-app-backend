@@ -2,6 +2,7 @@ import React, { useState} from 'react'
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { IoMdBeer } from "react-icons/io";
 import { GiMorgueFeet } from "react-icons/gi";
+
 import { useParams,Link } from "react-router-dom";
 const MobileTab = () => {
     const { type } = useParams();
@@ -21,7 +22,7 @@ const MobileTab = () => {
         },
         {
             id: `dining`,
-            icon: <GiMorgueFeet/>,
+            // icon: <GiMorgueFeet/>,
             name: "Dining Out",
             isActive: false
 
@@ -33,7 +34,7 @@ const MobileTab = () => {
             {
                 allTypes.map((item) => {
                     return (
-                        <Link to={`/home/${item.id}`} >
+                        <Link key={item.id} to={`/home/${item.id}`} >
                             <div className={
                                 type===item.id || (type===undefined && item.id=== "delivery") ? "flex flex-col items-center text-xl pt-3 text-zomato-400 border-t-2 border-zomato-400 " : "flex flex-col items-center text-xl pt-3"
                             } >
@@ -85,7 +86,7 @@ const MdTab= ()=>{
             {
                 allTypes.map((item) => {
                     return (
-                        <Link to={`/home/${item.id}`}>
+                        <Link key={item.id} to={`/home/${item.id}`}>
                         
                         <div className={
                             type===item.id || (type===undefined && item.id=== "delivery") ? "flex gap-4 pt-2 pb-4 items-center text-xl text-zomato-400 border-b-2 border-zomato-400 " : "flex gap-4 pt-2 pb-4  items-center text-xl"

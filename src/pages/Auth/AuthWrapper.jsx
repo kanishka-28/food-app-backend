@@ -1,6 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 const AuthWrapper = (props) => {
+  const [img, setimg] = useState(null)
+  const getImage =async ()=>{
+    try {
+      const {data} = await axios.get('https://foodish-api.herokuapp.com/api');
+      setimg(data.image);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getImage();
+  }, [])
+  
   return (
     <>
       
@@ -10,7 +25,7 @@ const AuthWrapper = (props) => {
              <Outlet/>
             </div>
             <div className='hidden md:block w-3/4 h-screen' >
-              <img src="https://picsum.photos/700" alt="wrapper" className='w-full h-full' />
+              <img src={img}  className='w-full h-full' />
             </div>
           </div>
 
