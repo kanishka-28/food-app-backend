@@ -71,8 +71,8 @@ const LaptopDineIn = () => {
             <div className="hidden md:block mx-4">
                 <Slider {...settingsLg}>
                     {
-                        images.map((image) => (
-                            <div className='px-4 h-64 relative'>
+                        images.map((image,i) => (
+                            <div key={i} className='px-4 h-64 relative'>
                                 <img
                                     src={image}
                                     alt="Burger"

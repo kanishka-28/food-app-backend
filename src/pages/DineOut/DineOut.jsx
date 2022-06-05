@@ -1,6 +1,6 @@
 import React from 'react'
+import AllCards from '../../components/Card/Card';
 import DineInCarousel from '../../components/Carousel/DineInCarousel'
-// import Cards from '../cards/index'
 
 
 const DiningOut = () => {
@@ -8,7 +8,7 @@ const DiningOut = () => {
         <>
            <DineInCarousel/>
            <h1 className="text-2xl font-semibold m-2" >Dine-Out Restaurants</h1>
-            {/* <Cards/> */}
+            <AllCards/>
         </>
     )
 }
