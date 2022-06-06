@@ -14,7 +14,7 @@ const FoodCards = ({name, city, photos,id}) => {
                 <div className="bg-blue-500 w-24 h-5 my-2 px-1">40% Off</div>
             </div>
             <div className="flex justify-between m-2">
-                <h1 className="font-bold font-medium">{name}</h1>
+                <p className="font-bold font-medium">{name}</p>
                 <div className="bg-green-600 rounded-lg text-white p-0.5">4.3⭐</div>
             </div>
             <div className="flex justify-between m-2">

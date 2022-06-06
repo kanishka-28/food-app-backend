@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import RestaurantGallery from "../../components/restaurantGallery/index";
+import RestaurantGallery from "../../components/restaurantGallery/restaurantGallery";
 import RestaurantTab from "../../components/restaurantTab";
 import TabComponent from "./TabComponents";
 
@@ -11,12 +10,12 @@ const Restaurant = () => {
     <>
       <div className="container  mx-auto lg:px-20">
         <Navbar />
-        <RestaurantGallery/>
+        <RestaurantGallery setType={setType}/>
         <div className="sticky top-0">
           <RestaurantTab setType={setType} type={type}/>
         </div>
         <TabComponent type={type}/>
-        <Outlet />
+       
       </div>
     </>
   );
