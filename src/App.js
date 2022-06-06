@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Master from "./pages/Home/Deciding";
 import Home from "./pages/Home/Home";
+import EditProfile from "./pages/Profile/EditProfile";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
 
@@ -20,7 +21,8 @@ function App() {
             <Route path=":type" element={<Master />} />
           </Route>
           <Route path="/restaurant/:id" element={<Restaurant />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile/:tabId" element={<Profile />} />
+          <Route path="/editprofile" element={<EditProfile />} />
           <Route path="*" element={<h1>Error no page found</h1>} />
         </Routes>
       </Router>

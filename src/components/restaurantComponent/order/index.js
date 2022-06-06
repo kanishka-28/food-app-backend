@@ -14,10 +14,10 @@ import { useHistory } from 'react-router';
 
 const Order = () => {
 
-    let [foods, setfoods] = useState([])
+    // let [foods, setfoods] = useState([])
     const [price, setprice] = useState()
     const [quantity, setquantity] = useState("1")
-    const [foodDetails, setfoodDetails] = useState({name: "", price: 200})
+    const [foodDetails, setfoodDetails] = useState({ name: "", price: 200 })
     // const { restaurant } = useContext(SignupContext)
     const user = JSON.parse(localStorage.getItem("user"))
     console.log(user);
@@ -32,9 +32,9 @@ const Order = () => {
     }, [])
 
     const placeOrder = () => {
-     
+
         const id = user._id
-     
+
         const orderDetails = {
             restaurant: localStorage.getItem("id"),
             food: "618f40f84ec908776bb129fd",
@@ -48,7 +48,7 @@ const Order = () => {
         //     console.log(e.response);
         // })
     }
-    const onChangeHandler = (e)=>{
+    const onChangeHandler = (e) => {
         setopen(true)
         setquantity(e.target.value)
     }
@@ -108,7 +108,7 @@ const Order = () => {
 
                                                     <div className="flex items-center justify-between my-2">
                                                         <p>Quantity - </p>
-                                                        <input value={quantity} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" onChange={onChangeHandler}/>
+                                                        <input value={quantity} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" onChange={onChangeHandler} />
                                                     </div>
                                                     <div className="flex items-center justify-between my-2">
                                                         <p>Price Total - </p>
@@ -128,7 +128,7 @@ const Order = () => {
             </Transition.Root>
         )
     }
-
+    const foods = [1, 2, 3, 4, 5]
     const LapOrder = () => {
         return (
             <>
@@ -144,35 +144,45 @@ const Order = () => {
                     <p>Delivering to : <strong>{user?.address} {user?.city}</strong></p>
                     <div className="pl-36">Change</div>
                 </div>
-                {foods.length !== 0 ? foods?.map((food) => (
-                    <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center my-2">
-                        <div>
-                            <p>food item name - {food.name}</p>
-                            <p>food item category - {food.category}</p>
-                            <p>food item description - {food.descript}</p>
-                            <p>food item price - ₹ {food.price}</p>
-                            <p>Contain Egg - {food.isContainEgg?"yes" : "no"}</p>
-                            <p>Is Vegetarian - {food.isVeg?"yes" : "no"}</p>
+                <div className='flex flex-wrap justify-between'>
+                    {foods.length !== 0 ? foods?.map((food) => (
+                        <div className="w-3/5 flex justify-between items-center border border-gray-200 shadow-md p-2 align-center my-2">
+                            <div className='flex gap-2'>
+                                <img class="w-40 h-40 rounded mr-4" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
+                                <div>
+                                    <h3>Name{food.name}</h3>
+                                    <p className='text-gray-600'>category{food.category}</p>
+                                    <div className='mt-3 flex gap-2 items-center'>
+                                        <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
+                                        <p>
+                                            food item description - {food.descript}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>₹ 250/~</h2>
+                            <div className='flex flex-col justify-between'>
+                                <button onClick={() => {
+                                    setopen(true)
+                                    setfoodDetails({
+                                        name: food.name,
+                                        price: food.price
+                                    })
+                                }} class="mt-4 bg-megenta-400 hover:bg-red-700 text-white font-bold py-2 px-8 rounded">
+                                    Add To Cart
+                                </button>
+                            </div>
                         </div>
-                        <button onClick={() => {
-                            setopen(true)
-                            setfoodDetails({
-                                name: food.name,
-                                price: food.price
-                            })
-                        }} class="mt-4 bg-megenta-400 hover:bg-red-700 text-white font-bold py-2 px-8 rounded">
-                            Order Food
-                        </button>
+                    )) : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
+                        this restaurant have not added any dish
                     </div>
-                )) : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
-                    this restaurant have not added any dish
+                    }
                 </div>
-                }
             </>
         )
     }
     return (
-        <div className="hidden md:block lg:px-28 ">
+        <div className="hidden md:block  ">
             <LapOrder />
             {(setopen) && <OrderModal />}
         </div>

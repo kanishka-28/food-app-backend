@@ -19,20 +19,22 @@ const Reviews = () => {
                     Add Review
                 </button>
             </form>
-            {allReviews?.map((e) => {
-                return (
-                    <div class="p-2 lg:w-1/2">
-                        <div class="border border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex leading-normal items-center gap-10">
-                            <img class="w-20 h-20 rounded-full mr-4" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
-                            <div class="w-48">
-                                <div class="text-gray-900 font-bold text-xl">Name</div>
-                                <p class="text-gray-700 text-base">Review Pizza King Photos</p>
-                                <p class="text-sm text-gray-600">Aug 18</p>
+            <div className='flex flex-wrap'>
+                {allReviews?.map((e) => {
+                    return (
+                        <div class="p-2 lg:w-1/2">
+                            <div class="border border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex leading-normal items-center gap-10">
+                                <img class="w-20 h-20 rounded-full mr-4" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
+                                <div class="w-48">
+                                    <div class="text-gray-900 font-bold text-xl">Name</div>
+                                    <p class="text-gray-700 text-base">Review Pizza King Photos</p>
+                                    <p class="text-sm text-gray-600">Aug 18</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
 
         </div>
     )

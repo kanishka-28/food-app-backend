@@ -39,7 +39,7 @@ const MdTab = ({setType,type}) => {
             {
                 allTypes.map((item) => {
                     return (
-                        <Link to={`/restaurant/1`}>
+                        <Link key={item.id} to={`/restaurant/1`}>
                             <div className={
                                 type === item.id  ? " pt-4 pb-2 px-6  text-xl text-zomato-400 border-b-2 border-zomato-400 " : " pt-4 px-6 pb-2  text-lg"
                             } >

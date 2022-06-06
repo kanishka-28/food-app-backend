@@ -51,7 +51,7 @@ const LaptopFoodDetails = () => {
                     </div>
                 </div>
                 <div className="m-4 md:flex justify-between">
-                    <h1 className="text-4xl font-semibold">{requiredRestaurant?.name}</h1>
+                    <h1>{requiredRestaurant?.name}</h1>
                     <div className="text-gray-500 text-sm flex justify-between">
                         <div className="w-8 h-7 text-white rounded-md bg-gray-500 text-center flex gap-1 items-center p-1 mt-2">-<GiSevenPointedStar className="text-yellow-400" /></div>
                         <div className="mr-6">
@@ -69,9 +69,12 @@ const LaptopFoodDetails = () => {
                     <MobOrder />
                 </div>
                 <div className="m-4 font-light">
-                    <h1>{requiredRestaurant?.address}</h1>
+                    <h3>{requiredRestaurant?.address}</h3>
                     <h2 className="text-gray-500">{requiredRestaurant?.city}</h2>
-                    <p className="text-gray-600 my-0.5 flex gap-1 items-center"><h1>{requiredRestaurant?.restauarntTimings} (Today)</h1><HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" /></p>
+                    <div className="text-gray-600 my-0.5 flex gap-1 items-center">
+                        <p>{requiredRestaurant?.restauarntTimings} (Today)</p>
+                        <HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" />
+                    </div>
                 </div>
                 <div className="flex">
                     <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white flex justify-center items-center gap-2"><RiStarLine /><p> Direction</p></div>
@@ -89,9 +92,7 @@ const LaptopFoodDetails = () => {
 const restaurantGallery = () => {
     return (
         <>
-            <div className="">
-                <LaptopFoodDetails />
-            </div>
+            <LaptopFoodDetails />
 
         </>
     )
