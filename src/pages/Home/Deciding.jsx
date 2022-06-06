@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from "react-router-dom";
+import Nightlife from '../../components/NightLife/NightLife';
 
 //components
 import Delivery from '../Delivery/Delivery'
@@ -16,7 +17,7 @@ export default function Master() {
             {type==="delivery" && <Delivery/>}   
         </div>
         <div className="m-4">
-            {type==="nightlife" && <h1>NIGHT LIFE</h1>}   
+            {type==="nightlife" && <Nightlife/>}   
         </div>
         <div className="m-4">
             {type==="dining" && <DiningOut/>}   

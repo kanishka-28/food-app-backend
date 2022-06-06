@@ -34,7 +34,7 @@ const MobileDineIn = () => {
                 <Slider {...settingsSm}>
                     {
                          images.map((image) => (
-                            <div className='px-1 h-64 relative'>
+                            <div key={image} className='px-1 h-64 relative'>
                                 <img
                                     src={image}
                                     alt="Burger"
@@ -71,8 +71,8 @@ const LaptopDineIn = () => {
             <div className="hidden md:block mx-4">
                 <Slider {...settingsLg}>
                     {
-                        images.map((image) => (
-                            <div className='px-4 h-64 relative'>
+                        images.map((image,i) => (
+                            <div key={image} className='px-4 h-64 relative'>
                                 <img
                                     src={image}
                                     alt="Burger"

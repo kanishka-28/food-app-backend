@@ -1,7 +1,6 @@
 import React from 'react'
+import AllCards from '../../components/Card/Card';
 import Brands from '../../components/Delivery/Brands';
-// import Brands from '../brands/index'
-// import Cards from '../cards/index'
 import DeliveryComponent from '../../components/Delivery/DeliveryComponent';
 
 export default function Delivery() {
@@ -9,7 +8,8 @@ export default function Delivery() {
         <div className="flex flex-col gap-3 ">
             <DeliveryComponent/>
             <Brands/>
-            {/* <Cards/> */}
+            <h2 className="font-semibold text-2xl">Popular Restaurants in your city</h2>
+            <AllCards/>
         </div>
     )
 }

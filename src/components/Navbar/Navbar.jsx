@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { IoLocationSharp } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const ProfileDisclosure = () => {
     
     // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
@@ -53,67 +53,39 @@ const ProfileDisclosure = () => {
     )
 }
 
-const MobileNav = () => {
-    // const {open, setOpen,loginOpen, setLoginOpen,loggedIn} = useContext(SignupContext);
-    return (
-
-        <div className="p-4 md:hidden flex items-center justify-between w-full ">
-            <Link to="/">
-                <div className="w-28">
-                    <img className="w-full h-full" src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
-                </div>
-            </Link>
-            <div className="flex items-center gap-3" >
-            {
-                // !loggedIn ?
-                <div className="flex gap-5" >
-                    
-                {/* <button onClick={()=>(setLoginOpen(!loginOpen))} > */}
-                <button  >
-                    Log In
-
-                    </button>
-                {/* <button onClick={() => (setOpen(!open))}> */}
-                <button  >
-
-                    Sign Up
-
-                    </button>
-
-
-            </div>
-            // :
-            // <ProfileDisclosure/>
-                }
-            </div>
-        </div>
-    )
-
-}
-
-const LgNav = () => {
+const Nav = () => {
     // const {open, setOpen, loginOpen, setLoginOpen, loggedIn} = useContext(SignupContext);
-
+    const [searchString, setsearchString] = useState("");
+    const onchange  = (e)=>{
+        setsearchString(e.target.value);
+    }
+    const navigate = useNavigate();
+    const onclick = ()=>{
+        if(searchString){
+            navigate(`/search/${searchString}`)
+        }
+    }
+    
     return (
-
-        <div className="flex items-center py-1 justify-around w-full text-gray-400 hidden md:flex ">
-            <div className="flex justify-around w-9/12 items-center">
+        <>
+        <div className="flex  items-center py-1 justify-around w-full text-gray-400  ">
+            <div className="flex justify-around w-40 md:w-9/12 items-center">
                 <Link to="/">
                     <div className="">
-                        <img className="w-42 h-36" src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
+                        <img className="w-28 md:w-42 md:h-36" src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
                     </div>
                 </Link>
-                <div className="flex bg-white items-center px-2 gap-3 shadow-md">
-                    <div className="flex items-center w-36">
-                        <IoLocationSharp className="text-zomato-500" />
-                        <input type="text" placeholder="Enter location" name="location" id="location" className="p-2 w-full rounded-md text-md" />
-                    </div>
-                    <span>|</span>
-                    <div className="flex items-center w-80">
+                <div className="flex w-8/12 bg-white items-center px-2 gap-3 shadow-md hidden md:flex">
+                   
+                    <div className="flex items-center w-full">
                         <AiOutlineSearch />
-                        <input type="text" placeholder="Search for restaurant cuisine or a dish " name="location" id="location" className="p-2 rounded-md w-full  text-md" />
+                        <input type="text" placeholder="Search for restaurant " value={searchString} onChange={onchange} className="p-2 rounded-md w-full  text-md outline-none border-0" />
                     </div>
-
+                   
+                                <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white ">
+                                <p> Search</p>
+                                </button>
+                      
                 </div>
             </div>
             {
@@ -121,15 +93,15 @@ const LgNav = () => {
                 <div className="flex gap-5" >
                     
                 {/* <button onClick={()=>(setLoginOpen(!loginOpen))} > */}
-                <button  >
+                <Link to="/auth/login"  >
                     Log In
 
-                    </button>
+                    </Link>
                 {/* <button onClick={() => (setOpen(!open))}> */}
-                <button >
+                <Link to="/auth/signup" >
                     Sign Up
 
-                    </button>
+                    </Link>
 
 
             </div>
@@ -137,6 +109,16 @@ const LgNav = () => {
             // <ProfileDisclosure/>
                 }
         </div>
+           <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden m-2">
+           <div className="flex items-center w-full focus:outline-1">
+               <AiOutlineSearch />
+               <input type="text" placeholder="Search for restaurant " value={searchString} onChange={onchange} className="p-2 rounded-md w-full outline-none border-0 text-md" />
+           </div>
+           <Link to={`/home/search/${searchString}`}>
+           <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white "><p> Search</p></button>
+           </Link>
+       </div>
+       </>
         )
 
 }
@@ -144,8 +126,8 @@ function Navbar() {
     return (
         <>
             <nav >
-                <MobileNav />
-                <LgNav />
+                
+                <Nav />
                 
             </nav>
 
