@@ -6,7 +6,7 @@ import RestaurantTab from "../../components/restaurantTab";
 import TabComponent from "./TabComponents";
 
 const Restaurant = () => {
-  const [type,setType] = useState('overview');
+  const [type,setType] = useState('order');
   return (
     <>
       <div className="container  mx-auto lg:px-20">
