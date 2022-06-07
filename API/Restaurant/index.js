@@ -36,7 +36,8 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
  }
 
 
-Router.get('/', getUserStatus,async (req, res) => {
+// Router.get('/', getUserStatus,async (req, res) => {
+Router.get('/',async (req, res) => {
    try {
       const {latitude, longitude}= req.query;
       // if (req.user.status !== "user"){
@@ -44,7 +45,8 @@ Router.get('/', getUserStatus,async (req, res) => {
       // }
       
       // await ValidateRestaurantCity(req.user.address.city);
-      const  city  = req.user.city;
+      // const  city  = req.user.city;
+      const  city  = 'itarsi';
       
       let restaurants = await RestaurantModel.find({ city });
       res.json({restaurants})

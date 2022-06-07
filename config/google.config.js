@@ -27,6 +27,9 @@ export default (passport)=>{
                 const user= await UserModel.findOne({email: newUser.email});
                 if(user){
                     //generating jwt token
+
+                    //console.log(profile);
+
                     const token= user.generateJwtToken();
                     // return user
                     done(null,{user,token});

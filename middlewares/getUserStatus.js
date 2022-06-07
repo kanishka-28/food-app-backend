@@ -17,7 +17,7 @@ const getUserStatus= async (req,res,next)=>{
         next();
     }
     catch(error){
-        res.status(401).send({error: "please authenticate using a valid token",message:error})
+        res.status(401).send({error: "please login again",message:error.message})
     }
 }
 
