@@ -1,41 +1,49 @@
 import React from 'react'
+import RateStars from '../../Stars/RateStarsHover'
+import RatingStars from '../../Stars/RatingStars'
 
-const allReviews = [1, 2, 3, 4, 5]
+const allReviews = [1, 2, 3, 4, 5, 6, 7]
 const Reviews = () => {
     return (
         <div className='w-full'>
-            <form class="p-2 w-1/2 flex items-center">
-                <div class="flex justify-center">
-                    <div class="xl:w-96">
-                        <textarea
-                            class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-6 focus:outline-none"
-                            id="exampleFormControlTextarea1"
-                            rows="3"
-                            placeholder="Type Your Review Here..."
-                        ></textarea>
-                    </div>
-                </div>
-                <button class="h-12 bg-zomato-500 hover:bg-zomato-600 text-white my-1 mx-2 rounded px-2" type="button">
-                    Add Review
-                </button>
-            </form>
-            <div className='flex flex-wrap'>
-                {allReviews?.map((e) => {
-                    return (
-                        <div class="p-2 lg:w-1/2">
-                            <div class="border border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex leading-normal items-center gap-10">
-                                <img class="w-20 h-20 rounded-full mr-4" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
-                                <div class="w-48">
-                                    <div class="text-gray-900 font-bold text-xl">Name</div>
-                                    <p class="text-gray-700 text-base">Review Pizza King Photos</p>
-                                    <p class="text-sm text-gray-600">Aug 18</p>
-                                </div>
+            <div className='lg:flex lg:flex-row-reverse gap-10 justify-between'>
+                <div className='shadow-lg border-b border-gray-200 lg:w-2/5 h-full p-6 text-gray-600 font-serif lg:sticky top-12'>
+                    <h4>Rate your experience</h4>
+                    <RateStars />
+                    <form class="p-1 flex items-center flex-wrap">
+                        <div class="flex justify-center">
+                            <div class="xl:w-96">
+                                <textarea
+                                    class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-6 focus:outline-none"
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    placeholder="Type Your Review Here..."
+                                ></textarea>
                             </div>
                         </div>
-                    )
-                })}
+                        <button class="h-10 bg-megenta-500 hover:bg-zomato-600 text-white my-1 mx-2 rounded px-2" type="button">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+                <div className='lg:w-1/2'>
+                    {allReviews?.map((e) => {
+                        return (
+                            <div class="p-2 border-b border-gray-200 ">
+                                <div class="bg-white rounded-b lg:rounded-b-none lg:rounded-r px-4 py-2 flex leading-normal items-center gap-4 items-center">
+                                    <img class="w-12 h-12 rounded-full" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
+                                    <div class="w-48">
+                                        <div class="text-gray-900 font-semibold text-xl m-0 p-0">Name</div>
+                                        <RatingStars value='4' />
+                                    </div>
+                                </div>
+                                <p className='mx-4 text-gray-400'>07-06-2022</p>
+                                <h4 className='mx-4 text-gray-500'>Bahut Badhiya...</h4>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
-
         </div>
     )
 }

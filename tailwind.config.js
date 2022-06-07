@@ -4,6 +4,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'display': ['Okra'],
+        'body': ['"Open Sans"'],
+      },
       colors: {
         zomato:
         {

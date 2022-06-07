@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext} from 'react'
 import { GiScooter } from 'react-icons/gi';
 import { BsFillArrowRightCircleFill, BsCompass, BsClock, BsCheckCircleFill } from 'react-icons/bs'
 
@@ -12,6 +12,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useHistory } from 'react-router';
 // import { SignupContext } from '../../../context/signup';
 
+let startOfFoods;
 const Order = () => {
 
     // let [foods, setfoods] = useState([])
@@ -19,7 +20,8 @@ const Order = () => {
     const [quantity, setquantity] = useState("1")
     const [foodDetails, setfoodDetails] = useState({ name: "", price: 200 })
     // const { restaurant } = useContext(SignupContext)
-    const user = JSON.parse(localStorage.getItem("user"))
+    const user = JSON.parse(localStorage.getItem("user"));
+    startOfFoods=useRef();
     console.log(user);
     useEffect(() => {
         const id = localStorage.getItem("id");
@@ -181,7 +183,7 @@ const Order = () => {
                     <p>Delivering to : <strong>{user?.address} {user?.city}</strong></p>
                     <div className="pl-36">Change</div>
                 </div>
-                {/* <div className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+                <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {foods.length !== 0 ? foods?.map((food) => (
                         // <div className="w-3/5 flex justify-between items-center border border-gray-200 shadow-md p-2 align-center my-2">
                         //     <div className='flex gap-2'>
@@ -205,7 +207,7 @@ const Order = () => {
                         //         </button>
                         //     </div>
                         // </div>
-                        <div class="sm:w-40 rounded overflow-hidden shadow-lg my-4">
+                        <div class="sm:w-72 rounded overflow-hidden shadow-lg my-4">
                             <img class="w-full h-56" src={food.image} alt="Sunset in the mountains" />
                             <div class="px-6 py-4">
                                 <div class=" flex flex-wrap w-full justify-between">
@@ -250,7 +252,7 @@ const Order = () => {
                         this restaurant have not added any dish
                     </div>
                     }
-                </div> */}
+                </div>
             </>
         )
     }
@@ -261,17 +263,20 @@ const Order = () => {
         </div>
     )
 }
-
-export const MobOrder = ({ setType }) => {
-    return (
-        <>
+    
+    export const MobOrder = ({ setType }) => {
+        return (
+            <>
             <div className="flex bg-red-400 py-4 items-center justify-evenly sm:hidden">
                 <GiScooter className="w-12 h-12 text-blue-700" />
                 <div>
                     <p >Order Online</p>
                     <p className="text-xs text-white bg-blue-600 w-max p-0.5">30% Off</p>
                 </div>
-                <div className='cursor-pointer' onClick={() => setType('order')}><BsFillArrowRightCircleFill className="w-6 h-6" /></div>
+                <div className='cursor-pointer' onClick={() => {
+                    setType('order')
+                    startOfFoods.current.scrollIntoView({ behavior: 'smooth' });
+                }}><BsFillArrowRightCircleFill className="w-6 h-6" /></div>
             </div>
         </>
     )
