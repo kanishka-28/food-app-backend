@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { MobOrder } from '../restaurantComponent/order';
 
 
-const RestaurantGallery = ({setType}) => {
+const RestaurantGallery = ({ setType }) => {
     // const { restaurant, setrestaurant } = useContext(SignupContext);
     const [restaurant, setrestaurant] = useState([]);
 
@@ -24,11 +24,10 @@ const RestaurantGallery = ({setType}) => {
     return (
         <>
             <div className="w-full ">
-                <div className="m-4  flex items-center w-full  ">
-                    <div className="w-10/12 overflow-hidden  ">
-
+                <img src={requiredRestaurant?.photos?.length > 0 ? requiredRestaurant?.photos[0] : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="md:hidden block w-full h-full " alt="bigImage" />
+                <div className="lg:m-4 flex items-center w-full  ">
+                    <div className="hidden md:block w-10/12 overflow-hidden  ">
                         <img src={requiredRestaurant?.photos?.length > 0 ? requiredRestaurant?.photos[0] : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="w-full h-full duration-1000 transform hover:scale-110" alt="bigImage" />
-
                     </div>
                     <div className="m-1 w-1/2 hidden md:block">
                         <div className=" flex my-1  w-full gap-2">
@@ -65,7 +64,7 @@ const RestaurantGallery = ({setType}) => {
                     </div>
                 </div>
                 <div className='block md:hidden'>
-                    <MobOrder setType={setType}/>
+                    <MobOrder setType={setType} />
                 </div>
                 <div className="m-4 font-light">
                     <h3>{requiredRestaurant?.address}</h3>

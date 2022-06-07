@@ -181,7 +181,7 @@ const Order = () => {
                     <p>Delivering to : <strong>{user?.address} {user?.city}</strong></p>
                     <div className="pl-36">Change</div>
                 </div>
-                <div className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+                {/* <div className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {foods.length !== 0 ? foods?.map((food) => (
                         // <div className="w-3/5 flex justify-between items-center border border-gray-200 shadow-md p-2 align-center my-2">
                         //     <div className='flex gap-2'>
@@ -205,33 +205,34 @@ const Order = () => {
                         //         </button>
                         //     </div>
                         // </div>
-                        <div class="max-w-sm rounded overflow-hidden shadow-lg my-4">
+                        <div class="sm:w-40 rounded overflow-hidden shadow-lg my-4">
                             <img class="w-full h-56" src={food.image} alt="Sunset in the mountains" />
                             <div class="px-6 py-4">
-                                <div class=" flex w-full justify-between">
+                                <div class=" flex flex-wrap w-full justify-between">
                                     <div>
                                         <p className='font-bold text-xl w-4/5'>Name  {food.name}</p>
-                                        <p class="text-gray-500 mb-2">
-                                            {food.category}</p>
+                                        <div className='flex items-center gap-3 mb-2'>
+                                            <p class="text-gray-500">{food.category}</p>
+                                            {food.isVeg ?
+                                                <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
+                                                : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
+                                        </div>
                                     </div>
                                     <h3>₹ 250/~</h3>
                                 </div>
-                                {food.isVeg ?
-                                    <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
-                                    : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
                                 <p class="text-gray-700 text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                                     {food.description}</p>
                             </div>
 
-                            <div class="mb-4 flex justify-evenly">
+                            <div class="flex justify-evenly flex-wrap">
                                 <button onClick={() => {
                                     setopen(true)
                                     setfoodDetails({
                                         name: food.name,
                                         price: food.price
                                     })
-                                }} class="bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                }} class="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
                                     Add To Cart
                                 </button>
                                 <button onClick={() => {
@@ -240,7 +241,7 @@ const Order = () => {
                                         name: food.name,
                                         price: food.price
                                     })
-                                }} class="bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                }} class="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
                                     Place Order
                                 </button>
                             </div>
@@ -249,7 +250,7 @@ const Order = () => {
                         this restaurant have not added any dish
                     </div>
                     }
-                </div>
+                </div> */}
             </>
         )
     }
@@ -261,16 +262,16 @@ const Order = () => {
     )
 }
 
-export const MobOrder = ({setType}) => {
+export const MobOrder = ({ setType }) => {
     return (
         <>
-            <div className="flex bg-red-400 py-4 items-center justify-evenly md:hidden">
+            <div className="flex bg-red-400 py-4 items-center justify-evenly sm:hidden">
                 <GiScooter className="w-12 h-12 text-blue-700" />
                 <div>
                     <p >Order Online</p>
                     <p className="text-xs text-white bg-blue-600 w-max p-0.5">30% Off</p>
                 </div>
-                <div className='cursor-pointer' onClick={()=>setType('order')}><BsFillArrowRightCircleFill className="w-6 h-6" /></div>
+                <div className='cursor-pointer' onClick={() => setType('order')}><BsFillArrowRightCircleFill className="w-6 h-6" /></div>
             </div>
         </>
     )
