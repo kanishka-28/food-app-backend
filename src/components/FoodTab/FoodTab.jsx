@@ -22,7 +22,7 @@ const MobileTab = () => {
         },
         {
             id: `dining`,
-            // icon: <GiMorgueFeet/>,
+            icon: <GiMorgueFeet/>,
             name: "Dining Out",
             isActive: false
 

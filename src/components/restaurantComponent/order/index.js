@@ -254,14 +254,14 @@ const Order = () => {
         )
     }
     return (
-        <div className="hidden md:block  ">
+        <div>
             <LapOrder />
             {(setopen) && <OrderModal />}
         </div>
     )
 }
 
-export const MobOrder = () => {
+export const MobOrder = ({setType}) => {
     return (
         <>
             <div className="flex bg-red-400 py-4 items-center justify-evenly md:hidden">
@@ -270,7 +270,7 @@ export const MobOrder = () => {
                     <p >Order Online</p>
                     <p className="text-xs text-white bg-blue-600 w-max p-0.5">30% Off</p>
                 </div>
-                <Link to="/order/page"><BsFillArrowRightCircleFill className="w-6 h-6" /></Link>
+                <div className='cursor-pointer' onClick={()=>setType('order')}><BsFillArrowRightCircleFill className="w-6 h-6" /></div>
             </div>
         </>
     )

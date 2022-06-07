@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import Overview from "../../components/restaurantComponent/overview";
 import Menu from "../../components/restaurantComponent/menu";
 import Order from "../../components/restaurantComponent/order";

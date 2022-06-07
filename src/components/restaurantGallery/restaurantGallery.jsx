@@ -3,18 +3,17 @@ import { RiStarLine, RiShareForwardLine, RiBookmark3Line, RiDirectionLine } from
 import { HiOutlineInformationCircle } from "react-icons/hi"
 import { AiTwotoneStar } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
-// import { MobOrder } from '../restaurantComponent/order';
 import { Photo } from '../restaurantComponent/photos';
 // import { SignupContext } from '../../context/signup';
 import { useParams } from 'react-router-dom';
 import { MobOrder } from '../restaurantComponent/order';
 
-const LaptopFoodDetails = () => {
+
+const RestaurantGallery = ({setType}) => {
     // const { restaurant, setrestaurant } = useContext(SignupContext);
     const [restaurant, setrestaurant] = useState([]);
 
     console.log(restaurant);
-    const param = useParams().id;
     // const requiredRestaurant = restaurant.filter((res) => (res._id === param))[0];
     const requiredRestaurant = {
         name: 'Apna Rest',
@@ -66,7 +65,7 @@ const LaptopFoodDetails = () => {
                     </div>
                 </div>
                 <div className='block md:hidden'>
-                    <MobOrder />
+                    <MobOrder setType={setType}/>
                 </div>
                 <div className="m-4 font-light">
                     <h3>{requiredRestaurant?.address}</h3>
@@ -89,16 +88,7 @@ const LaptopFoodDetails = () => {
     )
 }
 
-const restaurantGallery = () => {
-    return (
-        <>
-            <LaptopFoodDetails />
-
-        </>
-    )
-}
 
 
 
-
-export default restaurantGallery
+export default RestaurantGallery

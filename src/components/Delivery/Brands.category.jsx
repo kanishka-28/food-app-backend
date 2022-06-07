@@ -43,7 +43,7 @@ const MobileBrands = () => {
                   alt="Burger"
                   className="w-full h-full rounded-md"
                 />
-                <h1 className="text-sm font-light text-center">26 min</h1>
+                <p className="text-sm font-light text-center">26 min</p>
               </div>
             ))
           }
@@ -80,7 +80,7 @@ const LaptopBrands = () => {
                   alt="Burger"
                   className="w-full h-full rounded-md"
                 />
-                <h1 className="text-md font-light text-center">26 min</h1>
+                <p className="text-md font-light text-center">26 min</p>
               </div>
             ))
           }
