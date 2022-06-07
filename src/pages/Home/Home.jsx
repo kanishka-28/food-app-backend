@@ -7,7 +7,9 @@ const Home = () => {
   return (
     <>
       <div className="container  mx-auto lg:px-20">
-        <Navbar />
+        <div className="sticky top-0 z-10">
+          <Navbar />
+        </div>
         <FoodTab/>
         <Outlet />
       </div>

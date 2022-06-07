@@ -20,7 +20,7 @@ const AuthWrapper = (props) => {
     <>
       
           <div className='w-full flex items-center' >
-            <div className='w-full  md:w-1/2' >
+            <div className='w-full h-screen md:w-1/2 flex items-center bg-auth bg-no-repeat bg-cover md:bg-none ' >
               {/* outlet basically lets us use children in nested routing */}
              <Outlet/>
             </div>

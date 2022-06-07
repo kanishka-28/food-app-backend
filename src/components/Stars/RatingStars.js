@@ -11,7 +11,7 @@ export default function RatingStars({value}) {
     };
 
     return (
-        <div>
+        <div className="z-5">
             <ReactStars {...firstExample} />
         </div>
     );

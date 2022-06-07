@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { signup } from "../../redux/features/auth/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
  
-  
+  const dispatch = useDispatch();
   const [data, setdata] = useState({
-    name:"",
+    userName:"",
     email: "",
-    pass: "",
+    password: "",
     cnfpass: "",
     address : "",
     city : "",
@@ -20,11 +23,14 @@ export default function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(data.pass!==data.cnfpass){
-      console.log("not equal");
+    if(data.password!==data.cnfpass){
+      toast.error("Password Not Equal");
     }
     else{
-      console.log(data);
+      delete data.cnfpass;
+      data.status = "user";
+      // console.log(data);
+      dispatch(signup(data));
     }
     
     // const form_data = new FormData(event.target);
@@ -60,15 +66,17 @@ export default function Signup() {
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
               
                   <input
+                  onClick={()=>setshowPass(false)}
                   required
                     placeholder="Name"
                     className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
                     onChange={(e) =>
-                      setdata({ ...data, name: e.target.value })
+                      setdata({ ...data, userName: e.target.value })
                     }
-                    value={data.name}
+                    value={data.userName}
                   />
                   <input
+                  onClick={()=>setshowPass(false)}
                   required
                   type="email"
                     placeholder="Email"
@@ -86,9 +94,9 @@ export default function Signup() {
                       placeholder="Password"
                       className="text-center  w-full h-12 "
                       onChange={(e) =>
-                        setdata({ ...data, pass: e.target.value })
+                        setdata({ ...data, password: e.target.value })
                       }
-                      value={data.pass}
+                      value={data.password}
                     />
                    
                     <div
@@ -129,13 +137,13 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <textarea className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" placeholder="Address" required onChange={(e) =>
+                  <textarea onClick={()=>setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" placeholder="Address" required onChange={(e) =>
                       setdata({ ...data, address: e.target.value })
                     }
                     value={data.address} ></textarea>
                   
                   <input
-                  
+                  onClick={()=>setshowPass(false)}
                     placeholder="City"
                     required
                     className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"

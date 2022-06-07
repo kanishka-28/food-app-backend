@@ -9,7 +9,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
 // import { orderfood, getfood } from '../../../services/api';
-import { useHistory } from 'react-router';
 // import { SignupContext } from '../../../context/signup';
 
 let startOfFoods;

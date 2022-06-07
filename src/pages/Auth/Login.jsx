@@ -1,26 +1,23 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/auth/slice";
 
 export default function Login() {
   const [showPass, setshowPass] = useState(false);
-
+  const dispatch = useDispatch();
   const [data, setdata] = useState({
     email: "",
-    pass: "",
+    password: "",
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(data);
-    // const form_data = new FormData(event.target);
-    // let values = {};
-    // form_data.forEach(function (value, key) {
-    //     values[key] = value;
-    // });
-    // // dispatch for login
+    
+    // dispatch for login
     // dispatch(setLoadingTrue())
-    // await dispatch(login(values))
+    await dispatch(login(data))
     // dispatch(setLoadingFalse())
   };
 
@@ -31,10 +28,10 @@ export default function Login() {
   //   },[isAuthenticated, navigate])
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex   justify-center items-center w-full ">
    
-      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:pl-0 md:pl-10">
-        <div className="bg-white px-4 pt-5 sm:p-6 sm:pb-4">
+      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
+        <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
             <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">
               <div className="flex  justify-center mb-8">
@@ -66,9 +63,9 @@ export default function Login() {
                       placeholder="Password"
                       className="text-center  w-full h-12 "
                       onChange={(e) =>
-                        setdata({ ...data, pass: e.target.value })
+                        setdata({ ...data, password: e.target.value })
                       }
-                      value={data.pass}
+                      value={data.password}
                     />
 
                     
