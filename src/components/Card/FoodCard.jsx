@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-const FoodCards = ({name, city, photos,id}) => {
+const FoodCards = ({restaurant}) => {
+    const {name, city, photos,_id:id} = restaurant;
 //    console.log(about);
     return (
         <div className="w-full h-auto my-4 rounded-lg shadow-lg relative pb-2 md:pb-0 ">

@@ -8,7 +8,7 @@ const Search = () => {
         <Navbar/>
         <div className="w-full lg:container  mx-auto px-20">
         <h1 className="font-semibold text-2xl" >Search Results :</h1>
-            <AllCards/>
+            <AllCards search={true} />
 
         </div>
     </>

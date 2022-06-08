@@ -61,7 +61,8 @@ const Nav = () => {
   };
   const navigate = useNavigate();
   const onclick = () => {
-    if (searchString) {
+    if (searchString.length>0) {
+     
       navigate(`/search/${searchString}`);
     }
   };
@@ -122,11 +123,11 @@ const Nav = () => {
             className="p-2 rounded-md w-full outline-none border-0 text-md"
           />
         </div>
-        <Link to={`/home/search/${searchString}`}>
-          <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
+        
+          <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
             <p> Search</p>
           </button>
-        </Link>
+       
       </div>
     </>
   );
