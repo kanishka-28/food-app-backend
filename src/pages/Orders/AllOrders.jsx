@@ -22,7 +22,7 @@ const AllOrders = () => {
 
     return (
         <>
-            <div className="flex flex-wrap lg:mx-28 container">
+            <div className="flex flex-wrap mx-4 lg:mx-28 lg:w-3/4">
                 <div className="w-full">
                     <ul
                         className="flex gap-10 mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
