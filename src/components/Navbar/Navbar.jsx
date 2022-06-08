@@ -11,6 +11,7 @@ import { logout } from "../../redux/features/auth/slice";
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   const dispatch = useDispatch();
+  
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
@@ -34,6 +35,7 @@ const ProfileDisclosure = () => {
               <button
                 onClick={() => {
                     dispatch(logout());
+
                 }}
                 className={
                   (active ? "bg-gray-100" : "",

@@ -6,7 +6,8 @@ import { deleteHeader, setHeader } from "../../../utlis/header";
 const initialState = {
     token: null,
     isAuthenticated: false,
-    user: null
+    user: null,
+    isReady: false
   };
   
   export const login = createAsyncThunk("auth/login", async (values) => {
@@ -142,12 +143,13 @@ const authSlice = createSlice({
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
-               
+               state.isReady = true
             })
             .addCase(login.rejected,(state,action)=>{
                 state.token = null
                 state.user = null
                 state.token.isAuthenticated=false
+               state.isReady = true
                 
             })
             .addCase(loadUser.fulfilled, (state, action) => {
@@ -155,12 +157,14 @@ const authSlice = createSlice({
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
+               state.isReady = true
                 
             })
             .addCase(loadUser.rejected, (state, action) => {
                 state.token = null
                 state.user = null
                 state.isAuthenticated = false
+               state.isReady = true
                 
             })
            
