@@ -5,13 +5,35 @@ const Router=express.Router();
 
 //models
 import {UserModel} from "../../database/user/index";
-
+import getUserStatus from '../../middlewares/getUserStatus';
 
 //validation
 
 import { ValidateSignup,ValidateSignin } from "../../validation/auth";
 
 
+/* 
+Route     /loaduser
+descrip   load user using token
+params    none
+access    public
+method    post
+
+*/
+
+Router.get("/loaduser",getUserStatus,async(req,res)=>{
+    try{
+      if(req.user){
+        return res.status(200).json({success:true, user: req.user});
+      }
+      else{
+        throw new Error("Something's Wrong, Try Signing in again");
+      }
+
+    } catch(error){
+        return res.status(500).json({message: error.message, success : false});
+    }
+})
 /* 
 Route     /signup
 descrip   signup with email and password
@@ -34,12 +56,12 @@ Router.post("/signup",async(req,res)=>{
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token, status: newUser.status, details: newUser});
+        return res.status(200).json({token, status: newUser.status, user: newUser, success:true});
       }
       throw new Error('User Already Exists');
 
     } catch(error){
-        return res.status(500).json({error: error.message});
+        return res.status(500).json({message: error.message, success : false});
     }
 })
 
@@ -56,34 +78,35 @@ Router.post("/signin",async(req,res)=>{
     try{
       const {userName, password , email} = req.body.credentials
         await ValidateSignin(req.body.credentials);
-        // console.log(req.body.credentials);
+      
         const user = await UserModel.findByEmailAndPassword({email, password});
-        // console.log(req.body.credentials);
+        
         //JWT AUth Token
         const token = user.generateJwtToken();
-
-        return res.status(200).json({token, status:"Success", user: user.status, details: user});
+        console.log(user);
+        return res.status(200).json({token,success : true , user: user, status: user.status});
 
     } catch(error){
-        return res.status(500).json({error: error.message});
+        return res.status(500).json({message: error.message , success: false});
     }
 })
 
 Router.post("/googlesignin",async(req,res)=>{
     try{
-      const {userName, password , email} = req.body.credentials
+      const {userName, password , email} = req.body.credentials;
+      console.log(req.body.credentials);
+        // const user = await UserModel.findOne({email})
+        // if(!user){
 
-        const user = await UserModel.findOne({email})
-        if(!user){
+        //   const newUser=await UserModel.create(req.body.credentials)
+        //   const token = newUser.generateJwtToken();
+        //   return res.status(200).json({token, status: newUser.status, details: newUser});
+        // }
+        // //JWT AUth Token
+        // const token = user.generateJwtToken();
 
-          const newUser=await UserModel.create(req.body.credentials)
-          const token = newUser.generateJwtToken();
-          return res.status(200).json({token, status: newUser.status, details: newUser});
-        }
-        //JWT AUth Token
-        const token = user.generateJwtToken();
-
-        return res.status(200).json({token, status:"Success", user: user.status, details: user});
+        // return res.status(200).json({token, status:"Success", user: user.status, details: user});
+        res.json({success: "true" });
 
     } catch(error){
         return res.status(500).json({error: error.message});

@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     });
 
 UserSchema.methods.generateJwtToken = function () {
-    return jwt.sign({ user: this._id.toString() }, "ZomatoApp");
+    return jwt.sign({ user: this._id.toString() }, "ZomatoApp", {expiresIn: "1d"});
 };
 
 //google login
