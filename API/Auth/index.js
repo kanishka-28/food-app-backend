@@ -5,13 +5,35 @@ const Router=express.Router();
 
 //models
 import {UserModel} from "../../database/user/index";
-
+import getUserStatus from '../../middlewares/getUserStatus';
 
 //validation
 
 import { ValidateSignup,ValidateSignin } from "../../validation/auth";
 
 
+/* 
+Route     /loaduser
+descrip   load user using token
+params    none
+access    public
+method    post
+
+*/
+
+Router.get("/loaduser",getUserStatus,async(req,res)=>{
+    try{
+      if(req.user){
+        return res.status(200).json({success:true, user: req.user});
+      }
+      else{
+        throw new Error("Something's Wrong, Try Signing in again");
+      }
+
+    } catch(error){
+        return res.status(500).json({message: error.message, success : false});
+    }
+})
 /* 
 Route     /signup
 descrip   signup with email and password
@@ -39,7 +61,7 @@ Router.post("/signup",async(req,res)=>{
       throw new Error('User Already Exists');
 
     } catch(error){
-        return res.status(500).json({error: error.message, success : false});
+        return res.status(500).json({message: error.message, success : false});
     }
 })
 
