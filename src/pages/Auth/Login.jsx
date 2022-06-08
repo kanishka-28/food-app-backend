@@ -44,8 +44,6 @@ export default function Login() {
               </div>
               <div className="mt-2 text-center  ">
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
-                   
-
                   <input
                   required
                   type="email"

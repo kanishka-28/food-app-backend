@@ -10,18 +10,18 @@ const Reviews = () => {
                 <div className='shadow-lg border-b border-gray-200 lg:w-2/5 h-full p-6 text-gray-600 font-serif lg:sticky top-12'>
                     <h4>Rate your experience</h4>
                     <RateStars />
-                    <form class="p-1 flex items-center flex-wrap">
-                        <div class="flex justify-center">
-                            <div class="xl:w-96">
+                    <form className="p-1 flex items-center flex-wrap">
+                        <div className="flex justify-center">
+                            <div className="xl:w-96">
                                 <textarea
-                                    class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-6 focus:outline-none"
+                                    className=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-6 focus:outline-none"
                                     id="exampleFormControlTextarea1"
                                     rows="3"
                                     placeholder="Type Your Review Here..."
                                 ></textarea>
                             </div>
                         </div>
-                        <button class="h-10 bg-megenta-500 hover:bg-zomato-600 text-white my-1 mx-2 rounded px-2" type="button">
+                        <button className="h-10 bg-megenta-500 hover:bg-zomato-600 text-white my-1 mx-2 rounded px-2" type="button">
                             Submit
                         </button>
                     </form>
@@ -29,12 +29,12 @@ const Reviews = () => {
                 <div className='lg:w-1/2'>
                     {allReviews?.map((e) => {
                         return (
-                            <div class="p-2 border-b border-gray-200 ">
-                                <div class="bg-white rounded-b lg:rounded-b-none lg:rounded-r px-4 py-2 flex leading-normal items-center gap-4 items-center">
-                                    <img class="w-12 h-12 rounded-full" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
-                                    <div class="w-48">
-                                        <div class="text-gray-900 font-semibold text-xl m-0 p-0">Name</div>
-                                        <RatingStars value='4' />
+                            <div key={e} className="p-2 border-b border-gray-200 ">
+                                <div className="bg-white rounded-b lg:rounded-b-none lg:rounded-r px-4 py-2 flex leading-normal items-center gap-4 items-center">
+                                    <img className="w-12 h-12 rounded-full" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
+                                    <div className="w-48">
+                                        <div className="text-gray-900 font-semibold text-xl m-0 p-0">Name</div>
+                                        <RatingStars value={4} />
                                     </div>
                                 </div>
                                 <p className='mx-4 text-gray-400'>07-06-2022</p>

@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 import { GiScooter } from 'react-icons/gi';
 import { BsFillArrowRightCircleFill, BsCompass, BsClock, BsCheckCircleFill } from 'react-icons/bs'
 
@@ -21,7 +21,7 @@ const Order = () => {
     const [foodDetails, setfoodDetails] = useState({ name: "", price: 200 })
     // const { restaurant } = useContext(SignupContext)
     const user = JSON.parse(localStorage.getItem("user"));
-    startOfFoods=useRef();
+    startOfFoods = useRef();
     console.log(user);
     useEffect(() => {
         const id = localStorage.getItem("id");
@@ -132,36 +132,43 @@ const Order = () => {
     }
     const foods = [
         {
+            id: 1,
             image: "https://www.holidify.com/images/cmsuploads/compressed/indian-1768906_1920_20180322173733.jpg",
             isVeg: true,
             category: 'Dosa',
         },
         {
+            id: 2,
             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1l8RtUoV4lrpI8vBdOiHUqJ1-5mUgt9fZoA&usqp=CAU",
             isVeg: true,
             category: 'Pizza',
         },
         {
+            id: 3,
             image: "https://www.skymetweather.com/themes/skymet/images/gallery/toplists/Top-Not-to-miss-food-items-in-Monsoon/4.jpg",
             isVeg: true,
             category: 'Samosa',
         },
         {
+            id: 4,
             image: "https://www.hungryforever.com/wp-content/uploads/2015/11/feature-image-gulab-jamun-1280x720.jpg",
             isVeg: true,
             category: 'Sweet',
         },
         {
+            id: 5,
             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0yMCC6pPxYN_YomP-QCmqHBuLOeQB5u90M3gOUUUbFCBc_u0tyvRdsSc-ZcfLGeqgkAI&usqp=CAU",
             isVeg: false,
             category: 'Burger',
         },
         {
+            id: 6,
             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1l8RtUoV4lrpI8vBdOiHUqJ1-5mUgt9fZoA&usqp=CAU",
             isVeg: true,
             category: 'Pizza',
         },
         {
+            id: 7,
             image: "https://www.skymetweather.com/themes/skymet/images/gallery/toplists/Top-Not-to-miss-food-items-in-Monsoon/4.jpg",
             isVeg: true,
             category: 'Samosa',
@@ -184,73 +191,54 @@ const Order = () => {
                     <div className="pl-36">Change</div>
                 </div>
                 <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-                    {foods.length !== 0 ? foods?.map((food) => (
-                        // <div className="w-3/5 flex justify-between items-center border border-gray-200 shadow-md p-2 align-center my-2">
-                        //     <div className='flex gap-2'>
-                        //         <img class="w-40 h-40 rounded mr-4" src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt="Avatar of Writer" />
-                        //         <div>
-                        //             <h3>Name{food.name}</h3>
-                        //             <p className='text-gray-600'>category{food.category}</p>
-                        //             <p>food item description - {food.descript} </p>
-                        //         </div>
-                        //     </div>
-                        //     <h2>₹ 250/~</h2>
-                        //     <div className='flex flex-col justify-between'>
-                        //         <button onClick={() => {
-                        //             setopen(true)
-                        //             setfoodDetails({
-                        //                 name: food.name,
-                        //                 price: food.price
-                        //             })
-                        //         }} class="mt-4 bg-megenta-400 hover:bg-red-700 text-white font-bold py-2 px-8 rounded">
-                        //             Add To Cart
-                        //         </button>
-                        //     </div>
-                        // </div>
-                        <div class="sm:w-72 rounded overflow-hidden shadow-lg my-4">
-                            <img class="w-full h-56" src={food.image} alt="Sunset in the mountains" />
-                            <div class="px-6 py-4">
-                                <div class=" flex flex-wrap w-full justify-between">
-                                    <div>
-                                        <p className='font-bold text-xl w-4/5'>Name  {food.name}</p>
-                                        <div className='flex items-center gap-3 mb-2'>
-                                            <p class="text-gray-500">{food.category}</p>
-                                            {food.isVeg ?
-                                                <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
-                                                : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
+                    {foods.length !== 0 ? foods?.map((food) => {
+                        return (
+                            <div key={food.id} className="max-w-72 rounded overflow-hidden shadow-lg my-4">
+                                <img className="w-full h-56" src={food.image} alt="Sunset in the mountains" />
+                                <div className="px-6 py-4">
+                                    <div className=" flex flex-wrap w-full justify-between">
+                                        <div>
+                                            <p className='font-bold text-xl w-4/5'>Name  {food.name}</p>
+                                            <div className='flex items-center gap-3 mb-2'>
+                                                <p className="text-gray-500">{food.category}</p>
+                                                {food.isVeg ?
+                                                    <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
+                                                    : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
+                                            </div>
                                         </div>
+                                        <h3>₹ 250/~</h3>
                                     </div>
-                                    <h3>₹ 250/~</h3>
+                                    <p className="text-gray-700 text-base">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                                        {food.description}</p>
                                 </div>
-                                <p class="text-gray-700 text-base">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                    {food.description}</p>
-                            </div>
 
-                            <div class="flex justify-evenly flex-wrap">
-                                <button onClick={() => {
-                                    setopen(true)
-                                    setfoodDetails({
-                                        name: food.name,
-                                        price: food.price
-                                    })
-                                }} class="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
-                                    Add To Cart
-                                </button>
-                                <button onClick={() => {
-                                    setopen(true)
-                                    setfoodDetails({
-                                        name: food.name,
-                                        price: food.price
-                                    })
-                                }} class="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
-                                    Place Order
-                                </button>
+                                <div className="flex justify-evenly flex-wrap">
+                                    <button onClick={() => {
+                                        setopen(true)
+                                        setfoodDetails({
+                                            name: food.name,
+                                            price: food.price
+                                        })
+                                    }} className="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                        Add To Cart
+                                    </button>
+                                    <button onClick={() => {
+                                        setopen(true)
+                                        setfoodDetails({
+                                            name: food.name,
+                                            price: food.price
+                                        })
+                                    }} className="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                        Place Order
+                                    </button>
+                                </div>
                             </div>
+                        )
+                    })
+                        : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
+                            this restaurant have not added any dish
                         </div>
-                    )) : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
-                        this restaurant have not added any dish
-                    </div>
                     }
                 </div>
             </>
@@ -263,10 +251,10 @@ const Order = () => {
         </div>
     )
 }
-    
-    export const MobOrder = ({ setType }) => {
-        return (
-            <>
+
+export const MobOrder = ({ setType }) => {
+    return (
+        <>
             <div className="flex bg-red-400 py-4 items-center justify-evenly sm:hidden">
                 <GiScooter className="w-12 h-12 text-blue-700" />
                 <div>
