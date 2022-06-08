@@ -6,6 +6,7 @@ import { login } from "../../redux/features/auth/slice";
 
 export default function Login() {
   const [showPass, setshowPass] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     email: "",
@@ -19,6 +20,7 @@ export default function Login() {
     // dispatch(setLoadingTrue())
     await dispatch(login(data))
     // dispatch(setLoadingFalse())
+    navigate('/home/delivery');
   };
 
   //   const isAuthenticated = useSelector(authState)

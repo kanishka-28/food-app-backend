@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { servicePost } from "../../../utlis/api";
+import { serviceGet, servicePost } from "../../../utlis/api";
 import { deleteHeader, setHeader } from "../../../utlis/header";
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
         const {  user,token , success } = res
         if(success){
 
-            const { userName = '', email = '' } = user
+            const { userName = '' } = user
             toast.success(`Hey ${userName} Welcome back`,{
                 duration:4000
             })
@@ -38,7 +38,7 @@ const initialState = {
             isAuthenticated: false
         }
     } catch (error) {
-        console.log({error});
+      
         toast.error(error.response.data.message, {
             duration: 4000
             
@@ -59,7 +59,7 @@ const initialState = {
         const {  user,token , success } = res
         if(success){
 
-            const { userName = '', email = '' } = user
+            const { userName = '' } = user
             toast.success(`Hey ${userName} Welcome `,{
                 duration:4000
             })
@@ -99,24 +99,26 @@ const initialState = {
 });
 
 export const loadUser = createAsyncThunk("auth/loadUser", async () => {
-    // try {
-    //     const token = localStorage.getItem('token')
-    //     const {data:{user}} = await serviceGet(`auth/auth-api/v1/verifyAuthToken?u=student&token=${token}`)
-    //    if(user){
-    //     //    axios.defaults.headers.common['auth'] = `bearer ${token}`;
-    //     setHeader('auth', `bearer ${token}`);
-    //        return {
-    //            token, user, isAuthenticated: true
-    //        }
-    //    } 
-    //    return {token:null,user:null,isAuthenticated:false}
-    // } catch (error) {
-    //     // delete axios.defaults.headers.common['auth'];
-    //     deleteHeader('auth');
-    //     return {
-    //         token:null, user:null, isAuthenticated: false
-    //     }
-    // }
+    
+    try {
+        const token = localStorage.getItem('token')
+        const {user} = await serviceGet(`auth/loaduser`,{auth: `bearer ${token}`}) // header has token
+       if(user){
+        //    axios.defaults.headers.common['auth'] = `bearer ${token}`;
+        console.log(user);
+        setHeader('auth', `bearer ${token}`);
+           return {
+               token, user, isAuthenticated: true
+           }
+       } 
+       return {token:null,user:null,isAuthenticated:false}
+    } catch (error) {
+        // delete axios.defaults.headers.common['auth'];
+        deleteHeader('auth');
+        return {
+            token:null, user:null, isAuthenticated: false
+        }
+    }
 });
 
 
@@ -127,7 +129,7 @@ const authSlice = createSlice({
         logout(state, action) {
             localStorage.removeItem('token');
             // delete axios.defaults.headers.common['auth'];
-            //deleteHeader('auth');    //add later
+            deleteHeader('auth');    //add later
             state.token = null
             state.user = null
             state.isAuthenticated = false
@@ -140,26 +142,26 @@ const authSlice = createSlice({
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
-                state.isReady = true;
+               
             })
             .addCase(login.rejected,(state,action)=>{
                 state.token = null
                 state.user = null
                 state.token.isAuthenticated=false
-                state.isReady = true;
+                
             })
             .addCase(loadUser.fulfilled, (state, action) => {
                 const { token, user, isAuthenticated } = action.payload
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
-                state.isReady = true;
+                
             })
             .addCase(loadUser.rejected, (state, action) => {
                 state.token = null
                 state.user = null
                 state.isAuthenticated = false
-                state.isReady = true;
+                
             })
            
     },

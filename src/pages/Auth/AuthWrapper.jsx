@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../../redux/features/auth/selector/selector';
 const AuthWrapper = (props) => {
-  const [img, setimg] = useState(null)
+  const [img, setimg] = useState(null);
+  const auth = useSelector(isAuthenticated);
   const getImage =async ()=>{
     try {
       const {data} = await axios.get('https://foodish-api.herokuapp.com/api');
@@ -12,8 +15,16 @@ const AuthWrapper = (props) => {
     }
   };
 
+  const navigate = useNavigate();
+  const checkAuthentication = ()=>{
+    if(auth){
+      navigate('/home/delivery');
+    }
+  }
+
   useEffect(() => {
     getImage();
+    checkAuthentication();
   }, [])
   
   return (

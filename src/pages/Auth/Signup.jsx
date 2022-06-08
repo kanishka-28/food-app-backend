@@ -7,7 +7,7 @@ import { signup } from "../../redux/features/auth/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
- 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     userName:"",
@@ -31,6 +31,7 @@ export default function Signup() {
       data.status = "user";
       // console.log(data);
       dispatch(signup(data));
+      navigate('/home/delivery');
     }
     
     // const form_data = new FormData(event.target);
