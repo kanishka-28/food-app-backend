@@ -22,7 +22,7 @@ const MobileDelivery = () => {
     <div className="bg-white rounded-md flex flex-wrap justify-evenly pb-6">
         {
           images.map((image) => (
-            <div key={image} className='w-24 h-28 my-4 rounded-md shadow-md border border-gray-300'>
+            <div key={image} className='w-24 h-28 my-4 rounded-md shadow-md  outline-0 border-none'>
               <img
                 src={image}
                 alt="Burger"
@@ -65,7 +65,7 @@ const LaptopDelivery = () => {
         <Slider {...settingsLg}>
           {
             images.map((image) => (
-              <div key={image} className='px-1 h-64'>
+              <div key={image} className='px-1 outline-0 h-64'>
                 <img
                   src={image}
                   alt="Burger"

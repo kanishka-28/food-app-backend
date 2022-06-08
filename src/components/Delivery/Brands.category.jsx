@@ -37,7 +37,7 @@ const MobileBrands = () => {
         <Slider {...settingsLg}>
           {
             images.map((image) => (
-              <div key={image} className='px-4 h-20 w-24'>
+              <div key={image} className='outline-0 px-4 h-20 w-24'>
                 <img
                   src={image}
                   alt="Burger"
@@ -74,7 +74,7 @@ const LaptopBrands = () => {
         <Slider {...settingsLg}>
           {
             images.map((image) => (
-              <div key={image} className='px-2 h-36 w-36'>
+              <div key={image} className='outline-0 px-2 h-36 w-36'>
                 <img
                   src={image}
                   alt="Burger"

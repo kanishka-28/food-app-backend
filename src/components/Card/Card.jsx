@@ -1,55 +1,43 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { isAuthenticated, isReady } from '../../redux/features/auth/selector/selector';
 import { serviceGet } from '../../utlis/api';
 import FoodCards from './FoodCard';
 
 
 const AllCards = () => {
-        // const restaurant = [
-        //     {
-        //         "mapLocation": {
-        //             "latitude": 22.577426775020527,
-        //             "longitude": 77.85300449224522
-        //         },
-        //         "_id": "629a4e1d44ae6a9629bcdff0",
-        //         "name": "balle balle restaurant",
-        //         "city": "itarsi",
-        //         "address": "add",
-        //         "contactNumber": 1234567891,
-        //         "amenities": [],
-        //         "photos": [],
-        //         "createdAt": "2022-06-03T18:08:29.197Z",
-        //         "updatedAt": "2022-06-03T18:08:29.197Z",
-        //         "__v": 0
-        //     },
-        //     {
-        //         "mapLocation": {
-        //             "latitude": 22.577426775020527,
-        //             "longitude": 77.85300449224522
-        //         },
-        //         "_id": "629b87f3dfd82c7ed7cc27d5",
-        //         "name": "dhalle dhalle",
-        //         "city": "itarsi",
-        //         "address": "1234",
-        //         "contactNumber": 1328423434,
-        //         "amenities": [],
-        //         "photos": [],
-        //         "createdAt": "2022-06-04T16:27:31.559Z",
-        //         "updatedAt": "2022-06-04T16:27:31.559Z",
-        //         "__v": 0
-        //     }
-        // ]
+       const ready = useSelector(isReady);
+       const auth = useSelector(isAuthenticated);
         const [restaurant, setrestaurant] = useState([]);
         const getRestaurent = async ()=>{
-            const {restaurants} = await serviceGet('restaurant');
-            setrestaurant(restaurants);
+            try {
+                // const {restaurants} = await serviceGet('restaurant',{auth : `bearer ${localStorage.getItem("token")}`});
+               
+                if(auth){
+                    const {restaurants} = await serviceGet('restaurant');
+                    setrestaurant(restaurants);
+                }
+                else{
+                        //change this to a condition where we will use latitude longitutde
+                        setrestaurant([]);
+                }
+            } catch (error) {
+                // toast.error(error.response.data.message);
+                console.log(error.response.data.message);
+            }
+          
+            
         }
         useEffect(() => {
-           getRestaurent();
-        }, [])
+            if(ready){
+                getRestaurent();
+            }
+        }, [ready,auth])
         
     return (
         <>
-      
+        {
+            restaurant?.length!==0 ?
             <>
             <div className="md:hidden mb-24">
                 {
@@ -60,13 +48,13 @@ const AllCards = () => {
                 }
             </div>
             <div className="hidden md:block">
-                <div className="w-full flex  flex-wrap gap-3 justify-evenly">
+                <div className="w-full flex  flex-wrap gap-3 justify-evenly ">
                 
                 {
                     restaurant?.map(oneRestaurant=>{
                        
                         return (
-                            <div key={oneRestaurant._id} className="w-1/3">
+                            <div key={oneRestaurant._id} className="w-1/3 lg:1/4">
 
                                 <FoodCards name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
                             </div>
@@ -77,8 +65,11 @@ const AllCards = () => {
                 }
             </div>
                 </div>
+                </>
+                :
+                <h4 className='mx-auto'>No Restaurants Found Near You</h4>
+        }
             
-            </>
            
         </>
     )

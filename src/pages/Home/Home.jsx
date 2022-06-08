@@ -10,8 +10,12 @@ const Home = () => {
         <div className="sticky top-0 z-10">
           <Navbar />
         </div>
-        <FoodTab/>
-        <Outlet />
+        <div className="sticky top-20 z-10">
+          <FoodTab/>
+        </div>
+        <div className="lg:mx-4">
+          <Outlet />
+        </div>
       </div>
     </>
   );

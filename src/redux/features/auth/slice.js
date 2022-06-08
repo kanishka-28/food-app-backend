@@ -24,7 +24,7 @@ const initialState = {
             localStorage.setItem('token', token)
            
             setHeader('auth', `bearer ${token}`);
-            console.log(user)
+            // console.log(user)
          
             return {
                 token,
@@ -83,7 +83,7 @@ const initialState = {
             isAuthenticated: false
         }
     } catch (error) {
-        console.log({error});
+        //console.log({error});
         toast.error(error.response.data.message, {
             duration: 4000
             
@@ -103,10 +103,13 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
     
     try {
         const token = localStorage.getItem('token')
+        if(!token){
+            return {token:null, user:null, isAuthenticated: false};
+        }
         const {user} = await serviceGet(`auth/loaduser`,{auth: `bearer ${token}`}) // header has token
        if(user){
         //    axios.defaults.headers.common['auth'] = `bearer ${token}`;
-        console.log(user);
+        // console.log(user);
         setHeader('auth', `bearer ${token}`);
            return {
                token, user, isAuthenticated: true
@@ -115,6 +118,10 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
        return {token:null,user:null,isAuthenticated:false}
     } catch (error) {
         // delete axios.defaults.headers.common['auth'];
+        toast.error(error.response.data.message, {
+            duration: 4000
+            
+        })
         deleteHeader('auth');
         return {
             token:null, user:null, isAuthenticated: false
