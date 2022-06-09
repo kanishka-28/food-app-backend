@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 const arr = [1,2,3,4,5];
+
 const Cart = () => {
     const navigate = useNavigate();
   return (
@@ -28,10 +29,11 @@ const Cart = () => {
                 Total
               </h3>
             </div>
-            <div className="h-auto max-h-96 w-full overflow-y-auto">
+            <div  className="h-auto max-h-96 w-full overflow-y-auto ">
+            {/* <div style={scrollContainer} > */}
             {
               arr?.map(e=>(
-                <div className="flex items-center hover:bg-gray-100 lg:mx-8 lg:px-6 py-5">
+                <div className="flex items-center hover:bg-gray-100  py-5">
                 <div className="flex w-2/5">
                   {/* <!-- product --> */}
                   <div className="w-20">
@@ -122,7 +124,7 @@ const Cart = () => {
                 <span>Total cost</span>
                 <span>$600</span>
               </div>
-              <button className="bg-zomato-400 font-semibold hover:bg-zomato-500 py-3 text-sm text-white uppercase w-full">
+              <button className="bg-zomato-400 rounded font-semibold hover:bg-zomato-500 py-3 text-sm text-white uppercase w-full">
                 Checkout
               </button>
             </div>

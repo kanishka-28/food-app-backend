@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { IoLocationSharp } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
-import {RiShoppingCartFill} from "react-icons/ri";
+import {BsCart4} from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isAuthenticated } from "../../redux/features/auth/selector/selector";
@@ -124,7 +123,7 @@ const Nav = () => {
           :
           <>
             <Link className="hidden md:block" to={"/cart"} >
-              <RiShoppingCartFill className="text-zomato-500 text-2xl"/>
+              <BsCart4 className="text-gray-500 text-3xl"/>
             </Link>
             <ProfileDisclosure/>
           </>
