@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom';
-import { isAuthenticated } from '../../redux/features/auth/selector/selector'
+import { Navigate} from 'react-router-dom';
+import { isAuthenticated, isReady } from '../../redux/features/auth/selector/selector'
 
 
 const ProtectedRoute = ({children}) => {
   const auth  = useSelector(isAuthenticated);
-  if(auth){
-    return (
-        <>
-            {children}
-        </>
-      )
-  }
-  else{
-      <Navigate to={"/auth/login"} />
-  }
-   
+  const ready = useSelector(isReady);
+ if(ready){
+     if(auth){
+         return children;
+     }
+     else{
+         return <Navigate to={"/"} replace />
+     }
+ }
+  
+    
 }
 
 export default ProtectedRoute

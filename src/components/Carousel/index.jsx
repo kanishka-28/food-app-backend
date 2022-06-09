@@ -65,7 +65,7 @@ const LaptopDelivery = () => {
         <Slider {...settingsLg}>
           {
             images.map((image) => (
-              <div key={image} className='px-1 h-64'>
+              <div key={image} className='px-1 outline-0 h-64'>
                 <img
                   src={image}
                   alt="Burger"

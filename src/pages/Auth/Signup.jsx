@@ -160,10 +160,14 @@ export default function Signup() {
                 >
                   Sign Up{" "}
                 </button>
-                <p className="m-4 font-dark text-xl">Or</p>
-                {/* <LoginGoogle/> */}
+               
                 </form>
-
+                <Link 
+                 to={"/auth/login"}
+                  className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
+                >
+                     Already a User? Lets Sign in
+                </Link>
               </div>
             </div>
           </div>

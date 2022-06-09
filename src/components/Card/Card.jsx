@@ -1,87 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { serviceGet } from '../../utlis/api';
-import FoodCards from './FoodCard';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  isAuthenticated,
+  isReady,
+} from "../../redux/features/auth/selector/selector";
+import { serviceGet } from "../../utlis/api";
+import FoodCards from "./FoodCard";
 
+const AllCards = ({ search = false }) => {
+  const ready = useSelector(isReady);
+  const auth = useSelector(isAuthenticated);
+  const { searchString } = useParams();
+  const [restaurant, setrestaurant] = useState([]);
+  const getRestaurent = async () => {
+    try {
+      // const {restaurants} = await serviceGet('restaurant',{auth : `bearer ${localStorage.getItem("token")}`});
 
-const AllCards = () => {
-        // const restaurant = [
-        //     {
-        //         "mapLocation": {
-        //             "latitude": 22.577426775020527,
-        //             "longitude": 77.85300449224522
-        //         },
-        //         "_id": "629a4e1d44ae6a9629bcdff0",
-        //         "name": "balle balle restaurant",
-        //         "city": "itarsi",
-        //         "address": "add",
-        //         "contactNumber": 1234567891,
-        //         "amenities": [],
-        //         "photos": [],
-        //         "createdAt": "2022-06-03T18:08:29.197Z",
-        //         "updatedAt": "2022-06-03T18:08:29.197Z",
-        //         "__v": 0
-        //     },
-        //     {
-        //         "mapLocation": {
-        //             "latitude": 22.577426775020527,
-        //             "longitude": 77.85300449224522
-        //         },
-        //         "_id": "629b87f3dfd82c7ed7cc27d5",
-        //         "name": "dhalle dhalle",
-        //         "city": "itarsi",
-        //         "address": "1234",
-        //         "contactNumber": 1328423434,
-        //         "amenities": [],
-        //         "photos": [],
-        //         "createdAt": "2022-06-04T16:27:31.559Z",
-        //         "updatedAt": "2022-06-04T16:27:31.559Z",
-        //         "__v": 0
-        //     }
-        // ]
-        const [restaurant, setrestaurant] = useState([]);
-        const getRestaurent = async ()=>{
-            const {restaurants} = await serviceGet('restaurant');
-            setrestaurant(restaurants);
+      if (auth) {
+        const { restaurants } = await serviceGet("restaurant");
+        if (search) {
+          const arr = restaurants?.filter((e) => e.name.includes(searchString));
+          setrestaurant(arr);
+        } else {
+          setrestaurant(restaurants);
         }
-        useEffect(() => {
-           getRestaurent();
-        }, [])
-        
-    return (
-        <>
-      
-            <>
-            <div className="md:hidden mb-24">
-                {
-                    restaurant?.map(oneRestaurant=>{
-                      
-                        return <FoodCards key={oneRestaurant._id} name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
-                    })
-                }
-            </div>
-            <div className="hidden md:block">
-                <div className="w-full flex  flex-wrap gap-3 justify-evenly">
-                
-                {
-                    restaurant?.map(oneRestaurant=>{
-                       
-                        return (
-                            <div key={oneRestaurant._id} className="w-1/3">
+      } else {
+        //change this to a condition where we will use latitude longitutde
+        setrestaurant([]);
+      }
+    } catch (error) {
+      // toast.error(error.response.data.message);
+      console.log(error.response.data.message);
+    }
+  };
 
-                                <FoodCards name={oneRestaurant.name} city={oneRestaurant.city} photos={oneRestaurant.photos} id={oneRestaurant._id} />
-                            </div>
-                        )
-                        
-                        
-                    })
-                }
+  useEffect(() => {
+    if (ready) {
+      getRestaurent();
+    }
+  }, [ready, auth, searchString]);
+
+  return (
+    <>
+      {restaurant?.length !== 0 ? (
+        <>
+          <div className="md:hidden mb-24 ">
+            {restaurant?.map((oneRestaurant) => {
+              return (
+                <FoodCards key={oneRestaurant._id} restaurant={oneRestaurant} />
+              );
+            })}
+          </div>
+          <div className="hidden md:block ">
+            <div className="w-full flex  flex-wrap gap-3 justify-evenly ">
+              {restaurant?.map((oneRestaurant) => {
+                return (
+                  <div key={oneRestaurant._id} className="w-1/3 lg:1/4">
+                    <FoodCards restaurant={oneRestaurant} />
+                  </div>
+                );
+              })}
             </div>
-                </div>
-            
-            </>
-           
+          </div>
         </>
-    )
-}
+      ) : search ? (
+        <h4 className="text-center">No Restaurants Match Your Search</h4>
+      ) : (
+        <h4 className="text-center">No Restaurants Found Near You</h4>
+      )}
+    </>
+  );
+};
 
 export default AllCards;

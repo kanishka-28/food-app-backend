@@ -6,7 +6,8 @@ import { deleteHeader, setHeader } from "../../../utlis/header";
 const initialState = {
     token: null,
     isAuthenticated: false,
-    user: null
+    user: null,
+    isReady: false
   };
   
   export const login = createAsyncThunk("auth/login", async (values) => {
@@ -23,7 +24,7 @@ const initialState = {
             localStorage.setItem('token', token)
            
             setHeader('auth', `bearer ${token}`);
-            console.log(user)
+            // console.log(user)
          
             return {
                 token,
@@ -38,11 +39,20 @@ const initialState = {
             isAuthenticated: false
         }
     } catch (error) {
-      
-        toast.error(error.response.data.message, {
+      //console.log(error);
+      if(error.message==="Network Error"){
+        toast.error(error.message, {
             duration: 4000
             
         })
+      }
+      else{
+          toast.error(error.response.data.message, {
+              duration: 4000
+              
+          })
+
+      }
        
         deleteHeader('auth');
         deleteHeader()
@@ -51,6 +61,60 @@ const initialState = {
             user:null,
             isAuthenticated: false
         }
+    }
+});
+  export const googleLogin = createAsyncThunk("auth/googleLogin", async (values) => {
+    try {    
+        const res = await serviceGet('auth/google');
+        console.log(res);
+        // const {  user,token , success } = res
+        // if(success){
+
+        //     const { userName = '' } = user
+        //     toast.success(`Hey ${userName} Welcome back`,{
+        //         duration:4000
+        //     })
+        //     // store token
+        //     localStorage.setItem('token', token)
+           
+        //     setHeader('auth', `bearer ${token}`);
+        //     // console.log(user)
+         
+        //     return {
+        //         token,
+        //         user:{...user,userName},
+        //         isAuthenticated:true
+        //     }
+        // }
+       
+        // return {
+        //     token:null,
+        //     user:null,
+        //     isAuthenticated: false
+        // }
+    } catch (error) {
+      console.log(error);
+    //   if(error.message==="Network Error"){
+    //     toast.error(error.message, {
+    //         duration: 4000
+            
+    //     })
+    //   }
+    //   else{
+    //       toast.error(error.response.data.message, {
+    //           duration: 4000
+              
+    //       })
+
+    //   }
+       
+    //     deleteHeader('auth');
+    //     deleteHeader()
+    //     return {
+    //         token:null,
+    //         user:null,
+    //         isAuthenticated: false
+    //     }
     }
 });
   export const signup = createAsyncThunk("auth/signup", async (values) => {
@@ -82,11 +146,20 @@ const initialState = {
             isAuthenticated: false
         }
     } catch (error) {
-        console.log({error});
-        toast.error(error.response.data.message, {
-            duration: 4000
-            
-        })
+        //console.log({error});
+        if(error.message==="Network Error"){
+            toast.error(error.message, {
+                duration: 4000
+                
+            })
+          }
+          else{
+              toast.error(error.response.data.message, {
+                  duration: 4000
+                  
+              })
+    
+          }
        
         deleteHeader('auth');
         deleteHeader()
@@ -102,10 +175,13 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
     
     try {
         const token = localStorage.getItem('token')
+        if(!token){
+            return {token:null, user:null, isAuthenticated: false};
+        }
         const {user} = await serviceGet(`auth/loaduser`,{auth: `bearer ${token}`}) // header has token
        if(user){
         //    axios.defaults.headers.common['auth'] = `bearer ${token}`;
-        console.log(user);
+        // console.log(user);
         setHeader('auth', `bearer ${token}`);
            return {
                token, user, isAuthenticated: true
@@ -114,6 +190,19 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
        return {token:null,user:null,isAuthenticated:false}
     } catch (error) {
         // delete axios.defaults.headers.common['auth'];
+        if(error.message==="Network Error"){
+            toast.error(error.message + ",Please Login Again", {
+                duration: 4000
+                
+            })
+          }
+          else{
+              toast.error(error.response.data.message, {
+                  duration: 4000
+                  
+              })
+    
+          }
         deleteHeader('auth');
         return {
             token:null, user:null, isAuthenticated: false
@@ -142,12 +231,27 @@ const authSlice = createSlice({
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
-               
+               state.isReady = true
             })
             .addCase(login.rejected,(state,action)=>{
                 state.token = null
                 state.user = null
                 state.token.isAuthenticated=false
+               state.isReady = true
+                
+            })
+            .addCase(googleLogin.fulfilled, (state, action) => {
+                const {token,user,isAuthenticated} = action.payload
+                state.token = token
+                state.user = user
+                state.isAuthenticated = isAuthenticated
+               state.isReady = true
+            })
+            .addCase(googleLogin.rejected,(state,action)=>{
+                state.token = null
+                state.user = null
+                state.token.isAuthenticated=false
+               state.isReady = true
                 
             })
             .addCase(loadUser.fulfilled, (state, action) => {
@@ -155,12 +259,14 @@ const authSlice = createSlice({
                 state.token = token
                 state.user = user
                 state.isAuthenticated = isAuthenticated
+               state.isReady = true
                 
             })
             .addCase(loadUser.rejected, (state, action) => {
                 state.token = null
                 state.user = null
                 state.isAuthenticated = false
+               state.isReady = true
                 
             })
            

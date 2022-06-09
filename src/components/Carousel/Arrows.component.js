@@ -14,7 +14,7 @@ export const NextArrow=(props)=>{
             alignItems:"center",
             width:"0.8rem",
             height:"0.8rem",
-            boxShadow: "0px 0px 10px 4px red"
+            boxShadow: "0px 0px 5px 2px black"
         }}
         onClick={props.onClick}
         />
@@ -37,7 +37,7 @@ export const PrevArrow=(props)=>{
                 alignItems:"center",
                 width:"0.8rem",
                 height:"0.8rem",
-                boxShadow: "0px 0px 10px 4px red"
+                boxShadow: "0px 0px 5px 2px black"
             }}
             onClick={props.onClick}
             />

@@ -12,15 +12,25 @@ export default function Login() {
     email: "",
     password: "",
   });
+  
+
+  const googleLogin = async()=>{
+    console.log('google');
+    
+    //  await dispatch(googleLogin());
+      
+    
+   
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // dispatch for login
     // dispatch(setLoadingTrue())
-    await dispatch(login(data))
+    await dispatch(login(data));
     // dispatch(setLoadingFalse())
-    navigate('/home/delivery');
+    // navigate('/home/delivery');
   };
 
   //   const isAuthenticated = useSelector(authState)
@@ -31,7 +41,6 @@ export default function Login() {
 
   return (
     <div className="flex   justify-center items-center w-full ">
-   
       <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
@@ -44,12 +53,12 @@ export default function Login() {
               <div className="mt-2 text-center  ">
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
                   <input
-                  required
-                  type="email"
+                    required
+                    type="email"
                     placeholder="Email"
                     className=" text-center p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
-                        setdata({ ...data, email: e.target.value })
+                      setdata({ ...data, email: e.target.value })
                     }
                     value={data.email}
                     />
@@ -58,7 +67,7 @@ export default function Login() {
                  
                       
                     <input
-                    required
+                      required
                       type={!showPass ? "password" : "text"}
                       placeholder="Password"
                       className="text-center  w-full h-12 "
@@ -68,7 +77,6 @@ export default function Login() {
                       value={data.password}
                     />
 
-                    
                     <div
                       className="cursor-pointer px-2"
                       onClick={() => {
@@ -80,7 +88,7 @@ export default function Login() {
                       ) : (
                         <AiOutlineEyeInvisible size="1.4rem" />
                       )}
-                  </div>
+                    </div>
                   </div>
                   <button
                    type="submit"
@@ -89,9 +97,17 @@ export default function Login() {
                     Sign in{" "}
                   </button>
                   <p className="m-4 font-dark text-xl">Or</p>
-                  {/* <LoginGoogle/> */}
                 </form>
-
+                  <button onClick={googleLogin} aria-label="Continue with google"  className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-400 flex items-center w-full ">
+                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
+                        <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+                    </button>
+                <Link 
+                 to={"/auth/signup"}
+                  className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
+                >
+                     New user? Create an account
+                </Link>
               </div>
             </div>
           </div>
