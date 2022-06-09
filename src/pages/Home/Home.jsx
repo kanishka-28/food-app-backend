@@ -13,7 +13,7 @@ const Home = () => {
         <div className="sticky top-20 z-10">
           <FoodTab/>
         </div>
-        <div className="lg:mx-4">
+        <div className="lg:mx-4 mb-28 md:mb-0 ">
           <Outlet />
         </div>
       </div>

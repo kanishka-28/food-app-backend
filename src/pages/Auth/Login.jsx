@@ -20,7 +20,7 @@ export default function Login() {
     // dispatch(setLoadingTrue())
     await dispatch(login(data))
     // dispatch(setLoadingFalse())
-    navigate('/home/delivery');
+    // navigate('/home/delivery');
   };
 
   //   const isAuthenticated = useSelector(authState)

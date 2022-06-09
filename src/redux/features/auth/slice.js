@@ -39,11 +39,20 @@ const initialState = {
             isAuthenticated: false
         }
     } catch (error) {
-      
-        toast.error(error.response.data.message, {
+      //console.log(error);
+      if(error.message==="Network Error"){
+        toast.error(error.message, {
             duration: 4000
             
         })
+      }
+      else{
+          toast.error(error.response.data.message, {
+              duration: 4000
+              
+          })
+
+      }
        
         deleteHeader('auth');
         deleteHeader()
@@ -84,10 +93,19 @@ const initialState = {
         }
     } catch (error) {
         //console.log({error});
-        toast.error(error.response.data.message, {
-            duration: 4000
-            
-        })
+        if(error.message==="Network Error"){
+            toast.error(error.message, {
+                duration: 4000
+                
+            })
+          }
+          else{
+              toast.error(error.response.data.message, {
+                  duration: 4000
+                  
+              })
+    
+          }
        
         deleteHeader('auth');
         deleteHeader()
@@ -118,10 +136,19 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
        return {token:null,user:null,isAuthenticated:false}
     } catch (error) {
         // delete axios.defaults.headers.common['auth'];
-        toast.error(error.response.data.message, {
-            duration: 4000
-            
-        })
+        if(error.message==="Network Error"){
+            toast.error(error.message + ",Please Login Again", {
+                duration: 4000
+                
+            })
+          }
+          else{
+              toast.error(error.response.data.message, {
+                  duration: 4000
+                  
+              })
+    
+          }
         deleteHeader('auth');
         return {
             token:null, user:null, isAuthenticated: false

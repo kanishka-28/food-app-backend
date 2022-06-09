@@ -30,7 +30,7 @@ const MobileTab = () => {
     ]);
     
     return (
-        <div className="md:hidden bg-white border pb-3 flex fixed justify-between bottom-0 z-30 w-full text-gray-500">
+        <div className="md:hidden bg-white border pb-3 flex fixed justify-between bottom-0 z-30 w-full text-gray-500 px-4">
             {
                 allTypes.map((item) => {
                     return (
