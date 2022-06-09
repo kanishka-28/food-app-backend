@@ -19,14 +19,14 @@ const MobileDelivery = () => {
     "https://b.zmtcdn.com/data/o2_assets/d0bd7c9405ac87f6aa65e31fe55800941632716575.png",
   ]
   return (
-    <div className="bg-white rounded-md flex flex-wrap justify-evenly pb-6">
+    <div className="bg-white rounded flex flex-wrap justify-evenly pb-6">
         {
           images.map((image) => (
-            <div key={image} className='w-24 h-28 my-4 rounded-md shadow-md border border-gray-300'>
+            <div key={image} className='w-24 h-28 my-4 rounded shadow-md border border-gray-300'>
               <img
                 src={image}
                 alt="Burger"
-                className="w-full h-3/4 rounded-md"
+                className="w-full h-3/4 rounded"
               />
               <div>
                 <h3 className="my-1 text-base font-small font-dark text-center text-gray-600">Burger</h3>
@@ -69,7 +69,7 @@ const LaptopDelivery = () => {
                 <img
                   src={image}
                   alt="Burger"
-                  className="w-full h-full rounded-md"
+                  className="w-full h-full rounded"
                 />
               </div>
             ))

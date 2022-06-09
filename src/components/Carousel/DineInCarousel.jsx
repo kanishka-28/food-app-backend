@@ -38,7 +38,7 @@ const MobileDineIn = () => {
                                 <img
                                     src={image}
                                     alt="Burger"
-                                    className="w-full h-full rounded-md"
+                                    className="w-full h-full rounded"
                                 />
                                 <h2 className="text-lg text-white absolute bottom-6 left-4 z-10" >Best rasgulla of Bhopal</h2>
                                 <div className="text-md text-white absolute bottom-2 left-4 flex items-center z-10" >13 places <VscTriangleRight className="w-4 pt-1" /></div>
@@ -76,7 +76,7 @@ const LaptopDineIn = () => {
                                 <img
                                     src={image}
                                     alt="Burger"
-                                    className="w-full h-full rounded-md"
+                                    className="w-full h-full rounded"
                                 />
                                 <h2 className="text-lg text-white absolute bottom-6 left-6 z-10" >Best rasgulla of Bhopal</h2>
                                 <div className="text-md text-white absolute bottom-2 left-6 flex items-center z-10" >13 places <VscTriangleRight className="w-4 pt-1" /></div>

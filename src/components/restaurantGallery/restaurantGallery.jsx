@@ -51,12 +51,12 @@ const RestaurantGallery = ({ setType }) => {
                 <div className="m-4 md:flex justify-between">
                     <h1>{requiredRestaurant?.name}</h1>
                     <div className="text-gray-500 text-sm flex justify-between">
-                        <div className="w-8 h-7 text-white rounded-md bg-gray-500 text-center flex gap-1 items-center p-1 mt-2">-<GiSevenPointedStar className="text-yellow-400" /></div>
+                        <div className="w-8 h-7 text-white rounded bg-gray-500 text-center flex gap-1 items-center p-1 mt-2">-<GiSevenPointedStar className="text-yellow-400" /></div>
                         <div className="mr-6">
                             <div className="text-black mx-2 font-semibold">0</div>
                             <div className="border-gray-400 border-b-2 border-dashed mx-2 ">dining reviews</div>
                         </div>
-                        <div className="w-12 h-7 flex gap-1 text-white rounded-md bg-green-600 font-bold justify-center items-center  mt-2">3.2 <AiTwotoneStar className="text-white" /></div>
+                        <div className="w-12 h-7 flex gap-1 text-white rounded bg-green-600 font-bold justify-center items-center  mt-2">3.2 <AiTwotoneStar className="text-white" /></div>
                         <div>
                             <div className="text-black mx-2 font-semibold">9000</div>
                             <div className="border-gray-400 border-b-2 border-dashed mx-2 ">delivery reviews</div>

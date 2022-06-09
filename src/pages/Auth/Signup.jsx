@@ -70,7 +70,7 @@ export default function Signup() {
                   onClick={()=>setshowPass(false)}
                   required
                     placeholder="Name"
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                       setdata({ ...data, userName: e.target.value })
                     }
@@ -81,14 +81,14 @@ export default function Signup() {
                   required
                   type="email"
                     placeholder="Email"
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                       setdata({ ...data, email: e.target.value })
                     }
                     value={data.email}
                   />
                    
-                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded-md">
+                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
                     required
                       type={!showPass ? "password" : "text"}
@@ -113,7 +113,7 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded-md">
+                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
                     required
                       type={!showPass ? "password" : "text"}
@@ -138,7 +138,7 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <textarea onClick={()=>setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" placeholder="Address" required onChange={(e) =>
+                  <textarea onClick={()=>setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" placeholder="Address" required onChange={(e) =>
                       setdata({ ...data, address: e.target.value })
                     }
                     value={data.address} ></textarea>
@@ -147,7 +147,7 @@ export default function Signup() {
                   onClick={()=>setshowPass(false)}
                     placeholder="City"
                     required
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                       setdata({ ...data, city: e.target.value })
                     }
@@ -156,7 +156,7 @@ export default function Signup() {
                 <button
                 type="submit"
              
-                  className={`border border-gray-300 rounded-md font-semibold w-full h-12 bg-megenta-400 text-white`}
+                  className={`border border-gray-300 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
                 >
                   Sign Up{" "}
                 </button>

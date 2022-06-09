@@ -104,16 +104,16 @@ const Order = () => {
                                                 <form className={`my-6`}>
                                                     <div className="flex items-center justify-between my-2">
                                                         <p>Food Name - </p>
-                                                        <input value={foodDetails.name} className="py-4  mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" />
+                                                        <input value={foodDetails.name} className="py-4  mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
                                                     </div>
 
                                                     <div className="flex items-center justify-between my-2">
                                                         <p>Quantity - </p>
-                                                        <input value={quantity} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" onChange={onChangeHandler} />
+                                                        <input value={quantity} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={onChangeHandler} />
                                                     </div>
                                                     <div className="flex items-center justify-between my-2">
                                                         <p>Price Total - </p>
-                                                        <input value={foodDetails.price} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" />
+                                                        <input value={foodDetails.price} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
                                                     </div>
 
                                                 </form>
@@ -184,7 +184,7 @@ const Order = () => {
                     <BsClock className="my-2 mr-2" />
                     <p className="mr-2">52 min</p>
                 </div>
-                <div className="flex bg-blue-600 text-white items-center rounded-md p-3 w-max">
+                <div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
                     <BsCheckCircleFill className="mr-2" />
                     <p>Delivering to : <strong>{user?.address} {user?.city}</strong></p>
                     <div className="pl-36">Change</div>

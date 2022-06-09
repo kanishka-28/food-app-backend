@@ -47,14 +47,14 @@ export default function Login() {
                   required
                   type="email"
                     placeholder="Email"
-                    className=" text-center p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                         setdata({ ...data, email: e.target.value })
                     }
                     value={data.email}
                     />
                    
-                  <div className=" flex items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded-md">
+                  <div className=" flex items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                  
                       
                     <input
@@ -84,7 +84,7 @@ export default function Login() {
                   </div>
                   <button
                    type="submit"
-                    className={`border border-gray-300 mt-2 rounded-md font-semibold w-full h-12 bg-megenta-400 text-white`}
+                    className={`border border-gray-300 mt-2 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
                   >
                     Sign in{" "}
                   </button>

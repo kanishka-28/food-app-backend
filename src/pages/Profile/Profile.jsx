@@ -15,7 +15,7 @@ const Profile = () => {
                         <div className='flex justify-between'>
                             <h1 className="text-3xl font-bold pt-8 lg:pt-0">Your Name</h1>
                             <Link to={'/editprofile'}>
-                                <button className='bg-megenta-500 hover:bg-megenta-600  rounded-md p-2 text-white text-sm'>Edit Profile</button>
+                                <button className='bg-megenta-500 hover:bg-megenta-600  rounded p-2 text-white text-sm'>Edit Profile</button>
                             </Link>
                         </div>
                         <div className="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-zomato-400 opacity-25"></div>

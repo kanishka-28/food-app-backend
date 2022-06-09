@@ -36,14 +36,14 @@ const OverviewMd = () => {
                 <div>
                     <h1 className="font-semibold text-2xl">About this place</h1>
                     <div className="flex justify-betwen">
-                        <div className="flex border rounded-md border-gray-300 py-3 my-2">
+                        <div className="flex border rounded border-gray-300 py-3 my-2">
                             <img src="https://b.zmtcdn.com/data/o2_assets/ebd42529c3342bdaf8b624a63a571fcc1585754330.png" alt="safety" className="w-8 h-8 mx-2" />
                             <div>
                                 <p className="text-xs font-light text-gray-500 pr-2">RESTAURANT SAFETY MEASURE</p>
                                 <p className="text-gray-600">Well Sanitized Kitchen</p>
                             </div>
                         </div>
-                        <div className="flex border rounded-md border-gray-300 py-3 m-2">
+                        <div className="flex border rounded border-gray-300 py-3 m-2">
                             <img src="https://b.zmtcdn.com/data/o2_assets/8ecc61badb80ea685f0afc71a4d721671585754288.png" alt="safety" className="w-8 h-8 mx-2" />
                             <div>
                                 <p className="text-xs font-light text-gray-500 pr-2">RESTAURANT SAFETY MEASURE</p>

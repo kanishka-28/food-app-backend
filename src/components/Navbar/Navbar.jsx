@@ -28,7 +28,7 @@ const ProfileDisclosure = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
               <button
@@ -66,12 +66,12 @@ const Nav = () => {
 
   return (
     <>
-      <div className="flex  bg-white  items-center py-1 justify-around w-full text-gray-400 z-50  ">
+      <div className="flex bg-white  items-center py-1 justify-around w-full text-gray-400 z-50  ">
         <div className="flex justify-around w-40 md:w-9/12 items-center">
           <Link to="/">
             <div className="">
               <img
-                className="w-28 md:w-28 h-20"
+                className="w-28 md:w-28 h-24"
                 src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj"
                 alt="logo"
               />
@@ -85,13 +85,13 @@ const Nav = () => {
                 placeholder="Search for restaurant "
                 value={searchString}
                 onChange={onchange}
-                className="p-2 rounded-md w-full  text-md outline-none border-0"
+                className="p-2 rounded w-full  text-md outline-none border-0"
               />
             </div>
 
             <button
               onClick={onclick}
-              className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white "
+              className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white "
             >
               <p> Search</p>
             </button>
@@ -117,11 +117,11 @@ const Nav = () => {
             placeholder="Search for restaurant "
             value={searchString}
             onChange={onchange}
-            className="p-2 rounded-md w-full outline-none border-0 text-md"
+            className="p-2 rounded w-full outline-none border-0 text-md"
           />
         </div>
         <Link to={`/home/search/${searchString}`}>
-          <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
+          <button className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
             <p> Search</p>
           </button>
         </Link>

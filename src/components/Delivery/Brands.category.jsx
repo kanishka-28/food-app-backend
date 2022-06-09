@@ -41,7 +41,7 @@ const MobileBrands = () => {
                 <img
                   src={image}
                   alt="Burger"
-                  className="w-full h-full rounded-md"
+                  className="w-full h-full rounded"
                 />
                 <p className="text-sm font-light text-center">26 min</p>
               </div>
@@ -78,7 +78,7 @@ const LaptopBrands = () => {
                 <img
                   src={image}
                   alt="Burger"
-                  className="w-full h-full rounded-md"
+                  className="w-full h-full rounded"
                 />
                 <p className="text-md font-light text-center">26 min</p>
               </div>

@@ -5,14 +5,14 @@ export const Photo = ({details}) => {
   console.log(details);
   const Images = details.photos;
     return (
-        <div className="bg-white rounded-md flex flex-wrap justify-evenly pb-6 w-full">
+        <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
             {
               Images?.map((image) => (
-                <div className='w-1/3 md:w-1/5 m-1 md:m-4 rounded-md shadow-md border border-gray-300'>
+                <div className='w-1/3 md:w-1/5 m-1 md:m-4 rounded shadow-md border border-gray-300'>
                   <img
                     src={image}
                     alt="Burger"
-                    className="w-full h-full rounded-md"
+                    className="w-full h-full rounded"
                   />
                 </div>
               ))
