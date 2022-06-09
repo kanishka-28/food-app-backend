@@ -3,7 +3,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
-
+import {RiShoppingCartFill} from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isAuthenticated } from "../../redux/features/auth/selector/selector";
@@ -13,11 +13,11 @@ const ProfileDisclosure = () => {
   const dispatch = useDispatch();
   
   return (
-    <Menu as="div" className="ml-3 relative">
+    <Menu as="div" className="relative">
       <div>
         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          {<BiUser className="w-10 h-10 rounded-full bg-red-400 text-white " />}
+          {<BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
       </div>
       <Transition
@@ -30,6 +30,19 @@ const ProfileDisclosure = () => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Item>
+            {({ active }) => (
+              <Link
+               to={"/cart"}
+                className={
+                  (active ? "bg-gray-100" : "",
+                  "block md:hidden px-4 py-2 text-sm text-gray-700")
+                }
+              >
+                My Cart
+              </Link>
+            )}
+          </Menu.Item>
           <Menu.Item>
             {({ active }) => (
               <button
@@ -46,6 +59,7 @@ const ProfileDisclosure = () => {
               </button>
             )}
           </Menu.Item>
+        
         </Menu.Items>
       </Transition>
     </Menu>
@@ -62,7 +76,6 @@ const Nav = () => {
   const navigate = useNavigate();
   const onclick = () => {
     if (searchString.length>0) {
-     
       navigate(`/search/${searchString}`);
     }
   };
@@ -109,7 +122,12 @@ const Nav = () => {
             <Link to="/auth/signup">Sign Up</Link>
           </div>
           :
-          <ProfileDisclosure/>
+          <>
+            <Link className="hidden md:block" to={"/cart"} >
+              <RiShoppingCartFill className="text-zomato-500 text-2xl"/>
+            </Link>
+            <ProfileDisclosure/>
+          </>
         }
       </div>
       <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden mx-2 ">
