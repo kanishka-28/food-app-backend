@@ -1,45 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useGeolocated } from "react-geolocated";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   isAuthenticated,
   isReady,
+  user,
 } from "../../redux/features/auth/selector/selector";
+import { logout } from "../../redux/features/auth/slice";
 import { serviceGet } from "../../utlis/api";
 import FoodCards from "./FoodCard";
 
-const AllCards = ({ search = false }) => {
+const AllCards =({ search = false }) => {
   const ready = useSelector(isReady);
-  const auth = useSelector(isAuthenticated);
+  const customer = useSelector(user);
+  
+  const dispatch = useDispatch();
   const { searchString } = useParams();
   const [restaurant, setrestaurant] = useState([]);
+  const [location, setlocation] = useState({});
+ 
+  const { coords } =
+    useGeolocated({
+      positionOptions: {
+        enableHighAccuracy: false,
+      },
+      userDecisionTimeout: 5000,
+    });
+
+  
+
+
+  const getLocation = ()=>{
+    setlocation({latitude : coords?.latitude,longitude : coords?.longitude})
+  }
+  useEffect(()=>{
+      getLocation();
+  },[coords]);
+
   const getRestaurent = async () => {
     try {
-      // const {restaurants} = await serviceGet('restaurant',{auth : `bearer ${localStorage.getItem("token")}`});
-
-      if (auth) {
-        const { restaurants } = await serviceGet("restaurant");
-        if (search) {
-          const arr = restaurants?.filter((e) => e.name.includes(searchString));
-          setrestaurant(arr);
-        } else {
-          setrestaurant(restaurants);
-        }
-      } else {
-        //change this to a condition where we will use latitude longitutde
-        setrestaurant([]);
-      }
+           // console.log(latitude,longitude);
+      
+        const { restaurants } = await serviceGet(`restaurant?latitude=${location?.latitude}&longitude=${location.longitude}&email=${customer?.email}`);
+        // const { restaurants } = await serviceGet(`restaurant`);
+        setrestaurant(restaurants);
+      
     } catch (error) {
-      // toast.error(error.response.data.message);
-      console.log(error.response.data.message);
+      toast.error(error.response.data.message);
+      if (error.response.status == 401) {
+        dispatch(logout());
+      }
+      console.log(error);
     }
   };
 
+  const filterRestaurant = () => {
+    const arr = restaurant?.filter((e) => e.name.includes(searchString));
+    setrestaurant(arr);
+  };
+
   useEffect(() => {
-    if (ready) {
+    if (search) {
+      filterRestaurant();
+    }
+  }, [searchString]);
+
+  useEffect(() => {
+    if (ready && location.latitude && location.longitude) {
       getRestaurent();
     }
-  }, [ready, auth, searchString]);
+  }, [ready, location]);
 
   return (
     <>

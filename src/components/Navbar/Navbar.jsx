@@ -5,18 +5,18 @@ import { Menu, Transition } from "@headlessui/react";
 import {BsCart4} from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isAuthenticated } from "../../redux/features/auth/selector/selector";
+import { isAuthenticated, user } from "../../redux/features/auth/selector/selector";
 import { logout } from "../../redux/features/auth/slice";
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   const dispatch = useDispatch();
-  
+  const profile = useSelector(user);
   return (
     <Menu as="div" className="relative">
       <div>
         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          {<BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
+          {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
       </div>
       <Transition

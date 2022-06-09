@@ -15,11 +15,9 @@ export default function Login() {
   
 
   const googleLogin = async()=>{
-    console.log('google');
     
-    //  await dispatch(googleLogin());
-      
-    
+    window.location.replace('http://localhost:4000/auth/google')
+   
    
   }
 
@@ -98,10 +96,13 @@ export default function Login() {
                   </button>
                   <p className="m-4 font-dark text-xl">Or</p>
                 </form>
+                
+                
                   <button onClick={googleLogin} aria-label="Continue with google"  className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-400 flex items-center w-full ">
                        <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
                         <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
                     </button>
+                
                 <Link 
                  to={"/auth/signup"}
                   className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"

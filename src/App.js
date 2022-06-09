@@ -19,6 +19,7 @@ import { loadUser } from "./redux/features/auth/slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import GoogleLogin from "./pages/Auth/GoogleLogin";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/auth" element={<AuthWrapper/>}>
             <Route path="login" element={<Login/>} />
             <Route path="signup" element={<Signup/>} />
+            <Route path="google/:token" element={<GoogleLogin/>} />
           </Route>
           <Route path="/restaurant/:id" element={<Restaurant />} />
            <Route path="/profile/:tabId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
