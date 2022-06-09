@@ -47,7 +47,7 @@ Router.post("/signup",async(req,res)=>{
     try{
       await ValidateSignup(req.body.credentials);
       const { email} = req.body.credentials
-      console.log(email);
+      
       const user = await UserModel.findOne({email})
       if(!user){
         //DB
@@ -79,8 +79,8 @@ Router.post("/signin",async(req,res)=>{
       const {userName, password , email} = req.body.credentials
         await ValidateSignin(req.body.credentials);
       
-        const user = await UserModel.findByEmailAndPassword({email, password});
-        
+        let user = await UserModel.findByEmailAndPassword({email, password});
+        user.password = null;
         //JWT AUth Token
         const token = user.generateJwtToken();
         console.log(user);
@@ -139,8 +139,13 @@ method    GET
 Router.get("/google/callback",passport.authenticate("google",{
   failureRedirect:"/"
 } ),(req,res)=>{
-  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
-   res.json({token: req.session.passport.user.token});
+  try {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
+   res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
+  } catch (error) {
+    return res.status(500).json({message: error.message , success: false});
+  }
+  
 });
 
 export default Router;

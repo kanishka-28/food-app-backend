@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    profilePic: {
+        type: String,
+    },
     address: 
     { 
         type: String
@@ -66,7 +69,9 @@ UserSchema.statics.findUserName = async ({ userName }) => {
 UserSchema.statics.findByEmailAndPassword =
     async ({ email, password}) => {
         //check whether user exists
+        // const user = await UserModel.findOne({ email }).select("email userName _id address city");
         const user = await UserModel.findOne({ email });
+        
         if (!user) {
             throw new Error("User does not exist");
         }

@@ -16,7 +16,7 @@ export default (passport)=>{
         async (accessToken, refreshToken, profile, done)=>{
             //creating a new user 
             const newUser= {
-                fullname: profile.displayName,
+                userName: profile.displayName,
                 email:profile.emails[0].value,
                 profilePic: profile.photos[0].value,
                 status: "user"

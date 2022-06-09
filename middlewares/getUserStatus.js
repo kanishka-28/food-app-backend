@@ -12,7 +12,8 @@ const getUserStatus= async (req,res,next)=>{
     }
         const data = verify(token, "ZomatoApp");
         
-        const result = await UserModel.findById(data.user).select("-password")
+        
+        const result = await UserModel.findById(data.user).select("-password");
         
         if(!result){
             throw new Error("User not found");
