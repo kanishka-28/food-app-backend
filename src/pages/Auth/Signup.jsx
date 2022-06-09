@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import toast from "react-hot-toast";
+// import { useDispatch } from "react-redux";
+// import { signup } from "../../redux/features/auth/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
- 
-  
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
   const [data, setdata] = useState({
-    name:"",
+    userName:"",
     email: "",
-    pass: "",
+    password: "",
     cnfpass: "",
     address : "",
     city : "",
@@ -20,12 +23,16 @@ export default function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(data.pass!==data.cnfpass){
-      console.log("not equal");
-    }
-    else{
-      console.log(data);
-    }
+    // if(data.password!==data.cnfpass){
+    //   toast.error("Password Not Equal");
+    // }
+    // else{
+    //   delete data.cnfpass;
+    //   data.status = "user";
+    //   // console.log(data);
+    //   dispatch(signup(data));
+    //   navigate('/home/delivery');
+    // }
     
     // const form_data = new FormData(event.target);
     // let values = {};
@@ -60,35 +67,37 @@ export default function Signup() {
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
               
                   <input
+                  onClick={()=>setshowPass(false)}
                   required
-                    placeholder="Name"
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    placeholder="Your Name"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
-                      setdata({ ...data, name: e.target.value })
+                      setdata({ ...data, userName: e.target.value })
                     }
-                    value={data.name}
+                    value={data.userName}
                   />
                   <input
+                  onClick={()=>setshowPass(false)}
                   required
                   type="email"
                     placeholder="Email"
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                       setdata({ ...data, email: e.target.value })
                     }
                     value={data.email}
                   />
                    
-                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded-md">
+                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
                     required
                       type={!showPass ? "password" : "text"}
                       placeholder="Password"
                       className="text-center  w-full h-12 "
                       onChange={(e) =>
-                        setdata({ ...data, pass: e.target.value })
+                        setdata({ ...data, password: e.target.value })
                       }
-                      value={data.pass}
+                      value={data.password}
                     />
                    
                     <div
@@ -104,7 +113,7 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded-md">
+                  <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
                     required
                       type={!showPass ? "password" : "text"}
@@ -129,16 +138,16 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <textarea className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md" placeholder="Address" required onChange={(e) =>
+                  <textarea onClick={()=>setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" placeholder="Address" required onChange={(e) =>
                       setdata({ ...data, address: e.target.value })
                     }
                     value={data.address} ></textarea>
                   
                   <input
-                  
+                  onClick={()=>setshowPass(false)}
                     placeholder="City"
                     required
-                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded-md"
+                    className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
                       setdata({ ...data, city: e.target.value })
                     }
@@ -147,7 +156,7 @@ export default function Signup() {
                 <button
                 type="submit"
              
-                  className={`border border-gray-300 rounded-md font-semibold w-full h-12 bg-megenta-400 text-white`}
+                  className={`border border-gray-300 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
                 >
                   Sign Up{" "}
                 </button>

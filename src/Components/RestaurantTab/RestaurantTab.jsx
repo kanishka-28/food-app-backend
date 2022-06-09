@@ -40,23 +40,19 @@ export default function RestaurantTab() {
                             </Link>
 
                         )
-
-                    }
-                    )
+                    })
                 }
-
-
             </div>
         )
     };
 
     const MdTab = () => {
         return (
-            <div className="hidden md:flex bg-white border-b px-36 pt-3 flex items-start gap-16  z-10 w-full text-gray-500">
+            <div className="hidden md:flex bg-white border-b pt-3 flex items-start gap-16 px-4 z-10 w-full text-gray-500">
                 {
                     allTypes.map((item) => {
                         return (
-                            <Link key={item.id} to={`/food/${item.id}`}>
+                            <Link key={item.id} to={`/food/${item.id}`} className='hover:text-zomato-500'>
                                 <div className={
                                     type === item.id ? "flex gap-4 pt-2 pb-4 items-center text-xl text-zomato-400 border-b-2 border-zomato-400 " : "flex gap-4 pt-2 pb-4  items-center text-xl"
                                 } >

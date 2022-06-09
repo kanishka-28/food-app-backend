@@ -1,15 +1,15 @@
 import React from "react";
-// import Navbar from "../../components/Navbar/Navbar.jsx";
-import RestaurantTab from "../../Components/RestaurantTab/RestaurantTab";
+import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
+import RestaurantCards from "../../Components/RestaurantCards/Cards";
 
 const Home = () => {
   return (
     <>
-      <div className="container  mx-auto lg:px-20">
-        <Navbar />
-        <RestaurantTab />
-        
+      <Navbar />
+      <div className="container my-6 flex flex-col items-center justify-center">
+        <Link to={'/edit'} className="py-2 px-8 bg-red-500 text-white font-semibold rounded">Add New Restaurant</Link>
+        <RestaurantCards />
       </div>
     </>
   );

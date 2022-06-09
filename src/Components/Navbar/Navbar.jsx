@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 
 const ProfileDisclosure = () => {
- // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
+  // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
@@ -28,7 +28,7 @@ const ProfileDisclosure = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
 
           <Menu.Item>
             {({ active }) => (
@@ -52,7 +52,7 @@ const ProfileDisclosure = () => {
   )
 }
 
-const Navbar=()=>{
+const Navbar = () => {
   // const {open, setOpen, loginOpen, setLoginOpen, loggedIn} = useContext(SignupContext);
   const [searchString, setsearchString] = useState("");
   const onchange = (e) => {
@@ -68,21 +68,21 @@ const Navbar=()=>{
     <>
       <nav >
         <>
-          <div className="flex  items-center py-1 justify-around w-full text-gray-400  ">
+          <div className="flex bg-white items-center justify-around w-full text-gray-400  ">
             <div className="flex justify-around w-40 md:w-9/12 items-center">
               <Link to="/">
                 <div className="">
-                  <img className="w-28 md:w-42 md:h-36" src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
+                  <img className="w-28 md:w-42 md:h-28" src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj" alt="logo" />
                 </div>
               </Link>
               <div className="flex w-8/12 bg-white items-center px-2 gap-3 shadow-md hidden md:flex">
 
                 <div className="flex items-center w-full">
                   <AiOutlineSearch />
-                  <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="p-2 rounded-md w-full  text-md outline-none border-0" />
+                  <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="px-2 rounded w-full  text-md outline-none border-0" />
                 </div>
 
-                <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white ">
+                <button onClick={onclick} className=" w-28 h-10 text-center mx-1 rounded-md border-gray-400 border bg-red-500 text-white ">
                   <p> Search</p>
                 </button>
 
@@ -109,13 +109,13 @@ const Navbar=()=>{
               // <ProfileDisclosure/>
             }
           </div>
-          <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden m-2">
+          <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden mx-2">
             <div className="flex items-center w-full focus:outline-1">
               <AiOutlineSearch />
-              <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="p-2 rounded-md w-full outline-none border-0 text-md" />
+              <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="px-2 rounded w-full outline-none border-0 text-md" />
             </div>
             <Link to={`/home/search/${searchString}`}>
-              <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white "><p> Search</p></button>
+              <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border bg-red-500 text-white "><p> Search</p></button>
             </Link>
           </div>
         </>
