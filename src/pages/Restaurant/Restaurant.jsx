@@ -8,7 +8,7 @@ const Restaurant = () => {
   const [type,setType] = useState('order');
   return (
     <>
-        <div className="sticky w-full  top-0 z-10">
+        <div className=" w-full mb-4  ">
           <Navbar  />
         </div>
       <div className="w-full   mx-auto lg:px-20">

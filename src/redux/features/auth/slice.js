@@ -2,12 +2,17 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { serviceGet, servicePost } from "../../../utlis/api";
 import { deleteHeader, setHeader } from "../../../utlis/header";
+import { GetLocation } from "../../../utlis/location";
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     user: null,
-    isReady: false
+    isReady: false,
+    location: {
+        lat:null,
+        long:null
+    }
   };
   
   export const login = createAsyncThunk("auth/login", async (values) => {
@@ -130,9 +135,6 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
         }
         const {user} = await serviceGet(`auth/loaduser`,{auth: `bearer ${token}`}) // header has token
        if(user){
-        
-
-
         setHeader('auth', `bearer ${token}`);
            return {
                token, user, isAuthenticated: true

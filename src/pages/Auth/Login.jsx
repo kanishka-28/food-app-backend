@@ -38,8 +38,8 @@ export default function Login() {
   //   },[isAuthenticated, navigate])
 
   return (
-    <div className="flex   justify-center items-center w-full ">
-      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
+    <div className="flex  justify-center items-center w-full ">
+      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
             <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">

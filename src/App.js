@@ -7,14 +7,14 @@ import {
 import AuthWrapper from "./pages/Auth/AuthWrapper";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
-import Master from "./pages/Home/Deciding";
+import Master from "./pages/Home/Master";
 import Home from "./pages/Home/Home";
 import EditProfile from "./pages/Profile/EditProfile";
 import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import Cart from "./pages/Cart/Cart";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { loadUser } from "./redux/features/auth/slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -25,10 +25,11 @@ function App() {
   const dispatch = useDispatch();
   
   const user = async()=>{
-    await dispatch(loadUser());
+         await dispatch(loadUser());
   };
 
   useEffect(() => {
+    console.log("app.js useeffect");
    user();
   }, [])
   
@@ -36,6 +37,7 @@ function App() {
   return (
     <>
     <Toaster position="top-center"/>
+   
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/home/delivery" />} />

@@ -20,7 +20,7 @@ const AllCards =({ search = false }) => {
   const [restaurant, setrestaurant] = useState([]);
   const [location, setlocation] = useState({});
  
-  const { coords } =
+  const { coords, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {
         enableHighAccuracy: true,
@@ -28,10 +28,19 @@ const AllCards =({ search = false }) => {
       userDecisionTimeout: 5000,
     });
 
+   useEffect(() => {
+    if(!isGeolocationEnabled){
+      toast.error("Please Allow location access");
+    }
+    
+   }, [isGeolocationEnabled])
+   
+
   const getLocation = ()=>{
     setlocation({latitude : coords?.latitude,longitude : coords?.longitude})
   }
   useEffect(()=>{
+    
       getLocation();
   },[coords]);
 
