@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  isAuthenticated,
   isReady,
   user,
 } from "../../redux/features/auth/selector/selector";
@@ -24,13 +23,10 @@ const AllCards =({ search = false }) => {
   const { coords } =
     useGeolocated({
       positionOptions: {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
       },
       userDecisionTimeout: 5000,
     });
-
-  
-
 
   const getLocation = ()=>{
     setlocation({latitude : coords?.latitude,longitude : coords?.longitude})
@@ -41,11 +37,15 @@ const AllCards =({ search = false }) => {
 
   const getRestaurent = async () => {
     try {
-           // console.log(latitude,longitude);
-      
         const { restaurants } = await serviceGet(`restaurant?latitude=${location?.latitude}&longitude=${location.longitude}&email=${customer?.email}`);
-        // const { restaurants } = await serviceGet(`restaurant`);
-        setrestaurant(restaurants);
+        if (search ) {
+          const arr =  restaurants?.filter((e) => e.name.includes(searchString));
+          
+          setrestaurant(arr);
+        }
+        else{
+          setrestaurant(restaurants);
+        }
       
     } catch (error) {
       toast.error(error.response.data.message);
@@ -56,22 +56,11 @@ const AllCards =({ search = false }) => {
     }
   };
 
-  const filterRestaurant = () => {
-    const arr = restaurant?.filter((e) => e.name.includes(searchString));
-    setrestaurant(arr);
-  };
-
-  useEffect(() => {
-    if (search) {
-      filterRestaurant();
-    }
-  }, [searchString]);
-
   useEffect(() => {
     if (ready && location.latitude && location.longitude) {
       getRestaurent();
     }
-  }, [ready, location]);
+  }, [ready, location,searchString]);
 
   return (
     <>

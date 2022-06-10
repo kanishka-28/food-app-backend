@@ -9,8 +9,9 @@ const Home = () => {
       <Navbar />
       <div className="container  mx-auto lg:px-20">
         <div className="sticky top-0 z-10">
-        </div>
+        
         <FoodTab />
+        </div>
         <Outlet />
       </div>
     </>
