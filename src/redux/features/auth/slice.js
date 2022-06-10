@@ -2,17 +2,13 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { serviceGet, servicePost } from "../../../utlis/api";
 import { deleteHeader, setHeader } from "../../../utlis/header";
-import { GetLocation } from "../../../utlis/location";
+
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     user: null,
     isReady: false,
-    location: {
-        lat:null,
-        long:null
-    }
   };
   
   export const login = createAsyncThunk("auth/login", async (values) => {
@@ -79,9 +75,9 @@ const initialState = {
             toast.success(`Hey ${userName} Welcome `,{
                 duration:4000
             })
-            toast.success(`Give location permission so that we can serve you better `,{
-                duration:10000
-            })
+            // toast.success(`Give location permission so that we can serve you better `,{
+            //     duration:10000
+            // })
             // store token
             localStorage.setItem('token', token)
            
@@ -134,6 +130,7 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
             return {token:null, user:null, isAuthenticated: false};
         }
         const {user} = await serviceGet(`auth/loaduser`,{auth: `bearer ${token}`}) // header has token
+       
        if(user){
         setHeader('auth', `bearer ${token}`);
            return {

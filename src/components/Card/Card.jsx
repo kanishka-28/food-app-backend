@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useGeolocated } from "react-geolocated";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -8,46 +7,18 @@ import {
   user,
 } from "../../redux/features/auth/selector/selector";
 import { logout } from "../../redux/features/auth/slice";
+import { allRestaurants } from "../../redux/features/restaurants/selector";
 import { serviceGet } from "../../utlis/api";
 import FoodCards from "./FoodCard";
 
 const AllCards =({ search = false }) => {
-  const ready = useSelector(isReady);
-  const customer = useSelector(user);
-  
-  const dispatch = useDispatch();
+ const restaurants = useSelector(allRestaurants);
   const { searchString } = useParams();
-  const [restaurant, setrestaurant] = useState([]);
-  const [location, setlocation] = useState({});
- 
-  const { coords, isGeolocationEnabled } =
-    useGeolocated({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      userDecisionTimeout: 5000,
-    });
-
-   useEffect(() => {
-    if(!isGeolocationEnabled){
-      toast.error("Please Allow location access");
-    }
-    
-   }, [isGeolocationEnabled])
-   
-
-  const getLocation = ()=>{
-    setlocation({latitude : coords?.latitude,longitude : coords?.longitude})
-  }
-  useEffect(()=>{
-    
-      getLocation();
-  },[coords]);
-
+  const [restaurant, setrestaurant] = useState(restaurants);
+  
   const getRestaurent = async () => {
-    try {
-        const { restaurants } = await serviceGet(`restaurant?latitude=${location?.latitude}&longitude=${location.longitude}&email=${customer?.email}`);
-        if (search ) {
+    
+        if (search) {
           const arr =  restaurants?.filter((e) => e.name.includes(searchString));
           
           setrestaurant(arr);
@@ -56,20 +27,16 @@ const AllCards =({ search = false }) => {
           setrestaurant(restaurants);
         }
       
-    } catch (error) {
-      toast.error(error.response.data.message);
-      if (error.response.status == 401) {
-        dispatch(logout());
-      }
-      console.log(error);
-    }
+   
   };
+  useEffect(() => {
+    setrestaurant(restaurants);
+  }, [restaurants])
+  
 
   useEffect(() => {
-    if (ready && location.latitude && location.longitude) {
       getRestaurent();
-    }
-  }, [ready, location,searchString]);
+  }, [searchString]);
 
   return (
     <>
