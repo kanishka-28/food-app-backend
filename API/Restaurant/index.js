@@ -1,10 +1,12 @@
 import { RestaurantModel } from "../../database/allModels";
+import {UserModel} from "../../database/allModels";
 import express from 'express'
 
 
 //validation
 import { ValidateRestaurantCity, ValidateRestaurantId, ValidateRestaurantSearchString } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus";
+import { getDistanceFromLatLonInKm } from "./helperFunction";
 
 const Router = express.Router();
 
@@ -18,38 +20,41 @@ const Router = express.Router();
 
 
 
-Router.get('/', getUserStatus,async (req, res) => {
+Router.get('/',async (req, res) => {
    try {
-      const {latitude, longitude}= req.query;
+      const {latitude, longitude,email}= req.query;
       // if (req.user.status !== "user"){
       //    res.status(401).json({error:"Not Authorized"});
       // }
+      let user;
+      if(email!==undefined){
+         user = await UserModel.findOne({email});
+      }
       
-      if(req.user){
+      if(user?.city){
          await ValidateRestaurantCity(req.user.address.city);
-         const  city  = req.user.city;
+         const  city  = user.city;
          
-         let restaurants = await RestaurantModel.find({ city });
+         const restaurants = await RestaurantModel.find({ city });
+         if (restaurants.length===0){
+            res.status(404).json({message: "No restaurants found near you",success:false})
+         }
          return res.status(200).json({restaurants,success: true});
       }
+      else{
+         const restaurants = await RestaurantModel.find();
+        
+         const newrestaurants=restaurants.filter(restaurant=>(
+               getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<500// radius of 3 km is too low
+            ));
+            if (newrestaurants.length===0){
+               res.status(404).json({message: "No restaurants found near you",success:false})
+            }
+            return res.json({restaurants: newrestaurants,success: true});
+      }
 
-      //update it later once restaurant side is done
+     
 
-      res.status(404).json({message: "No restaurants found near you",success:false})
-
-      // const  city  = 'itarsi';
-      
-      // if(!latitude || !longitude){
-      //    return res.json({restaurants});
-      // }
-      // const newrestaurants=restaurants.filter(restaurant=>(
-      //    getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<50// radius of 3 km is too low
-      // ));
-      // if (newrestaurants.length===0){
-      //    return res.json({ restaurants });
-         
-      // }
-      // return res.json({ newrestaurants });
 
    }
    catch (error) {
