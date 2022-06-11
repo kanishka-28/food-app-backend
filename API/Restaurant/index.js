@@ -30,11 +30,10 @@ Router.get('/',async (req, res) => {
       if(email!==undefined){
          user = await UserModel.findOne({email});
       }
-      
+      // console.log(user);
       if(user?.city){
-         await ValidateRestaurantCity(req.user.address.city);
-         const  city  = user.city;
-         
+         await ValidateRestaurantCity({city :user?.city});
+         const  city  = user?.city.toLowerCase();
          const restaurants = await RestaurantModel.find({ city });
          if (restaurants.length===0){
             res.status(404).json({message: "No restaurants found near you",success:false})
@@ -165,9 +164,9 @@ Router.post("/login", async (req, res) => {
 //here _id is id of restaurant
 Router.put("/updaterestaurant/:_id",getUserStatus, async (req,res)=>{
    try {
-      if (req.user.status!=="restaurant"){
-         return res.status(401).send({error:"Not Authorized"});
-      }
+      // if (req.user.status!=="restaurant"){
+         // return res.status(401).send({error:"Not Authorized"});
+      // }
       const updatedRestaurant= await RestaurantModel.findByIdAndUpdate(req.params._id,{
          $set: req.body},
          {new:true}

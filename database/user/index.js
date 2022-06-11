@@ -18,10 +18,7 @@ const UserSchema = new mongoose.Schema({
     {
         type: String
     },
-    status: {
-        type: String,
-        required: true
-    },
+   
     profilePic: {
         type: String,
     },

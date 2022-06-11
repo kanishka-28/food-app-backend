@@ -19,7 +19,7 @@ export default (passport)=>{
                 userName: profile.displayName,
                 email:profile.emails[0].value,
                 profilePic: profile.photos[0].value,
-                status: "user"
+
             };
             try{
                 //check whether user exists or not
@@ -27,8 +27,6 @@ export default (passport)=>{
                 const user= await UserModel.findOne({email: newUser.email});
                 if(user){
                     //generating jwt token
-
-                    //console.log(profile);
 
                     const token= user.generateJwtToken();
                     // return user

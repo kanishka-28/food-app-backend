@@ -50,13 +50,16 @@ Router.post("/signup",async(req,res)=>{
       
       const user = await UserModel.findOne({email})
       if(!user){
+        let {city} = req.body.credentials;
+        city = city.toLowerCase();
+        const data = {...req.body.credentials,city};
         //DB
-        const newUser=await UserModel.create(req.body.credentials)
+        const newUser=await UserModel.create(data);
 
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token, status: newUser.status, user: newUser, success:true});
+        return res.status(200).json({token, user: newUser, success:true});
       }
       throw new Error('User Already Exists');
 
@@ -84,7 +87,7 @@ Router.post("/signin",async(req,res)=>{
         //JWT AUth Token
         const token = user.generateJwtToken();
         console.log(user);
-        return res.status(200).json({token,success : true , user: user, status: user.status});
+        return res.status(200).json({token,success : true , user: user});
 
     } catch(error){
         return res.status(500).json({message: error.message , success: false});
