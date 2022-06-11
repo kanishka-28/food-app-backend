@@ -9,6 +9,7 @@ import googleAuthConfig from "./config/google.config";
 
 //API
 import Auth from "./API/Auth";
+import User from "./API/User";
 import Restaurant from './API/Restaurant';
 import Food from "./API/Food";
 import Menu from "./API/Menu";
@@ -42,6 +43,7 @@ routeConfig(passport);
 //localhost:4000/auth/signup
 
 zomato.use("/auth", Auth);
+zomato.use('/user',User);
 zomato.use("/restaurant",Restaurant);
 zomato.use("/food",Food);
 zomato.use("/menu",Menu);
