@@ -25,12 +25,13 @@ import routeConfig from "./config/route.config";
 
 
 const zomato = express();
-zomato.use(express.json());
-zomato.use(express.urlencoded({extended:false}));
+zomato.use(express.json({limit: '50mb'}));
+zomato.use(express.urlencoded({extended: true, limit : '10mb'}));
 zomato.use(cors());
 zomato.use(helmet());
 zomato.use(passport.initialize());
 zomato.use(passport.session());
+
 
 //passport configuration
 
@@ -48,7 +49,6 @@ zomato.use("/restaurant",Restaurant);
 zomato.use("/food",Food);
 zomato.use("/menu",Menu);
 zomato.use('/order',Order);
-
 
 zomato.get("/",(req,res)=> res.json({message: "setup success !!"}));
 const PORT= process.env.PORT || 4000

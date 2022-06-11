@@ -86,7 +86,7 @@ Router.post("/signin",async(req,res)=>{
         user.password = null;
         //JWT AUth Token
         const token = user.generateJwtToken();
-        console.log(user);
+       
         return res.status(200).json({token,success : true , user: user});
 
     } catch(error){
