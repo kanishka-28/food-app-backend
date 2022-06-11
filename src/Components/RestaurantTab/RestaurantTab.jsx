@@ -26,7 +26,7 @@ export default function RestaurantTab() {
     const MobileTab = () => {
 
         return (
-            <div className="md:hidden bg-white border pb-3 flex fixed justify-between bottom-0 z-30 w-full text-gray-500">
+            <div className="md:hidden px-10 bg-white border pb-3 flex fixed justify-between bottom-0 z-30 w-full text-gray-500">
                 {
                     allTypes.map((item) => {
                         return (
@@ -77,7 +77,6 @@ export default function RestaurantTab() {
         <>
             <div>
                 <MobileTab />
-                <MdTab />
             </div>
         </>
     )

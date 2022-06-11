@@ -5,7 +5,6 @@ import {
   Navigate
 } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
-import AddFood from "./pages/AddFood/AddFood";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Home from "./pages/Home/Home";
@@ -21,9 +20,8 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />   
           <Route path="/restaurant" element={<Restaurant />} />   
-          <Route path="/edit" element={<EditRestaurant />} />   
+          <Route path="/filldetails" element={<EditRestaurant />} />   
           <Route path="/food" element={<Navbar />} >
-            <Route path="add" element={<AddFood />} />
             <Route path="orders" element={<AllOrders />} />
           </Route>
           <Route path="/auth" element={<Navbar/>} >
