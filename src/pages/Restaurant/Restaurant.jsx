@@ -13,7 +13,7 @@ const Restaurant = () => {
         </div>
       <div className="w-full   mx-auto lg:px-20">
         <RestaurantGallery setType={setType}/>
-        <div className="sticky top-20 z-10">
+        <div className="sticky top-0 z-10">
           <RestaurantTab setType={setType} type={type}/>
         </div>
         <TabComponent type={type}/>

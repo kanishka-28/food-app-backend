@@ -49,11 +49,11 @@ const Profile = () => {
           </div>
         </div>
         <div className="w-1/5 h-2/5">
-          <label htmlFor="desktop-upload">
+          <label htmlFor="desktop-upload" className="w-full h-full">
             <img
               title="Change Profile"
-              src={profile?.profilePic}
-              className="rounded-none m-auto w-72  lg:rounded-lg shadow-2xl hidden lg:block cursor-pointer hover:brightness-75"
+              src={profile?.profilePic ? profile?.profilePic : 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' }
+              className="rounded-none m-auto w-full h-full  lg:rounded-lg shadow-2xl hidden lg:block cursor-pointer hover:brightness-75"
             />
           </label>
           <input

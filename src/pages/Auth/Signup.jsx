@@ -28,7 +28,7 @@ export default function Signup() {
     }
     else{
       delete data.cnfpass;
-      data.status = "user";
+    
       // console.log(data);
       dispatch(signup(data));
       navigate('/home/delivery');
