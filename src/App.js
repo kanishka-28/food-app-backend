@@ -9,7 +9,6 @@ import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Master from "./pages/Home/Master";
 import Home from "./pages/Home/Home";
-import EditProfile from "./pages/Profile/EditProfile";
 import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
@@ -60,8 +59,11 @@ function App() {
             <Route path="google/:token" element={<GoogleLogin />} />
           </Route>
           <Route path="/restaurant/:id" element={<Restaurant />} />
-          <Route path="/profile/:tabId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+          <Route path="/me" >
+            <Route index element={<Navigate to="/me/orders"/>}/>
+            <Route path=":tabId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          </Route>
+         
           <Route path="*" element={<h1>Error no page found</h1>} />
 
         </Routes>

@@ -32,6 +32,19 @@ const ProfileDisclosure = () => {
         <Menu.Item>
             {({ active }) => (
               <Link
+               to={"/me"}
+                className={
+                  (active ? "bg-gray-100" : "",
+                  " px-4 py-2 text-sm text-gray-700")
+                }
+              >
+                My Profile
+              </Link>
+            )}
+          </Menu.Item>
+        <Menu.Item>
+            {({ active }) => (
+              <Link
                to={"/cart"}
                 className={
                   (active ? "bg-gray-100" : "",
