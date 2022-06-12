@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-// import { useDispatch } from "react-redux";
-// import { login } from "../../redux/features/auth/slice";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/Features/Auth/Slice";
 
 export default function Login() {
   const [showPass, setshowPass] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [data, setdata] = useState({
     email: "",
     password: "",
@@ -18,9 +18,9 @@ export default function Login() {
     
     // dispatch for login
     // dispatch(setLoadingTrue())
-    // await dispatch(login(data))
+    await dispatch(login(data))
     // dispatch(setLoadingFalse())
-    navigate('/home/delivery');
+    navigate('/home');
   };
 
   //   const isAuthenticated = useSelector(authState)

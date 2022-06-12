@@ -5,18 +5,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { Outlet } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { isAuthenticated } from '../../Redux/Features/Auth/Selector/Selector';
 
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   return (
-    <Menu as="div" className="ml-3 relative">
+    <Menu as="div" className="sm:mr-20 relative">
       <div>
         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
           {
             <BiUser className="w-10 h-10 rounded-full bg-red-400 text-white " />
           }
-
         </Menu.Button>
       </div>
       <Transition
@@ -54,6 +55,7 @@ const ProfileDisclosure = () => {
 
 const Navbar = () => {
   // const {open, setOpen, loginOpen, setLoginOpen, loggedIn} = useContext(SignupContext);
+  const auth = useSelector(isAuthenticated);
   const [searchString, setsearchString] = useState("");
   const onchange = (e) => {
     setsearchString(e.target.value);
@@ -89,24 +91,13 @@ const Navbar = () => {
               </div>
             </div>
             {
-              // !loggedIn ?
-              <div className="flex gap-5" >
-
-                {/* <button onClick={()=>(setLoginOpen(!loginOpen))} > */}
-                <Link to="/auth/login"  >
-                  Log In
-
-                </Link>
-                {/* <button onClick={() => (setOpen(!open))}> */}
-                <Link to="/auth/signup" >
-                  Sign Up
-
-                </Link>
-
-
-              </div>
-              // :
-              // <ProfileDisclosure/>
+              !auth ?
+                <div className="flex gap-5">
+                  <Link to="/auth/login">Log In</Link>
+                  <Link to="/auth/signup">Sign Up</Link>
+                </div>
+                :
+                <ProfileDisclosure />
             }
           </div>
           <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden mx-2">

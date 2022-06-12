@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
+import { signup } from "../../Redux/Features/Auth/Slice";
+import { useDispatch } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import { signup } from "../../redux/features/auth/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [data, setdata] = useState({
     userName:"",
     email: "",
@@ -17,32 +19,19 @@ export default function Signup() {
     address : "",
     city : "",
   });
-  
-    
-   
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if(data.password!==data.cnfpass){
-    //   toast.error("Password Not Equal");
-    // }
-    // else{
-    //   delete data.cnfpass;
-    //   data.status = "user";
-    //   // console.log(data);
-    //   dispatch(signup(data));
-    //   navigate('/home/delivery');
-    // }
-    
-    // const form_data = new FormData(event.target);
-    // let values = {};
-    // form_data.forEach(function (value, key) {
-    //     values[key] = value;
-    // });
-    // // dispatch for login
-    // dispatch(setLoadingTrue())
-    // await dispatch(login(values))
-    // dispatch(setLoadingFalse())
+    if(data.password!==data.cnfpass){
+      toast.error("Password Not Equal");
+    }
+    else{
+      delete data.cnfpass;
+      data.status = "user";
+      // console.log(data);
+      dispatch(signup(data));
+      navigate('/home');
+    } 
   };
 
   //   const isAuthenticated = useSelector(authState)
@@ -59,13 +48,12 @@ export default function Signup() {
           <div className="sm:flex sm:items-start ">
             <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">
               <div className="flex  justify-center mb-8">
-                <h3 className="text-2xl leading-6 font-medium text-gray-900 ">
+                <h3 className="text-2xl leading-6 font-medium text-gray-900">
                   Sign Up
                 </h3>
               </div>
               <div className="mt-2 text-center  ">
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
-              
                   <input
                   onClick={()=>setshowPass(false)}
                   required
@@ -155,10 +143,9 @@ export default function Signup() {
                   />
                 <button
                 type="submit"
-             
                   className={`border border-gray-300 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
                 >
-                  Sign Up{" "}
+                  Sign Up
                 </button>
                 <p className="m-4 font-dark text-xl">Or</p>
                 {/* <LoginGoogle/> */}
