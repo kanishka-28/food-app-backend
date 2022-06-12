@@ -138,27 +138,30 @@ Router.post("/login", async (req, res) => {
    */
   // ye bunny ka kaam
   //middle-ware will give req.user
-  Router.post("/addrest",async(req,res)=>{
+  Router.post("/addrest",getUserStatus,async(req,res)=>{
      try{
-        const data =req.body;
+        let data =req.body;
+         data.city = data.city.toLowerCase();
         console.log(req.body);
-        const check= await RestaurantModel.find({name:data.name});
-        console.log(check);
-        if(check.length>0){
-           check.map(rest =>{
-              if(rest.city===data.city){
-                  return res.status(400).json({error:"restaurant already exists"});
-              }
-           })
+        if(data.user == req.user._id.toString()){
+         const check= await RestaurantModel.find({user : req.body.user, name: req.body.name,city: req.body.user});
+         console.log(check);
+         if(check){
+            return res.status(409).json({message: "restaurant already exists", success: false})
+         }
+         const restaurant= await RestaurantModel.create(data);        
+         return res.json({restaurant, success: true});
         }
-        const restaurant= await RestaurantModel.create(data);        
-        return res.json({restaurant});
+      
       }   
    catch (error) {
       return res.status(500).json({ error: error.message });
    }
 
 })
+
+//get an user's restaurants
+
 
 
 //here _id is id of restaurant

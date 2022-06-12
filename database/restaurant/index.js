@@ -14,9 +14,10 @@ const RestaurantSchema = new mongoose.Schema({
     limit:{type:Number},
     amenities: [{ type: String }],
     menuImages: { type: String, },
-    menu: {
+    user:{
         type: mongoose.Types.ObjectId,
-        ref: "Menus"
+        ref: "Users",
+        required: true
     },
     photos: [{ type: String }]
 }, {
