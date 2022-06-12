@@ -51,10 +51,25 @@ Router.get('/',async (req, res) => {
             }
             return res.json({restaurants: newrestaurants,success: true});
       }
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message, success:false });
+   }
+})
+/* 
+    Route    restaurants/user/
+    Des      Get all restaurants details of an user
+    Params    none
+    Access    Public
+    Method   Get
+ */
 
-     
 
 
+Router.get('/user',getUserStatus,async (req, res) => {
+   try {
+     const res = RestaurantModel.find({user: req.user._id.toString() })
+     return res.status(200).json({restaurants: res, success: true});
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success:false });
@@ -144,18 +159,21 @@ Router.post("/login", async (req, res) => {
          data.city = data.city.toLowerCase();
         console.log(req.body);
         if(data.user == req.user._id.toString()){
-         const check= await RestaurantModel.find({user : req.body.user, name: req.body.name,city: req.body.user});
+         const check= await RestaurantModel.find({user : req.user._id.toString(), name: req.body.name,city: req.body.city});
          console.log(check);
-         if(check){
+         if(check.length!==0){
             return res.status(409).json({message: "restaurant already exists", success: false})
          }
          const restaurant= await RestaurantModel.create(data);        
-         return res.json({restaurant, success: true});
+         return res.status(200).json({restaurant, success: true});
+        }
+        else{
+         throw new Error("Not authorized");
         }
       
       }   
    catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: error.message, success:false });
    }
 
 })
