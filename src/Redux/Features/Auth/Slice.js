@@ -19,7 +19,7 @@ const initialState = {
             console.log(userName);
             toast.success(`Hey ${userName} Welcome back`)
             // store token
-            localStorage.setItem('token', token);           
+            localStorage.setItem('token', token);
             setHeader('auth', `bearer ${token}`);
             console.log(user)
          
