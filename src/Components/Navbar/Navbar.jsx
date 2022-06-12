@@ -5,11 +5,14 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { Outlet } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isAuthenticated } from '../../Redux/Features/Auth/Selector/Selector';
+import { logout } from '../../Redux/Features/Auth/Slice';
 
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
+  const dispatch=useDispatch();
+
   return (
     <Menu as="div" className="sm:mr-20 relative">
       <div>
@@ -34,14 +37,9 @@ const ProfileDisclosure = () => {
           <Menu.Item>
             {({ active }) => (
               <button
-                // onClick={() => {
-                //     localStorage.removeItem("token")
-                //     setloggedIn(false);
-                //     setuser({})
-                //     localStorage.removeItem("user")
-                //     history.push("/");
-                //     window.location.reload();
-                // }}
+                onClick={() => {
+                  dispatch(logout())
+                }}
                 className={(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                 Sign out
               </button>
@@ -84,7 +82,7 @@ const Navbar = () => {
                   <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="px-2 rounded w-full  text-md outline-none border-0" />
                 </div>
 
-                <button onClick={onclick} className=" w-28 h-10 text-center mx-1 rounded-md border-gray-400 border bg-red-500 text-white ">
+                <button onClick={onclick} className=" w-28 h-10 text-center mx-1 rounded-md my-1 border-gray-400 border bg-megenta-400 hover:bg-megenta-500 text-white ">
                   <p> Search</p>
                 </button>
 
@@ -106,7 +104,7 @@ const Navbar = () => {
               <input type="text" placeholder="Search for food " value={searchString} onChange={onchange} className="px-2 rounded w-full outline-none border-0 text-md" />
             </div>
             <Link to={`/home/search/${searchString}`}>
-              <button className=" w-28 h-10 text-center m-1 rounded-lg border-gray-400 border bg-red-500 text-white "><p> Search</p></button>
+              <button className=" w-28 h-10 text-center m-1 my-3 rounded-md border-gray-400 border bg-megenta-400 hover:bg-megenta-500 text-white "><p> Search</p></button>
             </Link>
           </div>
         </>

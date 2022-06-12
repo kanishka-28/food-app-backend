@@ -19,9 +19,7 @@ const initialState = {
             console.log(userName);
             toast.success(`Hey ${userName} Welcome back`)
             // store token
-            localStorage.setItem('token', token);
-            alert('Success')
-           
+            localStorage.setItem('token', token);           
             setHeader('auth', `bearer ${token}`);
             console.log(user)
          
@@ -31,14 +29,13 @@ const initialState = {
                 isAuthenticated:true
             }
         }
-       
         return {
             token:null,
             user:null,
             isAuthenticated: false
         }
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       if(error.message==="Network Error"){
         toast.error(error.message, {
             duration: 4000

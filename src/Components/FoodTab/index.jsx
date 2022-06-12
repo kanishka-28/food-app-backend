@@ -39,11 +39,9 @@ const MdTab = ({ setType, type }) => {
             {
                 allTypes.map((item) => {
                     return (
-                        <>
-                            <div key={item.id} className={type === item.id ? " pt-4 pb-2 px-6  cursor-pointer  text-xl text-zomato-400 border-b-2 border-zomato-400 " : " cursor-pointer pt-4 px-6 pb-2  text-lg"} >
-                                <h5 className={item.id=='reviews'?'hidden sm:block' : 'block'} onClick={() => setType(item.id)}>{item.name}</h5>
-                            </div>
-                        </>
+                        <div key={item.id} className={type === item.id ? " pt-4 pb-2 px-6  cursor-pointer  text-xl text-zomato-400 border-b-2 border-zomato-400 " : " cursor-pointer pt-4 px-6 pb-2  text-lg"} >
+                            <h5 className={item.id == 'reviews' ? 'hidden sm:block' : 'block'} onClick={() => setType(item.id)}>{item.name}</h5>
+                        </div>
                     )
 
                 }

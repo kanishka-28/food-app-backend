@@ -116,7 +116,7 @@ const Order = () => {
                                         <button onClick={() => {
                                             setOpen(true)
                                             settitle('Edit')
-                                        }} className="mb-4 w-28 bg-[#ffda7d] hover:bg-red-700 font-bold text-sm rounded py-1 px-4">
+                                        }} className="mb-4 w-28 bg-[#ffda7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 font-bold text-sm rounded py-1 px-4">
                                             Edit
                                         </button>
                                     </div>

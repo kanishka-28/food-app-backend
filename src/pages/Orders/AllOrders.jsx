@@ -116,12 +116,12 @@ const AllOrders = () => {
                                     <div className='flex gap-8'>
                                         <button onClick={() => {
 
-                                        }} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded" >
+                                        }} className="mt-4 bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-4 rounded hover:scale-110 ease-in duration-200" >
                                             Accept Order
                                         </button>
                                         <button onClick={() => {
 
-                                        }} className="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded" >
+                                        }} className="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-1 px-4 rounded hover:scale-110 ease-in duration-200" >
                                             Delete Order
                                         </button>
                                     </div>

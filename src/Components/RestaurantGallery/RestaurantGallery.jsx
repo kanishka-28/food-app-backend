@@ -51,7 +51,7 @@ const RestaurantGallery = () => {
                 </div>
                 <div className="m-4 md:flex justify-between">
                     <div className='flex items-center gap-5 flex-wrap'><h1>{requiredRestaurant?.name}</h1>
-                        <Link to={'/filldetails'} className='flex items-center flex-wrap gap-1 font-semibold bg-[#ffcd7d] p-2 px-6 rounded justify-center'>
+                        <Link to={'/filldetails'} className='flex items-center flex-wrap gap-1 font-semibold bg-[#ffcd7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 p-2 px-6 rounded justify-center'>
                             <FiEdit /><p>Edit</p>
                         </Link>
                     </div>
@@ -96,8 +96,6 @@ const RestaurantGallery = () => {
                     <button className='cursor-pointer px-3 h-10 text-center rounded  py-1 bg-white flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200 bg-gradient-to-r from-[#ff7f7f] to-[#fc5184]text-white'><p>Go To My Orders</p><MdArrowRightAlt size={'2rem'} /></button>
                     </Link>
                 </div>
-                <h1 className="m-2 font-light text-xl font-semibold">Pizza King Photos</h1>
-                <Photo details={requiredRestaurant} />
             </div>
         </>
     )
