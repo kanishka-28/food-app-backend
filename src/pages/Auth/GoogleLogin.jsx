@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { loadUser } from '../../redux/features/auth/slice';
+import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
 
 const GoogleLogin = () => {
   const {token} = useParams();
@@ -11,7 +12,9 @@ const GoogleLogin = () => {
   useEffect(() => {
    if(token){
      localStorage.setItem('token', token);
-      dispatch(loadUser());
+     dispatch(setloadingTrue());
+     dispatch(loadUser());
+     dispatch(setloadingFalse());
       navigate('/');
    }
    else{

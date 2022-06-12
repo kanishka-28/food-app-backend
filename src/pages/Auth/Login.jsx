@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/auth/slice";
+import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 
 export default function Login() {
   const [showPass, setshowPass] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     email: "",
@@ -15,27 +15,17 @@ export default function Login() {
   
 
   const googleLogin = async()=>{
-    
     window.location.replace('http://localhost:4000/auth/google')
-   
-   
-  }
+   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // dispatch for login
-    // dispatch(setLoadingTrue())
+    dispatch(setloadingTrue());
     await dispatch(login(data));
-    // dispatch(setLoadingFalse())
-    // navigate('/home/delivery');
+    dispatch(setloadingFalse());
   };
 
-  //   const isAuthenticated = useSelector(authState)
-
-  //   useEffect(()=>{
-  //     if (isAuthenticated) navigate('/');
-  //   },[isAuthenticated, navigate])
+ 
 
   return (
     <div className="flex  justify-center items-center w-full ">

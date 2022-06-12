@@ -2,28 +2,31 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/features/auth/slice';
+import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
 import { servicePut } from '../../utlis/api';
 
 const EditUser = ({profile,setedit}) => {
     const [newProfile, setnewProfile] = useState(profile);
     const dispatch = useDispatch();
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = {
-            _userId: newProfile._id,
-            userData: newProfile
-        }
-        try {
-            const {user} =  await servicePut('user/update',data);
-            dispatch(updateUser(user));
-            toast.success("Profile updated successfully",{
-                icon: '🍕'
-            })
-        } catch (error) {
-            toast.error("Sorry, try again later");
-        }
-        finally{
-          setedit(false);
+      e.preventDefault();
+      dispatch(setloadingTrue());
+      const data = {
+        _userId: newProfile._id,
+        userData: newProfile
+      }
+      try {
+        const {user} =  await servicePut('user/update',data);
+        dispatch(updateUser(user));
+        toast.success("Profile updated successfully",{
+          icon: '🍕'
+        })
+      } catch (error) {
+        toast.error("Sorry, try again later");
+      }
+      finally{
+        dispatch(setloadingFalse());
+        setedit(false);
         }
 
       };
@@ -45,6 +48,7 @@ const EditUser = ({profile,setedit}) => {
                   <div className="pt-12 pb-8">
                     <div className="flex mt-5 justify-between w-full">
                       <button
+                      type='button'
                         onClick={() => setedit(false)}
                         className="bg-gray-800 w-28 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-full"
                       >

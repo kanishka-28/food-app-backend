@@ -19,49 +19,40 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GoogleLogin from "./pages/Auth/GoogleLogin";
 import { loadUser, logout } from "./redux/features/auth/slice";
-import { GetLocation } from "./utlis/location";
-import {location} from "./redux/features/location/selector";
-import { user } from "./redux/features/auth/selector/selector";
-import { serviceGet } from "./utlis/api";
-import { storeRestaurant } from "./redux/features/restaurants/slice";
+import { GetLocation, GetRestaurants } from "./utlis/location";
+import Loader from "./components/Loader/Loader";
+import { isLoading } from "./redux/features/Loader/selector";
 function App() {
   const dispatch = useDispatch();
+  const loading = useSelector(isLoading);
   //to get location
   GetLocation();
+  GetRestaurants();
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
 
   useEffect(() => {
     loadUserAbout();
-  }, [])
-  const loc = useSelector(location);
-  const u  = useSelector(user);
-  const getRest = async ()=>{
-    try {
-        const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
-     
-        dispatch(storeRestaurant(restaurants));
 
-      
-    } catch (error) {
-      console.log({error});
-      toast.error(error?.response?.data.message);
-      if (error.response.status == 401) {
-        dispatch(logout());
-      }
-    }
-}
-  useEffect(() => {
-    if(loc.ready){
-      getRest();
-    }
-  }, [loc])
+  }, [])
+
 
   return (
     <>
       <Toaster position="top-center" />
-
+      {loading && (
+      <div className="w-full absolute h-full backdrop-blur-sm  backdrop-brightness-75 backdrop-opacity-75 flex items-center justify-center z-50" style={{
+        width: "100vw",
+        height: "100vh",
+        position: "fixed",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: "50",
+      }}>
+        <Loader />
+      </div>
+      )}
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/home/delivery" />} />
@@ -81,7 +72,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="google/:token" element={<GoogleLogin />} />
           </Route>
-         
+
 
           <Route path="*" element={<h1>Error no page found</h1>} />
 

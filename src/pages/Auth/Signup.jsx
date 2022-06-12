@@ -4,6 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/features/auth/slice";
+import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
@@ -28,9 +29,10 @@ export default function Signup() {
     }
     else{
       delete data.cnfpass;
-    
+      dispatch(setloadingTrue());
       // console.log(data);
       dispatch(signup(data));
+      dispatch(setloadingFalse());
       navigate('/home/delivery');
     }
     

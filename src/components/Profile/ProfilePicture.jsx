@@ -5,11 +5,13 @@ import { servicePut } from "../../utlis/api";
 import { updateUser } from "../../redux/features/auth/slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 
 const ProfilePicture = ({ profile }) => {
   const dispatch = useDispatch();
 
   const handleImageUpload = async (e) => {
+    dispatch(setloadingTrue());
     const file = e.target.files[0];
     console.log(file);
     var reader = new FileReader();
@@ -31,6 +33,9 @@ const ProfilePicture = ({ profile }) => {
         });
       } catch (error) {
         toast.error("Sorry, try again later");
+      }
+      finally{
+        dispatch(setloadingFalse());
       }
     };
     reader.readAsDataURL(file);
