@@ -1,13 +1,11 @@
-import React, { useContext } from 'react'
-// import { SignupContext } from '../../../context/signup';
+import React from 'react'
 
-export const Photo = ({details}) => {
-  console.log(details);
-  const Images = details.photos;
+
+export const Photo = ({restaurant}) => {
     return (
         <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
             {
-              Images?.map((image) => (
+              restaurant?.photos?.map((image) => (
                 <div className='w-1/3 md:w-1/5 m-1 md:m-4 rounded shadow-md border border-gray-300'>
                   <img
                     src={image}
@@ -24,13 +22,10 @@ export const Photo = ({details}) => {
 
 const Photos = () => {
   
-  // const {restaurant, setrestaurant} = useContext(SignupContext);
-  const param= localStorage.getItem("id");
-  // const requiredRestaurant= restaurant.filter((res)=>(res._id===param))[0];
-  // console.log(requiredRestaurant);
+  
     return (
         <div className="lg:px-32 hidden md:block">
-            <Photo details={'requiredRestaurant'}/>
+            <Photo restaurant={'requiredRestaurant'}/>
         </div>
     )
 }

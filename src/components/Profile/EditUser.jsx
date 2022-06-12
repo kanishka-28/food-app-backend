@@ -9,7 +9,6 @@ const EditUser = ({profile,setedit}) => {
     const dispatch = useDispatch();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setedit(false);
         const data = {
             _userId: newProfile._id,
             userData: newProfile
@@ -23,6 +22,10 @@ const EditUser = ({profile,setedit}) => {
         } catch (error) {
             toast.error("Sorry, try again later");
         }
+        finally{
+          setedit(false);
+        }
+
       };
   return (
     <>
@@ -45,10 +48,10 @@ const EditUser = ({profile,setedit}) => {
                         onClick={() => setedit(false)}
                         className="bg-gray-800 w-28 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-full"
                       >
-                        cancel
+                        Cancel
                       </button>
                       <button type="submit" className="bg-megenta-400 w-28 hover:bg-megenta-600 text-white font-bold py-2 px-4 rounded-full">
-                        submit
+                        Submit
                       </button>
                     </div>
                   </div>

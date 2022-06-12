@@ -11,28 +11,7 @@ import { storeRestaurant } from "../../redux/features/restaurants/slice";
 import { serviceGet } from "../../utlis/api";
 
 const Home = () => {
-  const loc = useSelector(location);
-  const u  = useSelector(user);
-  const dispatch = useDispatch();
-  const getRest = async ()=>{
-      try {
-          const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
-       
-          dispatch(storeRestaurant(restaurants));
-        
-      } catch (error) {
-        console.log({error});
-        toast.error(error?.response?.data.message);
-        if (error.response.status == 401) {
-          dispatch(logout());
-        }
-      }
-  }
-  useEffect(() => {
-    if(loc.ready){
-      getRest();
-    }
-  }, [loc])
+  
   
   return (
     <>

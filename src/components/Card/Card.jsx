@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  isReady,
-  user,
-} from "../../redux/features/auth/selector/selector";
-import { logout } from "../../redux/features/auth/slice";
+
 import { allRestaurants } from "../../redux/features/restaurants/selector";
-import { serviceGet } from "../../utlis/api";
 import FoodCards from "./FoodCard";
 
 const AllCards =({ search = false }) => {

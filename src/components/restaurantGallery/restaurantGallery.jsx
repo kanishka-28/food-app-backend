@@ -1,26 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, {useState } from 'react'
 import { RiStarLine, RiShareForwardLine, RiBookmark3Line, RiDirectionLine } from "react-icons/ri"
 import { HiOutlineInformationCircle } from "react-icons/hi"
 import { AiTwotoneStar } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { Photo } from '../restaurantComponent/photos';
-// import { SignupContext } from '../../context/signup';
-import { useParams } from 'react-router-dom';
 import { MobOrder } from '../restaurantComponent/order';
 
 
-const RestaurantGallery = ({ setType }) => {
-    // const { restaurant, setrestaurant } = useContext(SignupContext);
-    const [restaurant, setrestaurant] = useState([]);
-
-    console.log(restaurant);
-    // const requiredRestaurant = restaurant.filter((res) => (res._id === param))[0];
-    const requiredRestaurant = {
-        name: 'Apna Rest',
-        address: 'Street 102',
-        restauarntTimings: '9am-9pm'
-    }
-    console.log(requiredRestaurant);
+const RestaurantGallery = ({ setType, requiredRestaurant }) => {
+   
+    
     return (
         <>
             <div className="w-full ">
@@ -66,9 +55,9 @@ const RestaurantGallery = ({ setType }) => {
                 <div className='block md:hidden'>
                     <MobOrder setType={setType} />
                 </div>
-                <div className="m-4 font-light">
+                <div className="m-4 font-light word-wrap">
                     <h3>{requiredRestaurant?.address}</h3>
-                    <h2 className="text-gray-500">{requiredRestaurant?.city}</h2>
+                    <h2 className="text-lg mt-2 text-gray-500">{requiredRestaurant?.city}</h2>
                     <div className="text-gray-600 my-0.5 flex gap-1 items-center">
                         <p>{requiredRestaurant?.restauarntTimings} (Today)</p>
                         <HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" />
@@ -80,8 +69,8 @@ const RestaurantGallery = ({ setType }) => {
                     <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 hidden md:flex"><RiBookmark3Line /><p className="text-gray-500"> Bookmark</p></div>
                     <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiShareForwardLine className="w-5 h-5" /> <p className="text-gray-500">Share</p></div>
                 </div>
-                <h1 className="m-2 font-light text-xl font-semibold">Pizza King Photos</h1>
-                <Photo details={requiredRestaurant} />
+                {/* it may not render here */}
+                <Photo restaurant={requiredRestaurant} />
             </div>
         </>
     )

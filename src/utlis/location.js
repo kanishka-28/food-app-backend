@@ -13,6 +13,7 @@ export const GetLocation = async () => {
        await     navigator.geolocation.getCurrentPosition(showPos,showErr);
       
         function showPos(position) {
+           
             toast.success("We have your location",{
                 icon:'🍲'
             })
@@ -21,7 +22,7 @@ export const GetLocation = async () => {
         function showErr(err){
             switch(err.code) {
                 case err.PERMISSION_DENIED:
-                  toast.error("Allow Location Permission Please")
+                  toast.error("Allow Location Permission, Please")
                   break;
                 case err.POSITION_UNAVAILABLE:
                     toast.error("Location information is unavailable.")
@@ -41,3 +42,5 @@ export const GetLocation = async () => {
     }
 
 }
+
+
