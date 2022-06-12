@@ -18,9 +18,9 @@ const UserSchema = new mongoose.Schema({
     {
         type: String
     },
-    status: {
+   
+    profilePic: {
         type: String,
-        required: true
     },
     address: 
     { 
@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     });
 
 UserSchema.methods.generateJwtToken = function () {
-    return jwt.sign({ user: this._id.toString() }, "ZomatoApp", {expiresIn: "1d"});
+    return jwt.sign({ user: this._id.toString() }, "ZomatoApp", {expiresIn: "8h"});
 };
 
 //google login
@@ -66,7 +66,9 @@ UserSchema.statics.findUserName = async ({ userName }) => {
 UserSchema.statics.findByEmailAndPassword =
     async ({ email, password}) => {
         //check whether user exists
+        // const user = await UserModel.findOne({ email }).select("email userName _id address city");
         const user = await UserModel.findOne({ email });
+        
         if (!user) {
             throw new Error("User does not exist");
         }

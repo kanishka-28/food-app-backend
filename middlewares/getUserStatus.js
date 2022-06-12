@@ -12,13 +12,18 @@ const getUserStatus= async (req,res,next)=>{
     }
         const data = verify(token, "ZomatoApp");
         
-        const result = await UserModel.findById(data.user).select("-password")
         
+        const result = await UserModel.findById(data.user).select("-password");
+        
+        if(!result){
+            throw new Error("User not found");
+        }
+
         req.user= result
         next();
     }
     catch(error){
-        res.status(401).send({error: "please login again",message:error.message})
+        res.status(401).send({message: "please login again", error:error.message})
     }
 }
 

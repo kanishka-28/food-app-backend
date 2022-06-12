@@ -70,29 +70,29 @@ Router.get("/r/:category", async (req, res) => {
 Router.post("/addfood/:id", getUserStatus, async (req, res) => {
    try {
      
-      // await ValidateRestaurantId(id);
+      await ValidateRestaurantId(id);
 
      
-      if (req.user.status === "restaurant" ) {
+      // if (req.user.status === "restaurant" ) {
 
-         const restaurant = req.params.id
-         console.log(restaurant);
-         const {name, descript, isVeg, isContainEgg, category, price} = req.body
-         const food = await FoodModel.create({
-            name: name,
-            descript: descript,
-            isVeg: isVeg,
-            isContainEgg: isContainEgg,
-            category: category,
-            price: price,
-            restaurant : restaurant
-         })
+      //    const restaurant = req.params.id
+      //    console.log(restaurant);
+      //    const {name, descript, isVeg, isContainEgg, category, price} = req.body
+      //    const food = await FoodModel.create({
+      //       name: name,
+      //       descript: descript,
+      //       isVeg: isVeg,
+      //       isContainEgg: isContainEgg,
+      //       category: category,
+      //       price: price,
+      //       restaurant : restaurant
+      //    })
          
-         return res.json({ food });
-      }
-      else {
-         return res.status(401).send("user cant add restaurant food")
-      }
+      //    return res.json({ food });
+      // }
+      // else {
+      //    return res.status(401).send("user cant add restaurant food")
+      // }
 
    }
    catch (error) {
@@ -110,26 +110,26 @@ Router.post("/addfood/:id", getUserStatus, async (req, res) => {
 
 Router.put("/editfood/:id", getUserStatus, async (req, res) => {
    try {
-      await ValidateRestaurantId(req.params.id);
-      if (req.user.status === "restaurant" && req.user.id===req.params.id){
-         const restaurant = req.params.id
-         const {name, descript, isContainEgg, category, photos, price} = req.body
-         const newFood = {}
-         if (name) { newFood.name = name };
-         if (descript) { newFood.descript = descript };
-         if (isContainEgg) { newFood.isContainEgg = isContainEgg };
-         if (category) { newFood.category = category };
-         if (photos) { newFood.photos = photos };
-         if (price) { newFood.price = price };
+   //    await ValidateRestaurantId(req.params.id);
+   //    if (req.user.status === "restaurant" && req.user.id===req.params.id){
+   //       const restaurant = req.params.id
+   //       const {name, descript, isContainEgg, category, photos, price} = req.body
+   //       const newFood = {}
+   //       if (name) { newFood.name = name };
+   //       if (descript) { newFood.descript = descript };
+   //       if (isContainEgg) { newFood.isContainEgg = isContainEgg };
+   //       if (category) { newFood.category = category };
+   //       if (photos) { newFood.photos = photos };
+   //       if (price) { newFood.price = price };
          
-         food = await FoodModel.findByIdAndUpdate(req.params.id, {
-            $set: newFood
-         }, {new: true})
-         return res.json({ food });
-      }
-      else {
-         return res.status(401).send("user cant add restaurant food")
-      }
+   //       food = await FoodModel.findByIdAndUpdate(req.params.id, {
+   //          $set: newFood
+   //       }, {new: true})
+   //       return res.json({ food });
+   //    }
+   //    else {
+   //       return res.status(401).send("user cant add restaurant food")
+   //    }
       
    }
    catch (error) {
@@ -148,15 +148,15 @@ Router.put("/editfood/:id", getUserStatus, async (req, res) => {
 Router.post("/deletefood/:id", getUserStatus, async (req, res) => {
    try {
       await ValidateRestaurantId(req.params.id);
-      if (req.user.status === "restaurant" && req.user.id===req.params.id) {
+      // if (req.user.status === "restaurant" && req.user.id===req.params.id) {
          
-         const food = await FoodModel.findByIdAndDelete(req.params.id)
+      //    const food = await FoodModel.findByIdAndDelete(req.params.id)
 
-         return res.json({ food });
-      }
-      else {
-         return res.status(401).send("user cant add restaurant food")
-      }
+      //    return res.json({ food });
+      // }
+      // else {
+      //    return res.status(401).send("user cant add restaurant food")
+      // }
 
    }
    catch (error) {

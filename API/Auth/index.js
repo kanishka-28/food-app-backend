@@ -47,16 +47,19 @@ Router.post("/signup",async(req,res)=>{
     try{
       await ValidateSignup(req.body.credentials);
       const { email} = req.body.credentials
-      console.log(email);
+      
       const user = await UserModel.findOne({email})
       if(!user){
+        let {city} = req.body.credentials;
+        city = city.toLowerCase();
+        const data = {...req.body.credentials,city};
         //DB
-        const newUser=await UserModel.create(req.body.credentials)
+        const newUser=await UserModel.create(data);
 
         //JWT AUth Token
         const token = newUser.generateJwtToken();
 
-        return res.status(200).json({token, status: newUser.status, user: newUser, success:true});
+        return res.status(200).json({token, user: newUser, success:true});
       }
       throw new Error('User Already Exists');
 
@@ -79,39 +82,19 @@ Router.post("/signin",async(req,res)=>{
       const {userName, password , email} = req.body.credentials
         await ValidateSignin(req.body.credentials);
       
-        const user = await UserModel.findByEmailAndPassword({email, password});
-        
+        let user = await UserModel.findByEmailAndPassword({email, password});
+        user.password = null;
         //JWT AUth Token
         const token = user.generateJwtToken();
-        console.log(user);
-        return res.status(200).json({token,success : true , user: user, status: user.status});
+       
+        return res.status(200).json({token,success : true , user: user});
 
     } catch(error){
         return res.status(500).json({message: error.message , success: false});
     }
 })
 
-Router.post("/googlesignin",async(req,res)=>{
-    try{
-      const {userName, password , email} = req.body.credentials;
-      console.log(req.body.credentials);
-        // const user = await UserModel.findOne({email})
-        // if(!user){
 
-        //   const newUser=await UserModel.create(req.body.credentials)
-        //   const token = newUser.generateJwtToken();
-        //   return res.status(200).json({token, status: newUser.status, details: newUser});
-        // }
-        // //JWT AUth Token
-        // const token = user.generateJwtToken();
-
-        // return res.status(200).json({token, status:"Success", user: user.status, details: user});
-        res.json({success: "true" });
-
-    } catch(error){
-        return res.status(500).json({error: error.message});
-    }
-})
 /* 
 Route     /google
 descrip   Google signin/signup 
@@ -139,8 +122,15 @@ method    GET
 Router.get("/google/callback",passport.authenticate("google",{
   failureRedirect:"/"
 } ),(req,res)=>{
-  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
-   res.json({token: req.session.passport.user.token});
+  try {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
+    const token = req.session.passport.user.token;
+    res.redirect(`http://localhost:3000/auth/google/${token}`);
+  //  res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
+  } catch (error) {
+    return res.status(500).json({message: error.message , success: false});
+  }
+  
 });
 
 export default Router;
