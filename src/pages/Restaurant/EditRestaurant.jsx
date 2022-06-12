@@ -3,6 +3,8 @@ import Navbar from "../../Components/Navbar/Navbar";
 import noFileChosen from "../../Assets/noFileChosen.svg"
 import { useSelector } from "react-redux";
 import { getUser } from "../../Redux/Features/Auth/Selector/Selector";
+import { servicePost } from "../../Utils/Api/Api";
+import toast from "react-hot-toast";
 /*
   This example requires Tailwind CSS v2.0+ 
   
@@ -30,6 +32,7 @@ export default function EditRestaurant() {
     longitude: '',
   })
   const [restaurantDetails, setrestaurantDetails] = useState({
+    user: user._id,
     name: '',
     timing: '',
     address: '',
@@ -59,10 +62,16 @@ export default function EditRestaurant() {
     };
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    console.log('');
-    console.log(restaurantDetails);
+    try {
+      const res = await servicePost('restaurant/addrest', restaurantDetails)
+      toast.success(`Restaurant has been added successfully`)
+      // store token
+      console.log(res)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -149,7 +158,7 @@ export default function EditRestaurant() {
                         className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                         value={mapLocation.longitude}
                         onChange={(e) => {
-                          setmapLocation({ ...mapLocation, longitude: e.target.value})
+                          setmapLocation({ ...mapLocation, longitude: e.target.value })
                           setrestaurantDetails({ ...restaurantDetails, mapLocation: mapLocation })
                         }}
                       />
@@ -167,7 +176,6 @@ export default function EditRestaurant() {
                       rows={3}
                       className="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded"
                       placeholder="Address"
-                      defaultValue={''}
                       value={restaurantDetails.address}
                       onChange={(e) => setrestaurantDetails({ ...restaurantDetails, address: e.target.value })}
                     />
