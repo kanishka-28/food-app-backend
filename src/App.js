@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,10 +15,22 @@ import Home from "./pages/Home/Home";
 import AllOrders from "./pages/Orders/AllOrders";
 import EditRestaurant from "./pages/Restaurant/EditRestaurant";
 import Restaurant from "./pages/Restaurant/Restaurant";
+import { loadUser } from "./Redux/Features/Auth/Slice";
 
 function App() {
+  const dispatch = useDispatch();
+  const loadUserAbout = async () => {
+    await dispatch(loadUser());
+  };
+
+  useEffect(() => {
+   
+    loadUserAbout();
+
+  }, [])
   return (
     <>
+    <div><Toaster/></div>
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />

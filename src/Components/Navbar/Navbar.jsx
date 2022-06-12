@@ -5,10 +5,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { Outlet } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isAuthenticated } from '../../Redux/Features/Auth/Selector/Selector';
+import { logout } from '../../Redux/Features/Auth/Slice';
 
 const ProfileDisclosure = () => {
+  const dispatch = useDispatch();
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   return (
     <Menu as="div" className="sm:mr-20 relative">
@@ -34,14 +36,10 @@ const ProfileDisclosure = () => {
           <Menu.Item>
             {({ active }) => (
               <button
-                // onClick={() => {
-                //     localStorage.removeItem("token")
-                //     setloggedIn(false);
-                //     setuser({})
-                //     localStorage.removeItem("user")
-                //     history.push("/");
-                //     window.location.reload();
-                // }}
+              onClick={() => {
+                dispatch(logout());
+
+            }}
                 className={(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                 Sign out
               </button>
