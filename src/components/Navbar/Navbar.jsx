@@ -46,8 +46,7 @@ const ProfileDisclosure = () => {
             {({ active }) => (
               <button
                 onClick={() => {
-                    dispatch(logout());
-
+                  dispatch(logout());
                 }}
                 className={
                   (active ? "bg-gray-100" : "",

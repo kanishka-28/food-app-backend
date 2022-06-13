@@ -15,12 +15,8 @@ export default function Login() {
   
 
   const googleLogin = async()=>{
-    console.log('google');
-    
+    console.log('google');  
     //  await dispatch(googleLogin());
-      
-    
-   
   }
 
   const handleSubmit = async (event) => {

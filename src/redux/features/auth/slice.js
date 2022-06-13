@@ -15,7 +15,6 @@ const initialState = {
         const res = await servicePost('auth/signin', { credentials: {...values }})
         const {  user,token , success } = res
         if(success){
-
             const { userName = '' } = user
             toast.success(`Hey ${userName} Welcome back`,{
                 duration:4000
@@ -219,9 +218,9 @@ const authSlice = createSlice({
             localStorage.removeItem('token');
             // delete axios.defaults.headers.common['auth'];
             deleteHeader('auth');    //add later
-            state.token = null
-            state.user = null
-            state.isAuthenticated = false
+            state.token = null;
+            state.user = null;
+            state.isAuthenticated = false;
         }
     },
     extraReducers: (builder) => {
