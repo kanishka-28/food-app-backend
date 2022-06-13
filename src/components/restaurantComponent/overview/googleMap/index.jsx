@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { MdLocationOn } from 'react-icons/md';
 
-const AnyReactComponent = ({ text }) => <MdLocationOn className="text-megenta-400 text-2xl"/>;
+const AnyReactComponent = ({ text }) => <MdLocationOn className="text-megenta-400 text-4xl"/>;
 
 const SimpleMap = ({location})=>{
   const defaultProps = {
