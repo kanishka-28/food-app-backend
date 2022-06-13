@@ -22,6 +22,7 @@ import { loadUser, logout } from "./redux/features/auth/slice";
 import { GetLocation, GetRestaurants, useLocation, useRestaurants } from "./utlis/location";
 import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
+import ScrollToTop from "./utlis/scrollToTop";
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
@@ -46,6 +47,7 @@ function App() {
       <Toaster position="top-center" />
       {loading && (<Loader />)}
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Navigate to="/home/delivery" />} />
           <Route path="/home" element={<Home />} >

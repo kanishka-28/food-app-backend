@@ -5,6 +5,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { Photo } from '../restaurantComponent/photos';
 import { MobOrder } from '../restaurantComponent/order';
+import { capitalize } from '../../utlis/Capitalise';
 
 
 const RestaurantGallery = ({ setType, requiredRestaurant }) => {
@@ -38,7 +39,7 @@ const RestaurantGallery = ({ setType, requiredRestaurant }) => {
                     </div>
                 </div>
                 <div className="m-4 md:flex justify-between">
-                    <h1>{requiredRestaurant?.name}</h1>
+                    <h1>{capitalize(requiredRestaurant?.name)}</h1>
                     <div className="text-gray-500 text-sm flex justify-between">
                         <div className="w-8 h-7 text-white rounded bg-gray-500 text-center flex gap-1 items-center p-1 mt-2">-<GiSevenPointedStar className="text-yellow-400" /></div>
                         <div className="mr-6">
@@ -56,8 +57,8 @@ const RestaurantGallery = ({ setType, requiredRestaurant }) => {
                     <MobOrder setType={setType} />
                 </div>
                 <div className="m-4 font-light word-wrap">
-                    <h3>{requiredRestaurant?.address}</h3>
-                    <h2 className="text-lg mt-2 text-gray-500">{requiredRestaurant?.city}</h2>
+                    <h3>{capitalize(requiredRestaurant?.address)}</h3>
+                    <h2 className="text-lg mt-2 text-gray-500">{capitalize(requiredRestaurant?.city)}</h2>
                     <div className="text-gray-600 my-0.5 flex gap-1 items-center">
                         <p>{requiredRestaurant?.restauarntTimings} (Today)</p>
                         <HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" />
