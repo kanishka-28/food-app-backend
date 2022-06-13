@@ -11,20 +11,15 @@ import { storeRestaurant } from "../redux/features/restaurants/slice";
 import { serviceGet } from "./api";
 
 
-export const GetLocation = async () => {
+export const useLocation = async () => {
     const dispatch = useDispatch();
     if (navigator.geolocation) {
-        // toast("Finding your Location",{
-        //     icon:'⏳',
-        // })
+       
        await     navigator.geolocation.getCurrentPosition(showPos,showErr);
       
         function showPos(position) {
            
-            // toast.success("We have your location",{
-            //     icon:'🍲'
-            // })
-           dispatch(setLocation({longitude: position.coords.longitude,latitude:position.coords.latitude}))
+                 dispatch(setLocation({longitude: position.coords.longitude,latitude:position.coords.latitude}))
         }
         function showErr(err){
             switch(err.code) {
@@ -51,7 +46,7 @@ export const GetLocation = async () => {
 }
 
 
-export const GetRestaurants= ()=>{
+export const useRestaurants= ()=>{
     const loc = useSelector(location);
   const u  = useSelector(user);
   const dispatch = useDispatch();

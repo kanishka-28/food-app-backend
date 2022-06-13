@@ -19,40 +19,32 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GoogleLogin from "./pages/Auth/GoogleLogin";
 import { loadUser, logout } from "./redux/features/auth/slice";
-import { GetLocation, GetRestaurants } from "./utlis/location";
+import { GetLocation, GetRestaurants, useLocation, useRestaurants } from "./utlis/location";
 import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   //to get location
-  GetLocation();
-  GetRestaurants();
+  
+ 
+  useLocation();
+  useRestaurants();
+ 
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
 
   useEffect(() => {
     loadUserAbout();
-
+   
   }, [])
 
 
   return (
     <>
       <Toaster position="top-center" />
-      {loading && (
-      <div className="w-full absolute h-full backdrop-blur-sm  backdrop-brightness-75 backdrop-opacity-75 flex items-center justify-center z-50" style={{
-        width: "100vw",
-        height: "100vh",
-        position: "fixed",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: "50",
-      }}>
-        <Loader />
-      </div>
-      )}
+      {loading && (<Loader />)}
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/home/delivery" />} />
