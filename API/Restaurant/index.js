@@ -1,5 +1,5 @@
 import { RestaurantModel } from "../../database/allModels";
-import {UserModel} from "../../database/allModels";
+import { UserModel } from "../../database/allModels";
 import express from 'express'
 
 
@@ -20,41 +20,36 @@ const Router = express.Router();
 
 
 
-Router.get('/',async (req, res) => {
+Router.get('/', async (req, res) => {
    try {
-      const {latitude, longitude,email}= req.query;
-      // if (req.user.status !== "user"){
-      //    res.status(401).json({error:"Not Authorized"});
-      // }
+      const { latitude, longitude, email } = req.query;
       let user;
-      if(email!==undefined){
-         user = await UserModel.findOne({email});
+      if (email !== undefined) {
+         user = await UserModel.findOne({ email });
       }
-      // console.log(user);
-      if(user?.city){
-         await ValidateRestaurantCity({city :user?.city});
-         const  city  = user?.city.toLowerCase();
-         const restaurants = await RestaurantModel.find({ city }).sort({updatedAt: -1});
-         console.log(restaurants);
-         if (restaurants.length===0){
-            res.status(404).json({message: "No restaurants found near you",success:false})
+      if (user?.city) {
+         await ValidateRestaurantCity({ city: user?.city });
+         const city = user?.city.toLowerCase();
+         const restaurants = await RestaurantModel.find({ city }).sort({ updatedAt: -1 });
+         if (restaurants.length === 0) {
+            res.status(404).json({ message: "No restaurants found near you", success: false })
          }
-         return res.status(200).json({restaurants,success: true});
+         return res.status(200).json({ restaurants, success: true });
       }
-      else{
-         const restaurants = await RestaurantModel.find();
-        
-         const newrestaurants=restaurants.filter(restaurant=>(
-               getDistanceFromLatLonInKm(restaurant.mapLocation.latitude,restaurant.mapLocation.longitude,latitude,longitude)<500// radius of 3 km is too low
-            ));
-            if (newrestaurants.length===0){
-               res.status(404).json({message: "No restaurants found near you",success:false})
-            }
-            return res.json({restaurants: newrestaurants,success: true});
+      else {
+         const restaurants = await RestaurantModel.find().sort({ updatedAt: -1 });
+
+         const newrestaurants = restaurants.filter(restaurant => (
+            getDistanceFromLatLonInKm(restaurant.mapLocation.latitude, restaurant.mapLocation.longitude, latitude, longitude) < 500// radius of 3 km is too low
+         ));
+         if (newrestaurants.length === 0) {
+            res.status(404).json({ message: "No restaurants found near you", success: false })
+         }
+         return res.json({ restaurants: newrestaurants, success: true });
       }
    }
    catch (error) {
-      return res.status(500).json({ message: error.message, success:false });
+      return res.status(500).json({ message: error.message, success: false });
    }
 })
 /* 
@@ -67,13 +62,13 @@ Router.get('/',async (req, res) => {
 
 
 
-Router.get('/user',getUserStatus,async (req, res) => {
+Router.get('/user', getUserStatus, async (req, res) => {
    try {
-     const res = (await RestaurantModel.find({user: req.user._id.toString()})).sort({updatedAt:-1})
-     return res.status(200).json({restaurants: res, success: true});
+      const res = (await RestaurantModel.find({ user: req.user._id.toString() })).sort({ updatedAt: -1 })
+      return res.status(200).json({ restaurants: res, success: true });
    }
    catch (error) {
-      return res.status(500).json({ message: error.message, success:false });
+      return res.status(500).json({ message: error.message, success: false });
    }
 })
 /* 
@@ -128,37 +123,36 @@ Router.get("/search", async (req, res) => {
 
 
 
-   /* 
-   Route    /addrest
-   Des      add Restaurant 
-   Params    none
-   body      searchString
-   Access    Public
-   Method   Get
-   */
-  // ye bunny ka kaam
-  //middle-ware will give req.user
-  Router.post("/addrest",getUserStatus,async(req,res)=>{
-     try{
-        let data =req.body;
-         data.city = data.city.toLowerCase();
-      //   console.log(req.body);
-        if(data.user == req.user._id.toString()){
-         const check= await RestaurantModel.find({user : req.user._id.toString(), name: req.body.name,city: req.body.city});
-       
-         if(check.length!==0){
-            return res.status(409).json({message: "restaurant already exists", success: false})
+/* 
+Route    /addrest
+Des      add Restaurant 
+Params    none
+body      searchString
+Access    Public
+Method   Get
+*/
+// ye bunny ka kaam
+//middle-ware will give req.user
+Router.post("/addrest", getUserStatus, async (req, res) => {
+   try {
+      let data = req.body;
+      data.city = data.city.toLowerCase();
+      if (data.user == req.user._id.toString()) {
+         const check = await RestaurantModel.find({ user: req.user._id.toString(), name: req.body.name, city: req.body.city });
+
+         if (check.length !== 0) {
+            return res.status(409).json({ message: "restaurant already exists", success: false })
          }
-         const restaurant= await RestaurantModel.create(data);        
-         return res.status(200).json({restaurant, success: true});
-        }
-        else{
+         const restaurant = await RestaurantModel.create(data);
+         return res.status(200).json({ restaurant, success: true });
+      }
+      else {
          throw new Error("Not authorized");
-        }
-      
-      }   
+      }
+
+   }
    catch (error) {
-      return res.status(500).json({ message: error.message, success:false });
+      return res.status(500).json({ message: error.message, success: false });
    }
 
 })
@@ -166,22 +160,23 @@ Router.get("/search", async (req, res) => {
 
 
 //here _id is id of restaurant
-Router.put("/update/:_id",getUserStatus, async (req,res)=>{
+Router.put("/update/:_id", getUserStatus, async (req, res) => {
    try {
-      const {_id} = req.params;
-     const check = RestaurantModel.findOne({_id, user: req.user._id});
-     if(!check){
-      res.status(401).json({message:"Not Authorized"});
-     }
-      const updatedRestaurant= await RestaurantModel.findByIdAndUpdate(_id,{
+      const { _id } = req.params;
+      let check = RestaurantModel.findOne({ _id, user: req.user._id });
+      if (!check) {
+         res.status(401).json({ message: "Not Authorized" });
+      }
+      
+      const updatedRestaurant = await RestaurantModel.findByIdAndUpdate(_id, {
          $set: req.body,
-         upsert:true
+         upsert: true
       },
-         {new:true}
+         { new: true }
       );
-      res.status(200).json({updatedRestaurant, success: true});
+      res.status(200).json({ updatedRestaurant, success: true });
    } catch (error) {
-      return res.status(500).json({ message: error.message, success: false }); 
+      return res.status(500).json({ message: error.message, success: false });
    }
 });
 
