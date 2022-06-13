@@ -142,6 +142,8 @@ export default function EditRestaurant() {
                         onChange={(e) => {
                           setmapLocation({ ...mapLocation, latitude: e.target.value })
                           setrestaurantDetails({ ...restaurantDetails, mapLocation: mapLocation })
+                          console.log(mapLocation);
+                          console.log(restaurantDetails.mapLocation);
                         }
                         } />
                     </div>
@@ -160,6 +162,8 @@ export default function EditRestaurant() {
                         onChange={(e) => {
                           setmapLocation({ ...mapLocation, longitude: e.target.value })
                           setrestaurantDetails({ ...restaurantDetails, mapLocation: mapLocation })
+                          console.log(mapLocation);
+                          console.log(restaurantDetails.mapLocation);
                         }}
                       />
                     </div>
