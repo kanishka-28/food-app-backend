@@ -12,65 +12,62 @@ import { serviceGet } from "./api";
 
 
 export const useLocation = async () => {
-    const dispatch = useDispatch();
-    if (navigator.geolocation) {
-       
-       await     navigator.geolocation.getCurrentPosition(showPos,showErr);
-      
-        function showPos(position) {
-           
-                 dispatch(setLocation({longitude: position.coords.longitude,latitude:position.coords.latitude}))
-        }
-        function showErr(err){
-            switch(err.code) {
-                case err.PERMISSION_DENIED:
-                  toast.error("Allow Location Permission, Please")
-                  break;
-                case err.POSITION_UNAVAILABLE:
-                    toast.error("Location information is unavailable.")
-                  break;
-                case err.TIMEOUT:
-                    toast.error("The request to get user location timed out.")
-                  break;
-                case err.UNKNOWN_ERROR:
-                    toast.error("An unknown error occurred.")
-                  break;
-              }
-        }
-        
+  const dispatch = useDispatch();
+  if (navigator.geolocation) {
+
+    await navigator.geolocation.getCurrentPosition(showPos, showErr);
+
+    function showPos(position) {
+
+      dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
     }
-    else{
-        toast.error("Check permissions, We cant access your location");
+    function showErr(err) {
+      switch (err.code) {
+        case err.PERMISSION_DENIED:
+          toast.error("Allow Location Permission, Please")
+          break;
+        case err.POSITION_UNAVAILABLE:
+          toast.error("Location information is unavailable.")
+          break;
+        case err.TIMEOUT:
+          toast.error("The request to get user location timed out.")
+          break;
+        case err.UNKNOWN_ERROR:
+          toast.error("An unknown error occurred.")
+          break;
+      }
     }
+
+  }
+  else {
+    toast.error("Check permissions, We cant access your location");
+  }
 
 }
 
 
-export const useRestaurants= ()=>{
-    const loc = useSelector(location);
-  const u  = useSelector(user);
+export const useRestaurants = () => {
+  const loc = useSelector(location);
+  const u = useSelector(user);
   const dispatch = useDispatch();
-  const getRest = async ()=>{
+  const getRest = async () => {
     dispatch(setloadingTrue());
     try {
       const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
-      
       dispatch(storeRestaurant(restaurants));
-      
-      
     } catch (error) {
-      console.log({error});
+      console.log({ error });
       toast.error(error?.response?.data.message);
       if (error.response.status == 401) {
         dispatch(logout());
       }
     }
-    finally{
+    finally {
       dispatch(setloadingFalse());
     }
-}
+  }
   useEffect(() => {
-    if(loc.ready){
+    if (loc.ready) {
       getRest();
     }
   }, [loc])
