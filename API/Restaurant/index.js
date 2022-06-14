@@ -64,7 +64,7 @@ Router.get('/', async (req, res) => {
 
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
-      const res = (await RestaurantModel.find({ user: req.user._id.toString() })).sort({ updatedAt: -1 })
+      const res = (await RestaurantModel.find({ user: req.user._id })).sort({ updatedAt: -1 })
       return res.status(200).json({ restaurants: res, success: true });
    }
    catch (error) {
