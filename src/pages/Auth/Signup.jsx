@@ -4,6 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/features/auth/slice";
+import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
@@ -28,9 +29,10 @@ export default function Signup() {
     }
     else{
       delete data.cnfpass;
-      data.status = "user";
+      dispatch(setloadingTrue());
       // console.log(data);
       dispatch(signup(data));
+      dispatch(setloadingFalse());
       navigate('/home/delivery');
     }
     
@@ -54,7 +56,7 @@ export default function Signup() {
   return (
     <div className="flex justify-center w-full">
      
-      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:pl-0 md:pl-10">
+      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start ">
             <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">

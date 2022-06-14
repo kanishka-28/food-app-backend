@@ -1,22 +1,22 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import {BsCart4} from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isAuthenticated } from "../../redux/features/auth/selector/selector";
+import { isAuthenticated, user } from "../../redux/features/auth/selector/selector";
 import { logout } from "../../redux/features/auth/slice";
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   const dispatch = useDispatch();
-  
+  const profile = useSelector(user);
   return (
     <Menu as="div" className="relative">
       <div>
         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          {<BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
+          {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
       </div>
       <Transition
@@ -28,14 +28,27 @@ const ProfileDisclosure = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+        <Menu.Item  >
+            {({ active }) => (
+              <Link
+               to={"/me"}
+                className={
+                  (active ? "bg-gray-100" : "",
+                  " px-4 py-3 text-sm text-gray-700 w-full text-lg")
+                }
+              >
+                My Profile
+              </Link>
+            )}
+          </Menu.Item>
         <Menu.Item>
             {({ active }) => (
               <Link
                to={"/cart"}
                 className={
                   (active ? "bg-gray-100" : "",
-                  "block md:hidden px-4 py-2 text-sm text-gray-700")
+                  "block md:hidden px-4 py-3 text-sm text-gray-700 text-lg")
                 }
               >
                 My Cart
@@ -50,7 +63,7 @@ const ProfileDisclosure = () => {
                 }}
                 className={
                   (active ? "bg-gray-100" : "",
-                  "block px-4 py-2 text-sm text-gray-700")
+                  "block px-4 py-3 text-sm text-gray-700 text-lg")
                 }
               >
                 Sign out
@@ -139,11 +152,10 @@ const Nav = () => {
             className="p-2 rounded w-full outline-none border-0 text-md"
           />
         </div>
-        <Link to={`/home/search/${searchString}`}>
-          <button className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
+        
+          <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
             <p> Search</p>
           </button>
-       </Link>
       </div>
     </>
   );

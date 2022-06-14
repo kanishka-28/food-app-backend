@@ -1,45 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  isAuthenticated,
-  isReady,
-} from "../../redux/features/auth/selector/selector";
-import { serviceGet } from "../../utlis/api";
+
+import { allRestaurants } from "../../redux/features/restaurants/selector";
 import FoodCards from "./FoodCard";
 
-const AllCards = ({ search = false }) => {
-  const ready = useSelector(isReady);
-  const auth = useSelector(isAuthenticated);
+const AllCards =({ search = false }) => {
+ const restaurants = useSelector(allRestaurants);
   const { searchString } = useParams();
-  const [restaurant, setrestaurant] = useState([]);
+  const [restaurant, setrestaurant] = useState(restaurants);
+  
   const getRestaurent = async () => {
-    try {
-      // const {restaurants} = await serviceGet('restaurant',{auth : `bearer ${localStorage.getItem("token")}`});
-
-      if (auth) {
-        const { restaurants } = await serviceGet("restaurant");
+    
         if (search) {
-          const arr = restaurants?.filter((e) => e.name.includes(searchString));
+          const arr =  restaurants?.filter((e) => e.name.includes(searchString));
+          
           setrestaurant(arr);
-        } else {
+        }
+        else{
           setrestaurant(restaurants);
         }
-      } else {
-        //change this to a condition where we will use latitude longitutde
-        setrestaurant([]);
-      }
-    } catch (error) {
-      // toast.error(error.response.data.message);
-      console.log(error.response.data.message);
-    }
+      
+   
   };
+  useEffect(() => {
+    setrestaurant(restaurants);
+  }, [restaurants])
+  
 
   useEffect(() => {
-    if (ready) {
       getRestaurent();
-    }
-  }, [ready, auth, searchString]);
+  }, [searchString]);
 
   return (
     <>

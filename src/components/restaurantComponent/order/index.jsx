@@ -8,6 +8,8 @@ import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from 'react-redux';
+import { user } from '../../../redux/features/auth/selector/selector';
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 
@@ -19,9 +21,8 @@ const Order = () => {
     const [quantity, setquantity] = useState("1")
     const [foodDetails, setfoodDetails] = useState({ name: "", price: 200 })
     // const { restaurant } = useContext(SignupContext)
-    const user = JSON.parse(localStorage.getItem("user"));
+    const profile = useSelector(user);
     startOfFoods = useRef();
-    console.log(user);
     useEffect(() => {
         const id = localStorage.getItem("id");
         // Promise.resolve(getfood(id)).then((res) => {
@@ -34,20 +35,7 @@ const Order = () => {
 
     const placeOrder = () => {
 
-        const id = user._id
-
-        const orderDetails = {
-            restaurant: localStorage.getItem("id"),
-            food: "618f40f84ec908776bb129fd",
-            quantity: 1,
-            itemTotal: 1,
-        }
-        // Promise.resolve(orderfood(orderDetails, id)).then((res) => {
-        //     console.log(res);
-        //     setopen(false)
-        // }).catch((e) => {
-        //     console.log(e.response);
-        // })
+        console.log('order placed');
     }
     const onChangeHandler = (e) => {
         setopen(true)
@@ -178,16 +166,18 @@ const Order = () => {
         return (
             <>
                 <h1 className="text-xl my-1">Order Food</h1>
-                <div className="flex text-sm text-gray-500 items-center mb-3">
-                    <BsCompass className="my-2 mr-2" />
-                    <p className="mr-2">Live tracking not available</p>
-                    <BsClock className="my-2 mr-2" />
-                    <p className="mr-2">52 min</p>
-                </div>
-                <div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
-                    <BsCheckCircleFill className="mr-2" />
-                    <p>Delivering to : <strong>{user?.address} {user?.city}</strong></p>
-                    <div className="pl-36">Change</div>
+                <div className="flex flex-col md:flex-row justify-between text-sm text-gray-500 items-center mb-3">
+                    <div className='flex items-center'>
+                        <BsCompass className="my-2 mr-2" />
+                        <p className="mr-2">Live tracking not available</p>
+                        <BsClock className="my-2 mr-2" />
+                        <p className="mr-2">52 min</p>
+                    </div>
+                    <div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
+                        <BsCheckCircleFill className="mr-2" />
+                        <p>Delivering to : <strong>{profile?.address.slice(0,20)+ '... ,'} {profile?.city}</strong></p>
+                    
+                    </div>
                 </div>
                 <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {foods.length !== 0 ? foods?.map((food) => {
