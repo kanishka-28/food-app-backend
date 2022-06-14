@@ -7,7 +7,6 @@ import Reviews from "../../Components/restaurantComponent/Reviews";
 
 //Components
 
-
 const TabComponent = ({type}) => {
 
   return (<>

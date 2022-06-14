@@ -11,17 +11,7 @@ import { Photo } from '../restaurantComponent/Photos';
 import { Link } from 'react-router-dom'
 import { RWebShare } from "react-web-share";
 
-const RestaurantGallery = () => {
-    // const { restaurant, setrestaurant } = useContext(SignupContext);
-    const [restaurant, setrestaurant] = useState([]);
-
-    // const requiredRestaurant = restaurant.filter((res) => (res._id === param))[0];
-    const requiredRestaurant = {
-        name: 'Apna Rest',
-        address: 'Street 102',
-        restauarntTimings: '9am-9pm'
-    }
-    console.log(requiredRestaurant);
+const RestaurantGallery = ({requiredRestaurant}) => {
     return (
         <>
             <div className="w-full ">
@@ -50,8 +40,8 @@ const RestaurantGallery = () => {
                     </div>
                 </div>
                 <div className="m-4 md:flex justify-between">
-                    <div className='flex items-center gap-5 flex-wrap'><h1>{requiredRestaurant?.name}</h1>
-                        <Link to={'/filldetails'} className='flex items-center flex-wrap gap-1 font-semibold bg-[#ffcd7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 p-2 px-6 rounded justify-center'>
+                    <div className='flex items-center gap-5 flex-wrap'><h2>{requiredRestaurant?.name}</h2>
+                        <Link to={`/restaurant/edit/${requiredRestaurant?._id}`} className='flex items-center flex-wrap gap-1 font-semibold bg-[#ffcd7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 p-2 px-6 rounded justify-center'>
                             <FiEdit /><p>Edit</p>
                         </Link>
                     </div>
@@ -69,8 +59,8 @@ const RestaurantGallery = () => {
                     </div>
                 </div>
                 <div className="m-4 font-light">
-                    <h3>{requiredRestaurant?.address}</h3>
-                    <h2 className="text-gray-500">{requiredRestaurant?.city}</h2>
+                    <h4 className='font-semibold'>{requiredRestaurant?.address}</h4>
+                    <h3 className="text-gray-500">{requiredRestaurant?.city}</h3>
                     <div className="text-gray-600 my-0.5 flex gap-1 items-center">
                         <p>{requiredRestaurant?.restauarntTimings} (Today)</p>
                         <HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" />
@@ -92,7 +82,7 @@ const RestaurantGallery = () => {
                         </div>
                     </RWebShare>
                 </div>
-                    <Link to={'/food/orders'}>
+                    <Link to={'/data/orders'}>
                     <button className='cursor-pointer px-3 h-10 text-center rounded  py-1 bg-white flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200 bg-gradient-to-r from-[#ff7f7f] to-[#fc5184]text-white'><p>Go To My Orders</p><MdArrowRightAlt size={'2rem'} /></button>
                     </Link>
                 </div>

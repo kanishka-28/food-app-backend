@@ -8,7 +8,8 @@ import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
-import AddFoodModal from '../../../pages/AddFood/Modal';
+import AddFoodModal from '../../Modal/AddFood';
+import FoodCards from '../../Cards/FoodCards';
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 
@@ -84,7 +85,7 @@ const Order = () => {
         return (
             <>
                 <div className='flex flex-col'>
-                    <button className='self-end py-2 px-10 font-semibold text-center rounded items-center px-2 bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={() => {
+                    <button className='self-end py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={() => {
                         setOpen(true)
                         settitle('Add')
                     }
@@ -92,35 +93,7 @@ const Order = () => {
                     <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                         {foods.length !== 0 ? foods?.map((food) => {
                             return (
-                                <div key={food.id} className="max-w-72 rounded overflow-hidden shadow-lg my-4">
-                                    <img className="w-full h-56" src={food.image} alt="Sunset in the mountains" />
-                                    <div className="px-6 py-4">
-                                        <div className=" flex flex-wrap w-full justify-between">
-                                            <div>
-                                                <p className='font-bold text-xl w-4/5'>Name  {food.name}</p>
-                                                <div className='flex items-center gap-3 mb-2'>
-                                                    <p className="text-gray-500">{food.category}</p>
-                                                    {food.isVeg ?
-                                                        <img className='w-4 h-4' src='https://i.pinimg.com/originals/e4/1f/f3/e41ff3b10a26b097602560180fb91a62.png' alt='veg' />
-                                                        : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
-                                                </div>
-                                            </div>
-                                            <h4 className='font-bold text-gray-800'>₹ 250/~</h4>
-                                        </div>
-                                        <p className="text-gray-700 text-base">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                            {food.description}</p>
-                                    </div>
-
-                                    <div className="text-center flex ml-4 flex-wrap">
-                                        <button onClick={() => {
-                                            setOpen(true)
-                                            settitle('Edit')
-                                        }} className="mb-4 w-28 bg-[#ffda7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 font-bold text-sm rounded py-1 px-4">
-                                            Edit
-                                        </button>
-                                    </div>
-                                </div>
+                                <FoodCards key={food.id} food={food} setOpen={setOpen} settitle={settitle} />
                             )
                         })
                             : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
@@ -135,7 +108,7 @@ const Order = () => {
     return (
         <div>
             <LapOrder />
-            <AddFoodModal open={open} setOpen={setOpen} title={title}/>
+            <AddFoodModal open={open} setOpen={setOpen} title={title} />
         </div>
     )
 }
