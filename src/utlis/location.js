@@ -12,6 +12,7 @@ import { serviceGet } from "./api";
 
 
 export const useLocation = async () => {
+
   const { ready } = useSelector(location);
   const dispatch = useDispatch();
   if (!ready) {
@@ -49,7 +50,6 @@ export const useLocation = async () => {
     }
 
   }
-
 }
 
 
@@ -61,12 +61,8 @@ export const useRestaurants = () => {
     dispatch(setloadingTrue());
     try {
       const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
-
       dispatch(storeRestaurant(restaurants));
-
-
     } catch (error) {
-      
       toast.error(error?.response?.data.message);
       if (error.response.status === 401) {
         dispatch(logout());

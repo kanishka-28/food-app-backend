@@ -13,7 +13,6 @@ export default function Login() {
     password: "",
   });
   
-
   const googleLogin = async()=>{
     window.location.replace('http://localhost:4000/auth/google')
    }
