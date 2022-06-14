@@ -69,14 +69,21 @@ Router.get("/r/:category", async (req, res) => {
 
 Router.post("/add/:id", getUserStatus, async (req, res) => {
    try {
-     const {id} = req.params;
-      await ValidateRestaurantId({id});
-      const check = await FoodModel.find({restaurant:id, name:req.body.name});
-      if(check.length!==0){
-         return res.status(409).json({message: "food item already exists"});
+      
+      if(req.user._id.toString()===req.body.user){
+         const {id} = req.params;
+          await ValidateRestaurantId({id});
+          const check = await FoodModel.find({restaurant:id, name:req.body.name});
+          if(check.length!==0){
+             return res.status(409).json({message: "food item already exists"});
+          }
+          const {restaurantDetails} = req.body;
+             const food = await FoodModel.create({...restaurantDetails, restaurant: id});
+             return res.json({ food, success:true });
       }
-         const food = await FoodModel.create({...req.body, restaurant: id});
-         return res.json({ food, success:true });
+      else{
+         return res.status(401).json({message:"Not Authorized"});
+      }
    }
    catch (error) {
       return res.status(500).json({message: error.message , success: true });

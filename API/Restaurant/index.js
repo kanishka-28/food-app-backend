@@ -64,8 +64,8 @@ Router.get('/', async (req, res) => {
 
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
-      const res = (await RestaurantModel.find({ user: req.user._id })).sort({ updatedAt: -1 })
-      return res.status(200).json({ restaurants: res, success: true });
+      const restaurants = (await RestaurantModel.find({ user: req.user._id }).sort({ updatedAt: -1 }))
+      return res.status(200).json({ restaurants, success: true });
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
