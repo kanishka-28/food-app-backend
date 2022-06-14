@@ -149,15 +149,15 @@ Router.post("/login", async (req, res) => {
      try{
         const data =req.body;
         console.log(req.body);
-        const check= await RestaurantModel.find({name:data.name});
-        console.log(check);
-        if(check.length>0){
-           check.map(rest =>{
-              if(rest.city===data.city){
-                  return res.status(400).json({error:"restaurant already exists"});
-              }
-           })
-        }
+      //   const check= await RestaurantModel.find({name:data.name});
+      //   console.log(check);
+      //   if(check.length>0){
+      //      check.map(rest =>{
+      //         if(rest.city===data.city){
+      //             return res.status(400).json({error:"restaurant already exists"});
+      //         }
+      //      })
+      //   }
         const restaurant= await RestaurantModel.create(data);        
         return res.json({restaurant});
       }   

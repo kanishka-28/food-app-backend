@@ -7,6 +7,7 @@ const FoodSchema = new mongoose.Schema({
     isVeg: {type: Boolean,required:true},
     isContainEgg:  {type: Boolean,required:true},
     category: { type:String, required:true },
+    brand: { type:String },
     photos:{
         type: String
     },
@@ -16,7 +17,8 @@ const FoodSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"Restaurants",
         required:true,
-    }
+    },
+
 
 },{
     timestamps:true
