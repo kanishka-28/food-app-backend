@@ -10,9 +10,11 @@ return Schema.validateAsync(userId);
 };
 export const ValidateUser = (userData)=>{
     const Schema = joi.object({       
-        userName: joi.string().required().min(4),
+        userName: joi.string().required(),
         email: joi.string().email().required(),
-        address: joi.array().items(joi.object({detail: joi.string(), for:joi.string()})),
+        address: joi.string(),
+        city: joi.string(),
+        profilePic: joi.string()
     });
 
     return Schema.validateAsync(userData);

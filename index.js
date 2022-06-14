@@ -9,6 +9,7 @@ import googleAuthConfig from "./config/google.config";
 
 //API
 import Auth from "./API/Auth";
+import User from "./API/User";
 import Restaurant from './API/Restaurant';
 import Food from "./API/Food";
 import Menu from "./API/Menu";
@@ -24,12 +25,13 @@ import routeConfig from "./config/route.config";
 
 
 const zomato = express();
-zomato.use(express.json());
-zomato.use(express.urlencoded({extended:false}));
+zomato.use(express.json({limit: '50mb'}));
+zomato.use(express.urlencoded({extended: true, limit : '10mb'}));
 zomato.use(cors());
 zomato.use(helmet());
 zomato.use(passport.initialize());
 zomato.use(passport.session());
+
 
 //passport configuration
 
@@ -42,11 +44,11 @@ routeConfig(passport);
 //localhost:4000/auth/signup
 
 zomato.use("/auth", Auth);
+zomato.use('/user',User);
 zomato.use("/restaurant",Restaurant);
 zomato.use("/food",Food);
 zomato.use("/menu",Menu);
 zomato.use('/order',Order);
-
 
 zomato.get("/",(req,res)=> res.json({message: "setup success !!"}));
 const PORT= process.env.PORT || 4000

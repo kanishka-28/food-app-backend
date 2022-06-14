@@ -13,10 +13,11 @@ const RestaurantSchema = new mongoose.Schema({
     website: { type: String },
     limit:{type:Number},
     amenities: [{ type: String }],
-    menuImages: { type: String, },
-    menu: {
+    menuImage: { type: String, },
+    user:{
         type: mongoose.Types.ObjectId,
-        ref: "Menus"
+        ref: "Users",
+        required: true
     },
     photos: [{ type: String }]
 }, {

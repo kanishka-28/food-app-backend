@@ -16,10 +16,10 @@ export default (passport)=>{
         async (accessToken, refreshToken, profile, done)=>{
             //creating a new user 
             const newUser= {
-                fullname: profile.displayName,
+                userName: profile.displayName,
                 email:profile.emails[0].value,
                 profilePic: profile.photos[0].value,
-                status: "user"
+
             };
             try{
                 //check whether user exists or not
@@ -27,8 +27,6 @@ export default (passport)=>{
                 const user= await UserModel.findOne({email: newUser.email});
                 if(user){
                     //generating jwt token
-
-                    //console.log(profile);
 
                     const token= user.generateJwtToken();
                     // return user
