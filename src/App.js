@@ -13,38 +13,43 @@ import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import Cart from "./pages/Cart/Cart";
-import toast, { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GoogleLogin from "./pages/Auth/GoogleLogin";
-import { loadUser, logout } from "./redux/features/auth/slice";
-import { GetLocation, GetRestaurants, useLocation, useRestaurants } from "./utlis/location";
+import { loadUser } from "./redux/features/auth/slice";
+import { useLocation, useRestaurants } from "./utlis/location";
 import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
 import ScrollToTop from "./utlis/scrollToTop";
+
+
+
+
+
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   //to get location
-  
- 
   useLocation();
   useRestaurants();
  
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
-
+  
   useEffect(() => {
     loadUserAbout();
-   
-  }, [])
+  },[])
 
 
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster 
+        position="top-center"
+        reverseOrder={true}
+       />
       {loading && (<Loader />)}
       <Router>
         <ScrollToTop/>
