@@ -41,6 +41,8 @@ function App() {
             <Route path="edit" element={<EditRestaurant edit={true}/>}/>
             </Route>   
           <Route path="/filldetails" element={<EditRestaurant />} />   
+          {/* we wont be using fill details, we will use /restaurant/add or edit */}
+          <Route path="/me" element={<h1>lmao</h1>}/>
           <Route path="/food" element={<Navbar />} >
             <Route path="orders" element={<AllOrders />} />
           </Route>
