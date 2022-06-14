@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import AboutUser from "../../components/Profile/AboutUser";
 import EditUser from "../../components/Profile/EditUser";
 import ProfilePicture from "../../components/Profile/ProfilePicture";
 import ProfileTab from "../../components/Profile/ProfileTab";
 import { user } from "../../redux/features/auth/selector/selector";
-import { updateUser } from "../../redux/features/auth/slice";
-import { servicePut } from "../../utlis/api";
 const Profile = () => {
-  const [Img, setImg] = useState("");
+ 
   const [edit, setedit] = useState(false);
-  const dispatch = useDispatch();
+ 
   const profile = useSelector(user);
 
   return (

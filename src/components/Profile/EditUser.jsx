@@ -33,9 +33,9 @@ const EditUser = ({profile,setedit}) => {
   return (
     <>
                 <form onSubmit={handleSubmit} >
-                  <input required value={newProfile?.userName} onChange={(e)=>setnewProfile({...profile,userName: e.target.value})} placeholder="Name" type="text" className="outline-none text-3xl  mt-8 ml-24 lg:pt-0 lg:ml-0 bg-mainContainer"/>
+                  <input required value={newProfile?.userName} onChange={(e)=>setnewProfile({...profile,userName: e.target.value})} placeholder="Name" type="text" className="outline-none text-xl  mt-8  lg:pt-0 lg:ml-0 bg-mainContainer"/>
                   <div className="mx-auto lg:mx-0 w-4/5 pt-3 mb-2 border-b-2 border-megenta-400 opacity-25"></div>
-                  <input required value={newProfile?.email} onChange={(e)=>setnewProfile({...profile,email: e.target.value})} placeholder="Email" type="email" className="outline-none w-full text-xl  pt-8 lg:pt-0 bg-mainContainer"/>
+                  <input required value={newProfile?.email} onChange={(e)=>setnewProfile({...profile,email: e.target.value})} placeholder="Email" type="email" className="outline-none text-xl  mt-8  lg:pt-0 lg:ml-0 bg-mainContainer"/>
                   <div className="mx-auto lg:mx-0 w-4/5 pt-3 mb-2 border-b-2 border-megenta-400  opacity-25"></div>
                   
                   <input required value={newProfile?.city} onChange={(e)=>setnewProfile({...profile,city: e.target.value})} placeholder="City" type="text" className=" outline-none text-xl  pt-8 lg:pt-0 bg-mainContainer"/>

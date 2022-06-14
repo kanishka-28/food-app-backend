@@ -8,11 +8,11 @@ import Reviews from "../../components/restaurantComponent/reviews";
 //Components
 
 
-const TabComponent = ({type}) => {
-
+const TabComponent = ({type,restaurant}) => {
+ 
   return (<>
     <div className="m-4">
-    {type === "overview" && <Overview /> }
+    {type === "overview" && <Overview restaurant={restaurant} /> }
     {type === "menu" && <Menu /> }
     {type === "order" && <Order /> }
     {type === "photos" && <Photos /> }

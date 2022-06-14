@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { capitalize } from '../../utlis/Capitalise';
 const FoodCards = ({restaurant}) => {
     const {name, city, photos,_id:id} = restaurant;
 //    console.log(about);
@@ -15,12 +16,12 @@ const FoodCards = ({restaurant}) => {
                 <div className="bg-blue-500 w-24 h-5 my-2 px-1">40% Off</div>
             </div>
             <div className="flex justify-between m-2 items-center">
-                <h3 className="font-bold font-medium hidden md:block lg:hidden">{name.length>14 ? name.slice(0,14) + "..." : name}</h3>
-                <h3 className="font-bold font-medium md:hidden lg:block">{name.length>25 ? name.slice(0,25) + "..." : name}</h3>
+                <h3 className="font-bold font-medium hidden md:block lg:hidden">{name.length>14 ? capitalize(name.slice(0,10)) + "..." : capitalize(name)}</h3>
+                <h3 className="font-bold font-medium md:hidden lg:block">{name.length>25 ? capitalize(name.slice(0,25)) + "..." : capitalize(name)}</h3>
                 <div className="bg-green-600 h-7 rounded-lg text-white p-0.5">4.3⭐</div>
             </div>
             <div className="flex justify-between m-2">
-                <div className="text-gray-600 font-small text-center">{city}</div>
+                <div className="text-gray-600 font-small text-center">{capitalize(city)}</div>
                 
             </div>
             <div className="flex justify-evenly m-2 pb-2">

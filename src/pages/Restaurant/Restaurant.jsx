@@ -26,7 +26,7 @@ const Restaurant = () => {
         <div className="sticky top-0 z-10">
           <RestaurantTab setType={setType} type={type}/>
         </div>
-        <TabComponent type={type}/>
+        <TabComponent restaurant={restaurant} type={type}/>
        
       </div>
     </>
