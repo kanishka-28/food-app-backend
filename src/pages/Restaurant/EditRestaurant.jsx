@@ -26,7 +26,10 @@ export default function EditRestaurant({ edit =false }) {
     image: "",
     city: "",
     contactNumber: "",
-    mapLocation: "",
+    mapLocation: {
+      latitude:"",
+      longitude:""
+    }
   });
 
   useEffect(() => {
