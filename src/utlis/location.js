@@ -12,37 +12,44 @@ import { serviceGet } from "./api";
 
 
 export const useLocation = async () => {
+
+  const { ready } = useSelector(location);
   const dispatch = useDispatch();
-  if (navigator.geolocation) {
+  if (!ready) {
+    
+    if (navigator.geolocation) {
+      
+      await navigator.geolocation.getCurrentPosition(showPos, showErr);
 
-    await navigator.geolocation.getCurrentPosition(showPos, showErr);
+      function showPos(position) {
 
-    function showPos(position) {
-
-      dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
-    }
-    function showErr(err) {
-      switch (err.code) {
-        case err.PERMISSION_DENIED:
-          toast.error("Allow Location Permission, Please")
-          break;
-        case err.POSITION_UNAVAILABLE:
-          toast.error("Location information is unavailable.")
-          break;
-        case err.TIMEOUT:
-          toast.error("The request to get user location timed out.")
-          break;
-        case err.UNKNOWN_ERROR:
-          toast.error("An unknown error occurred.")
-          break;
+        dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
       }
+      function showErr(err) {
+        switch (err.code) {
+          case err.PERMISSION_DENIED:
+            toast.error("Allow Location Permission, Please")
+            break;
+          case err.POSITION_UNAVAILABLE:
+            toast.error("Location information is unavailable.")
+            break;
+          case err.TIMEOUT:
+            toast.error("The request to get user location timed out.")
+            break;
+          case err.UNKNOWN_ERROR:
+            toast.error("An unknown error occurred.")
+            break;
+            default:
+              toast.error("Something went wrong");
+        }
+      }
+
+    }
+    else {
+      toast.error("Check permissions, We cant access your location");
     }
 
   }
-  else {
-    toast.error("Check permissions, We cant access your location");
-  }
-
 }
 
 
@@ -56,9 +63,8 @@ export const useRestaurants = () => {
       const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
       dispatch(storeRestaurant(restaurants));
     } catch (error) {
-      console.log({ error });
       toast.error(error?.response?.data.message);
-      if (error.response.status == 401) {
+      if (error.response.status === 401) {
         dispatch(logout());
       }
     }
