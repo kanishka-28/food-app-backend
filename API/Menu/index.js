@@ -3,7 +3,6 @@
 import express from 'express';
 
 //databse model
-import {MenuModel,ImageModel} from "../../database/allModels";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 const Router = express.Router();
 

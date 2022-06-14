@@ -38,14 +38,12 @@ method    PUT
 
 Router.put("/update", getUserStatus, async (req, res) => {
     try {
-        // await ValidateUserId(req.body._userId);
+        await ValidateUserId({_id : req.body._userId});
         // await ValidateUser(req.body.userData);
-        //    const {_userId}= req.params;
         let { userData, _userId } = req.body;
        if(userData.city){
            userData.city = userData?.city?.toLowerCase();
        }
-    //    console.log(userData);
         if (_userId === req.user._id.toString()) {
             const updateUserData = await UserModel.findByIdAndUpdate(_userId, {
                 $set: userData,

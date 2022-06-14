@@ -27,10 +27,10 @@ Router.get("/:id", async (req, res) => {
       await ValidateRestaurantId(req.params);
       const { id } = req.params;
       const foods = await FoodModel.find({ restaurant: id });
-      return res.json({ foods });
+      return res.json({ foods, success:true });
    }
    catch (error) {
-      return res.status(500).json({ error: error.message + "hnji hm h"});
+      return res.status(500).json({ message: error.message , success:false});
    }
 
 });
@@ -67,100 +67,60 @@ Router.get("/r/:category", async (req, res) => {
    Method   post
 */
 
-Router.post("/addfood/:id", getUserStatus, async (req, res) => {
+Router.post("/add/:id", getUserStatus, async (req, res) => {
    try {
-     
-      await ValidateRestaurantId(id);
-
-     
-      // if (req.user.status === "restaurant" ) {
-
-      //    const restaurant = req.params.id
-      //    console.log(restaurant);
-      //    const {name, descript, isVeg, isContainEgg, category, price} = req.body
-      //    const food = await FoodModel.create({
-      //       name: name,
-      //       descript: descript,
-      //       isVeg: isVeg,
-      //       isContainEgg: isContainEgg,
-      //       category: category,
-      //       price: price,
-      //       restaurant : restaurant
-      //    })
-         
-      //    return res.json({ food });
-      // }
-      // else {
-      //    return res.status(401).send("user cant add restaurant food")
-      // }
-
+     const {id} = req.params;
+      await ValidateRestaurantId({id});
+      const check = await FoodModel.find({restaurant:id, name:req.body.name});
+      if(check.length!==0){
+         return res.status(409).json({message: "food item already exists"});
+      }
+         const food = await FoodModel.create({...req.body, restaurant: id});
+         return res.json({ food, success:true });
    }
    catch (error) {
-      return res.status(500).json({ error: error.message + ' 500' });
+      return res.status(500).json({message: error.message , success: true });
    }
 })
 
 /* 
-   Route    /r
-   Des      Get all foods based on particular category
+   Route    /edit
+   Des      edit food from a particular restaurant
    Params    category
    Access    Public
    Method   put
 */
 
-Router.put("/editfood/:id", getUserStatus, async (req, res) => {
+Router.put("/edit/:id", getUserStatus, async (req, res) => {
    try {
-   //    await ValidateRestaurantId(req.params.id);
-   //    if (req.user.status === "restaurant" && req.user.id===req.params.id){
-   //       const restaurant = req.params.id
-   //       const {name, descript, isContainEgg, category, photos, price} = req.body
-   //       const newFood = {}
-   //       if (name) { newFood.name = name };
-   //       if (descript) { newFood.descript = descript };
-   //       if (isContainEgg) { newFood.isContainEgg = isContainEgg };
-   //       if (category) { newFood.category = category };
-   //       if (photos) { newFood.photos = photos };
-   //       if (price) { newFood.price = price };
-         
-   //       food = await FoodModel.findByIdAndUpdate(req.params.id, {
-   //          $set: newFood
-   //       }, {new: true})
-   //       return res.json({ food });
-   //    }
-   //    else {
-   //       return res.status(401).send("user cant add restaurant food")
-   //    }
-      
+      await ValidateRestaurantId(req.params.id);
+         food = await FoodModel.findByIdAndUpdate(req.params.id, {
+            $set: req.body,
+            upsert: true
+         }, {new: true})
+         return res.json({ food, success: true });
    }
    catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: error.message, success: false });
    }
 })
 
 /* 
-   Route    /r
-   Des      Get all foods based on particular category
+   Route    /delete/:id
+   Des      delete food item with id as id
    Params    category
    Access    Public
    Method   Get
 */
 
-Router.post("/deletefood/:id", getUserStatus, async (req, res) => {
+Router.post("/delete/:id", getUserStatus, async (req, res) => {
    try {
       await ValidateRestaurantId(req.params.id);
-      // if (req.user.status === "restaurant" && req.user.id===req.params.id) {
-         
-      //    const food = await FoodModel.findByIdAndDelete(req.params.id)
-
-      //    return res.json({ food });
-      // }
-      // else {
-      //    return res.status(401).send("user cant add restaurant food")
-      // }
-
+         const food = await FoodModel.findByIdAndDelete(req.params.id)
+         return res.json({ food, success:true });
    }
    catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: error.message, success:false });
    }
 })
 

@@ -39,29 +39,6 @@ UserSchema.methods.generateJwtToken = function () {
     return jwt.sign({ user: this._id.toString() }, "ZomatoApp", {expiresIn: "8h"});
 };
 
-//google login
-UserSchema.statics.findEmail =
-    async ({ email }) => {
-        //check whether email exists
-        const checkUserByEmail = await UserModel.findOne({ email });
-        if (checkUserByEmail) {
-            throw new Error("User already exists");
-        }
-        return checkUserByEmail;
-    };
-
-
-//custom signup
-UserSchema.statics.findUserName = async ({ userName }) => {
-    //check whether userName exists
-    const checkUserByuserName = await UserModel.findOne({ userName });
-    if (checkUserByuserName) {
-        throw new Error("User already exists");
-    }
-    return checkUserByuserName;
-};
- 
-
 //custom login
 UserSchema.statics.findByEmailAndPassword =
     async ({ email, password}) => {
