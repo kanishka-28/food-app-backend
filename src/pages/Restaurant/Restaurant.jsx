@@ -17,7 +17,6 @@ const Restaurant = () => {
   useEffect(() => {
     setrestaurant(restaurants.filter(e => e._id === id)[0]);
   }, [restaurants])
-  
 
   return (
     <>

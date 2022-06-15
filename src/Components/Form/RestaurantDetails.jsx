@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import noFileChosen from "../../Assets/noFileChosen.svg";
 
-export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapLocation, restaurantDetails, setrestaurantDetails }) {
+export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, setrestaurantDetails }) {
 
     // console.log('====================================');
     // console.log(restaurantDetails);
@@ -25,10 +25,6 @@ export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapL
             setrestaurantDetails({ ...restaurantDetails, image: baseURL });
         };
     };
-
-    useEffect(() => {
-        setrestaurantDetails({ ...restaurantDetails, mapLocation });
-    }, [mapLocation])
 
     return (
         <>
@@ -91,7 +87,7 @@ export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapL
                             <div className="mt-1 flex rounded shadow-sm">
                                 <input
                                     required
-                                    type="text"
+                                    type="tel"
                                     placeholder="Contact "
                                     className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                                     value={restaurantDetails.contactNumber}
@@ -110,7 +106,7 @@ export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapL
                                     htmlFor="company-website"
                                     className="block text-gray-700"
                                 >
-                                    Lattitude
+                                    Latitude
                                 </label>
                                 <div className="mt-1 flex rounded shadow-sm">
                                     <input
@@ -118,13 +114,15 @@ export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapL
                                         type="tel"
                                         placeholder="ex- 22.76"
                                         className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
-                                        value={mapLocation.latitude}
+                                        value={restaurantDetails.mapLocation.latitude}
                                         onChange={(e) => {
-                                            setmapLocation({
-                                                ...mapLocation,
-                                                latitude: e.target.value,
-                                            });
-
+                                          setrestaurantDetails({
+                                                ...restaurantDetails,
+                                                mapLocation:{
+                                                    ...restaurantDetails.mapLocation,
+                                                    latitude: e.target.value
+                                                }
+                                            })
                                         }}
                                     />
                                 </div>
@@ -139,16 +137,18 @@ export default function RestaurantDetailsForm({ handleSave, mapLocation, setmapL
                                 <div className="mt-1 flex rounded shadow-sm">
                                     <input
                                         required
-                                        type="tel"
+                                        type="number"
                                         placeholder="ex- 77.78"
                                         className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
-                                        value={mapLocation.longitude}
+                                        value={restaurantDetails.mapLocation.longitude}
                                         onChange={(e) => {
-                                            setmapLocation({
-                                                ...mapLocation,
-                                                longitude: e.target.value,
-                                            });
-
+                                            setrestaurantDetails({
+                                                ...restaurantDetails,
+                                                mapLocation:{
+                                                    ...restaurantDetails.mapLocation,
+                                                    longitude: e.target.value
+                                                }
+                                            })
                                         }}
                                     />
                                 </div>

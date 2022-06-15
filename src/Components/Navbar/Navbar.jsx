@@ -1,27 +1,24 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { IoLocationSharp } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { Navigate, Outlet } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isAuthenticated } from '../../Redux/Features/Auth/Selector/Selector';
+import { getUser, isAuthenticated } from '../../Redux/Features/Auth/Selector/Selector';
 import { logout } from '../../Redux/Features/Auth/Slice';
 
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
-
+  const profile = useSelector(getUser);
   return (
     <Menu as="div" className="sm:mr-20 relative">
       <div>
-        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+      <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          {
-            <BiUser className="w-10 h-10 rounded-full bg-red-400 text-white " />
-          }
+          {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
       </div>
       <div>
@@ -39,7 +36,7 @@ const ProfileDisclosure = () => {
               {({ active }) => (
                 <button
                   onClick={() => {
-                    navigate('/data/profile')
+                    navigate('/about/profile')
                   }}
                   className={(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                   Profile
