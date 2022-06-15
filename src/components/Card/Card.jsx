@@ -41,10 +41,10 @@ const AllCards = ({ search = false }) => {
             })}
           </div>
           <div className="hidden md:block ">
-            <div className="w-full flex  flex-wrap gap-3 justify-evenly ">
+            <div className="w-full flex items-center flex-wrap gap-3 justify-evenly ">
               {restaurant?.map((oneRestaurant) => {
                 return (
-                  <div key={oneRestaurant._id} className="w-1/3 lg:1/4">
+                  <div key={oneRestaurant._id} className="w-1/3 lg:w-1/4 ">
                     <FoodCards restaurant={oneRestaurant} />
                   </div>
                 );
