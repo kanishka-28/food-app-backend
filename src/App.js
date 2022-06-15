@@ -18,12 +18,15 @@ import Profile from "./pages/Profile/Profile";
 import EditRestaurant from "./pages/Restaurant/EditRestaurant";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import { loadUser } from "./Redux/Features/Auth/Slice";
+import { useRestaurants } from "./Utils/Functions/getRestaurants";
 
 function App() {
   const dispatch = useDispatch();
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
+
+  useRestaurants();
 
   useEffect(() => {
    
@@ -39,10 +42,10 @@ function App() {
           <Route path="/home" element={<Home />} />   
           <Route path="/restaurant" >
             <Route path=":id" element={<Restaurant/> }/>
-            <Route path="add" element={<EditRestaurant edit={false}/>}/>
+            <Route path="add" element={<EditRestaurant/>}/>
             <Route path="edit/:id" element={<EditRestaurant edit={true}/>}/>
             </Route>     
-          <Route path="/data" element={<Navbar />} >
+          <Route path="/about" element={<Navbar />} >
             <Route path="orders" element={<AllOrders />} />
             <Route path="profile" element={<Profile />} />
           </Route>

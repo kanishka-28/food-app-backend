@@ -14,12 +14,9 @@ const Restaurant = () => {
   const [restaurant, setrestaurant] = useState(null);
   const {id} = useParams();
 
-  console.log('====================================');
-  console.log(restaurants);
-  console.log('====================================');
+  
   useEffect(() => {
     setrestaurant(restaurants.filter(e => e._id === id)[0]);
-    // console.log(restaurant);
   }, [restaurants])
   
 
