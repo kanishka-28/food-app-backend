@@ -27,10 +27,10 @@ Router.get("/:id", async (req, res) => {
       await ValidateRestaurantId(req.params);
       const { id } = req.params;
       const foods = await FoodModel.find({ restaurant: id });
-      return res.json({ foods, success:true });
+      return res.json({ foods, success: true });
    }
    catch (error) {
-      return res.status(500).json({ message: error.message , success:false});
+      return res.status(500).json({ message: error.message, success: false });
    }
 
 });
@@ -69,24 +69,23 @@ Router.get("/r/:category", async (req, res) => {
 
 Router.post("/add/:id", getUserStatus, async (req, res) => {
    try {
-      
-      if(req.user._id.toString()===req.body.user){
-         const {id} = req.params;
-          await ValidateRestaurantId({id});
-          const check = await FoodModel.find({restaurant:id, name:req.body.name});
-          if(check.length!==0){
-             return res.status(409).json({message: "food item already exists"});
-          }
-          const {restaurantDetails} = req.body;
-             const food = await FoodModel.create({...restaurantDetails, restaurant: id});
-             return res.json({ food, success:true });
+      // console.log();
+      if (req.user._id.toString() === req.body.user) {
+         const { id } = req.params;
+         await ValidateRestaurantId({ id });
+         const check = await FoodModel.find({ restaurant: id, name: req.body.name });
+         if (check.length !== 0) {
+            return res.status(409).json({ message: "food item already exists" });
+         }
+         const food = await FoodModel.create({ ...req.body, restaurant: id });
+         return res.json({ food, success: true });
       }
-      else{
-         return res.status(401).json({message:"Not Authorized"});
+      else {
+         return res.status(401).json({ message: "Not Authorized" });
       }
    }
    catch (error) {
-      return res.status(500).json({message: error.message , success: true });
+      return res.status(500).json({ message: error.message, success: true });
    }
 })
 
@@ -101,11 +100,11 @@ Router.post("/add/:id", getUserStatus, async (req, res) => {
 Router.put("/edit/:id", getUserStatus, async (req, res) => {
    try {
       await ValidateRestaurantId(req.params.id);
-         food = await FoodModel.findByIdAndUpdate(req.params.id, {
-            $set: req.body,
-            upsert: true
-         }, {new: true})
-         return res.json({ food, success: true });
+      food = await FoodModel.findByIdAndUpdate(req.params.id, {
+         $set: req.body,
+         upsert: true
+      }, { new: true })
+      return res.json({ food, success: true });
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
@@ -123,11 +122,11 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
 Router.post("/delete/:id", getUserStatus, async (req, res) => {
    try {
       await ValidateRestaurantId(req.params.id);
-         const food = await FoodModel.findByIdAndDelete(req.params.id)
-         return res.json({ food, success:true });
+      const food = await FoodModel.findByIdAndDelete(req.params.id)
+      return res.json({ food, success: true });
    }
    catch (error) {
-      return res.status(500).json({ message: error.message, success:false });
+      return res.status(500).json({ message: error.message, success: false });
    }
 })
 
@@ -136,13 +135,13 @@ export default Router;
 
 
 //middle ware
-//token user 
-// specific user ki status kya h 
-// jo status h usko return krna h 
+//token user
+// specific user ki status kya h
+// jo status h usko return krna h
 // status aur id ko return krna h header mai daalkr
-// api call if 
+// api call if
 
-//api bnengi 3 
+//api bnengi 3
 // ek post kregi food
 // ek delete kregi
 // ek update bhi

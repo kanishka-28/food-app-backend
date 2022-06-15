@@ -44,6 +44,7 @@ Router.put("/update", getUserStatus, async (req, res) => {
        if(userData.city){
            userData.city = userData?.city?.toLowerCase();
        }
+    //    console.log(req.body);
         if (_userId === req.user._id.toString()) {
             const updateUserData = await UserModel.findByIdAndUpdate(_userId, {
                 $set: userData,

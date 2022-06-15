@@ -19,7 +19,8 @@ const RestaurantSchema = new mongoose.Schema({
         ref: "Users",
         required: true
     },
-    photos: [{ type: String }]
+    photos: [{ type: String }],
+    image: {type: String}
 }, {
     timestamps: true
 });
