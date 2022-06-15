@@ -11,4 +11,4 @@ const Brands = [
     'Al-Beik MP Nagar',
 ]
 
-export default Brands;
+export default Brands; 

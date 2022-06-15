@@ -3,37 +3,23 @@ import { Dialog, Transition } from '@headlessui/react'
 // import { SignupContext } from "../../context/signup";
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
+import SingleSelectDropDown from '../DropDown/SingleSelectDropDown';
+import Brands from '../../Utils/Data/Brands';
+import { IoAddOutline } from 'react-icons/io5';
+import { servicePost } from '../../Utils/Api/Api';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../Redux/Features/Auth/Selector/Selector';
 // import { addrest, signupApi } from '../../services/api';
 // import { useHistory } from 'react-router';
 
 export default function AddFoodModal({ open, setOpen, title }) {
     //   const {open, setOpen,loginOpen, setLoginOpen,loggedIn, setloggedIn,specificRestaurant, setsepecificRestaurant,setuser } = useContext(SignupContext);
     const cancelButtonRef = useRef(null)
-    const [status, setStatus] = useState("user");
-    const [bgColor, setBgColor] = useState("gray-300")
-    const [userbtn, setuserbtn] = useState("megenta-400")
-    const [resbtn, setresbtn] = useState("megenta-400")
-    const [cursor, setCursor] = useState("not-allowed")
-    const [displayuser, setdisplayuser] = useState("block")
-    const [displayrest, setdisplayrest] = useState("hidden")
-    const [uname, setuname] = useState("")
-    const [upass, setupass] = useState("")
-    const [uaddress, setuaddress] = useState("")
-    const [ucity, setucity] = useState("")
-    const [rname, setrName] = useState("")
-    const [rpass, setrpass] = useState("")
-    const [rphone, setrphone] = useState("")
-    const [raddress, setraddress] = useState("")
-    const [rcity, setrcity] = useState("")
-    const [oname, setoname] = useState("")
-    const [opass, setopass] = useState("")
-    const [oemail, setoemail] = useState("")
-    const [latit, setlatit] = useState("")
-    const [longi, setlongi] = useState("")
-    const [error, seterror] = useState("")
-
-
+    const user = useSelector(getUser);
     const [details, setDetails] = useState({
+        user: user?._id,
         name: '',
         descript: '',
         isVeg: false,
@@ -44,68 +30,17 @@ export default function AddFoodModal({ open, setOpen, title }) {
         brand: '',
     })
 
-    const [des, setdes] = useState("")
-    const [category, setcategory] = useState("")
-    const [price, setprice] = useState(false)
-    const [isVeg, setisVeg] = useState(false)
-    const [isContainEgg, setisContainEgg] = useState(false)
+    const { id } = useParams();
 
-    //   const [open, setOpen] = useState(true)
-    //   const history = useHistory();
-    const uName = (e) => {
-        setuname(e.target.value)
+    const handleClick = async () => {
+        try {
+            const res = await servicePost(`food/add/${id}`,details)
+            console.log(res);
+            toast.success(`${details.name} has been added`);
+        } catch (error) {
+            toast.error('Some error occured while adding new food')
+        }
     }
-    const uPass = (e) => {
-        setupass(e.target.value)
-    }
-    const uAddress = (e) => {
-        setuaddress(e.target.value)
-    }
-    const uCity = (e) => {
-        setucity(e.target.value)
-    }
-
-    const rName = (e) => {
-        setrName(e.target.value)
-    }
-    const rPass = (e) => {
-        setrpass(e.target.value)
-    }
-    const rPhone = (e) => {
-        setrphone(e.target.value)
-    }
-    const rAddress = (e) => {
-        setraddress(e.target.value)
-    }
-    const rCity = (e) => {
-        setrcity(e.target.value)
-    }
-    const oName = (e) => {
-        setoname(e.target.value)
-    }
-    const oPass = (e) => {
-        setopass(e.target.value)
-    }
-    const oEmail = (e) => {
-        setoemail(e.target.value)
-    }
-    const Latit = (e) => {
-        setlatit(e.target.value)
-    }
-    const Longi = (e) => {
-        setlongi(e.target.value)
-    }
-    // useEffect(() => {
-    //   if (name.length > 5 && pass.length > 10 && pass.includes("@")) {
-    //     setBgColor("red-500")
-    //     setCursor("pointer")
-    //   } else {
-    //     setBgColor("gray-300")
-    //     setCursor("not-allowed")
-    //   }
-    // }, [name, pass])
-
-
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -149,20 +84,20 @@ export default function AddFoodModal({ open, setOpen, title }) {
                                                 ref={cancelButtonRef}><AiOutlineClose className="w-6" /></button>
                                         </div>
                                         <div className="mt-2 text-center">
-                                            <form className={`my-6 ${displayuser}`}>
+                                            <form>
                                                 <input placeholder="Food Name" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, name: e.target.value })} />
                                                 <textarea placeholder="Description" className="p-4 my-2 w-full  focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, descript: e.target.value })} />
-                                                <input placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e)=>setDetails({...details,category:e.target.value})} />
+                                                <input placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, category: e.target.value })} />
+                                                <SingleSelectDropDown array={Brands} />
                                                 <div className="flex items-center justify-evenly my-2 w-3/4">
                                                     <p>Is Veg ?</p>
-                                                    <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e)=>setDetails({...details,isVeg:!isVeg})} />
+                                                    <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e) => setDetails({ ...details, isVeg: !details.isVeg })} />
                                                     <p>Is Contain Egg ?</p>
-                                                    <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e)=>setDetails({...details,isContainEgg:!isContainEgg})}/>
+                                                    <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e) => setDetails({ ...details, isContainEgg: !details.isContainEgg })} />
                                                 </div>
-                                                <input type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e)=>setDetails({...details,price:e.target.value})} />
+                                                <input type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, price: e.target.value })} />
                                             </form>
-                                            <p className="text-md" >{error}</p>
-                                            <button className={`border border-gray-300 font-semibold w-full h-12 bg-megenta-400 text-white`}>{title} food</button>
+                                            <button className='mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={handleClick}><p>{title} Food</p><IoAddOutline size={'1.5rem'} /></button>
                                         </div>
                                     </div>
                                 </div>

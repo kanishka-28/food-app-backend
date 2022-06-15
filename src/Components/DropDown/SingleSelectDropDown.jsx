@@ -1,13 +1,14 @@
 import React from 'react'
 
 const SingleSelectDropDown = ({array}) => {
+
     return (
         <div>
-            <select id="countries" className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 font-semibold" >
-                <option defaultValue>Choose a brand</option>
+            <select id="countries" className="p-2 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black border border-gray-300 rounded " value={'k'}>
+                <option defaultValue className='text-gray-400'>Choose a brand</option>
                 {array.map((data)=>(
-                    <option key={data} value="US">{data}</option>
-                ))}
+                    <option className='text-black' key={data} value={data}>{data}</option>
+                ))} 
             </select>
         </div>
     )

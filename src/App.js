@@ -43,7 +43,7 @@ function App() {
           <Route path="/restaurant" >
             <Route path=":id" element={<Restaurant/> }/>
             <Route path="add" element={<EditRestaurant/>}/>
-            <Route path="edit/:id" element={<EditRestaurant edit={true}/>}/>
+            <Route path="edit" element={<EditRestaurant edit={true}/>}/>
             </Route>     
           <Route path="/about" element={<Navbar />} >
             <Route path="orders" element={<AllOrders />} />
