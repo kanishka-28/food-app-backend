@@ -22,9 +22,12 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
             // Make a fileInfo Object
             console.log("Called", reader);
             baseURL = reader.result;
+            console.log("Base", baseURL);
             setrestaurantDetails({ ...restaurantDetails, image: baseURL });
         };
     };
+
+    console.log('Details',restaurantDetails);
 
     return (
         <>

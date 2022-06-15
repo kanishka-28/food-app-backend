@@ -51,6 +51,7 @@ export default function EditRestaurant({ edit = false }) {
     e.preventDefault();
     try {
       if (edit) {
+        console.log("yes", restaurantDetails);
         const { updatedRestaurant: rest } = await servicePut(`restaurant/update/${requiredRestaurant._id}`, restaurantDetails);
         const otherRestaurants = restaurants.filter((restaurant)=>{
           return restaurant._id!==requiredRestaurant._id
