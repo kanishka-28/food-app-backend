@@ -64,8 +64,8 @@ Router.get('/', async (req, res) => {
 
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
-      const res = (await RestaurantModel.find({ user: req.user._id.toString() })).sort({ updatedAt: -1 })
-      return res.status(200).json({ restaurants: res, success: true });
+      const restaurants = (await RestaurantModel.find({ user: req.user._id }).sort({ updatedAt: -1 }))
+      return res.status(200).json({ restaurants, success: true });
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
@@ -138,7 +138,7 @@ Router.post("/addrest", getUserStatus, async (req, res) => {
       let data = req.body;
       data.city = data.city.toLowerCase();
       if (data.user == req.user._id.toString()) {
-         const check = await RestaurantModel.find({ user: req.user._id.toString(), name: req.body.name, city: req.body.city });
+         const check = await RestaurantModel.find({ user: req.user._id, name: req.body.name, city: req.body.city });
 
          if (check.length !== 0) {
             return res.status(409).json({ message: "restaurant already exists", success: false })
