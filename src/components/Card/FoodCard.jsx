@@ -8,7 +8,7 @@ const FoodCards = ({restaurant}) => {
         <div className="w-full  h-auto my-4 rounded-lg shadow-lg relative pb-2 md:pb-0 ">
             <Link to={`/restaurant/${id}`}>
                 <div className="rounded-lg shadow w-full h-56">
-                    <img src={(coverImage)? coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLoeVu-1OtdDQVJnSFlXBXWZfOvkLG-GBAHLVJHJKZt7AtJay6gxoCBN9k8VKhy1vSaGs&usqp=CAU"} className="w-full h-full rounded-lg shadow-md" alt="card" />
+                    <img src={(coverImage)? coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLoeVu-1OtdDQVJnSFlXBXWZfOvkLG-GBAHLVJHJKZt7AtJay6gxoCBN9k8VKhy1vSaGs&usqp=CAU"} className="w-full h-full rounded-lg shadow-md object-cover" alt="card" />
                 </div>
             </Link>
             <div className="text-sm text-white font-semibold  z-0 top-1 l-0">

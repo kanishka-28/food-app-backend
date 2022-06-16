@@ -134,7 +134,9 @@ const Overview = ({ restaurant: requiredRestaurant }) => {
             </div>
             <div className="h-2/3 my-1 mx-8">
               <p className="text-xl text-gray-700 mb-2">Direction</p>
-              <div className="h-52"> <GoogleMap location={requiredRestaurant?.mapLocation}/> </div>
+              <div className="h-52"> 
+                  <GoogleMap location={requiredRestaurant?.mapLocation}/> 
+              </div>
             </div>
             <div className="my-2 mx-8">
               <h5 className="text-gray-600 mb-4">{address}</h5>
@@ -147,7 +149,12 @@ const Overview = ({ restaurant: requiredRestaurant }) => {
                   <FiCopy className="w-5 h-5" />
                   <p>Copy</p>
                 </button>
-                <button className="w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2">
+                <button  onClick={() => {
+              window.open(
+                `https://www.google.com/maps/@${requiredRestaurant.mapLocation.latitude},${requiredRestaurant.mapLocation.longitude},18.65z`,
+                "_blank"
+              );
+            }} className="w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2">
                   <RiDirectionLine className="w-5 h-5" />
                   <p>Direction</p>
                 </button>

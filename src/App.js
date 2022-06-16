@@ -26,6 +26,7 @@ import ScrollToTop from "./utlis/scrollToTop";
 import { location } from "./redux/features/location/selector";
 import { setLocation } from "./redux/features/location/slice";
 import NotFound from "./pages/Not Found/404";
+import { setloadingTrue } from "./redux/features/Loader/slice";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
   //to get location
   const getLocation = async () => {
     if (!ready) {
+      dispatch(setloadingTrue());
       toast.success("Loading Location", {
         icon: '⌛'
       })

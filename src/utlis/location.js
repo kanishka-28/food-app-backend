@@ -11,46 +11,6 @@ import { storeRestaurant } from "../redux/features/restaurants/slice";
 import { serviceGet } from "./api";
 
 
-export const useLocation = async () => {
-
-  const { ready } = useSelector(location);
-  const dispatch = useDispatch();
-  if (!ready) {
-    
-    if (navigator.geolocation) {
-      
-      await navigator.geolocation.getCurrentPosition(showPos, showErr);
-
-      function showPos(position) {
-
-        dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
-      }
-      function showErr(err) {
-        switch (err.code) {
-          case err.PERMISSION_DENIED:
-            toast.error("Allow Location Permission, Please")
-            break;
-          case err.POSITION_UNAVAILABLE:
-            toast.error("Location information is unavailable.")
-            break;
-          case err.TIMEOUT:
-            toast.error("The request to get user location timed out.")
-            break;
-          case err.UNKNOWN_ERROR:
-            toast.error("An unknown error occurred.")
-            break;
-            default:
-              toast.error("Something went wrong");
-        }
-      }
-
-    }
-    else {
-      toast.error("Check permissions, We cant access your location");
-    }
-
-  }
-}
 
 
 export const useRestaurants = () => {
