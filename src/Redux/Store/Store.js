@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authSlice from "../Features/Auth/Slice";
+import loaderSlice from "../Features/Loader/Slice";
 import restaurantSlice from "../Features/Restaurant/Slice";
 
 export const store = configureStore({
@@ -7,5 +8,6 @@ export const store = configureStore({
         // add all reducers here
         auth: authSlice,
         restaurants: restaurantSlice,
+        loader: loaderSlice,
     }
 })
