@@ -21,7 +21,7 @@ export default function EditRestaurant({ edit = false }) {
     name: "",
     timing: "",
     address: "",
-    image: "",
+    coverImage: "",
     city: "",
     contactNumber: "",
     mapLocation: {
@@ -42,7 +42,7 @@ export default function EditRestaurant({ edit = false }) {
         city: requiredRestaurant.city,
         contactNumber: requiredRestaurant.contactNumber,
         mapLocation: requiredRestaurant.mapLocation,
-        image: requiredRestaurant.image
+        coverImage: requiredRestaurant.coverImage
       })
     }
   }, [])

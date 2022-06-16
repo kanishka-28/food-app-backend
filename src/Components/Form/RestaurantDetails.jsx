@@ -23,7 +23,7 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
             console.log("Called", reader);
             baseURL = reader.result;
             console.log("Base", baseURL);
-            setrestaurantDetails({ ...restaurantDetails, image: baseURL });
+            setrestaurantDetails({ ...restaurantDetails, coverImage: baseURL });
         };
     };
 
@@ -207,12 +207,12 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
                         <div className="justify-center h-3/4 sm:h-full focus:border-none focus:outline-none focus:ring-1 focus:ring-black border border-gray-300 rounded mt-1 flex items-center">
                             <img
                                 src={
-                                    restaurantDetails.image
-                                        ? restaurantDetails.image
+                                    restaurantDetails.coverImage
+                                        ? restaurantDetails.coverImage
                                         : noFileChosen
                                 }
                                 alt="Not Found"
-                                className={`${restaurantDetails.image ? "w-full" : "w-1/2"
+                                className={`${restaurantDetails.coverImage ? "w-full" : "w-1/2"
                                     } h-full`}
                             />
                         </div>
