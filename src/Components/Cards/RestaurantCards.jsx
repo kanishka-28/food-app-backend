@@ -6,7 +6,12 @@ const RestaurantCards = ({restaurant}) => {
     return (
         <div className="w-full flex justify-center mt-10">
             <div className="sm:w-3/4 px-10 md:p-0 flex flex-col sm:flex-row rounded-lg bg-white shadow-lg">
-                <img className="w-full h-4/5 sm:h-52 object-cover sm:w-1/2 md:w-1/3 rounded-t-lg md:rounded-none md:rounded-l-lg" src={restaurant?.coverImage} alt="" />
+                <div className="w-full h-4/5 sm:h-52 object-cover sm:w-1/2 md:w-1/3 rounded-t-lg md:rounded-none md:rounded-l-lg bg-center" >
+                <img className="w-full  h-full" src={restaurant?.coverImage} alt="" />
+
+                </div>
+
+               
                 <div className="w-1/2 px-6 flex flex-col justify-evenly">
                     <h3 className="text-gray-900 font-semibold">{restaurant.name}</h3>
                     <div>
