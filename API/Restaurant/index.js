@@ -177,4 +177,9 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
    }
 });
 
+
+//delete restaurant
+
+
+
 export default Router;

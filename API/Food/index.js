@@ -134,14 +134,4 @@ Router.post("/delete/:id", getUserStatus, async (req, res) => {
 export default Router;
 
 
-//middle ware
-//token user
-// specific user ki status kya h
-// jo status h usko return krna h
-// status aur id ko return krna h header mai daalkr
-// api call if
-
-//api bnengi 3
-// ek post kregi food
-// ek delete kregi
-// ek update bhi
+// ab sirf validation hoga bhidhu
