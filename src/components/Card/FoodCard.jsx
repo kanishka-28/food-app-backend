@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { capitalize } from '../../utlis/Capitalise';
 const FoodCards = ({restaurant}) => {
-    const {name, city, photos,_id:id} = restaurant;
+    const {name, city, coverImage,_id:id} = restaurant;
 //    console.log(about);
     return (
         <div className="w-full  h-auto my-4 rounded-lg shadow-lg relative pb-2 md:pb-0 ">
             <Link to={`/restaurant/${id}`}>
-                <div className="rounded-lg shadow">
-                    <img src={(photos && photos.length>0)? photos[0]: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLoeVu-1OtdDQVJnSFlXBXWZfOvkLG-GBAHLVJHJKZt7AtJay6gxoCBN9k8VKhy1vSaGs&usqp=CAU"} className="w-full h-full rounded-lg shadow-md" alt="card" />
+                <div className="rounded-lg shadow w-full h-56">
+                    <img src={(coverImage)? coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLoeVu-1OtdDQVJnSFlXBXWZfOvkLG-GBAHLVJHJKZt7AtJay6gxoCBN9k8VKhy1vSaGs&usqp=CAU"} className="w-full h-full rounded-lg shadow-md" alt="card" />
                 </div>
             </Link>
             <div className="text-sm text-white font-semibold  z-0 top-1 l-0">
