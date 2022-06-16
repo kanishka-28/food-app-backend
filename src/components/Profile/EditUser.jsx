@@ -18,9 +18,7 @@ const EditUser = ({profile,setedit}) => {
       try {
         const {user} =  await servicePut('user/update',data);
         dispatch(updateUser(user));
-        toast.success("Profile updated successfully",{
-          icon: '🍕'
-        })
+        toast.success("Profile updated successfully")
       } catch (error) {
         toast.error("Sorry, try again later");
       }

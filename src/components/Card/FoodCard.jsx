@@ -16,20 +16,20 @@ const FoodCards = ({restaurant}) => {
                 <div className="bg-blue-500 w-24 h-5 my-2 px-1">40% Off</div>
             </div>
             <div className="flex justify-between m-2 items-center">
-                <h3 className="font-bold font-medium hidden md:block lg:hidden">{name.length>14 ? capitalize(name.slice(0,10)) + "..." : capitalize(name)}</h3>
-                <h3 className="font-bold font-medium md:hidden lg:block">{name.length>25 ? capitalize(name.slice(0,25)) + "..." : capitalize(name)}</h3>
+                <Link to={`/restaurant/${id}`} className="text-3xl font-bold font-medium hidden md:block lg:hidden">{name.length > 14 ? capitalize(name.slice(0, 10)) + "..." : capitalize(name)}</Link>
+                <Link to={`/restaurant/${id}`} className="text-3xl font-bold font-medium md:hidden lg:block">{name.length > 25 ? capitalize(name.slice(0, 25)) + "..." : capitalize(name)}</Link>
                 <div className="bg-green-600 h-7 rounded-lg text-white p-0.5">4.3⭐</div>
             </div>
             <div className="flex justify-between m-2">
                 <div className="text-gray-600 font-small text-center">{capitalize(city)}</div>
-                
+
             </div>
             <div className="flex justify-evenly m-2 pb-2">
-                <img src="https://b.zmtcdn.com/data/o2_assets/4bf016f32f05d26242cea342f30d47a31595763089.png" 
-                alt="uparrow" className="w-8 h-8" />
+                <img src="https://b.zmtcdn.com/data/o2_assets/4bf016f32f05d26242cea342f30d47a31595763089.png"
+                    alt="uparrow" className="w-8 h-8" />
                 <p className="text-gray-600 font-small">+6200 order placed from here recently</p>
-                <img src="https://b.zmtcdn.com/data/o2_assets/0b07ef18234c6fdf9365ad1c274ae0631612687510.png" 
-                alt="uparrow" className="w-16 h-8" />
+                <img src="https://b.zmtcdn.com/data/o2_assets/0b07ef18234c6fdf9365ad1c274ae0631612687510.png"
+                    alt="uparrow" className="w-16 h-8" />
             </div>
         </div>
     )

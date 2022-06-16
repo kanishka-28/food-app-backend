@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isAuthenticated, user } from "../../redux/features/auth/selector/selector";
 import { logout } from "../../redux/features/auth/slice";
+
 const ProfileDisclosure = () => {
   // const { loggedIn, setloggedIn , setuser} = useContext(SignupContext);
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const ProfileDisclosure = () => {
   return (
     <Menu as="div" className="relative">
       <div>
-        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white mr-8">
           <span className="sr-only">Open user menu</span>
           {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
@@ -98,7 +99,7 @@ const Nav = () => {
           <Link to="/">
             <div className="">
               <img
-                className="w-28 md:w-28 h-24"
+                className="w-28 md:w-28 h-28"
                 src="https://yt3.ggpht.com/ytc/AKedOLQcjMYalW_yII-YeLIMExAZ88R58Jw6VFUOJ1lK=s900-c-k-c0x00ffffff-no-rj"
                 alt="logo"
               />
@@ -118,7 +119,7 @@ const Nav = () => {
 
             <button
               onClick={onclick}
-              className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white "
+              className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-megenta-400 hover:bg-megenta-500 text-white "
             >
               <p> Search</p>
             </button>
@@ -126,19 +127,19 @@ const Nav = () => {
         </div>
         {
           !auth ?
-          <div className="flex gap-5">
+          <div className="flex gap-5 mr-8">
             
             <Link to="/auth/login">Log In</Link>
             
             <Link to="/auth/signup">Sign Up</Link>
           </div>
           :
-          <>
+          <div className="flex gap-16">
             <Link className="hidden md:block" to={"/cart"} >
-              <BsCart4 className="text-gray-500 text-3xl"/>
+              <BsCart4 className="text-gray-500 text-3xl m-0"/>
             </Link>
             <ProfileDisclosure/>
-          </>
+          </div>
         }
       </div>
       <div className="flex  bg-white items-center px-4 gap-3 shadow-md md:hidden mx-2 ">
@@ -153,7 +154,7 @@ const Nav = () => {
           />
         </div>
         
-          <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-zomato-400 hover:bg-zomato-500 text-white ">
+          <button onClick={onclick} className=" w-28 h-10 text-center m-1 rounded border-gray-400 border py-1 bg-megenta-400 hover:bg-megenta-500 text-white ">
             <p> Search</p>
           </button>
       </div>
