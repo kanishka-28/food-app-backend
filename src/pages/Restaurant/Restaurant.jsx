@@ -27,7 +27,6 @@ const Restaurant = () => {
           <RestaurantTab setType={setType} type={type}/>
         </div>
         <TabComponent restaurant={restaurant} type={type}/>
-       
       </div>
     </>
   );
