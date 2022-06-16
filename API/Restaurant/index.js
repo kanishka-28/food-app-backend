@@ -63,6 +63,7 @@ Router.get('/', async (req, res) => {
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
       const restaurants = await RestaurantModel.find({ user: req.user._id }).sort({ updatedAt: -1 })
+      // console.log(restaurants);
       return res.status(200).json({ restaurants, success: true });
    }
    catch (error) {
@@ -163,15 +164,13 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
       }
-      console.log(req.body);
+      // console.log(req.body);
       const updatedRestaurant = await RestaurantModel.findByIdAndUpdate(_id, {
          $set: req.body,
          upsert: true
       },
          { new: true }
       );
-      console.log('2222222222222222222222222222222222222222222222222222222');
-      console.log(updatedRestaurant);
       res.status(200).json({ updatedRestaurant, success: true });
    } catch (error) {
       return res.status(500).json({ message: error.message, success: false });

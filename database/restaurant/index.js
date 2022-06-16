@@ -8,7 +8,7 @@ const RestaurantSchema = new mongoose.Schema({
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true }
     },
-    restauarntTimings: { type: String },
+    timings: { type: String },
     contactNumber: { type: Number },
     website: { type: String },
     limit:{type:Number},
@@ -20,7 +20,7 @@ const RestaurantSchema = new mongoose.Schema({
         required: true
     },
     photos: [{ type: String }],
-    image: {type: String}
+    coverImage: {type: String}
 }, {
     timestamps: true
 });
