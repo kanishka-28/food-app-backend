@@ -29,7 +29,6 @@ function App() {
   const loadUserAbout = async () => {
     dispatch(setloadingTrue());
     await dispatch(loadUser());
-    // dispatch(setloadingFalse());
   };
 
   useRestaurants();
