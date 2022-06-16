@@ -1,45 +1,45 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
-// import { servicePut } from "../../utlis/api";
-// import { updateUser } from "../../redux/features/auth/slice";
+import { servicePut } from "../../Utils/Api/Api";
+import { updateUser } from "../../Redux/Features/Auth/Slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-// import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
+import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 
 const ProfilePicture = ({ profile }) => {
   const dispatch = useDispatch();
 
-  // const handleImageUpload = async (e) => {
-  //   dispatch(setloadingTrue());
-  //   const file = e.target.files[0];
-  //   console.log(file);
-  //   var reader = new FileReader();
-  //   let base64String = `data:${file.type};base64,`;
-  //   reader.onload = async function () {
-  //     base64String += reader.result.replace("data:", "").replace(/^.+,/, "");
-  //     //   console.log(base64String);
-  //     const data = {
-  //       _userId: profile._id,
-  //       userData: {
-  //         profilePic: base64String,
-  //       },
-  //     };
-  //     try {
-  //       const { user } = await servicePut("user/update", data);
-  //       dispatch(updateUser(user));
-  //       toast.success("Profile updated successfully", {
-  //         icon: "🍕",
-  //       });
-  //     } catch (error) {
-  //       toast.error("Sorry, try again later");
-  //     }
-  //     finally{
-  //       dispatch(setloadingFalse());
-  //     }
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
+  const handleImageUpload = async (e) => {
+    dispatch(setloadingTrue());
+    const file = e.target.files[0];
+    console.log(file);
+    var reader = new FileReader();
+    let base64String = `data:${file.type};base64,`;
+    reader.onload = async function () {
+      base64String += reader.result.replace("data:", "").replace(/^.+,/, "");
+      //   console.log(base64String);
+      const data = {
+        _userId: profile._id,
+        userData: {
+          profilePic: base64String,
+        },
+      };
+      try {
+        const { user } = await servicePut("user/update", data);
+        dispatch(updateUser(user));
+        toast.success("Profile updated successfully", {
+          icon: "🍕",
+        });
+      } catch (error) {
+        toast.error("Sorry, try again later");
+      }
+      finally{
+        dispatch(setloadingFalse());
+      }
+    };
+    reader.readAsDataURL(file);
+  };
   return (
     <>
       <div className="block lg:hidden">
@@ -56,7 +56,7 @@ const ProfilePicture = ({ profile }) => {
           />
         </label>
         <input
-          // onChange={handleImageUpload}
+          onChange={handleImageUpload}
           type="file"
           id="mobile-upload"
           className="hidden"
@@ -75,7 +75,7 @@ const ProfilePicture = ({ profile }) => {
           />
         </label>
         <input
-          // onChange={handleImageUpload}
+          onChange={handleImageUpload}
           id="desktop-upload"
           className="hidden"
           type="file"

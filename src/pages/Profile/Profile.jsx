@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import Navbar from "../../Components/Navbar/Navbar";
 import AboutUser from "../../Components/Profile/AboutUser";
 import EditUser from "../../Components/Profile/EditUser";
-import ProfileTab from "../../Components/Profile/ProfileTab";
 import ProfilePicture from "../../Components/Profile/ProfilePicture";
 import { getUser } from "../../Redux/Features/Auth/Selector/Selector";
 
 const Profile = () => {
 
-    const [Img, setImg] = useState("");
+   
     const [edit, setedit] = useState(false);
-    const dispatch = useDispatch();
+    
     const profile = useSelector(getUser);
 
     return (
@@ -32,7 +28,7 @@ const Profile = () => {
                         ) : (
                             <EditUser profile={profile} setedit={setedit} />
                         )}
-                        <ProfileTab />
+                    
                     </div>
                 </div>
                 <div className="hidden lg:block w-1/5">
