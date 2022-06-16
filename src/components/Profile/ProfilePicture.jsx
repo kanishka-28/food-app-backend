@@ -18,7 +18,6 @@ const ProfilePicture = ({ profile }) => {
     let base64String = `data:${file.type};base64,`;
     reader.onload = async function () {
       base64String += reader.result.replace("data:", "").replace(/^.+,/, "");
-        // console.log(base64String);
       const data = {
         _userId: profile._id,
         userData: {
@@ -26,14 +25,9 @@ const ProfilePicture = ({ profile }) => {
         },
       };
       try {
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
         const { user } = await servicePut("user/update", data);
         dispatch(updateUser(user));
-        toast.success("Profile updated successfully", {
-          icon: "🍕",
-        });
+        toast.success("Profile updated successfully");
       } catch (error) {
         toast.error("Sorry, try again later");
       }

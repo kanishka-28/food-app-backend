@@ -1,16 +1,15 @@
-import React, {useState } from 'react'
-import { RiStarLine, RiShareForwardLine, RiBookmark3Line, RiDirectionLine } from "react-icons/ri"
+import React, { useState } from 'react'
+import { RiStarLine, RiShareForwardLine, RiBookmark3Line, RiDirectionLine, RiShareForwardFill } from "react-icons/ri"
 import { HiOutlineInformationCircle } from "react-icons/hi"
 import { AiTwotoneStar } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { Photo } from '../restaurantComponent/photos';
 import { MobOrder } from '../restaurantComponent/order';
 import { capitalize } from '../../utlis/Capitalise';
-
+import { RWebShare } from "react-web-share";
 
 const RestaurantGallery = ({ setType, requiredRestaurant }) => {
-   
-    
+
     return (
         <>
             <div className="w-full ">
@@ -64,11 +63,28 @@ const RestaurantGallery = ({ setType, requiredRestaurant }) => {
                         <HiOutlineInformationCircle className="pt-0.5 w-5 h-5 text-gray-400" />
                     </div>
                 </div>
-                <div className="flex">
-                    <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-red-500 text-white flex justify-center items-center gap-2"><RiStarLine /><p> Direction</p></div>
-                    <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiDirectionLine /><p className="text-gray-500"> Add Review</p></div>
-                    <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 hidden md:flex"><RiBookmark3Line /><p className="text-gray-500"> Bookmark</p></div>
-                    <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiShareForwardLine className="w-5 h-5" /> <p className="text-gray-500">Share</p></div>
+                <div className="flex gap-2">
+                    <div onClick={() => { window.open(`https://www.google.com/maps/@${requiredRestaurant.mapLocation.latitude},${requiredRestaurant.mapLocation.longitude},18.65z`, "_blank"); }} className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-megenta-400 text-white flex justify-center items-center gap-2 cursor-pointer hover:scale-110 ease-in duration-200"><RiStarLine /><p> Direction</p></div>
+                    <div onClick={() => {
+                        setType('reviews');
+                        window.scrollBy(0, 1000)
+                    }
+                    } className="cursor-pointer w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200"><RiDirectionLine /><p className="text-gray-500"> Add Review</p></div>
+                    <div className=" w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 hidden hover:scale-110 ease-in duration-200 md:flex"><RiBookmark3Line /><p className="text-gray-500"> Bookmark</p></div>
+                    <div>
+                        <RWebShare
+                            data={{
+                                text: "Like humans, flamingos make friends for life",
+                                url: "http://localhost:3000",
+                                title: "Flamingos",
+                            }}
+                            onClick={() => console.log("shared successfully!")}
+                        >
+                            <div className="flex">
+                                <div className="cursor-pointer w-32 h-10 text-center m-1 rounded-md border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2  hover:scale-110 ease-in duration-200"><RiShareForwardLine className="w-5 h-5" /> <p className="text-gray-500">Share</p></div>
+                            </div>
+                        </RWebShare>
+                    </div>
                 </div>
                 {/* it may not render here */}
                 <Photo restaurant={requiredRestaurant} />

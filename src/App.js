@@ -13,35 +13,36 @@ import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import Cart from "./pages/Cart/Cart";
-import  toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GoogleLogin from "./pages/Auth/GoogleLogin";
 import { loadUser } from "./redux/features/auth/slice";
-import {  useRestaurants } from "./utlis/location";
+import { useRestaurants } from "./utlis/location";
 import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
 import ScrollToTop from "./utlis/scrollToTop";
 import { location } from "./redux/features/location/selector";
 import { setLocation } from "./redux/features/location/slice";
+import NotFound from "./pages/Not Found/404";
 
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   const { ready } = useSelector(location);
   //to get location
-  const getLocation =async ()=>{
+  const getLocation = async () => {
     if (!ready) {
-      toast.success("Loading Location",{
-        icon:'⌛'
+      toast.success("Loading Location", {
+        icon: '⌛'
       })
       if (navigator.geolocation) {
-        
+
         await navigator.geolocation.getCurrentPosition(showPos, showErr);
-  
+
         function showPos(position) {
-          toast.success("Location Found",{
+          toast.success("Location Found", {
             icon: '🍔'
           })
           dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
@@ -60,42 +61,41 @@ function App() {
             case err.UNKNOWN_ERROR:
               toast.error("An unknown error occurred.")
               break;
-              default:
-                toast.error("Something went wrong");
+            default:
+              toast.error("Something went wrong");
           }
         }
-  
+
       }
       else {
         toast.error("Check permissions, We cant access your location");
       }
-  
     }
   }
-  
-  
+
+
   useRestaurants();
- 
+
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
-  
+
   useEffect(() => {
     loadUserAbout();
     getLocation();
-  },[])
+  }, [])
 
 
   return (
     <>
-    
-      <Toaster 
+
+      <Toaster
         position="top-center"
         reverseOrder={true}
-       />
+      />
       {loading && (<Loader />)}
       <Router>
-        <ScrollToTop/>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Navigate to="/home/delivery" />} />
           <Route path="/home" element={<Home />} >
@@ -116,7 +116,8 @@ function App() {
           </Route>
 
 
-          <Route path="*" element={<h1>Error no page found</h1>} />
+
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
       </Router>

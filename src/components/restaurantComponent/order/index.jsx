@@ -175,7 +175,7 @@ const Order = () => {
                     </div>
                     <div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
                         <BsCheckCircleFill className="mr-2" />
-                        <p>Delivering to : <strong>{profile?.address.slice(0,20)+ '... ,'} {profile?.city}</strong></p>
+                        <p>Delivering to : <strong>{profile?.address.slice(0,40)+ '... ,'} {profile?.city}</strong></p>
                     
                     </div>
                 </div>
@@ -209,7 +209,7 @@ const Order = () => {
                                             name: food.name,
                                             price: food.price
                                         })
-                                    }} className="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                    }} className="hover:scale-110 ease-in duration-200 mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
                                         Add To Cart
                                     </button>
                                     <button onClick={() => {
@@ -218,7 +218,7 @@ const Order = () => {
                                             name: food.name,
                                             price: food.price
                                         })
-                                    }} className="mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
+                                    }} className="hover:scale-110 ease-in duration-200 mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
                                         Place Order
                                     </button>
                                 </div>
