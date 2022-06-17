@@ -99,12 +99,20 @@ Router.post("/add/:id", getUserStatus, async (req, res) => {
 
 Router.put("/edit/:id", getUserStatus, async (req, res) => {
    try {
-      await ValidateRestaurantId(req.params.id);
-      food = await FoodModel.findByIdAndUpdate(req.params.id, {
-         $set: req.body,
-         upsert: true
-      }, { new: true })
-      return res.json({ food, success: true });
+      const { restaurantId, foodDetails } = req.body;
+      const { restaurant } = FoodModel.findById(req.params.id);
+      if (restaurant.toString() === restaurantId) {
+         await ValidateRestaurantId(req.params.id);
+         food = await FoodModel.findByIdAndUpdate(req.params.id, {
+            $set: foodDetails,
+            upsert: true
+         }, { new: true })
+         return res.json({ food, success: true });
+      }
+      else {
+         return res.status(401).json({ message: "Not Authorized" });
+      }
+
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
@@ -119,11 +127,19 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
    Method   Get
 */
 
-Router.post("/delete/:id", getUserStatus, async (req, res) => {
+Router.delete("/delete/:id", getUserStatus, async (req, res) => {
    try {
-      await ValidateRestaurantId(req.params.id);
-      const food = await FoodModel.findByIdAndDelete(req.params.id)
-      return res.json({ food, success: true });
+      const { restaurantId, foodDetails } = req.body;
+      const { restaurant } = FoodModel.findById(req.params.id);
+      if (restaurant.toString() === restaurantId) {
+         await ValidateRestaurantId(req.params.id);
+         const food = await FoodModel.findByIdAndDelete(req.params.id)
+         return res.json({ food, success: true, message:"Food Item deleted Succesfully" });
+      }
+      else{
+         return res.status(401).json({message: "Not Authorized", success:false});
+      }
+
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
@@ -133,5 +149,3 @@ Router.post("/delete/:id", getUserStatus, async (req, res) => {
 
 export default Router;
 
-
-// ab sirf validation hoga bhidhu

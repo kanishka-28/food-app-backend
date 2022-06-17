@@ -164,7 +164,6 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
       }
-      // console.log(req.body);
       const updatedRestaurant = await RestaurantModel.findByIdAndUpdate(_id, {
          $set: req.body,
          upsert: true
