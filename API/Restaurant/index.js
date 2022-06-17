@@ -164,7 +164,6 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
       }
-      // console.log(req.body);
       const updatedRestaurant = await RestaurantModel.findByIdAndUpdate(_id, {
          $set: req.body,
          upsert: true
@@ -176,5 +175,10 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
       return res.status(500).json({ message: error.message, success: false });
    }
 });
+
+
+//delete restaurant
+
+
 
 export default Router;
