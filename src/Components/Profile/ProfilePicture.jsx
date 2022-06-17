@@ -4,7 +4,10 @@ import { servicePut } from "../../Utils/Api/Api";
 import { updateUser } from "../../Redux/Features/Auth/Slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
+import {
+  setloadingFalse,
+  setloadingTrue,
+} from "../../Redux/Features/Loader/Slice";
 import { resizeFile } from "../../Utils/Functions/imageResizer";
 
 const ProfilePicture = ({ profile }) => {
@@ -42,13 +45,13 @@ const ProfilePicture = ({ profile }) => {
     dispatch(setloadingTrue());
     try {
       const file = e.target.files[0];
-      if(file.size>5000000){
+      if (file.size > 5000000) {
         toast("Image size should be less than 5 MB");
         return;
       }
-     
+
       const image = await resizeFile(file);
-     
+
       const data = {
         _userId: profile._id,
         userData: {
@@ -57,11 +60,13 @@ const ProfilePicture = ({ profile }) => {
       };
       const { user } = await servicePut("user/update", data);
       dispatch(updateUser(user));
-      toast.success("Profile updated successfully");
+      toast.success("Profile updated successfully", {
+        icon: "🍕",
+      });
     } catch (err) {
       toast.error("Photo not updated");
     } finally {
-        dispatch(setloadingFalse());
+      dispatch(setloadingFalse());
     }
   };
   return (
@@ -72,10 +77,11 @@ const ProfilePicture = ({ profile }) => {
             className="block lg:hidden rounded-full shadow-xl mx-auto  h-48 w-48 bg-cover bg-center cursor-pointer hover:brightness-75"
             title="Change Profile"
             style={{
-              backgroundImage: `url(${profile?.profilePic
+              backgroundImage: `url(${
+                profile?.profilePic
                   ? profile?.profilePic
                   : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-                })`,
+              })`,
             }}
           />
         </label>

@@ -5,24 +5,7 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
 
     
     const handleFile = async(e) => {
-        // let file = e.target.files[0];
-        // console.log("====================================");
-        // console.log(e.target.files[0]);
-        // console.log("====================================");
-       
-        // let baseURL = "";
         
-        // let reader = new FileReader();
-       
-        // reader.readAsDataURL(file);
-        // reader.onload = () => {
-        //     // Make a fileInfo Object
-        //     console.log("Called", reader);
-        //     baseURL = reader.result;
-        //     console.log("Base", baseURL);
-        //     setrestaurantDetails({ ...restaurantDetails, coverImage: baseURL });
-        // };
-
         //my style
         const file = e.target.files[0];
         if(file.size>5000000){
