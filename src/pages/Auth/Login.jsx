@@ -21,7 +21,7 @@ export default function Login() {
 
   return (
     <div className="flex   justify-center items-center w-full ">
-      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
+      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full    ">
         <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
             <LoginForm data={data} setdata={setdata} handleSubmit={handleSubmit}/>

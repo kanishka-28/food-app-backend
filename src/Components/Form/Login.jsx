@@ -5,8 +5,8 @@ const LoginForm = ({ data, setdata, handleSubmit }) => {
   const [showPass, setshowPass] = useState(false);
 
   return (
-    <div>
-      <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">
+    <div className="w-full mx-auto ">
+      <div className="mt-3 w-full text-center  mb-8 ">
         <div className="flex  justify-center mb-8">
           <h3 className="text-2xl leading-6 font-medium text-gray-900 ">
             Log In
@@ -51,8 +51,7 @@ const LoginForm = ({ data, setdata, handleSubmit }) => {
             >
               Sign in{" "}
             </button>
-            <p className="m-4 font-dark text-xl">Or</p>
-            {/* <LoginGoogle/> */}
+          
           </form>
         </div>
       </div>
