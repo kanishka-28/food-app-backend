@@ -168,7 +168,7 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
          $set: req.body,
          upsert: true
       },
-         { new: true }
+      { new: true }
       );
       res.status(200).json({ updatedRestaurant, success: true });
    } catch (error) {
@@ -178,7 +178,20 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
 
 
 //delete restaurant
+Router.delete('/delete/:_id',getUserStatus,async(req,res)=>{
+   try {
+      const { _id } = req.params;
+      let check = RestaurantModel.findOne({ _id, user: req.user._id });
+      if (!check) {
+         res.status(401).json({ message: "Not Authorized" });
+      }
+      const deletedRestaurant = await RestaurantModel.findByIdAndDelete(_id);
+      res.status(200).json({ deletedRestaurant, success: true });
+   } catch (error) {
+      return res.status(500).json({ message: error.message, success: false });
+   }
 
+})
 
 
 export default Router;
