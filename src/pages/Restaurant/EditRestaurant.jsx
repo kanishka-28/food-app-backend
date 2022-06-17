@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RestaurantDetailsForm from "../../Components/Form/RestaurantDetails";
 import { allRestaurants } from "../../Redux/Features/Restaurant/Selector/Selector";
 import { storeAllRestaurants } from "../../Redux/Features/Restaurant/Slice";
+import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 
 export default function EditRestaurant({ edit = false }) {
   const user = useSelector(getUser);
@@ -49,9 +50,9 @@ export default function EditRestaurant({ edit = false }) {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    dispatch(setloadingTrue());
     try {
       if (edit) {
-        console.log("yes", restaurantDetails);
         const { updatedRestaurant: rest } = await servicePut(`restaurant/update/${requiredRestaurant._id}`, restaurantDetails);
         const otherRestaurants = restaurants.filter((restaurant)=>{
           return restaurant._id!==requiredRestaurant._id
@@ -67,6 +68,9 @@ export default function EditRestaurant({ edit = false }) {
       navigate('/');
     } catch (error) {
       toast.error(error.response.data.message)
+    }
+    finally{
+      dispatch(setloadingFalse());
     }
   };
 

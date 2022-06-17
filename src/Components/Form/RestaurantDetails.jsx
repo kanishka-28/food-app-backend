@@ -1,33 +1,24 @@
-import { useEffect } from "react";
+import toast from "react-hot-toast";
 import noFileChosen from "../../Assets/noFileChosen.svg";
-
+import {resizeFile} from "../../Utils/Functions/imageResizer";
 export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, setrestaurantDetails }) {
 
-    // console.log('====================================');
-    // console.log(restaurantDetails);
-    // console.log('====================================');
-    const handleFile = (e) => {
-        let file = e.target.files[0];
-        console.log("====================================");
-        console.log(e.target.files[0]);
-        console.log("====================================");
-        // formData.append('image', e.target.files[0]);
-        let baseURL = "";
-        // Make new FileReader
-        let reader = new FileReader();
-        // Convert the file to base64 text
-        reader.readAsDataURL(file);
-        // on reader load somthing...
-        reader.onload = () => {
-            // Make a fileInfo Object
-            console.log("Called", reader);
-            baseURL = reader.result;
-            console.log("Base", baseURL);
-            setrestaurantDetails({ ...restaurantDetails, coverImage: baseURL });
-        };
+    
+    const handleFile = async(e) => {
+        
+        //my style
+        const file = e.target.files[0];
+        if(file.size>5000000){
+            toast("Image size should be less than 5 MB");
+            return;
+        }
+       
+        const image = await resizeFile(file);
+        setrestaurantDetails({ ...restaurantDetails, coverImage: image });
+        
     };
 
-    console.log('Details',restaurantDetails);
+   
 
     return (
         <>

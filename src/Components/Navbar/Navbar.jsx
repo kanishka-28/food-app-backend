@@ -18,7 +18,7 @@ const ProfileDisclosure = () => {
       <div>
       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span className="sr-only">Open user menu</span>
-          {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
+          {profile?.profilePic ? <img src={profile?.profilePic} className="w-10 h-10 rounded-full object-cover" alt="profile" /> : <BiUser className="w-10 h-10 rounded-full bg-zomato-400 text-white " />}
         </Menu.Button>
       </div>
       <div>
