@@ -124,7 +124,7 @@ export const signup = createAsyncThunk("auth/signup", async (values) => {
 });
 
 export const loadUser = createAsyncThunk("auth/loadUser", async () => {
-
+    
     try {
         const token = localStorage.getItem('token')
         if (!token) {
@@ -143,17 +143,14 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
     } catch (error) {
         // delete axios.defaults.headers.common['auth'];
         if (error.message === "Network Error") {
-            toast.error(error.message + ",Please Login Again ", {
+            toast.error(error.message + ",Please Login Again", {
                 duration: 4000
-
             })
         }
         else {
             toast.error(error.response.data.message, {
                 duration: 4000
-
             })
-
         }
         deleteHeader('auth');
         return {
@@ -174,7 +171,6 @@ const authSlice = createSlice({
             state.token = null
             state.user = null
             state.isAuthenticated = false
-            state.isReady = false
         }
     },
     extraReducers: (builder) => {

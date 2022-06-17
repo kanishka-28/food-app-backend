@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
 import AddFoodModal from '../../Modal/AddFood';
 import FoodCards from '../../Cards/FoodCards';
+import EditFoodModal from '../../Modal/EditFood';
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 
@@ -85,15 +86,18 @@ const Order = () => {
         return (
             <>
                 <div className='flex flex-col'>
-                    <button className='self-end py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={() => {
+                    {/* <button className='self-end py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={() => {
                         setOpen(true)
                         settitle('Add')
                     }
-                    }><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
+                    }><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button> */}
                     <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                         {foods.length !== 0 ? foods?.map((food) => {
                             return (
-                                <FoodCards key={food.id} food={food} setOpen={setOpen} settitle={settitle} />
+                                <>
+                                    <FoodCards key={food.id} food={food} setOpen={setOpen} settitle={settitle} />
+                                    <EditFoodModal open={open} setOpen={setOpen} title={title} />
+                                </>
                             )
                         })
                             : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
@@ -108,7 +112,6 @@ const Order = () => {
     return (
         <div>
             <LapOrder />
-            <AddFoodModal open={open} setOpen={setOpen} title={title} />
         </div>
     )
 }

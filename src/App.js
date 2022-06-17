@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Loader from "./Components/Loader/Loader";
 import Navbar from "./Components/Navbar/Navbar";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import AuthWrapper from "./pages/Auth/AuthWrapper";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
@@ -22,6 +23,7 @@ import { loadUser } from "./Redux/Features/Auth/Slice";
 import { loading } from "./Redux/Features/Loader/Selector/Selector";
 import { setloadingFalse, setloadingTrue } from "./Redux/Features/Loader/Slice";
 import { useRestaurants } from "./Utils/Functions/getRestaurants";
+import ScrollToTop from "./Utils/Functions/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,33 +36,37 @@ function App() {
   useRestaurants();
 
   useEffect(() => {
-    
+
     loadUserAbout();
 
   }, [])
   return (
     <>
-    {isLoading && (<Loader/>)}
-    <div><Toaster/></div>
+      {isLoading && (<Loader />)}
+      <div><Toaster /></div>
       <Router>
+        <ScrollToTop />
+        {/* <ProtectedRoute> */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />   
+          <Route path="/home" element={<Home />} />
           <Route path="/restaurant" >
-            <Route path=":id" element={<Restaurant/> }/>
-            <Route path="add" element={<EditRestaurant/>}/>
-            <Route path="edit" element={<EditRestaurant edit={true}/>}/>
-            </Route>     
+            <Route path=":id" element={<Restaurant />} />
+            <Route path="add" element={<EditRestaurant />} />
+            <Route path="edit" element={<EditRestaurant edit={true} />} />
+          </Route>
+          <Route path="/auth" element={<AuthWrapper />} >
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
           <Route path="/about" element={<Navbar />} >
             <Route path="orders" element={<AllOrders />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-          <Route path="/auth" element={<AuthWrapper/>} >
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
-          <Route path="*" element={<NotFound/>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
+        {/* </ProtectedRoute> */}
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Router>
     </>
   );

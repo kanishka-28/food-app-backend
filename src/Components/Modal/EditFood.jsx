@@ -12,7 +12,7 @@ import { getUser } from '../../Redux/Features/Auth/Selector/Selector';
 // import { addrest, signupApi } from '../../services/api';
 // import { useHistory } from 'react-router';
 
-export default function AddFoodModal({ open, setOpen, title }) {
+export default function EditFoodModal({ open, setOpen, title }) {
     //   const {open, setOpen,loginOpen, setLoginOpen,loggedIn, setloggedIn,specificRestaurant, setsepecificRestaurant,setuser } = useContext(SignupContext);
     const cancelButtonRef = useRef(null)
     const user = useSelector(getUser);

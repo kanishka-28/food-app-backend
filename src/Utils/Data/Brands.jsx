@@ -10,5 +10,5 @@ const Brands = [
     'New Zam Zam',
     'Al-Beik MP Nagar',
 ]
-
+ 
 export default Brands; 

@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import noFileChosen from "../../Assets/noFileChosen.svg";
+import Brands from "../../Utils/Data/Brands";
+import SingleSelectDropDown from '../DropDown/SingleSelectDropDown'
 
-export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, setrestaurantDetails }) {
+export default function RestaurantDetailsForm({ handleSave, restaurantDetails, setrestaurantDetails }) {
 
     // console.log('====================================');
     // console.log(restaurantDetails);
@@ -26,8 +28,6 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
             setrestaurantDetails({ ...restaurantDetails, coverImage: baseURL });
         };
     };
-
-    console.log('Details',restaurantDetails);
 
     return (
         <>
@@ -85,6 +85,23 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
                                 htmlFor="company-website"
                                 className="block text-gray-700"
                             >
+                                Brand
+                            </label>
+                            <div className="mt-1 flex rounded shadow-sm">
+                                <SingleSelectDropDown array={Brands} title='Brand' value={restaurantDetails.brand} handleChange={(e) => {
+                                    setrestaurantDetails({
+                                        ...restaurantDetails,
+                                        brand: e.target.value,
+                                    })
+                                }} />
+                                {console.log(restaurantDetails.brand)}
+                            </div>
+                        </div>
+                        <div className="col-span-3 sm:col-span-2">
+                            <label
+                                htmlFor="company-website"
+                                className="block text-gray-700"
+                            >
                                 Contact Number
                             </label>
                             <div className="mt-1 flex rounded shadow-sm">
@@ -119,9 +136,9 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
                                         className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                                         value={restaurantDetails.mapLocation.latitude}
                                         onChange={(e) => {
-                                          setrestaurantDetails({
+                                            setrestaurantDetails({
                                                 ...restaurantDetails,
-                                                mapLocation:{
+                                                mapLocation: {
                                                     ...restaurantDetails.mapLocation,
                                                     latitude: e.target.value
                                                 }
@@ -147,7 +164,7 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
                                         onChange={(e) => {
                                             setrestaurantDetails({
                                                 ...restaurantDetails,
-                                                mapLocation:{
+                                                mapLocation: {
                                                     ...restaurantDetails.mapLocation,
                                                     longitude: e.target.value
                                                 }
