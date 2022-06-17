@@ -1,41 +1,43 @@
-import React, { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import React from "react";
+import { resizeFile } from "../../utlis/imageResizer";
 import { useDispatch } from "react-redux";
 import { servicePut } from "../../utlis/api";
 import { updateUser } from "../../redux/features/auth/slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
+import {
+  setloadingFalse,
+  setloadingTrue,
+} from "../../redux/features/Loader/slice";
 
 const ProfilePicture = ({ profile }) => {
   const dispatch = useDispatch();
 
   const handleImageUpload = async (e) => {
     dispatch(setloadingTrue());
-    const file = e.target.files[0];
-    console.log(file);
-    var reader = new FileReader();
-    let base64String = `data:${file.type};base64,`;
-    reader.onload = async function () {
-      base64String += reader.result.replace("data:", "").replace(/^.+,/, "");
+    try {
+      const file = e.target.files[0];
+      if(file.size>5000000){
+        toast("Image size should be less than 5 MB");
+        return;
+      }
+      console.log(file);
+      const image = await resizeFile(file);
+     
       const data = {
         _userId: profile._id,
         userData: {
-          profilePic: base64String,
+          profilePic: image,
         },
       };
-      try {
-        const { user } = await servicePut("user/update", data);
-        dispatch(updateUser(user));
-        toast.success("Profile updated successfully");
-      } catch (error) {
-        toast.error("Sorry, try again later");
-      }
-      finally{
+      const { user } = await servicePut("user/update", data);
+      dispatch(updateUser(user));
+      toast.success("Profile updated successfully");
+    } catch (err) {
+      toast.error("Photo not updated");
+    } finally {
         dispatch(setloadingFalse());
-      }
-    };
-    reader.readAsDataURL(file);
+    }
   };
   return (
     <>
