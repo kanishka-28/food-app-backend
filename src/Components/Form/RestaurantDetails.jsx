@@ -105,7 +105,7 @@ export default function RestaurantDetailsForm({ handleSave,  restaurantDetails, 
                                 <div className="mt-1 flex rounded shadow-sm">
                                     <input
                                         required
-                                        type="tel"
+                                        type="number"
                                         placeholder="ex- 22.76"
                                         className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                                         value={restaurantDetails.mapLocation.latitude}
