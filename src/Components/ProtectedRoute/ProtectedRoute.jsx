@@ -10,11 +10,10 @@ const ProtectedRoute = ({ children }) => {
     const ready = useSelector(isReady);
     if (ready) {
         if (auth) {
-            console.log('authenticated');
             return children;
         }
         else {
-            // return <Navigate to={"/"} replace />
+            return <Navigate to={"/auth/login"} replace />
         }
     }
 }

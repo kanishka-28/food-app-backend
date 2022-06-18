@@ -46,26 +46,24 @@ function App() {
       <div><Toaster /></div>
       <Router>
         <ScrollToTop />
-        {/* <ProtectedRoute> */}
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
           <Route path="/restaurant" >
-            <Route path=":id" element={<Restaurant />} />
-            <Route path="add" element={<EditRestaurant />} />
-            <Route path="edit" element={<EditRestaurant edit={true} />} />
+            <Route path=":id" element={<ProtectedRoute><Restaurant /></ProtectedRoute>} />
+            <Route path="add" element={<ProtectedRoute><EditRestaurant /></ProtectedRoute>} />
+            <Route path="edit" element={<ProtectedRoute><EditRestaurant edit={true} /></ProtectedRoute>} />
           </Route>
           <Route path="/auth" element={<AuthWrapper />} >
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>
           <Route path="/about" element={<Navbar />} >
-            <Route path="orders" element={<AllOrders />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="orders" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
+            <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {/* </ProtectedRoute> */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Router>
     </>

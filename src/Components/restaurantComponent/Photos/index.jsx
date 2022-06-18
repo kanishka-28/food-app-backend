@@ -24,8 +24,6 @@ export const Photo = ({ details }) => {
 
 const Photos = () => {
 
-  // const {restaurant, setrestaurant} = useContext(SignupContext);
-  const param = localStorage.getItem("id");
   // const requiredRestaurant= restaurant.filter((res)=>(res._id===param))[0];
   // console.log(requiredRestaurant);
   return (

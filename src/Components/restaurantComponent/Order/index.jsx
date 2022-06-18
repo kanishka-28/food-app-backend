@@ -17,24 +17,7 @@ import EditFoodModal from '../../Modal/EditFood';
 let startOfFoods;
 const Order = () => {
 
-    // let [foods, setfoods] = useState([])
-    const [price, setprice] = useState()
-    const [quantity, setquantity] = useState("1")
-    const [foodDetails, setfoodDetails] = useState({ name: "", price: 200 })
-    // const { restaurant } = useContext(SignupContext)
-    const user = JSON.parse(localStorage.getItem("user"));
     startOfFoods = useRef();
-    console.log(user);
-    useEffect(() => {
-        const id = localStorage.getItem("id");
-        // Promise.resolve(getfood(id)).then((res) => {
-        //     setfoods(res.data.foods)
-        //     console.log(foods);
-        // }).catch((e) => {
-        //     console.log(e.response);
-        // })
-    }, [])
-
     const [open, setOpen] = useState(false);
     const [title, settitle] = useState('')
     const foods = [
@@ -96,8 +79,7 @@ const Order = () => {
                             return (
                                 <>
                                     <FoodCards key={food.id} food={food} setOpen={setOpen} settitle={settitle} />
-                                    <EditFoodModal open={open} setOpen={setOpen} title={title} />
-                                </>
+                                    </>
                             )
                         })
                             : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
@@ -112,6 +94,8 @@ const Order = () => {
     return (
         <div>
             <LapOrder />
+            {/* food --> as title */}
+            <EditFoodModal open={open} setOpen={setOpen} title={title} />                  
         </div>
     )
 }

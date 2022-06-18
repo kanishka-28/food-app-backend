@@ -107,8 +107,7 @@ const SignupForm = ({data, setdata, handleSubmit}) => {
                     >
                         Sign Up
                     </button>
-                    <p className="m-4 font-dark text-xl">Or</p>
-                    {/* <LoginGoogle/> */}
+                  
                 </form>
 
             </div>
