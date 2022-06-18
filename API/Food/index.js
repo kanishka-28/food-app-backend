@@ -100,7 +100,7 @@ Router.post("/add/:id", getUserStatus, async (req, res) => {
 Router.put("/edit/:id", getUserStatus, async (req, res) => {
    try {
       const { restaurantId, foodDetails } = req.body;
-      const { restaurant } = FoodModel.findById(req.params.id);
+      const { restaurant } = await FoodModel.findById(req.params.id);
       if (restaurant.toString() === restaurantId) {
          await ValidateRestaurantId(req.params.id);
          food = await FoodModel.findByIdAndUpdate(req.params.id, {
@@ -130,7 +130,7 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
 Router.delete("/delete/:id", getUserStatus, async (req, res) => {
    try {
       const { restaurantId, foodDetails } = req.body;
-      const { restaurant } = FoodModel.findById(req.params.id);
+      const { restaurant } = await FoodModel.findById(req.params.id);
       if (restaurant.toString() === restaurantId) {
          await ValidateRestaurantId(req.params.id);
          const food = await FoodModel.findByIdAndDelete(req.params.id)
