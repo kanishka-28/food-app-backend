@@ -11,7 +11,6 @@ const FoodSchema = new mongoose.Schema({
         type: String
     },
     price:{type:Number, default: 150, required:true},
-    
     restaurant:{
         type:mongoose.Types.ObjectId,
         ref:"Restaurants",

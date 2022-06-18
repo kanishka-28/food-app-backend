@@ -111,7 +111,6 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
       else {
          return res.status(401).json({ message: "Not Authorized" });
       }
-
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });
