@@ -78,12 +78,12 @@ Router.get('/user', getUserStatus, async (req, res) => {
     Method   Get
  */
 
-Router.get('/:_id', async (req, res) => {
+Router.get('/:id', async (req, res) => {
    try {
       //could have been fetched from food too
-      await ValidateRestaurantId(req.params);
-      const { _id } = req.params;
-      const restaurant = await RestaurantModel.findOne({ _id });
+      const { id } = req.params;
+      await ValidateRestaurantId({_id :id});
+      const restaurant = await RestaurantModel.findById( id );
       if (!restaurant) {
          return res.status(404).json({ error: "Restaurant not found" });
       }
@@ -160,6 +160,8 @@ Router.post("/addrest", getUserStatus, async (req, res) => {
 Router.put("/update/:_id", getUserStatus, async (req, res) => {
    try {
       const { _id } = req.params;
+      ValidateRestaurantId({ _id});
+
       let check = RestaurantModel.findOne({ _id, user: req.user._id });
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
@@ -181,6 +183,7 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
 Router.delete('/delete/:_id',getUserStatus,async(req,res)=>{
    try {
       const { _id } = req.params;
+      ValidateRestaurantId({ _id});
       let check = RestaurantModel.findOne({ _id, user: req.user._id });
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
