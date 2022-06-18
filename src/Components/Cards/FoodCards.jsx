@@ -2,16 +2,15 @@ import React, { useContext } from 'react'
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 
-const FoodCards = ({ food, setOpen, settitle }) => {
+const FoodCards = ({ food, setOpenEdit, setFood }) => {
 
     return (
-
         <div className="max-w-72 rounded overflow-hidden shadow-lg my-4">
-            <img className="w-full h-56" src={food.image} alt="Sunset in the mountains" />
+            <img className="w-full h-56" src={food.photo ? food.photo : 'https://t4.ftcdn.net/jpg/02/95/34/73/360_F_295347352_UM7SC7xVxLyQIUV2nJc8rNOsNKZK8M6S.jpg'} alt="Sunset in the mountains" />
             <div className="px-6 py-4">
                 <div className=" flex flex-wrap w-full justify-between">
                     <div>
-                        <p className='font-bold text-xl w-4/5'>Name  {food.name}</p>
+                        <p className='font-bold text-xl w-4/5'>{food.name}</p>
                         <div className='flex items-center gap-3 mb-2'>
                             <p className="text-gray-500">{food.category}</p>
                             {food.isVeg ?
@@ -22,14 +21,12 @@ const FoodCards = ({ food, setOpen, settitle }) => {
                     <h4 className='font-bold text-gray-800'>₹ 250/~</h4>
                 </div>
                 <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                    {food.description}</p>
+                    {food.descript}</p>
             </div>
-
             <div className="text-center flex ml-4 flex-wrap">
                 <button onClick={() => {
-                    setOpen(true)
-                    settitle('Edit')
+                    setOpenEdit(true)
+                    setFood(food)
                 }} className="mb-4 w-28 bg-[#ffda7d] hover:bg-yellow-500 hover:scale-110 ease-in duration-200 font-bold text-sm rounded py-1 px-4">
                     Edit
                 </button>

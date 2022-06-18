@@ -10,10 +10,20 @@ import { Photo } from '../restaurantComponent/Photos';
 // import { SignupContext } from '../../context/signup';
 import { Link } from 'react-router-dom'
 import { RWebShare } from "react-web-share";
+import AddFoodModal from '../Modal/AddFood';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOpen } from '../../Redux/Features/Food/Slice';
+import { openModal } from '../../Redux/Features/Food/Selector/Selector';
 
-const RestaurantGallery = ({requiredRestaurant}) => {
+const RestaurantGallery = ({ requiredRestaurant }) => {
+
+    const open = useSelector(openModal);
+    console.log(open);
+    const dispatch = useDispatch();
+
     return (
         <>
+            <AddFoodModal/>
             <div className="w-full ">
                 <img src={requiredRestaurant?.photos?.length > 0 ? requiredRestaurant?.photos[0] : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="md:hidden block w-full h-full " alt="bigImage" />
                 <div className="lg:m-4 flex items-center w-full  ">
@@ -67,23 +77,23 @@ const RestaurantGallery = ({requiredRestaurant}) => {
                     </div>
                 </div>
                 <div className='flex gap-4 items-center flex-wrap mx-2'>
-                    <button className=' py-2 px-8 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] text-white flex gap-3 hover:scale-110 ease-in duration-200'><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
+                    <button onClick={() => dispatch(setOpen(true))} className=' py-2 px-8 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] text-white flex gap-3 hover:scale-110 ease-in duration-200'><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
                     <div>
-                    <RWebShare
-                        data={{
-                            text: "Like humans, flamingos make friends for life",
-                            url: "http://localhost:3000",
-                            title: "Flamingos",
-                        }}
-                        onClick={() => console.log("shared successfully!")}
-                    >
-                        <div className="flex">
-                            <div className="cursor-pointer w-32 h-10 text-center m-1 rounded-md border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 font-semibold hover:scale-110 ease-in duration-200"><RiShareForwardFill className="w-5 h-5" /> <p className="text-gray-500">Share</p></div>
-                        </div>
-                    </RWebShare>
-                </div>
+                        <RWebShare
+                            data={{
+                                text: "Like humans, flamingos make friends for life",
+                                url: "http://localhost:3000",
+                                title: "Flamingos",
+                            }}
+                            onClick={() => console.log("shared successfully!")}
+                        >
+                            <div className="flex">
+                                <div className="cursor-pointer w-32 h-10 text-center m-1 rounded-md border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2 font-semibold hover:scale-110 ease-in duration-200"><RiShareForwardFill className="w-5 h-5" /> <p className="text-gray-500">Share</p></div>
+                            </div>
+                        </RWebShare>
+                    </div>
                     <Link to={'/about/orders'}>
-                    <button className='cursor-pointer px-3 h-10 text-center rounded  py-1 bg-white flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200 bg-gradient-to-r from-[#ff7f7f] to-[#fc5184]text-white'><p>Go To My Orders</p><MdArrowRightAlt size={'2rem'} /></button>
+                        <button className='cursor-pointer px-3 h-10 text-center rounded  py-1 bg-white flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200 bg-gradient-to-r from-[#ff7f7f] to-[#fc5184]text-white'><p>Go To My Orders</p><MdArrowRightAlt size={'2rem'} /></button>
                     </Link>
                 </div>
             </div>
