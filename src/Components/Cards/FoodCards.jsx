@@ -18,7 +18,7 @@ const FoodCards = ({ food, setOpenEdit, setFood }) => {
                                 : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
                         </div>
                     </div>
-                    <h4 className='font-bold text-gray-800'>₹ 250/~</h4>
+                    <h4 className='font-bold text-gray-800'>₹ {food.price}/~</h4>
                 </div>
                 <p className="text-gray-700 text-base">
                     {food.descript}</p>
