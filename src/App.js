@@ -90,7 +90,6 @@ function App() {
 
   return (
     <>
-
       <Toaster
         position="top-center"
         reverseOrder={true}
@@ -116,11 +115,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="google/:token" element={<GoogleLogin />} />
           </Route>
-
-
-
           <Route path="*" element={<NotFound />} />
-
         </Routes>
       </Router>
     </>
