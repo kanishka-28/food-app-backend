@@ -13,7 +13,7 @@ const Router = express.Router();
     Method   Get
  */
 
- Router.get("/list/:_id",async (req,res)=>{
+ Router.get("/:_id",async (req,res)=>{
      try{
         await ValidateRestaurantId(req.params);
         const {_id}=req.params;

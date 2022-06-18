@@ -9,7 +9,7 @@ import getUserStatus from "../../middlewares/getUserStatus";
 
 
 //validation
-import { ValidateRestaurantId, ValidateCategory } from "../../validation/food";
+import { ValidateRestaurantId, ValidateCategory, ValidateFoodId } from "../../validation/food";
 
 const Router = express.Router();
 
@@ -21,12 +21,12 @@ const Router = express.Router();
     Method   Get
  */
 
-Router.get("/:id", async (req, res) => {
+Router.get("/:_id", async (req, res) => {
    try {
 
       await ValidateRestaurantId(req.params);
-      const { id } = req.params;
-      const foods = await FoodModel.find({ restaurant: id });
+      const { _id } = req.params;
+      const foods = await FoodModel.find({ restaurant: _id });
       return res.json({ foods, success: true });
    }
    catch (error) {
@@ -69,10 +69,9 @@ Router.get("/r/:category", async (req, res) => {
 
 Router.post("/add/:id", getUserStatus, async (req, res) => {
    try {
-      // console.log();
       if (req.user._id.toString() === req.body.user) {
          const { id } = req.params;
-         await ValidateRestaurantId({ id });
+         await ValidateRestaurantId({ _id : id });
          const check = await FoodModel.find({ restaurant: id, name: req.body.name });
          if (check.length !== 0) {
             return res.status(409).json({ message: "food item already exists" });
@@ -102,7 +101,7 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
       const { restaurantId, foodDetails } = req.body;
       const { restaurant } = await FoodModel.findById(req.params.id);
       if (restaurant.toString() === restaurantId) {
-         await ValidateRestaurantId(req.params.id);
+         await ValidateFoodId(req.params);
          food = await FoodModel.findByIdAndUpdate(req.params.id, {
             $set: foodDetails,
             upsert: true
@@ -129,10 +128,10 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
 
 Router.delete("/delete/:id", getUserStatus, async (req, res) => {
    try {
-      const { restaurantId, foodDetails } = req.body;
+      const { restaurantId } = req.body;
       const { restaurant } = await FoodModel.findById(req.params.id);
       if (restaurant.toString() === restaurantId) {
-         await ValidateRestaurantId(req.params.id);
+         await ValidateFoodId(req.params);
          const food = await FoodModel.findByIdAndDelete(req.params.id)
          return res.json({ food, success: true, message:"Food Item deleted Succesfully" });
       }
