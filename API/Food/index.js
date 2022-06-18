@@ -9,8 +9,8 @@ import getUserStatus from "../../middlewares/getUserStatus";
 
 
 //validation
-import { ValidateRestaurantId, ValidateCategory, ValidateFoodId } from "../../validation/food";
-
+import {  ValidateCategory, ValidateFoodId } from "../../validation/food";
+import {ValidateRestaurantId} from "../../validation/restaurant";
 const Router = express.Router();
 
 /* 
@@ -23,9 +23,9 @@ const Router = express.Router();
 
 Router.get("/:_id", async (req, res) => {
    try {
-
-      await ValidateRestaurantId(req.params);
       const { _id } = req.params;
+     
+      ValidateRestaurantId({ _id });
       const foods = await FoodModel.find({ restaurant: _id });
       return res.json({ foods, success: true });
    }
@@ -102,7 +102,7 @@ Router.put("/edit/:id", getUserStatus, async (req, res) => {
       const { restaurant } = await FoodModel.findById(req.params.id);
       if (restaurant.toString() === restaurantId) {
          await ValidateFoodId(req.params);
-         food = await FoodModel.findByIdAndUpdate(req.params.id, {
+         const food = await FoodModel.findByIdAndUpdate(req.params.id, {
             $set: foodDetails,
             upsert: true
          }, { new: true })

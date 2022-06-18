@@ -30,14 +30,14 @@ Router.get('/', async (req, res) => {
       if (user?.city) {
          await ValidateRestaurantCity({ city: user?.city });
          const city = user?.city.toLowerCase();
-         const restaurants = await RestaurantModel.find({ city }).sort({ updatedAt: -1 });
+         const restaurants = await RestaurantModel.find({ city }).select("-menuImage -photos").sort({ updatedAt: -1 });
          if (restaurants.length === 0) {
             res.status(404).json({ message: "No restaurants found near you", success: false })
          }
          return res.status(200).json({ restaurants, success: true });
       }
       else {
-         const restaurants = await RestaurantModel.find().sort({ updatedAt: -1 });
+         const restaurants = await RestaurantModel.find().select("-menuImage -photos").sort({ updatedAt: -1 });
 
          const newrestaurants = restaurants.filter(restaurant => (
             getDistanceFromLatLonInKm(restaurant.mapLocation.latitude, restaurant.mapLocation.longitude, latitude, longitude) < 500// radius of 3 km is too low
@@ -62,7 +62,7 @@ Router.get('/', async (req, res) => {
 
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
-      const restaurants = await RestaurantModel.find({ user: req.user._id }).sort({ updatedAt: -1 })
+      const restaurants = await RestaurantModel.find({ user: req.user._id }).select("-menuImage -photos").sort({ updatedAt: -1 })
       // console.log(restaurants);
       return res.status(200).json({ restaurants, success: true });
    }
@@ -161,7 +161,7 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
    try {
       const { _id } = req.params;
       ValidateRestaurantId({ _id});
-
+      
       let check = RestaurantModel.findOne({ _id, user: req.user._id });
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
@@ -171,7 +171,7 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
          upsert: true
       },
       { new: true }
-      );
+      ).select("-menuImage -photos");
       res.status(200).json({ updatedRestaurant, success: true });
    } catch (error) {
       return res.status(500).json({ message: error.message, success: false });
@@ -188,7 +188,7 @@ Router.delete('/delete/:_id',getUserStatus,async(req,res)=>{
       if (!check) {
          res.status(401).json({ message: "Not Authorized" });
       }
-      const deletedRestaurant = await RestaurantModel.findByIdAndDelete(_id);
+      const deletedRestaurant = await RestaurantModel.findByIdAndDelete(_id).select("-menuImage -photos");
       res.status(200).json({ deletedRestaurant, success: true });
    } catch (error) {
       return res.status(500).json({ message: error.message, success: false });
