@@ -23,7 +23,6 @@ const Order = () => {
     startOfFoods = useRef();
     const { id } = useParams();
     const open = useSelector(openModal);
-    console.log(open);
     const [openEdit, setOpenEdit] = useState(false);
     const [foods, setFoods] = useState([])
     const [food, setFood] = useState([])
