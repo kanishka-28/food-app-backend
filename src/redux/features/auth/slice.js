@@ -140,7 +140,7 @@ export const loadUser = createAsyncThunk("auth/loadUser", async () => {
     } catch (error) {
         // delete axios.defaults.headers.common['auth'];
         if(error.message==="Network Error"){
-            toast.error(error.message + ",Please Login Again", {
+            toast.error(error.message + ", Please Login Again", {
                 duration: 4000
                 
             })

@@ -38,7 +38,7 @@ const Order = () => {
             console.log({error});
         }
         finally{
-            dispatch(setloadingFalse);
+            dispatch(setloadingFalse());
         }
     }
     
@@ -59,11 +59,11 @@ const Order = () => {
                         <BsClock className="my-2 mr-2" />
                         <p className="mr-2">52 min</p>
                     </div>
-                    <div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
-                        <BsCheckCircleFill className="mr-2" />
-                        <p>Delivering to : <strong>{profile?.address.slice(0, 40) + '... ,'} {profile?.city}</strong></p>
+                    {profile?.address &&<div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
+                    <BsCheckCircleFill className="mr-2" />
+                        <p>Delivering to : <strong>{profile?.address?.slice(0, 40) + '... ,'} {profile?.city}</strong></p>
 
-                    </div>
+                    </div>}
                 </div>
                 <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {foods.length !== 0 ? foods?.map((food) => {
