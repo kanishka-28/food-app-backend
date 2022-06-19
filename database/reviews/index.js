@@ -12,7 +12,7 @@ const ReviewSchema = new mongoose.Schema({
         ref: "Restaurants",
         required:true
     },
-    stars: {
+    rating: {
         type :Number,
         required:true
     },

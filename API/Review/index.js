@@ -20,7 +20,7 @@ Router.get('/user/:user', async (req, res) => {
     try {
         const { user } = req.params;
         await ValidateUserId({ _id: user });
-        const reviews = await ReviewModal.find({ user })?.sort({ updatedAt: -1 });
+        const reviews = await ReviewModal.find({ user }).populate("restaurant").sort({ updatedAt: -1 });
         res.status(200).json({ reviews, success: true });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
