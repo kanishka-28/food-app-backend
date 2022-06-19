@@ -11,7 +11,7 @@ const restaurantSlice = createSlice({
         storeAllRestaurants(state, action) {
             state.allRestaurants=action.payload
         }
-    },
+    }, 
 })
 
 export const { storeAllRestaurants } = restaurantSlice.actions;

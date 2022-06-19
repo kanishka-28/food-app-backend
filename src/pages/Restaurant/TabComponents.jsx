@@ -11,7 +11,7 @@ const TabComponent = ({type}) => {
 
   return (<>
     <div className="m-4">
-    {type === "overview" && <Overview /> }
+    {type === "overview" && <Overview/> }
     {type === "menu" && <Menu /> }
     {type === "order" && <Order /> }
     {type === "photos" && <Photos /> }

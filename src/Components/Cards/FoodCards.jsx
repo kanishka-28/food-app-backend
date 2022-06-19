@@ -8,9 +8,9 @@ const FoodCards = ({ food, setOpenEdit, setFood }) => {
         <div className="max-w-72 rounded overflow-hidden shadow-lg my-4">
             <img className="w-full h-56" src={food.photo ? food.photo : 'https://t4.ftcdn.net/jpg/02/95/34/73/360_F_295347352_UM7SC7xVxLyQIUV2nJc8rNOsNKZK8M6S.jpg'} alt="Sunset in the mountains" />
             <div className="px-6 py-4">
-                <div className=" flex flex-wrap w-full justify-between">
+                <div className=" flex w-full justify-between">
                     <div>
-                        <p className='font-bold text-xl w-4/5'>{food.name}</p>
+                        <p className='font-bold text-xl w-full'>{food.name}</p>
                         <div className='flex items-center gap-3 mb-2'>
                             <p className="text-gray-500">{food.category}</p>
                             {food.isVeg ?
@@ -18,7 +18,9 @@ const FoodCards = ({ food, setOpenEdit, setFood }) => {
                                 : <img className='w-4 h-4' src='https://image.shutterstock.com/image-vector/non-veg-illustration-vector-icon-260nw-1762664813.jpg' alt='veg' />}
                         </div>
                     </div>
-                    <h4 className='font-bold text-gray-800'>₹ {food.price}/~</h4>
+                    <div>
+                        <h4 className='w-20 font-bold text-gray-800'>₹ {food.price}/~</h4>
+                    </div>
                 </div>
                 <p className="text-gray-700 text-base">
                     {food.descript}</p>
