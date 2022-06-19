@@ -17,8 +17,6 @@ import { openModal } from '../../Redux/Features/Food/Selector/Selector';
 
 const RestaurantGallery = ({ requiredRestaurant }) => {
 
-    const open = useSelector(openModal);
-    console.log(open);
     const dispatch = useDispatch();
 
     return (

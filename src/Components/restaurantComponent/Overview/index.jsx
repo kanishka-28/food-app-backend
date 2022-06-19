@@ -2,26 +2,16 @@ import React, { useState, useContext } from 'react'
 // import GoogleMap from './googleMap';
 import { FiCheckCircle, FiCopy } from "react-icons/fi"
 import { RiDirectionLine, RiArrowUpSFill } from "react-icons/ri"
+import { useSelector } from 'react-redux';
 // import { SignupContext } from '../../../context/signup';
 import { useParams } from 'react-router-dom';
+import { allRestaurants } from '../../../Redux/Features/Restaurant/Selector/Selector';
 
 const OverviewMd = () => {
     const [color, setColor] = useState("text-gray-500")
-    const address = "Shop 1, Chatrapati Shivaji Colony, Chuna Bhatti, Arera Colony, Bhopal";
-    const copy = () => {
-        setColor("text-green-500")
-        navigator.clipboard.writeText(address);
-        setTimeout(() => (
-            setColor("text-gray-500")
-        ), [1000])
-    }
-    // const {restaurant, setrestaurant} = useContext(SignupContext);
-    const [restaurant, setrestaurant] = useState([]);
-
-    const param = useParams().id;
-    console.log(param);
-    const requiredRestaurant = restaurant.filter((res) => (res._id === param))[0];
-    console.log(requiredRestaurant);
+    const restaurant = useSelector(allRestaurants)
+    const {id} = useParams();
+    const requiredRestaurant = restaurant.filter((res) => (res._id === id))[0];
     const [display, setDisplay] = useState("hidden")
     const quesBoxShow = () => {
         setDisplay("block")
@@ -29,7 +19,13 @@ const OverviewMd = () => {
     const quesBoxHide = () => {
         setDisplay("hidden")
     }
-
+    const copy = () => {
+        setColor("text-green-500")
+        navigator.clipboard.writeText(requiredRestaurant.address + " " + requiredRestaurant.city);
+        setTimeout(() => (
+            setColor("text-gray-500")
+        ), [1000])
+    }
     return (
         <div className="flex justify-between w-full ">
             <div className="sm:block md:flex w-full justify-between ">
@@ -93,10 +89,15 @@ const OverviewMd = () => {
                             </div>
                         </div>
                         <div className="my-2 mx-8">
-                            <h5 className="text-gray-600 mb-4">{address}</h5>
+                            <h5 className="text-gray-600 mb-4">{requiredRestaurant.address} {requiredRestaurant.city}</h5>
                             <div className="flex">
                                 <button onClick={copy} className={` w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white flex justify-center items-center gap-2 cursor-pointer ${color}`} id="copy"><FiCopy className="w-5 h-5" /><p>Copy</p></button>
-                                <button className="w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiDirectionLine className="w-5 h-5" /><p>Direction</p></button>
+                                <button onClick={() => {
+                                    window.open(
+                                        `https://www.google.com/maps/@${requiredRestaurant.mapLocation.latitude},${requiredRestaurant.mapLocation.longitude},19z`,
+                                        "_blank"
+                                    );
+                                }} className="w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiDirectionLine className="w-5 h-5" /><p>Direction</p></button>
                             </div>
                         </div>
                     </div>
