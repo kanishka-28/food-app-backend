@@ -5,9 +5,8 @@ import { FiCheckCircle, FiCopy } from "react-icons/fi";
 import { RiDirectionLine, RiArrowUpSFill } from "react-icons/ri";
 
 const Overview = ({ restaurant: requiredRestaurant }) => {
-  const { address } = requiredRestaurant;
   const copy = () => {
-    navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(requiredRestaurant.address + " " + requiredRestaurant.city);
     toast.success("Address Copied");
   };
 
@@ -139,7 +138,7 @@ const Overview = ({ restaurant: requiredRestaurant }) => {
               </div>
             </div>
             <div className="my-2 mx-8">
-              <h5 className="text-gray-600 mb-4">{address}</h5>
+              <h5 className="text-gray-600 mb-4">{requiredRestaurant.address} {requiredRestaurant.city}</h5>
               <div className="flex">
                 <button
                   onClick={copy}

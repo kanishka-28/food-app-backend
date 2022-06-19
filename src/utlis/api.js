@@ -61,4 +61,4 @@ export const serviceDelete = async (path, headers) => {
                 reject(error);
             });
     });
-};
+}; 
