@@ -41,7 +41,7 @@ export const useRestaurants = () => {
 }
 
 export const getLocation = async ( dispatch ) => {
-  console.log('location called');
+  
   dispatch(setloadingTrue());
   toast.success("Loading Location", {
     icon: '⌛'

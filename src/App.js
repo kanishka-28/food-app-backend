@@ -13,7 +13,7 @@ import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import Cart from "./pages/Cart/Cart";
-import toast, { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -24,9 +24,7 @@ import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
 import ScrollToTop from "./utlis/scrollToTop";
 import { location } from "./redux/features/location/selector";
-import { setLocation } from "./redux/features/location/slice";
 import NotFound from "./pages/Not Found/404";
-import { setloadingTrue } from "./redux/features/Loader/slice";
 import { user } from "./redux/features/auth/selector/selector";
 
 function App() {
