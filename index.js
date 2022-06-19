@@ -14,6 +14,7 @@ import Restaurant from './API/Restaurant';
 import Food from "./API/Food";
 import Menu from "./API/Menu";
 import Order from "./API/orders";
+import Images from "./API/RestaurantPhotos";
 //env variable
 require("dotenv").config();
 
@@ -47,8 +48,9 @@ zomato.use("/auth", Auth);
 zomato.use('/user',User);
 zomato.use("/restaurant",Restaurant);
 zomato.use("/food",Food);
-//done till here
 zomato.use("/menu",Menu);
+zomato.use("/image",Images);
+//done till here
 zomato.use('/order',Order);
 
 zomato.get("/",(req,res)=> res.json({message: "setup success !!"}));
