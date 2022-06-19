@@ -143,7 +143,7 @@ export default function AddFoodModal() {
                                                     </div>
                                                 </div>
                                             </form>
-                                            <button className='mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={handleClick}><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
+                                            <button className='mt-8 mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] mt-16 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={handleClick}><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
                                         </div>
                                     </div>
                                 </div>
