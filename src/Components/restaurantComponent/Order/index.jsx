@@ -41,12 +41,7 @@ const Order = () => {
         return (
             <>
                 <div className='flex flex-col'>
-                    {/* <button className='self-end py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f]  my-6 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={() => {
-                        const open = se
-                        setOpen(true)
-                        settitle('Add')
-                    }
-                    }><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button> */}
+                  
                     <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                         {foods.length !== 0 ? foods?.map((food) => {
                             return (
@@ -55,7 +50,8 @@ const Order = () => {
                                 </>
                             )
                         })
-                            : <div className="mt-3 flex justify-center items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center self-center mx-auto w-96">
+                            : 
+                            <div className="mt-3 flex justify-center items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center self-center mx-auto w-96">
                                 <h3>No Food Added</h3>
                             </div>
                         }
