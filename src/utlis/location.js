@@ -36,6 +36,47 @@ export const useRestaurants = () => {
     if (loc.ready || profile?.city) {
       getRest();
     }
-  }, [loc,profile])
+  }, [loc, profile])
 
+}
+
+export const getLocation = async ( dispatch ) => {
+  console.log('location called');
+  dispatch(setloadingTrue());
+  toast.success("Loading Location", {
+    icon: '⌛'
+  })
+  if (navigator.geolocation) {
+
+    await navigator.geolocation.getCurrentPosition(showPos, showErr);
+
+    function showPos(position) {
+      toast.success("Location Found", {
+        icon: '🍔'
+      })
+      dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
+    }
+    function showErr(err) {
+      switch (err.code) {
+        case err.PERMISSION_DENIED:
+          toast.error("Allow Location Permission, Please")
+          break;
+        case err.POSITION_UNAVAILABLE:
+          toast.error("Location information is unavailable.")
+          break;
+        case err.TIMEOUT:
+          toast.error("The request to get user location timed out.")
+          break;
+        case err.UNKNOWN_ERROR:
+          toast.error("An unknown error occurred.")
+          break;
+        default:
+          toast.error("Something went wrong");
+      }
+    }
+
+  }
+  else {
+    toast.error("Check permissions, We cant access your location");
+  }
 }

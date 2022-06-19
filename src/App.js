@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import GoogleLogin from "./pages/Auth/GoogleLogin";
 import { loadUser } from "./redux/features/auth/slice";
-import { useRestaurants } from "./utlis/location";
+import { getLocation, useRestaurants } from "./utlis/location";
 import Loader from "./components/Loader/Loader";
 import { isLoading } from "./redux/features/Loader/selector";
 import ScrollToTop from "./utlis/scrollToTop";
@@ -34,62 +34,19 @@ function App() {
   const loading = useSelector(isLoading);
   const { ready } = useSelector(location);
   const profile = useSelector(user);
-  //to get location
-  const getLocation = async () => {
-    if (!ready) {
-      dispatch(setloadingTrue());
-      // toast.success("Loading Location", {
-      //   icon: '⌛'
-      // })
-      if (navigator.geolocation) {
-
-        await navigator.geolocation.getCurrentPosition(showPos, showErr);
-
-        function showPos(position) {
-          toast.success("Location Found", {
-            icon: '🍔'
-          })
-          dispatch(setLocation({ longitude: position.coords.longitude, latitude: position.coords.latitude }))
-        }
-        function showErr(err) {
-          switch (err.code) {
-            case err.PERMISSION_DENIED:
-              toast.error("Allow Location Permission, Please")
-              break;
-            case err.POSITION_UNAVAILABLE:
-              toast.error("Location information is unavailable.")
-              break;
-            case err.TIMEOUT:
-              toast.error("The request to get user location timed out.")
-              break;
-            case err.UNKNOWN_ERROR:
-              toast.error("An unknown error occurred.")
-              break;
-            default:
-              toast.error("Something went wrong");
-          }
-        }
-
-      }
-      else {
-        toast.error("Check permissions, We cant access your location");
-      }
-    }
-  }
-
-
-  useRestaurants();
-
+  //get restaurant function
+  
   const loadUserAbout = async () => {
     await dispatch(loadUser());
   };
+  useRestaurants();
 
   useEffect(() => {
     loadUserAbout();
   }, [])
   useEffect(() => {
-    if(!location?.city){
-      getLocation();
+    if(!profile?.city && !ready){
+      getLocation(dispatch);
     }
   }, [profile]);
 
