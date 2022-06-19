@@ -15,12 +15,12 @@ import { serviceGet } from "./api";
 
 export const useRestaurants = () => {
   const loc = useSelector(location);
-  const u = useSelector(user);
+  const profile = useSelector(user);
   const dispatch = useDispatch();
   const getRest = async () => {
     dispatch(setloadingTrue());
     try {
-      const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${u?.email}`);
+      const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${profile?.email}`);
       dispatch(storeRestaurant(restaurants));
     } catch (error) {
       toast.error(error?.response?.data.message);
@@ -33,9 +33,9 @@ export const useRestaurants = () => {
     }
   }
   useEffect(() => {
-    if (loc.ready) {
+    if (loc.ready || profile?.city) {
       getRest();
     }
-  }, [loc])
+  }, [loc,profile])
 
 }

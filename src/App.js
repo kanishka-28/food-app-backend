@@ -27,18 +27,20 @@ import { location } from "./redux/features/location/selector";
 import { setLocation } from "./redux/features/location/slice";
 import NotFound from "./pages/Not Found/404";
 import { setloadingTrue } from "./redux/features/Loader/slice";
+import { user } from "./redux/features/auth/selector/selector";
 
 function App() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   const { ready } = useSelector(location);
+  const profile = useSelector(user);
   //to get location
   const getLocation = async () => {
     if (!ready) {
       dispatch(setloadingTrue());
-      toast.success("Loading Location", {
-        icon: '⌛'
-      })
+      // toast.success("Loading Location", {
+      //   icon: '⌛'
+      // })
       if (navigator.geolocation) {
 
         await navigator.geolocation.getCurrentPosition(showPos, showErr);
@@ -84,8 +86,12 @@ function App() {
 
   useEffect(() => {
     loadUserAbout();
-    getLocation();
   }, [])
+  useEffect(() => {
+    if(!location?.city){
+      getLocation();
+    }
+  }, [profile]);
 
 
   return (
