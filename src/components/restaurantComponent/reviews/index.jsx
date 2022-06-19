@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { serviceGet, servicePost } from '../../../utlis/api'
 import RateStars from '../../Stars/RateStarsHover'
 import RatingStars from '../../Stars/RatingStars'
 
-const allReviews = [1, 2, 3, 4, 5, 6, 7]
+
 const Reviews = () => {
+    const [reviews, setreviews] = useState([]);
+    const { id } = useParams();
+
+    const getAllReviews = async () => {
+        const { reviews } = await serviceGet(`review/rest/${id}`)
+        setreviews(reviews);
+    }
+
+    const postReview = async () => {
+        const {review} = await servicePost(`review/add/${id}`)
+        console.log(review);
+    }
+    useEffect(() => {
+        getAllReviews();
+    }, [])
+
+
+
     return (
         <div className='w-full'>
             <div className='lg:flex lg:flex-row-reverse gap-10 justify-between'>
@@ -27,7 +48,7 @@ const Reviews = () => {
                     </form>
                 </div>
                 <div className='lg:w-1/2'>
-                    {allReviews?.map((e) => {
+                    {reviews?.map((e) => {
                         return (
                             <div key={e} className="p-2 border-b border-gray-200 ">
                                 <div className="bg-white rounded-b lg:rounded-b-none lg:rounded-r px-4 py-2 flex leading-normal items-center gap-4 items-center">
