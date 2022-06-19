@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { allRestaurants } from "../../redux/features/restaurants/selector";
-import FoodCards from "./FoodCard";
+import FoodCards from "./RestaurantCard";
 
 const AllCards = ({ search = false }) => {
   const restaurants = useSelector(allRestaurants);
