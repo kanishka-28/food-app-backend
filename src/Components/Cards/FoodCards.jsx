@@ -6,7 +6,7 @@ const FoodCards = ({ food, setOpenEdit, setFood }) => {
 
     return (
         <div className="max-w-72 rounded overflow-hidden shadow-lg my-4">
-            <img className="w-full h-56" src={food.photo ? food.photo : 'https://t4.ftcdn.net/jpg/02/95/34/73/360_F_295347352_UM7SC7xVxLyQIUV2nJc8rNOsNKZK8M6S.jpg'} alt="Sunset in the mountains" />
+            <img className="w-full h-56" src={food.photo ? food.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'} alt="Sunset in the mountains" />
             <div className="px-6 py-4">
                 <div className=" flex flex-wrap w-full justify-between">
                     <div>
