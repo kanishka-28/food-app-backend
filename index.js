@@ -15,6 +15,7 @@ import Food from "./API/Food";
 import Menu from "./API/Menu";
 import Order from "./API/orders";
 import Images from "./API/RestaurantPhotos";
+import Reviews from "./API/Review";
 //env variable
 require("dotenv").config();
 
@@ -50,6 +51,7 @@ zomato.use("/restaurant",Restaurant);
 zomato.use("/food",Food);
 zomato.use("/menu",Menu);
 zomato.use("/image",Images);
+zomato.use("/review",Reviews);
 //done till here
 zomato.use('/order',Order);
 
