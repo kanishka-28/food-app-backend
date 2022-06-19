@@ -12,8 +12,9 @@ import AddFoodModal from '../../Modal/AddFood';
 import FoodCards from '../../Cards/FoodCards';
 import EditFoodModal from '../../Modal/EditFood';
 import { serviceGet } from '../../../Utils/Api/Api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../Redux/Features/Food/Selector/Selector';
+import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 
@@ -23,13 +24,22 @@ const Order = () => {
     startOfFoods = useRef();
     const { id } = useParams();
     const open = useSelector(openModal);
+    const dispatch = useDispatch();
     const [openEdit, setOpenEdit] = useState(false);
     const [foods, setFoods] = useState([])
     const [food, setFood] = useState([])
 
     const getAllFood = async () => {
-        const { foods } = await serviceGet(`food/${id}`);
-        setFoods(foods);
+        dispatch(setloadingTrue())
+        try {
+            const { foods } = await serviceGet(`food/${id}`);
+            setFoods(foods);
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            dispatch(setloadingFalse())
+        }
     }
 
     useEffect(() => {

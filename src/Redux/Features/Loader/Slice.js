@@ -15,7 +15,7 @@ const loaderSlice = createSlice({
             state.loading = false
         }
     }
-})
+}) 
 
 export const {setloadingTrue, setloadingFalse}  = loaderSlice.actions;
 
