@@ -31,7 +31,7 @@ const Order = () => {
     const dispatch = useDispatch();
 
     const getAllFoods = async () => {
-        dispatch(setloadingTrue);
+        dispatch(setloadingTrue());
         try {
             const {foods} = await serviceGet(`food/${id}`);
             setfoods(foods);
@@ -39,7 +39,7 @@ const Order = () => {
             console.log({error});
         }
         finally{
-            dispatch(setloadingFalse);
+            dispatch(setloadingFalse());
         }
     }
 
