@@ -16,13 +16,12 @@ export const login = createAsyncThunk("auth/login", async (values) => {
         const { user, token, success } = res
         if (success) {
             const { userName = '' } = user
-            console.log(userName);
+         
             toast.success(`Hey ${userName} Welcome back`)
             // store token
             localStorage.setItem('token', token);
             setHeader('auth', `bearer ${token}`);
-            console.log(user)
-
+           
             return {
                 token,
                 user: { ...user, userName },
@@ -171,7 +170,7 @@ const authSlice = createSlice({
             state.token = null
             state.user = null
             state.isAuthenticated = false
-            state.isReady = false
+            
         },
         updateUser(state,action){
             state.user = action.payload;
