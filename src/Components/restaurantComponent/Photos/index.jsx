@@ -14,7 +14,7 @@ export const Photo = ({ image }) => {
       <img
         src={image}
         alt="Burger"
-        className="w-full h-full rounded"
+        className="w-full h-full rounded object-cover"
       />
     </div>
 
@@ -33,34 +33,29 @@ const Photos = () => {
   const [toggle, settoggle] = useState(false);
 
   const handleFile = async (e) => {
-    console.log('working');
+    
     let file = e.target.files;
     file = Array.from(file)
-    file.forEach(async(element,i) => {
-      console.log('====================================');
-      console.log(i);
-      console.log('====================================');
+    file = Promise.all(file.map(async(element,i) => {
+      
       if (element.size > 3000000) {
         toast.error(`Size of ${element.name} should be less than 3 MB`);
         return;
       }
-      // console.log(images);
-      resizeFile(element).then((res)=>{
-        console.log(res);
-        setimages([...images, res]);     
-        console.log(images);
-      })
-    });
+      return new Promise((resolve,reject)=>{
+        resizeFile(element)
+        .then(res => resolve(res));
+      });
+    })).then(el=>setimages(el));
+    
   };
   
-  useEffect(() => {
-    // console.log(images);
-  }, [images])
   
   const onSave = async () => {
     dispatch(setloadingTrue);
     try {
-      const res = await servicePut(`image/${id}`, { photos: images });
+      const payload = images.map(img=>({url:img}));
+      const res = await servicePut(`image/${id}`, { photos: payload });
       console.log(res);
       toast.success('Photos has been uploaded');
       setimages([]);
@@ -77,6 +72,7 @@ const Photos = () => {
   const getAllPhotos = async () => {
     try {
       const { photos } = await serviceGet(`image/${id}`);
+      // console.log(photos);
       setuploadedImages(photos.photos);
     } catch (error) {
       console.log({ error });
@@ -102,8 +98,8 @@ const Photos = () => {
           </div>
           <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
             {
-              images.length !== 0 &&
-              images.map((image, i) => (
+              images?.length !== 0 &&
+              images?.map((image, i) => (
                 <Photo key={i} image={image} />
               ))
             }
@@ -112,14 +108,14 @@ const Photos = () => {
         {images.length !== 0 && <button onClick={onSave} className=' py-2 px-8 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] text-white flex gap-3 hover:scale-110 ease-in duration-200'><p>Save</p><IoCheckmarkDoneOutline size={'1.5rem'} /></button>}
       </div>
       <div className="bg-white rounded flex pb-6 w-full">
-        {/* {
-              uploadedImages.length !== 0 ?
-                uploadedImages.map((image) => (
-                  <Photo image={image} />
+        {
+              uploadedImages?.length !== 0 ?
+                uploadedImages?.map((image) => (
+                  <Photo image={image.url} />
                 ))
                 :
                 <h4>No images uploaded</h4>
-            } */}
+            }
       </div>
     </>
   )

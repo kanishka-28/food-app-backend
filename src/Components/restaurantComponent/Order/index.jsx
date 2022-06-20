@@ -54,9 +54,9 @@ const Order = () => {
                     <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                         {foods.length !== 0 ? foods?.map((food) => {
                             return (
-                                <>
+                                
                                     <FoodCards key={food.id} food={food} setOpenEdit={setOpenEdit} setFood={setFood} />
-                                </>
+                               
                             )
                         })
                             : 
