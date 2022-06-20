@@ -3,6 +3,8 @@ import { ReviewModal } from "../../database/reviews";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import { ValidateUserId } from "../../validation/user";
 import getUserStatus from "../../middlewares/getUserStatus";
+import mongoose from "mongoose";
+const ObjectID  = mongoose.Types.ObjectId;
 const Router = express.Router();
 
 
@@ -20,7 +22,44 @@ Router.get('/user/:user', async (req, res) => {
     try {
         const { user } = req.params;
         await ValidateUserId({ _id: user });
-        const reviews = await ReviewModal.find({ user }).populate("restaurant").sort({ updatedAt: -1 });
+        // const reviews = await ReviewModal.find({ user }).populate("restaurant").sort({ updatedAt: -1 });
+        const reviews = await ReviewModal.aggregate([
+            {
+                $match:{
+                    user : ObjectID(user)
+                }
+            },
+            {
+                $lookup:{
+                    from:"restaurants",
+                    let:{restaurant : "$restaurant"},
+                    pipeline:[
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ['$_id', '$$restaurant'],
+                                },
+                            },
+                        },
+                        {
+                            $project:{
+                                name :1,
+                                coverImage:1
+                            }
+                        }
+                    ],
+                    as: "restaurant"
+                }
+            },
+            {
+                $unwind: "$restaurant"
+            },
+            {
+                $sort:{
+                    updatedAt :-1,
+                }
+            }
+        ])
         res.status(200).json({ reviews, success: true });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false })
