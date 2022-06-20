@@ -26,7 +26,7 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
        const {_id}=req.params;
        const {photos} = req.body;
        const newPhotos=await RestaurantModel.findByIdAndUpdate(_id,{
-        $set: {photos},
+        $push: {photos},
         },
         {
             new: true
@@ -39,7 +39,7 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
 });
 
 
-
+//yha pr ek pull ki bhi bna lete h 
 
 
 export default Router;
