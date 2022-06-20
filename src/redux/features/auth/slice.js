@@ -192,7 +192,7 @@ const authSlice = createSlice({
                state.isReady = true
                 
             })
-        
+         
             .addCase(loadUser.fulfilled, (state, action) => {
                 const { token, user, isAuthenticated } = action.payload
                 state.token = token
