@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { serviceGet, servicePost } from '../../../utlis/api'
 import RateStars from '../../Stars/RateStarsHover'
 import RatingStars from '../../Stars/RatingStars'
 import { isAuthenticated, user } from '../../../redux/features/auth/selector/selector';
 import toast from 'react-hot-toast';
 import Review from '../../Card/Review';
+import { setloadingFalse, setloadingTrue } from '../../../redux/features/Loader/slice';
 
 
 const Reviews = () => {
@@ -16,7 +17,7 @@ const Reviews = () => {
     const { id } = useParams();
     const userDetails = useSelector(user);
     const isLoggedIn = useSelector(isAuthenticated);
-
+    const dispatch = useDispatch();
     const [details, setdetails] = useState({
         user: userDetails?._id,
         restaurant : id,
@@ -26,9 +27,17 @@ const Reviews = () => {
 
     const [toggle, settoggle] = useState(false);
     const getAllReviews = async () => {
-        const { reviews } = await serviceGet(`review/rest/${id}`);
-        console.log(reviews);
-        setreviews(reviews);
+        dispatch(setloadingTrue());
+        try {
+            const { reviews } = await serviceGet(`review/rest/${id}`);
+            setreviews(reviews);
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+        finally{
+            dispatch(setloadingFalse());
+        }
+        
     }
 
     console.log(details);
@@ -45,6 +54,9 @@ const Reviews = () => {
         } catch (error) {
             console.log({error});
             toast.error('Some error occured while posting your review');
+        }
+        finally{
+            setdetails({...details,rating:"",comment:""});
         }
     }
 
@@ -70,7 +82,7 @@ const Reviews = () => {
                                     value={details.comment}
                                     onChange={(e)=>setdetails({...details, comment: e.target.value})}
                                     placeholder="Type Your Review Here..."
-                                ></textarea>
+                                />
                             </div>
                         </div>
                         <button onClick={postReview} className="h-10 bg-megenta-500 hover:bg-zomato-600 text-white my-1 mx-2 rounded px-2" type="button">
