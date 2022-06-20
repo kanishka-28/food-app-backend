@@ -1,23 +1,23 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { resizeFile } from '../../../Utils/Functions/imageResizer';
 // import { SignupContext } from '../../../context/signup';
+import { toast } from 'react-hot-toast'
+import { IoCheckmarkDoneOutline } from 'react-icons/io5';
+import { useDispatch } from 'react-redux'
+import { serviceGet, servicePut } from '../../../Utils/Api/Api';
+import { useParams } from 'react-router-dom';
+import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 
-export const Photo = ({ details }) => {
-  console.log(details);
-  const Images = details.photos;
+export const Photo = ({ image }) => {
   return (
-    <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
-      {
-        Images?.map((image) => (
-          <div className='w-1/3 md:w-1/5 m-1 md:m-4 rounded shadow-md border border-gray-300'>
-            <img
-              src={image}
-              alt="Burger"
-              className="w-full h-full rounded"
-            />
-          </div>
-        ))
-      }
+    <div className='w-1/3 md:w-48 h-56 m-1 md:m-4 rounded shadow-md border border-gray-300'>
+      <img
+        src={image}
+        alt="Burger"
+        className="w-full h-full rounded"
+      />
     </div>
+
   )
 }
 
@@ -25,42 +25,105 @@ export const Photo = ({ details }) => {
 const Photos = () => {
 
   // const requiredRestaurant= restaurant.filter((res)=>(res._id===param))[0];
-  // console.log(requiredRestaurant);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const [images, setimages] = useState([]);
+  const [uploadedImages, setuploadedImages] = useState([]);
+  const [toggle, settoggle] = useState(false);
+
+  const handleFile = async (e) => {
+    console.log('working');
+    let file = e.target.files;
+    file = Array.from(file)
+    file.forEach(async(element,i) => {
+      console.log('====================================');
+      console.log(i);
+      console.log('====================================');
+      if (element.size > 3000000) {
+        toast.error(`Size of ${element.name} should be less than 3 MB`);
+        return;
+      }
+      // console.log(images);
+      resizeFile(element).then((res)=>{
+        console.log(res);
+        setimages([...images, res]);     
+        console.log(images);
+      })
+    });
+  };
+  
+  useEffect(() => {
+    // console.log(images);
+  }, [images])
+  
+  const onSave = async () => {
+    dispatch(setloadingTrue);
+    try {
+      const res = await servicePut(`image/${id}`, { photos: images });
+      console.log(res);
+      toast.success('Photos has been uploaded');
+      setimages([]);
+      setuploadedImages();
+      settoggle(!toggle);
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      dispatch(setloadingFalse);
+    }
+  }
+
+  const getAllPhotos = async () => {
+    try {
+      const { photos } = await serviceGet(`image/${id}`);
+      setuploadedImages(photos.photos);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+  useEffect(() => {
+    getAllPhotos();
+  }, [toggle])
+
   return (
-    <div className="lg:px-4 hidden md:block">
-      <p className="text-xl font-dark mt-6">Upload Photos</p>
-      <div className="lg:w-1/4 lg:mx-12 mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded">
-        <div className="space-y-1 text-center">
-          <svg
-            className="mx-auto h-12 w-12 text-gray-400"
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 48 48"
-            aria-hidden="true"
-          >
-            <path
-              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="flex text-sm text-gray-600">
+    <>
+      <div className="mb-10 lg:px-4 hidden md:block">
+        <p className="text-xl font-dark mt-6">Upload Photos</p>
+        <div className='flex gap-5'>
+          <div className="bg-yellow-200 text-center mt-6 h-12 w-44 px-4 flex text-sm text-gray-600 flex justify-center items-center rounded">
             <label
-              htmlFor="file-upload"
-              className="relative cursor-pointer bg-white rounded font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+              htmlFor="file-upload" className="relative cursor-pointer "
             >
-              <span>Upload a file</span>
-              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+              <span className='font-semibold'>Upload Photos +</span>
+              <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
             </label>
-            <p className="pl-1">or drag and drop</p>
           </div>
-          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+          <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
+            {
+              images.length !== 0 &&
+              images.map((image, i) => (
+                <Photo key={i} image={image} />
+              ))
+            }
+          </div>
         </div>
+        {images.length !== 0 && <button onClick={onSave} className=' py-2 px-8 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] text-white flex gap-3 hover:scale-110 ease-in duration-200'><p>Save</p><IoCheckmarkDoneOutline size={'1.5rem'} /></button>}
       </div>
-      <Photo details={'requiredRestaurant'} />
-    </div>
+      <div className="bg-white rounded flex pb-6 w-full">
+        {/* {
+              uploadedImages.length !== 0 ?
+                uploadedImages.map((image) => (
+                  <Photo image={image} />
+                ))
+                :
+                <h4>No images uploaded</h4>
+            } */}
+      </div>
+    </>
   )
+
 }
 
 export default Photos
