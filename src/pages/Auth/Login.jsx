@@ -12,10 +12,10 @@ export default function Login() {
     email: "",
     password: "",
   });
-  
-  const googleLogin = async()=>{
+
+  const googleLogin = async () => {
     window.location.replace('http://localhost:4000/auth/google')
-   }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ export default function Login() {
     dispatch(setloadingFalse());
   };
 
- 
+
 
   return (
     <div className="flex  justify-center items-center w-full ">
@@ -48,11 +48,11 @@ export default function Login() {
                       setdata({ ...data, email: e.target.value })
                     }
                     value={data.email}
-                    />
-                   
+                  />
+
                   <div className=" flex items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
-                 
-                      
+
+
                     <input
                       required
                       type={!showPass ? "password" : "text"}
@@ -78,25 +78,22 @@ export default function Login() {
                     </div>
                   </div>
                   <button
-                   type="submit"
+                    type="submit"
                     className={`border border-gray-300 mt-2 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
                   >
                     Sign in{" "}
                   </button>
                   <p className="m-4 font-dark text-xl">Or</p>
                 </form>
-                
-                
-                  <button onClick={googleLogin} aria-label="Continue with google"  className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-400 flex items-center w-full ">
-                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google"/>
-                        <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
-                    </button>
-                
-                <Link 
-                 to={"/auth/signup"}
+                <button onClick={googleLogin} aria-label="Continue with google" className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-400 flex items-center w-full ">
+                  <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google" />
+                  <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
+                </button>
+                <Link
+                  to={"/auth/signup"}
                   className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
                 >
-                     New user? Create an account
+                  New user? Create an account
                 </Link>
               </div>
             </div>

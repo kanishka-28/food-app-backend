@@ -11,23 +11,23 @@ export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setdata] = useState({
-    userName:"",
+    userName: "",
     email: "",
     password: "",
     cnfpass: "",
-    address : "",
-    city : "",
+    address: "",
+    city: "",
   });
-  
-    
-   
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(data.password!==data.cnfpass){
+    if (data.password !== data.cnfpass) {
       toast.error("Password Not Equal");
     }
-    else{
+    else {
       delete data.cnfpass;
       dispatch(setloadingTrue());
       // console.log(data);
@@ -35,7 +35,7 @@ export default function Signup() {
       dispatch(setloadingFalse());
       navigate('/home/delivery');
     }
-    
+
     // const form_data = new FormData(event.target);
     // let values = {};
     // form_data.forEach(function (value, key) {
@@ -55,7 +55,7 @@ export default function Signup() {
 
   return (
     <div className="flex justify-center w-full">
-     
+
       <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start ">
@@ -67,10 +67,10 @@ export default function Signup() {
               </div>
               <div className="mt-2 text-center  ">
                 <form onSubmit={handleSubmit} className={`my-6 w-full  `}>
-              
+
                   <input
-                  onClick={()=>setshowPass(false)}
-                  required
+                    onClick={() => setshowPass(false)}
+                    required
                     placeholder="Name"
                     className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
@@ -79,9 +79,9 @@ export default function Signup() {
                     value={data.userName}
                   />
                   <input
-                  onClick={()=>setshowPass(false)}
-                  required
-                  type="email"
+                    onClick={() => setshowPass(false)}
+                    required
+                    type="email"
                     placeholder="Email"
                     className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
                     onChange={(e) =>
@@ -89,10 +89,10 @@ export default function Signup() {
                     }
                     value={data.email}
                   />
-                   
+
                   <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
-                    required
+                      required
                       type={!showPass ? "password" : "text"}
                       placeholder="Password"
                       className="text-center  w-full h-12 "
@@ -101,7 +101,7 @@ export default function Signup() {
                       }
                       value={data.password}
                     />
-                   
+
                     <div
                       className="cursor-pointer px-2"
                       onClick={() => {
@@ -117,7 +117,7 @@ export default function Signup() {
                   </div>
                   <div className=" flex my-2 items-center bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 border border-gray-300 rounded">
                     <input
-                    required
+                      required
                       type={!showPass ? "password" : "text"}
                       placeholder="Confirm Password"
                       className="text-center  w-full h-12 "
@@ -140,13 +140,13 @@ export default function Signup() {
                       )}
                     </div>
                   </div>
-                  <textarea onClick={()=>setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" placeholder="Address" required onChange={(e) =>
-                      setdata({ ...data, address: e.target.value })
-                    }
+                  <textarea onClick={() => setshowPass(false)} className=" text-center p-4 my-1 w-full h-16 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" placeholder="Address" required onChange={(e) =>
+                    setdata({ ...data, address: e.target.value })
+                  }
                     value={data.address} ></textarea>
-                  
+
                   <input
-                  onClick={()=>setshowPass(false)}
+                    onClick={() => setshowPass(false)}
                     placeholder="City"
                     required
                     className=" text-center p-4 my-1 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded"
@@ -155,20 +155,20 @@ export default function Signup() {
                     }
                     value={data.city}
                   />
-                <button
-                type="submit"
-             
-                  className={`border border-gray-300 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
-                >
-                  Sign Up{" "}
-                </button>
-               
+                  <button
+                    type="submit"
+
+                    className={`border border-gray-300 rounded font-semibold w-full h-12 bg-megenta-400 text-white`}
+                  >
+                    Sign Up{" "}
+                  </button>
+
                 </form>
-                <Link 
-                 to={"/auth/login"}
+                <Link
+                  to={"/auth/login"}
                   className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
                 >
-                     Already a User? Lets Sign in
+                  Already a User? Lets Sign in
                 </Link>
               </div>
             </div>
