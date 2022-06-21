@@ -90,7 +90,7 @@ const Photos = ({ uploadedImages, state }) => {
               <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
             </label>
           </div>
-          <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
+          <div className="bg-white rounded flex justify-evenly pb-6 w-full">
             {
               images?.length !== 0 &&
               images?.map((image, i) => (
