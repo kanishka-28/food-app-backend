@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { resizeFile } from '../../../Utils/Functions/imageResizer';
-// import { SignupContext } from '../../../context/signup';
 import { toast } from 'react-hot-toast'
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { GiTireIronCross } from 'react-icons/gi'
@@ -21,7 +20,7 @@ export const Photo = ({ image, uploaded }) => {
           className="w-full h-full rounded object-cover"
         />
       </div>
-      {uploaded && <ImBin className='cursor-pointer' size={'1.5rem'} color='red' />}
+      {uploaded && <ImBin className='cursor-pointer relative -left-10 bg-white rounded-md top-1 p-2 text-4xl'  color='red' />}
     </div>
   )
 }
@@ -39,9 +38,11 @@ const Photos = ({ uploadedImages, state }) => {
   const handleFile = async (e) => {
 
     let file = e.target.files;
-    file = Array.from(file)
-    file = Promise.all(file.map(async (element, i) => {
-
+    //convert files list into array
+    file = Array.from(file);
+    //then use promise all to resolve each promise
+    file = Promise.all(file.map(async(element,i) => {
+      
       if (element.size > 3000000) {
         toast.error(`Size of ${element.name} should be less than 3 MB`);
         return;
@@ -90,7 +91,7 @@ const Photos = ({ uploadedImages, state }) => {
               <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
             </label>
           </div>
-          <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
+          <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full overflow-x-auto ">
             {
               images?.length !== 0 &&
               images?.map((image, i) => (
@@ -106,16 +107,17 @@ const Photos = ({ uploadedImages, state }) => {
           </div>
         }
       </div>
-      <div className="bg-white rounded flex pb-6 w-full">
         {
           uploadedImages?.length !== 0 ?
-            uploadedImages?.map((image, i) => (
+      <div className="bg-white rounded flex pb-6 w-full flex-wrap">
+            {uploadedImages?.map((image, i) => (
               <Photo key={i} image={image.url} uploaded={true} />
-            ))
-            :
-            <h4>No images uploaded</h4>
-        }
+            ))}
       </div>
+            :
+            
+            <h4 className='text-center'>No images uploaded</h4>
+        }
     </>
   )
 
