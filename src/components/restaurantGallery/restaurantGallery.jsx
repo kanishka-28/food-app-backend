@@ -20,7 +20,7 @@ const RestaurantGallery = ({ setType, requiredRestaurant, uploadedImages }) => {
       <div className="w-full ">
         <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="md:hidden block w-full h-full " alt="bigImage" />
         <div className="hidden md:flex lg:m-4 items-center h-96 w-full ">
-          <div className="  w-3/4 h-full overflow-hidden object-cover ">
+          <div className="w-3/4 h-full overflow-hidden object-cover ">
             <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="duration-1000 transform hover:scale-110 h-full w-full" alt="bigImage" />
           </div>
           <div className="m-1 h-full w-1/3 hidden md:block">
