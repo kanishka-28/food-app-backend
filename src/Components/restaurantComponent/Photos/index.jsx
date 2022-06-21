@@ -35,7 +35,9 @@ const Photos = () => {
   const handleFile = async (e) => {
     
     let file = e.target.files;
-    file = Array.from(file)
+    //convert files list into array
+    file = Array.from(file);
+    //then use promise all to resolve each promise
     file = Promise.all(file.map(async(element,i) => {
       
       if (element.size > 3000000) {
