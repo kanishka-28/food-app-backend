@@ -12,6 +12,7 @@ const Profile = () => {
   const [edit, setedit] = useState(false);
  
   const profile = useSelector(user);
+  
 
   return (
     <div>
