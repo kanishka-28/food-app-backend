@@ -7,6 +7,7 @@ import { storeAllRestaurants } from "../../Redux/Features/Restaurant/Slice";
 import { serviceGet } from "../Api/Api";
 
 export const useRestaurants = () => {
+  
     const ready = useSelector(isReady);
     const user = useSelector(getUser);
     const dispatch = useDispatch();

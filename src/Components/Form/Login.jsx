@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ data, setdata, handleSubmit }) => {
   const [showPass, setshowPass] = useState(false);
@@ -51,8 +52,13 @@ const LoginForm = ({ data, setdata, handleSubmit }) => {
             >
               Sign in{" "}
             </button>
-          
           </form>
+          <Link
+            to={"/auth/signup"}
+            className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
+          >
+            New user? Create an account
+          </Link>
         </div>
       </div>
     </div>
