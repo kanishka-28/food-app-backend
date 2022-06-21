@@ -31,6 +31,7 @@ const Order = () => {
     const dispatch = useDispatch();
 
     const getAllFoods = async () => {
+        dispatch(setloadingTrue());
         try {
             const {foods} = await serviceGet(`food/${id}`);
             setfoods(foods);
@@ -43,7 +44,7 @@ const Order = () => {
     }
     
     useEffect(() => {
-        dispatch(setloadingTrue);
+        
         getAllFoods();
     }, [])
 

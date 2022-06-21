@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { user } from '../../redux/features/auth/selector/selector';
+import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
 import { serviceGet } from '../../utlis/api';
 import Review from '../Card/Review';
 
 const ProfileTab = () => {
   const { tabId } = useParams();
-
+  const dispatch = useDispatch();
   const [orders, setorders] = useState([]);
   const [reviews, setreviews] = useState([]);
   const userDetails = useSelector(user);
 
   const getAllReviews=async()=>{
-    const {reviews} = await serviceGet(`review/user/${userDetails._id}`);
-    setreviews(reviews);
+    dispatch(setloadingTrue());
+    try {
+      const {reviews} = await serviceGet(`review/user/${userDetails._id}`);
+     
+      setreviews(reviews);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally{
+      dispatch(setloadingFalse());
+    }
   }
 
   useEffect(() => {
@@ -65,7 +76,7 @@ const ProfileTab = () => {
 
         </ul>
         <div
-          className="tab-content p-4  w-full h-56 overflow-y-auto"
+          className="tab-content p-4  w-full h-56 overflow-y-auto no-scrollbar"
           id="tabs-tabContentVertical"
         >
           {tabId == "reviews" && (
@@ -75,8 +86,8 @@ const ProfileTab = () => {
               role="tabpanel"
               aria-labelledby="tabs-home-tabVertical"
             >
-              {reviews.length!==0 ? reviews.map((e)=>(
-                <Review e={e} />
+              {reviews.length!==0 ? reviews.map((e,i)=>(
+                <Review key={i}  e={e} />
               )) : 
                 <h4>No Reviews</h4>
               }
