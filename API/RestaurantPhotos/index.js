@@ -38,11 +38,11 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
    }
 });
 
-Router.put("/delete/:_id",getUserStatus,async (req,res)=>{
+Router.put("/delete/:photoId",getUserStatus,async (req,res)=>{
     try{
-       await ValidateRestaurantId(req.params);
-       const {_id}=req.params;
-       const {photoId} = req.body;
+       await ValidateRestaurantId(req.body);
+       const {_id}=req.body;
+       const {photoId} = req.params;
        const newPhotos=await RestaurantModel.findByIdAndUpdate(_id,{
         $pull: {photos:  {_id : photoId}},
         },
