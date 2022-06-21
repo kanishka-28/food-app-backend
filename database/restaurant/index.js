@@ -1,3 +1,4 @@
+import { number } from "joi";
 import mongoose from "mongoose";
 
 const RestaurantSchema = new mongoose.Schema({
@@ -10,20 +11,25 @@ const RestaurantSchema = new mongoose.Schema({
     },
     timing: { type: String },
     contactNumber: { type: Number },
-    brand : {type: String},
+    brand: { type: String },
     website: { type: String },
-    limit:{type:Number},
+    limit: { type: Number },
     amenities: [{ type: String }],
-    menuImage: { type: String, },
-    user:{
+    menuImage: [{
+        url: { type: String, }
+    }],
+    user: {
         type: mongoose.Types.ObjectId,
         ref: "Users",
         required: true
     },
-    photos: [{ type: String }],
-    coverImage: {type: String}
+    photos: [{
+        url: { type: String }
+    }],
+    coverImage: { type: String }
 }, {
     timestamps: true
 });
 
 export const RestaurantModel = mongoose.model("Restaurants", RestaurantSchema);
+// isme photos mai ek id bhi daal de to
