@@ -8,7 +8,6 @@ export default function RestaurantDetailsForm({ handleSave, restaurantDetails, s
 
     
     const handleFile = async(e) => {
-        
         //my style
         const file = e.target.files[0];
         if(file.size>5000000){

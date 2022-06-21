@@ -37,29 +37,27 @@ const Order = () => {
         } catch (error) {
             console.log(error);
         }
-        finally{
+        finally {
             dispatch(setloadingFalse())
         }
     }
 
     useEffect(() => {
         getAllFood();
-    }, [openEdit,open])
+    }, [openEdit, open])
 
     const LapOrder = () => {
         return (
             <>
                 <div className='flex flex-col'>
-                  
+
                     <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                         {foods.length !== 0 ? foods?.map((food) => {
                             return (
-                                
-                                    <FoodCards key={food.id} food={food} setOpenEdit={setOpenEdit} setFood={setFood} />
-                               
+                                <FoodCards key={food._id} food={food} setOpenEdit={setOpenEdit} setFood={setFood} />
                             )
                         })
-                            : 
+                            :
                             <div className="mt-3 flex justify-center items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center self-center mx-auto w-96">
                                 <h3>No Food Added</h3>
                             </div>
