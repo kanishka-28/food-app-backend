@@ -33,7 +33,7 @@ export const Photo = ({ image, uploaded, state }) => {
 
   return (
     <div className='flex m-1 md:m-4'>
-      <div className='w-1/3 md:w-48 h-56 rounded shadow-md'>
+      <div className='w-1/3 w-48 h-56 rounded shadow-md'>
         <img
           src={image.url}
           alt="Burger"
