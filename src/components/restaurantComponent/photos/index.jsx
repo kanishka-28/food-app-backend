@@ -24,11 +24,11 @@ const Photos = ({ uploadedImages }) => {
 
 
   return (
-    <div className="lg:px-32 hidden md:block">
+    <div className="lg:px-32 block">
       {uploadedImages?.length !== 0 ?
         <Photo uploadedImages={uploadedImages} />
         :
-        <h4 className='my-10'>No Photos Added</h4>
+        <h4 className='my-10 text-center'>No Photos Added</h4>
       }
     </div>
   )
