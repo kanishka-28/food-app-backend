@@ -30,7 +30,7 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
         },
         {
             new: true
-        }).select(photos);
+        }).select("photos");
        return res.status(200).json({newPhotos, success: true});
    }
    catch(error){
@@ -38,8 +38,24 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
    }
 });
 
+Router.put("/delete/:_id",getUserStatus,async (req,res)=>{
+    try{
+       await ValidateRestaurantId(req.params);
+       const {_id}=req.params;
+       const {photoId} = req.body;
+       const newPhotos=await RestaurantModel.findByIdAndUpdate(_id,{
+        $pull: {photos:  {_id : photoId}},
+        },
+        {
+            new: true
+        }).select("photos");
+       return res.status(200).json({newPhotos, success: true});
+   }
+   catch(error){
+       return res.status(500).json({message: error.message, success: false});
+   }
+});
 
-//yha pr ek pull ki bhi bna lete h 
 
 
 export default Router;
