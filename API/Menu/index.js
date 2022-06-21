@@ -32,7 +32,25 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
        const {_id}=req.params;
        const {menuImage} = req.body;
        const menu=await RestaurantModel.findByIdAndUpdate(_id,{
-        $set: {menuImage},
+        $push: {menuImage},
+        },
+        {
+            new: true
+        }).select("menuImage");
+       return res.status(200).json({menu, success: true});
+   }
+   catch(error){
+       return res.status(500).json({message: error.message, success: false});
+   }
+});
+
+Router.put("/delete/:_id",getUserStatus,async (req,res)=>{
+    try{
+       await ValidateRestaurantId(req.params);
+       const {_id}=req.params;
+       const {menuImageId} = req.body;
+       const menu=await RestaurantModel.findByIdAndUpdate(_id,{
+        $pull: {menuImage:{_id:menuImageId}},
         },
         {
             new: true
