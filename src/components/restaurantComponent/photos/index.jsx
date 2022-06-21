@@ -7,7 +7,7 @@ export const Photo = ({ uploadedImages }) => {
       {
         uploadedImages?.map((image) => (
           <div className='flex m-1 md:m-4'>
-            <div className='md:w-48 h-56 rounded shadow-md'>
+            <div className='w-48 h-56 rounded shadow-md'>
               <img
                 src={image.url}
                 alt="Burger"
@@ -26,11 +26,11 @@ const Photos = ({ uploadedImages }) => {
 
 
   return (
-    <div className="hidden md:block">
+    <div className="block">
       {uploadedImages?.length !== 0 ?
         <Photo uploadedImages={uploadedImages} />
         :
-        <h4 className='my-10'>No Photos Added</h4>
+        <h4 className='my-10 text-center'>No Photos Added</h4>
       }
     </div>
   )
