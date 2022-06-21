@@ -37,24 +37,23 @@ const Photos = () => {
     let file = e.target.files;
     file = Array.from(file)
     file.forEach(async(element,i) => {
-      console.log('====================================');
-      console.log(i);
-      console.log('====================================');
+      console.log('123');
       if (element.size > 3000000) {
         toast.error(`Size of ${element.name} should be less than 3 MB`);
         return;
       }
-      // console.log(images);
+      console.log('abc');
       resizeFile(element).then((res)=>{
-        console.log(res);
+        // console.log(element.name);
         setimages([...images, res]);     
-        console.log(images);
+        // console.log(images);
       })
+      console.log('xyz');
     });
   };
   
   useEffect(() => {
-    // console.log(images);
+    console.log(images);
   }, [images])
   
   const onSave = async () => {
