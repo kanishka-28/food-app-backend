@@ -72,13 +72,18 @@ const Photos = () => {
   }
 
   const getAllPhotos = async () => {
+    dispatch(setloadingTrue());
     try {
-      const { photos } = await serviceGet(`image/${id}`);
-      // console.log(photos);
-      setuploadedImages(photos.photos);
+      const { photos : {photos} } = await serviceGet(`image/${id}`);
+      console.log(photos);
+      setuploadedImages(photos);
     } catch (error) {
       console.log({ error });
     }
+    finally{
+      dispatch(setloadingFalse());
+    }
+
   }
 
   useEffect(() => {
@@ -112,8 +117,8 @@ const Photos = () => {
       <div className="bg-white rounded flex pb-6 w-full">
         {
               uploadedImages?.length !== 0 ?
-                uploadedImages?.map((image) => (
-                  <Photo image={image.url} />
+                uploadedImages?.map((image,i) => (
+                  <Photo key={i} image={image.url} />
                 ))
                 :
                 <h4>No images uploaded</h4>
