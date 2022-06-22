@@ -6,7 +6,7 @@ import express from 'express'
 //validation
 import { ValidateRestaurantCity, ValidateRestaurantId, ValidateRestaurantSearchString } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus";
-import { getDistanceFromLatLonInKm } from "./helperFunction";
+import { getDistanceFromLatLonInKm, getRestaurantFromCity, getRestaurantFromLocation } from "./helperFunction";
 
 const Router = express.Router();
 
@@ -30,14 +30,16 @@ Router.get('/', async (req, res) => {
       if (user?.city) {
          await ValidateRestaurantCity({ city: user?.city });
          const city = user?.city.toLowerCase();
-         const restaurants = await RestaurantModel.find({ city }).select("-menuImage -photos").sort({ updatedAt: -1 });
+         // const restaurants = await RestaurantModel.find({ city }).select("-menuImage -photos").sort({ updatedAt: -1 });
+         const restaurants = await getRestaurantFromCity(city);
          if (restaurants.length === 0) {
             res.status(404).json({ message: "No restaurants found near you", success: false })
          }
          return res.status(200).json({ restaurants, success: true });
       }
       else {
-         const restaurants = await RestaurantModel.find().select("-menuImage -photos").sort({ updatedAt: -1 });
+         // const restaurants = await RestaurantModel.find().select("-menuImage -photos").sort({ updatedAt: -1 });
+         const restaurants = await getRestaurantFromLocation();
 
          const newrestaurants = restaurants.filter(restaurant => (
             getDistanceFromLatLonInKm(restaurant.mapLocation.latitude, restaurant.mapLocation.longitude, latitude, longitude) < 500// radius of 3 km is too low
@@ -75,19 +77,12 @@ Router.get('/user', getUserStatus, async (req, res) => {
                let:{restaurant: "$_id"},
                pipeline:[
                  {
-                     // $group:{
-                     //    avgRating: {$avg : "$rating"},
-                     //    _id:"$restaurant"
-                     // }
                      $match:{
                         $expr:{
                            $eq:['$restaurant','$$restaurant']
                         }
                      }
                   },
-                  // {
-                  //    $count:"$restaurant"
-                  // },
                   {
                      $group:{
                         _id: "$restaurant",
@@ -99,9 +94,11 @@ Router.get('/user', getUserStatus, async (req, res) => {
                ],
                as:'reviews'
             }
-         },
-         {
-            $unwind:"$reviews"
+         }
+         ,{
+            $sort:{
+               updatedAt: -1
+            }
          }
       ])
       // console.log(restaurants);
