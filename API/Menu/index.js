@@ -44,11 +44,11 @@ Router.put("/:_id",getUserStatus,async (req,res)=>{
    }
 });
 
-Router.put("/delete/:_id",getUserStatus,async (req,res)=>{
+Router.put("/delete/:menuImageId",getUserStatus,async (req,res)=>{
     try{
-       await ValidateRestaurantId(req.params);
-       const {_id}=req.params;
-       const {menuImageId} = req.body;
+       await ValidateRestaurantId(req.body);
+       const {_id}=req.body;
+       const {menuImageId} = req.params;
        const menu=await RestaurantModel.findByIdAndUpdate(_id,{
         $pull: {menuImage:{_id:menuImageId}},
         },
