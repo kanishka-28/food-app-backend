@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { GiTireIronCross } from 'react-icons/gi';
 import { ImBin } from 'react-icons/im';
@@ -6,12 +6,12 @@ import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
-import { servicePut } from '../../../Utils/Api/Api';
+import { serviceGet, servicePut } from '../../../Utils/Api/Api';
 import { resizeFile } from '../../../Utils/Functions/imageResizer';
 
-const MenuImage = ({ image, uploaded }) => {
+const MenuImage = ({ image, uploaded, state }) => {
 
-    const [toggle, settoggle] = useState(false);
+    const [toggle, settoggle] = state;
     const { id } = useParams();
     const dispatch = useDispatch();
 
@@ -31,10 +31,10 @@ const MenuImage = ({ image, uploaded }) => {
     }
 
     return (
-        <div className='m-1 md:m-4'>
+        <div className='m-4'>
             <div className='w-48 h-56 rounded shadow-md'>
                 <img
-                    src={image.url || image}
+                    src={image?.url || image}
                     alt="Burger"
                     className="w-full h-full rounded object-cover"
                 />
@@ -50,7 +50,27 @@ const Menu = () => {
     const dispatch = useDispatch();
 
     const [images, setimages] = useState([]);
-    const [toggle, settoggle] = useState([]);
+    const [uploadedImages, setuploadedImages] = useState([]);
+    const [toggle, settoggle] = useState(false);
+
+    const getMenu = async () => {
+        dispatch(setloadingTrue());
+        try {
+            const { menu } = await serviceGet(`menu/${id}`);
+            console.log(menu);
+            setuploadedImages(menu.menuImage);
+        } catch (error) {
+            console.log({ error });
+        }
+        finally {
+            dispatch(setloadingFalse());
+        }
+    }
+
+    useEffect(() => {
+        getMenu();
+    }, [])
+
 
     const handleFile = async (e) => {
         let file = e.target.files;
@@ -75,9 +95,9 @@ const Menu = () => {
         dispatch(setloadingTrue());
         try {
             const payload = images.map(img => ({ url: img }));
-            const res = await servicePut(`image/${id}`, { photos: payload });
+            const res = await servicePut(`menu/${id}`, { menuImage: payload });
             console.log(res);
-            toast.success('Photos has been uploaded');
+            toast.success('Menu has been uploaded');
             setimages([]);
             settoggle(!toggle);
         } catch (error) {
@@ -97,8 +117,8 @@ const Menu = () => {
         <>
             <div>
                 <p className="text-xl font-dark mt-6">Upload More</p>
-                <div className='flex items-center gap-4'>
-                    <div className="lg:w-1/4 lg:mx-12 mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded">
+                <div className='block sm:flex gap-4'>
+                    <div className="lg:w-1/4 lg:mx-12 mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded h-fit mt-6 ">
                         <div className="space-y-1 text-center">
                             <svg
                                 className="mx-auto h-12 w-12 text-gray-400"
@@ -131,7 +151,7 @@ const Menu = () => {
                         {
                             images?.length !== 0 &&
                             images?.map((image, i) => (
-                                <MenuImage key={i} image={image} uploaded={false} />
+                                <MenuImage key={i} image={image} uploaded={false} state={[toggle, settoggle]} />
                             ))
                         }
                     </div>
@@ -143,9 +163,18 @@ const Menu = () => {
                     </div>
                 }
             </div>
-            <div className="text-xl font-dark mt-6">CAD(M) CAD(B) Menu</div>
-            <div className="w-full md:w-1/3 flex items-center justify-center">
-                <img src="https://b.zmtcdn.com/data/menus/116/18384116/8aa012f09ee2c5f8d48983b16810a665.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A" className="w-4/5 h-full my-6" alt="menu" />
+            <div className="text-xl font-dark mt-6">Menu</div>
+            <div className="w-full flex items-center justify-center">
+                {
+                    uploadedImages?.length !== 0 ?
+                        <div className="bg-white rounded flex pb-6 w-full flex-wrap ">
+                            {uploadedImages?.map((image, i) => (
+                                <MenuImage key={i} image={image} uploaded={true} state={[toggle, settoggle]} />
+                            ))}
+                        </div>
+                        :
+                        <h4 className='text-center'>No images uploaded</h4>
+                }
             </div>
         </>
     )

@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { GiTireIronCross } from 'react-icons/gi'
 import { useDispatch, useSelector } from 'react-redux'
-import {  servicePut } from '../../../Utils/Api/Api';
+import { servicePut } from '../../../Utils/Api/Api';
 import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 import { ImBin } from 'react-icons/im';
@@ -13,29 +13,29 @@ import { ImBin } from 'react-icons/im';
 export const Photo = ({ image, uploaded, state }) => {
 
   const [toggle, settoggle] = state;
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   const deletePhoto = async () => {
     dispatch(setloadingTrue());
     try {
-      const res = await servicePut(`image/delete/${image._id}`, {_id:id});
+      const res = await servicePut(`image/delete/${image._id}`, { _id: id });
       console.log(res);
       toast.success('Deleted successfully');
       settoggle(!toggle)
     } catch (error) {
       console.log(error);
     }
-    finally{
+    finally {
       dispatch(setloadingFalse());
     }
   }
 
   return (
-    <div className=' m-1 md:m-4'>
+    <div className='m-4'>
       <div className='w-48 h-56 rounded shadow-md'>
         <img
-          src={image.url}
+          src={image?.url || image}
           alt="Burger"
           className="w-full h-full rounded object-cover"
         />
@@ -99,9 +99,9 @@ const Photos = ({ uploadedImages, state }) => {
 
   return (
     <>
-      <div className="mb-10 lg:px-4 hidden md:block">
+      <div className="mb-10">
         <p className="text-xl font-dark mt-6">Upload Photos</p>
-        <div className='flex gap-5'>
+        {/* <div className='flex gap-5'>
           <div className="bg-yellow-200 text-center mt-6 h-12 w-44 px-4 flex text-sm text-gray-600 flex justify-center items-center rounded">
             <label
               htmlFor="file-upload" className="relative cursor-pointer "
@@ -110,14 +110,45 @@ const Photos = ({ uploadedImages, state }) => {
               <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
             </label>
           </div>
-          <div className="bg-white rounded flex flex-wrap justify-center pb-6 w-full overflow-x-auto ">
-            {
-              images?.length !== 0 &&
-              images?.map((image, i) => (
-                <Photo key={i} image={image} uploaded={false} />
-              ))
-            }
+        </div> */}
+        <div className='block sm:flex gap-4'>
+          <div className="lg:w-1/4 lg:mx-12 mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded h-fit mt-6 ">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex text-sm text-gray-600">
+                <label
+                  htmlFor="file-upload"
+                  className="relative cursor-pointer bg-white rounded font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                >
+                  <span>Upload a file</span>
+                  <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            </div>
           </div>
+          <div className="bg-white rounded flex flex-wrap justify-center pb-6 w-full overflow-x-auto ">
+          {
+            images?.length !== 0 &&
+            images?.map((image, i) => (
+              <Photo key={i} image={image} uploaded={false} state={[toggle,settoggle]}/>
+            ))
+          }
+        </div>
         </div>
         {images.length !== 0 &&
           <div className='flex items-center gap-3'>
