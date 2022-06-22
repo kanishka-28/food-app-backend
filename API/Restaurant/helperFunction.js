@@ -1,3 +1,5 @@
+import { RestaurantModel } from "../../database/restaurant";
+
 export function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -15,4 +17,92 @@ export function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   
   function deg2rad(deg) {
     return deg * (Math.PI/180)
+  }
+  export const getRestaurantFromCity = async(city)=>{
+    const res = await RestaurantModel.aggregate([
+      {
+        $match:{
+          $expr:{
+            $eq:['$city',city]
+          }
+        }
+      },
+      {
+        $lookup:{
+          from:"reviews",
+          let:{restaurant:"$_id"},
+          pipeline:[
+            {
+              $match:{
+                $expr:{
+                  $eq:['$restaurant','$$restaurant']
+                }
+              }
+            },
+            {
+              $group:{
+                _id:"$restaurant",
+                avgRating:{$avg:"$rating"},
+                totalRating:{$sum:1}
+              }
+            }
+          ],
+          as:"review"
+        }
+      },
+      {
+        $project:{
+          menuImage:0,
+          photos:0
+        }
+      },
+      {
+        $sort:{
+          updatedAt:-1
+        }
+      }
+    ]);
+
+    return res;
+  }
+  export const getRestaurantFromLocation = async()=>{
+    const res = await RestaurantModel.aggregate([
+     
+      {
+        $lookup:{
+          from:"reviews",
+          let:{restaurant:"$_id"},
+          pipeline:[
+            {
+              $match:{
+                $expr:{
+                  $eq:['$restaurant','$$restaurant']
+                }
+              }
+            },
+            {
+              $group:{
+                _id:"$restaurant",
+                avgRating:{$avg:"$rating"},
+                totalRating:{$sum:1}
+              }
+            }
+          ],
+          as:"review"
+        }
+      },
+      {
+        $project:{
+          menuImage:0,
+          photos:0
+        }
+      },
+      {
+        $sort:{
+          updatedAt:-1
+        }
+      }
+    ]);
+
+    return res;
   }
