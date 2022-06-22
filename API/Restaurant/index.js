@@ -62,7 +62,48 @@ Router.get('/', async (req, res) => {
 
 Router.get('/user', getUserStatus, async (req, res) => {
    try {
-      const restaurants = await RestaurantModel.find({ user: req.user._id }).select("-menuImage -photos").sort({ updatedAt: -1 })
+      // const restaurants = await RestaurantModel.find({ user: req.user._id }).select("-menuImage -photos").sort({ updatedAt: -1 })
+      const restaurants = await RestaurantModel.aggregate([
+         {
+            $match:{
+               user:req.user._id
+            },  
+         }
+         ,{
+            $lookup:{
+               from:"reviews",
+               let:{restaurant: "$_id"},
+               pipeline:[
+                 {
+                     // $group:{
+                     //    avgRating: {$avg : "$rating"},
+                     //    _id:"$restaurant"
+                     // }
+                     $match:{
+                        $expr:{
+                           $eq:['$restaurant','$$restaurant']
+                        }
+                     }
+                  },
+                  // {
+                  //    $count:"$restaurant"
+                  // },
+                  {
+                     $group:{
+                        _id: "$restaurant",
+                        avgRating : {$avg : "$rating"},
+                        totalRatings : {$sum:1}
+                     }
+                  }
+                             
+               ],
+               as:'reviews'
+            }
+         },
+         {
+            $unwind:"$reviews"
+         }
+      ])
       // console.log(restaurants);
       return res.status(200).json({ restaurants, success: true });
    }
