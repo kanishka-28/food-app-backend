@@ -19,21 +19,21 @@ method    GET
 */
 
 Router.get("/user/:_id", getUserStatus, async (req, res) => {
+    await ValidateUserId(req.params);
+    const { _id } = req.params;
     try {
-        // if (req.user.status === "user") {
-        //     await ValidateUserId(req.params);
-        //     const { _id } = req.params;
-        //     const getOrders = await OrderModel.findOne({ user: _id });
-        //     if (!getOrders) {
-        //         return res.status(404).json({ error: "User not found" });
-        //     }
-        //     return res.json({ getOrders });
-        // } else {
+        if (req.user._id.toString() === _id) {
+            const orders = await OrderModel.find({ user: _id });
+            if (!orders) {
+                return res.status(404).json({ message: "Orders not found", success: false });
+            }
+            return res.json({ orders, success: true });
+        } else {
             return res.status(401).send("unauthorized")
-        // }
+        }
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({ message: error.message, success: false });
     }
 });
 
@@ -47,23 +47,18 @@ method    GET
 
 Router.get("/res/:_id", getUserStatus, async (req, res) => {
     try {
+        await ValidateRestaurantId(req.params);
         const { _id } = req.params;
-    //     if (req.user.status === "restaurant" && _id===req.user._id.toString()) {
-    //         await ValidateRestaurantId(req.params);
-    //         const getOrders = await OrderModel.findOne({
-    //             "orderDetails.restaurant": _id
-    //         });
-    //         if (!getOrders) {
-    //             return res.status(404).json({ error: "restaurant not found" });
-    //         }
-    //         return res.json({ getOrders });
-    //     }
-    //     else {
-    //         return res.status(401).send("unauthorized")
-    //     }
+        const getOrders = await OrderModel.find({
+            restaurant: _id
+        });
+        if (!getOrders) {
+            return res.status(404).json({ error: "Orders not found" });
+        }
+        return res.json({ getOrders });
     }
     catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({ message: error.message, success: false });
     }
 });
 
@@ -81,12 +76,12 @@ Router.post("/new/:_id", getUserStatus, async (req, res) => {
         // await ValidateOrder(req.body);
         const { _id } = req.params;
         const { orderDetails } = req.body;
-        if(req.user._id.toString() !== _id){
+        if (req.user._id.toString() !== _id) {
             return res.status(401).send("user does not match")
         }
         // if (req.user.status === "user") {
         //     const user = await OrderModel.findOne({ user: _id })
-        
+
         //     if (!user) {
         //         const addNewOrder = await OrderModel.create({
         //             user: _id,
@@ -120,7 +115,7 @@ Router.post("/new/:_id", getUserStatus, async (req, res) => {
 Router.delete("/delete/:_id/:orderId", getUserStatus, async (req, res) => {
     //user fetched from middleware req.user with id of user
     try {
-        const {_id, orderId} = req.params
+        const { _id, orderId } = req.params
         // if (req.user.status === "user" && req.user._id.toString() === req.params._id) {
         //     const result = await OrderModel.findOneAndUpdate({
         //         user: _id
@@ -132,7 +127,7 @@ Router.delete("/delete/:_id/:orderId", getUserStatus, async (req, res) => {
         //     res.json({ message: "deleted successfuly", result });
         // }
         // else if (req.user.status === "restaurant" && req.user._id.toString() === req.params._id) {
-            
+
         //     const result = await OrderModel.findOneAndUpdate({
         //         "orderDetails.restaurant": _id
         //     }, {

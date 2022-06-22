@@ -101,7 +101,6 @@ Router.get('/user', getUserStatus, async (req, res) => {
             }
          }
       ])
-      // console.log(restaurants);
       return res.status(200).json({ restaurants, success: true });
    }
    catch (error) {
