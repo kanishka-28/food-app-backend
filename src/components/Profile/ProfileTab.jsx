@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { user } from '../../redux/features/auth/selector/selector';
 import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
-import { serviceGet } from '../../utlis/api';
+import { serviceGet } from '../../utlis/connection/api';
 import Review from '../Card/Review';
 
 const ProfileTab = () => {

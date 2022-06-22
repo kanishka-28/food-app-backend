@@ -14,7 +14,7 @@ import { user } from '../../../redux/features/auth/selector/selector';
 import OrderModal from '../../Modal/PlaceOrder';
 import FoodCard from '../../Card/FoodCard';
 import { setloadingFalse, setloadingTrue } from '../../../redux/features/Loader/slice';
-import { serviceGet } from '../../../utlis/api';
+import { serviceGet } from '../../../utlis/connection/api';
 // import { orderfood, getfood } from '../../../services/api';
 // import { SignupContext } from '../../../context/signup';
 

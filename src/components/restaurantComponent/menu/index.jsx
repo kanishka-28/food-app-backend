@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
-import { serviceGet } from '../../../utlis/api';
+import { serviceGet } from '../../../utlis/connection/api';
 
 const Menu = () => {
 

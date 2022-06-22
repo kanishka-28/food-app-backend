@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/features/auth/slice';
 import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
-import { servicePut } from '../../utlis/api';
+import { servicePut } from '../../utlis/connection/api';
 
 const EditUser = ({profile,setedit}) => {
     const [newProfile, setnewProfile] = useState(profile);

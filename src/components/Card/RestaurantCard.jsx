@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import { capitalize } from '../../utlis/Capitalise';
+import { capitalize } from '../../utlis/helperFunctions/Capitalise';
 const FoodCards = ({restaurant}) => {
     const {name, city, coverImage,_id:id,review} = restaurant;
 //    console.log(about);

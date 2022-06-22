@@ -11,7 +11,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { GiSevenPointedStar } from "react-icons/gi";
 import { Photo } from "../restaurantComponent/photos";
 import { MobOrder } from "../restaurantComponent/order";
-import { capitalize } from "../../utlis/Capitalise";
+import { capitalize } from "../../utlis/helperFunctions/Capitalise";
 import { RWebShare } from "react-web-share";
 
 const RestaurantGallery = ({ setType, requiredRestaurant, uploadedImages }) => {

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux';
-import { serviceGet, servicePost } from '../../../utlis/api'
+import { serviceGet, servicePost } from '../../../utlis/connection/api'
 import RateStars from '../../Stars/RateStarsHover'
 import RatingStars from '../../Stars/RatingStars'
 import { isAuthenticated, user } from '../../../redux/features/auth/selector/selector';
@@ -40,7 +40,7 @@ const Reviews = () => {
         
     }
 
-    console.log(details);
+    // console.log(details);
     const postReview = async (e) => {
         e.preventDefault();
         if(!isLoggedIn){
