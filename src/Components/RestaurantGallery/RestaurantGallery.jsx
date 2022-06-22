@@ -23,26 +23,26 @@ const RestaurantGallery = ({ requiredRestaurant,uploadedImages }) => {
         <>
             <AddFoodModal/>
             <div className="w-full ">
-                <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="md:hidden block w-full h-full " alt="bigImage" />
+                <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="md:hidden block w-full h-96 object-cover " alt="bigImage" />
                 <div className="lg:m-4 hidden md:flex items-center h-96 w-full ">
                     <div className="w-3/4 h-full overflow-hidden object-cover ">
-                        <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="duration-1000 transform hover:scale-110 h-full w-full" alt="bigImage" />
+                        <img src={uploadedImages?.length > 0 ? uploadedImages[0].url : "https://b.zmtcdn.com/data/pictures/9/19227209/1f3b5f252dc37e874e8e96e82e5ed277.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"} className="duration-1000 transform hover:scale-110 h-full w-full object-cover" alt="bigImage" />
                     </div>
                     <div className="m-1 h-full w-1/3 hidden md:block">
                         <div className=" flex h-1/2 mb-1 w-full gap-2">
                             <div className=" w-1/2 h-full overflow-hidden ">
-                                <img src={uploadedImages?.length > 1 ? uploadedImages[1].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full duration-1000 transform hover:scale-110" alt="smallImage" />
+                                <img src={uploadedImages?.length > 1 ? uploadedImages[1].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full duration-1000 transform hover:scale-110 object-cover" alt="smallImage" />
                             </div>
                             <div className="w-1/2 overflow-hidden">
-                                <img src={uploadedImages?.length > 2 ? uploadedImages[2].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full  duration-1000 transform hover:scale-110" alt="smallImage" />
+                                <img src={uploadedImages?.length > 2 ? uploadedImages[2].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full  duration-1000 transform hover:scale-110 object-cover" alt="smallImage" />
                             </div>
                         </div>
                         <div className="h-1/2 pb-1 flex w-full gap-2">
                             <div className=" w-1/2  overflow-hidden ">
-                                <img src={uploadedImages?.length > 3 ? uploadedImages[3].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full duration-1000 transform hover:scale-110" alt="smallImage" />
+                                <img src={uploadedImages?.length > 3 ? uploadedImages[3].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full h-full duration-1000 transform hover:scale-110 object-cover" alt="smallImage" />
                             </div>
                             <div className="w-1/2 overflow-hidden">
-                                <img src={uploadedImages?.length > 4 ? uploadedImages[4].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full  h-full  duration-1000 transform hover:scale-110" alt="smallImage" />
+                                <img src={uploadedImages?.length > 4 ? uploadedImages[4].url : "https://b.zmtcdn.com/data/pictures/9/19227209/da93155e3b621000dd24fa992c107a80.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*"} className="w-full  h-full  duration-1000 transform hover:scale-110 object-cover" alt="smallImage" />
                             </div>
                         </div>
                     </div>

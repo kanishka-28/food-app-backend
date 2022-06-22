@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/Features/Auth/Slice";
 import LoginForm from "../../Components/Form/Login";
+import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 
 export default function Login() {
  
@@ -15,7 +16,9 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(setloadingTrue());
     await dispatch(login(data))
+    dispatch(setloadingFalse());
     navigate('/home');
   };
 

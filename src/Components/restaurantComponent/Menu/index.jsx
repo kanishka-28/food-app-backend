@@ -172,7 +172,7 @@ const Menu = () => {
                             ))}
                         </div>
                         :
-                        <h4 className='text-center'>No images uploaded</h4>
+                        <h4 className='text-center'>No Menu uploaded</h4>
                 }
             </div>
         </>
