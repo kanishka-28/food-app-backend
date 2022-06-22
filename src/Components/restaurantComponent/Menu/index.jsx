@@ -18,8 +18,7 @@ const MenuImage = ({ image, uploaded, state }) => {
     const deletePhoto = async () => {
         dispatch(setloadingTrue());
         try {
-            const res = await servicePut(`image/delete/${image._id}`, { _id: id });
-            console.log(res);
+            const res = await servicePut(`menu/delete/${image._id}`, { _id: id });
             toast.success('Deleted successfully');
             settoggle(!toggle)
         } catch (error) {
@@ -69,7 +68,7 @@ const Menu = () => {
 
     useEffect(() => {
         getMenu();
-    }, [])
+    }, [toggle])
 
 
     const handleFile = async (e) => {
