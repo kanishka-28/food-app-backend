@@ -1,45 +1,62 @@
 import React, { useEffect, useState } from 'react'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { serviceGet } from '../../../utlis/connection/api';
+import {useDispatch} from 'react-redux'
+import { setloadingFalse, setloadingTrue } from '../../../redux/features/Loader/slice';
 
+export const Photo = ({ uploadedImages }) => {
+    return (
+      <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
+        {
+          uploadedImages?.map((image) => (
+            <div className='flex m-1 md:m-4'>
+              <div className='w-full sm:w-48 h-56 md:w-72 rounded shadow-md'>
+                <img
+                  src={image.url}
+                  alt="Burger"
+                  className="w-full h-full rounded object-cover"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div >
+    )
+  }
+  
+  
 const Menu = () => {
 
-    const [menus, setmenus] = useState();
     const { id } = useParams();
 
-    const getAllMenus = async () => {
-        const { menu } = await serviceGet(`menu/${id}`);
-        console.log(menu);
-        setmenus(menu);
+    const [uploadedImages, setuploadedImages] = useState([]);
+    const dispatch = useDispatch();
+
+    const getMenu = async () => {
+        dispatch(setloadingTrue());
+        try {
+            const { menu } = await serviceGet(`menu/${id}`);
+            setuploadedImages(menu.menuImage);
+        } catch (error) {
+            console.log({ error });
+        }
+        finally{
+            dispatch(setloadingFalse());
+        }
     }
 
-    // const addMenu = async (e) => {
-    //     e.preventDefault();
-    //     if(!isLoggedIn){
-    //         toast.error('Login to add review');
-    //         return;
-    //     }
-    //     try {
-    //         await servicePost(`review/add`, details);
-    //         settoggle(!toggle);
-    //         toast.success('Review is posted successfully');
-    //     } catch (error) {
-    //         console.log({error});
-    //         toast.error('Some error occured while posting your review');
-    //     }
-    // }
-
     useEffect(() => {
-        getAllMenus();
+        getMenu();
     }, [])
 
     return (
-        <>
-            <div className="text-xl font-dark ">CAD(M) CAD(B) Menu</div>
-            <div className="w-full md:w-1/3 flex items-center justify-center">
-                <img src={menus} className="w-4/5 h-full my-6" alt="menu"/>
-            </div>
-        </>
+        <div className="block">
+            {uploadedImages?.length !== 0 ?
+                <Photo uploadedImages={uploadedImages} />
+                :
+                <h4 className='my-10 text-center'>No Menu Added</h4>
+            }
+        </div>
     )
 }
 

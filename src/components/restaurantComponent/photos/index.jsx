@@ -11,7 +11,7 @@ export const Photo = ({ uploadedImages }) => {
               <img
                 src={image.url}
                 alt="Burger"
-                className="w-full h-full rounded"
+                className="w-full h-full rounded object-cover"
               />
             </div>
           </div>

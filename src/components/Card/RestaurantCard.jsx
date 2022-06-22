@@ -18,7 +18,7 @@ const FoodCards = ({restaurant}) => {
             <div className="flex justify-between m-2 items-center">
                 <Link to={`/restaurant/${id}`} className="text-3xl font-bold font-medium hidden md:block lg:hidden">{name.length > 14 ? capitalize(name.slice(0, 10)) + "..." : capitalize(name)}</Link>
                 <Link to={`/restaurant/${id}`} className="text-3xl font-bold font-medium md:hidden lg:block">{name.length > 25 ? capitalize(name.slice(0, 25)) + "..." : capitalize(name)}</Link>
-                {review[0]?.avgRating &&  <div className="bg-green-600 h-7 rounded-lg text-white p-0.5">{review[0]?.avgRating}⭐</div>   }
+                {review[0]?.avgRating &&  <div className="bg-green-600 h-7 rounded-lg text-white p-0.5">{Math.round((review[0]?.avgRating)*100)/100}⭐</div>   }
                
             </div>
             <div className="flex justify-between m-2">
