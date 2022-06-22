@@ -32,15 +32,15 @@ export const Photo = ({ image, uploaded, state }) => {
   }
 
   return (
-    <div className='flex m-1 md:m-4'>
-      <div className='w-1/3 w-48 h-56 rounded shadow-md'>
+    <div className=' m-1 md:m-4'>
+      <div className='w-48 h-56 rounded shadow-md'>
         <img
           src={image.url}
           alt="Burger"
           className="w-full h-full rounded object-cover"
         />
       </div>
-      {uploaded && <ImBin onClick={deletePhoto} className='cursor-pointer relative -left-10 bg-white rounded-md top-1 p-2 text-4xl' color='red' />}
+      {uploaded && <ImBin onClick={deletePhoto} className='cursor-pointer relative left-40 bg-white rounded-md -top-56 p-2 text-4xl' color='red' />}
     </div>
   )
 }
@@ -110,7 +110,7 @@ const Photos = ({ uploadedImages, state }) => {
               <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
             </label>
           </div>
-          <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full overflow-x-auto ">
+          <div className="bg-white rounded flex flex-wrap justify-center pb-6 w-full overflow-x-auto ">
             {
               images?.length !== 0 &&
               images?.map((image, i) => (
