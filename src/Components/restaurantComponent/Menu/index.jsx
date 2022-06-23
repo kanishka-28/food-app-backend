@@ -8,10 +8,12 @@ import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 import { serviceGet, servicePut } from '../../../Utils/Api/Api';
 import { resizeFile } from '../../../Utils/Functions/imageResizer';
+import FullImageModal from '../../Modal/Fullimage';
 
-const MenuImage = ({ image, uploaded, state }) => {
+const MenuImage = ({ image, uploaded, state, ModalState }) => {
 
     const [toggle, settoggle] = state;
+    const [modalState, setModalState] = ModalState;
     const { id } = useParams();
     const dispatch = useDispatch();
 
@@ -31,7 +33,7 @@ const MenuImage = ({ image, uploaded, state }) => {
 
     return (
         <div className='m-4'>
-            <div className='w-48 h-56 rounded shadow-md'>
+            <div onClick={() => setModalState({ ...modalState, open: true, image: image?.url || image })} className='cursor-pointer w-48 h-56 rounded shadow-md'>
                 <img
                     src={image?.url || image}
                     alt="Burger"
@@ -51,6 +53,10 @@ const Menu = () => {
     const [images, setimages] = useState([]);
     const [uploadedImages, setuploadedImages] = useState([]);
     const [toggle, settoggle] = useState(false);
+    const [modalState, setModalState] = useState({
+        open: false,
+        image: '',
+    })
 
     const getMenu = async () => {
         dispatch(setloadingTrue());
@@ -114,6 +120,7 @@ const Menu = () => {
 
     return (
         <>
+            <FullImageModal ModalState={[modalState, setModalState]} />
             <div>
                 <p className="text-xl font-dark mt-6">Upload More</p>
                 <div className='block sm:flex gap-4'>
@@ -150,7 +157,7 @@ const Menu = () => {
                         {
                             images?.length !== 0 &&
                             images?.map((image, i) => (
-                                <MenuImage key={i} image={image} uploaded={false} state={[toggle, settoggle]} />
+                                <MenuImage key={i} image={image} uploaded={false} state={[toggle, settoggle]} ModalState={[modalState, setModalState]} />
                             ))
                         }
                     </div>
@@ -168,7 +175,7 @@ const Menu = () => {
                     uploadedImages?.length !== 0 ?
                         <div className="bg-white rounded flex pb-6 w-full flex-wrap ">
                             {uploadedImages?.map((image, i) => (
-                                <MenuImage key={i} image={image} uploaded={true} state={[toggle, settoggle]} />
+                                <MenuImage key={i} image={image} uploaded={true} state={[toggle, settoggle]} ModalState={[modalState, setModalState]} />
                             ))}
                         </div>
                         :

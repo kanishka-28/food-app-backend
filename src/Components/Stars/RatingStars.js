@@ -15,4 +15,4 @@ export default function RatingStars({value}) {
             <ReactStars {...firstExample} />
         </div>
     );
-}
+} 

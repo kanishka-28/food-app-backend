@@ -8,11 +8,13 @@ import { servicePut } from '../../../Utils/Api/Api';
 import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 import { ImBin } from 'react-icons/im';
+import FullImageModal from '../../Modal/Fullimage';
 
 
-export const Photo = ({ image, uploaded, state }) => {
+export const Photo = ({ image, uploaded, state, ModalState }) => {
 
   const [toggle, settoggle] = state;
+  const [modalState, setModalState] = ModalState;
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ export const Photo = ({ image, uploaded, state }) => {
 
   return (
     <div className='m-4'>
-      <div className='w-48 h-56 rounded shadow-md'>
+      <div onClick={()=>setModalState({...modalState, open: true, image: image?.url || image})} className='cursor-pointer w-48 h-56 rounded shadow-md'>
         <img
           src={image?.url || image}
           alt="Burger"
@@ -53,6 +55,10 @@ const Photos = ({ uploadedImages, state }) => {
   const dispatch = useDispatch();
 
   const [images, setimages] = useState([]);
+  const [modalState, setModalState] = useState({
+    open: false,
+    image: '',
+  })
   const [toggle, settoggle] = state;
 
   const handleFile = async (e) => {
@@ -99,18 +105,9 @@ const Photos = ({ uploadedImages, state }) => {
 
   return (
     <>
+    <FullImageModal ModalState={[modalState, setModalState]}/>
       <div className="mb-10">
         <p className="text-xl font-dark mt-6">Upload Photos</p>
-        {/* <div className='flex gap-5'>
-          <div className="bg-yellow-200 text-center mt-6 h-12 w-44 px-4 flex text-sm text-gray-600 flex justify-center items-center rounded">
-            <label
-              htmlFor="file-upload" className="relative cursor-pointer "
-            >
-              <span className='font-semibold'>Upload Photos +</span>
-              <input multiple id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFile} />
-            </label>
-          </div>
-        </div> */}
         <div className='block sm:flex gap-4'>
           <div className="lg:w-1/4 lg:mx-12 mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded h-fit mt-6 ">
             <div className="space-y-1 text-center">
@@ -145,7 +142,7 @@ const Photos = ({ uploadedImages, state }) => {
           {
             images?.length !== 0 &&
             images?.map((image, i) => (
-              <Photo key={i} image={image} uploaded={false} state={[toggle,settoggle]}/>
+              <Photo key={i} image={image} uploaded={false} state={[toggle,settoggle]} ModalState={[modalState, setModalState]}/>
             ))
           }
         </div>
@@ -161,7 +158,7 @@ const Photos = ({ uploadedImages, state }) => {
         uploadedImages?.length !== 0 ?
           <div className="bg-white rounded flex pb-6 w-full flex-wrap">
             {uploadedImages?.map((image, i) => (
-              <Photo key={i} image={image} uploaded={true} state={state} />
+              <Photo key={i} image={image} uploaded={true} state={state} ModalState={[modalState, setModalState]}/>
             ))}
           </div>
           :

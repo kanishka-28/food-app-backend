@@ -8,6 +8,7 @@ import { setloadingFalse, setloadingTrue } from '../../Redux/Features/Loader/Sli
 import { allRestaurants } from '../../Redux/Features/Restaurant/Selector/Selector'
 import { storeAllRestaurants } from '../../Redux/Features/Restaurant/Slice'
 import { serviceDelete } from '../../Utils/Api/Api'
+import RatingStars from '../Stars/RatingStars'
 
 const RestaurantCards = ({ restaurant }) => {
 
@@ -27,7 +28,7 @@ const RestaurantCards = ({ restaurant }) => {
         } catch (error) {
             console.log({ error });
         }
-        finally{
+        finally {
             dispatch(setloadingFalse());
         }
     }
@@ -39,9 +40,12 @@ const RestaurantCards = ({ restaurant }) => {
                 <div className="w-2/3 px-6 flex flex-col justify-evenly">
                     <h3 className="text-gray-900 font-semibold">{restaurant.name}</h3>
                     <div>
-                        <p className="text-gray-700 text-base">
-                            {restaurant.timing}
-                        </p>
+                        <div className='flex items-center gap-3'>
+                            <p className="text-gray-700 text-base">
+                                {restaurant.timing}
+                            </p>
+                            <RatingStars value={Math.round(restaurant.reviews[0]?.avgRating)} />
+                        </div>
                         <p className="text-gray-500 text-base">
                             {restaurant.address}
                         </p>
@@ -50,8 +54,7 @@ const RestaurantCards = ({ restaurant }) => {
                         <p> Go To This Restaurant</p> <HiArrowNarrowRight size={'1.5rem'} />
                     </Link>
                 </div>
-                
-            <div className='mr-6 mb-3 sm:mb-0 h-fit cursor-pointer absolute right-4 top-4 md:top-12 bg-white p-2 rounded-md' onClick={deleteRest}><ImBin size={'1.5rem'} color='red' /></div>
+                <div className='mr-6 mb-3 sm:mb-0 h-fit cursor-pointer absolute right-4 top-4 md:top-12 bg-white p-2 rounded-md' onClick={deleteRest}><ImBin size={'1.5rem'} color='red' /></div>
             </div>
         </div>
     )
