@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {MdLocationOn} from "react-icons/md";
-import { capitalize } from '../../utlis/Capitalise';
+import { capitalize } from '../../utlis/helperFunctions/Capitalise';
 const AboutUser = ({profile,setedit}) => {
   return (
     <>

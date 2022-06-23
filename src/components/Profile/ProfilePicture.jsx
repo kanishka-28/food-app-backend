@@ -1,7 +1,7 @@
 import React from "react";
-import { resizeFile } from "../../utlis/imageResizer";
+import { resizeFile } from "../../utlis/helperFunctions/imageResizer";
 import { useDispatch } from "react-redux";
-import { servicePut } from "../../utlis/api";
+import { servicePut } from "../../utlis/connection/api";
 import { updateUser } from "../../redux/features/auth/slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
