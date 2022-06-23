@@ -21,7 +21,7 @@ import EditRestaurant from "./pages/Restaurant/EditRestaurant";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import { loadUser } from "./Redux/Features/Auth/Slice";
 import { loading } from "./Redux/Features/Loader/Selector/Selector";
-import { setloadingFalse, setloadingTrue } from "./Redux/Features/Loader/Slice";
+import { setloadingTrue } from "./Redux/Features/Loader/Slice";
 import { useRestaurants } from "./Utils/Functions/getRestaurants";
 import ScrollToTop from "./Utils/Functions/ScrollToTop";
 
