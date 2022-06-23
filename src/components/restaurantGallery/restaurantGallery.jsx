@@ -113,7 +113,7 @@ const RestaurantGallery = ({ setType, requiredRestaurant, uploadedImages }) => {
           </div>
         </div>
         {/* it may not render here */}
-        <Photo restaurant={requiredRestaurant} />
+        {/* <Photo restaurant={requiredRestaurant} /> */}
       </div>
     </>
   );
