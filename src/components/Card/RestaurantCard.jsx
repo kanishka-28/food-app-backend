@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { capitalize } from '../../utlis/Capitalise';
+
 const FoodCards = ({restaurant}) => {
     const {name, city, coverImage,_id:id,review} = restaurant;
-//    console.log(about);
     return (
         <div className="w-full  h-auto my-4 rounded-lg shadow-lg relative pb-2 md:pb-0 ">
             <Link to={`/restaurant/${id}`}>
