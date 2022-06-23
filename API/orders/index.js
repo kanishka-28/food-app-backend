@@ -1,6 +1,5 @@
 import express from 'express'
 
-import passport from 'passport'
 
 import { OrderModel } from "../../database/allModels";
 import { ValidateUserId } from "../../validation/user";
@@ -27,7 +26,7 @@ Router.get("/user/:_id", getUserStatus, async (req, res) => {
             if (!orders) {
                 return res.status(404).json({ message: "Orders not found", success: false });
             }
-            return res.json({ orders, success: true });
+            return res.status(200).json({ orders, success: true });
         } else {
             return res.status(401).send("unauthorized")
         }
@@ -55,7 +54,7 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
         if (!getOrders) {
             return res.status(404).json({ error: "Orders not found" });
         }
-        return res.json({ getOrders });
+        return res.status(200).json({ getOrders, success:true });
     }
     catch (error) {
         return res.status(500).json({ message: error.message, success: false });
@@ -73,39 +72,20 @@ method    POST
 Router.post("/new/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateUserId(req.params);
-        // await ValidateOrder(req.body);
+        await ValidateOrder(req.body);
         const { _id } = req.params;
-        const { orderDetails } = req.body;
-        if (req.user._id.toString() !== _id) {
-            return res.status(401).send("user does not match")
-        }
-        // if (req.user.status === "user") {
-        //     const user = await OrderModel.findOne({ user: _id })
 
-        //     if (!user) {
-        //         const addNewOrder = await OrderModel.create({
-        //             user: _id,
-        //             orderDetails: orderDetails
-        //         }
-        //         );
-        //         return res.json({ order: addNewOrder });
-        //     }
-        //     console.log(orderDetails);
-        //     const addNewOrder = await OrderModel.findOneAndUpdate({
-        //         user: _id
-        //     }, {
-        //         $push: { orderDetails: orderDetails }
-        //     }, {
-        //         new: true
-        //     });
-        //     return res.json({ order: addNewOrder });
-        // }
-        // else {
-        //     return res.status(401).send("restaurants are not allowed to order food")
-        // }
+        if (req.user._id.toString() !== _id) {
+            return res.status(401).send("Not Authorized")
+        }
+        const addNewOrder = await OrderModel.create(req.body);
+
+        return res.status(200).json({ order: addNewOrder, success:true });
+
+
     }
     catch (error) {
-        return res.status(500).json({ error: error.message + " 500" });
+        return res.status(500).json({ message: error.message, success: false });
     }
 });
 
