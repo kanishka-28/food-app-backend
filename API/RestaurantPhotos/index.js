@@ -12,7 +12,7 @@ Router.get('/:_id',async(req,res)=>{
     try{
         await ValidateRestaurantId(req.params);
         const {_id}=req.params;
-        const photos=await RestaurantModel.findById(_id).select("photos"); 
+        const photos=await RestaurantModel.findById(_id).select("photos").sort({updatedAt:-1}); 
         return res.json({photos, success:true});
     }
     catch(error){

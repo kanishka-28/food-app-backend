@@ -19,7 +19,7 @@ const Router = express.Router();
      try{
         await ValidateRestaurantId(req.params);
         const {_id}=req.params;
-        const menu=await RestaurantModel.findById(_id).select("menuImage"); 
+        const menu=await RestaurantModel.findById(_id).select("menuImage").sort({updatedAt:-1}); 
         return res.json({menu, success:true});
     }
     catch(error){
