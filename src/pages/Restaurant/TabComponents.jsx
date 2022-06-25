@@ -14,7 +14,7 @@ const TabComponent = ({type,restaurant,uploadedImages}) => {
     <div className="m-4">
     {type === "overview" && <Overview restaurant={restaurant} /> }
     {type === "menu" && <Menu /> }
-    {type === "order" && <Order /> }
+    {type === "order" && <Order restaurant={restaurant}/> }
     {type === "photos" && <Photos uploadedImages={uploadedImages}/> }
     {type === "reviews" && <Reviews /> }
     </div>

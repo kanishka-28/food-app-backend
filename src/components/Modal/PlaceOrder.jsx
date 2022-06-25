@@ -3,15 +3,23 @@ import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { AiOutlineClose } from "react-icons/ai";
 
-export default function OrderModal({ foodDetails, open, setopen }) {
+export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
 
     const cancelButtonRef = useRef(null);
-    const [quantity, setquantity] = useState(1);
+    const [orderDetails, setorderDetails] = useState({
+        food: foodDetails?._id,
+        quantity: 1,
+        price: foodDetails?.price,
+    })
 
+    useEffect(() => {
+      setorderDetails({...orderDetails,food:foodDetails?._id,price:foodDetails.price});
+    }, [])
+    
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setopen}>
-                <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -44,7 +52,7 @@ export default function OrderModal({ foodDetails, open, setopen }) {
                                     <div className="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left mb-8">
                                         <div className="flex justify-between mb-8">
                                             <Dialog.Title as="h3" className="text-2xl leading-6 font-medium text-gray-700">
-                                                Restaurant Ka Name
+                                                {restaurant?.name}
                                             </Dialog.Title>
                                             <button type="button" className="text-red-500"
                                                 onClick={() => setopen(false)}
@@ -53,21 +61,27 @@ export default function OrderModal({ foodDetails, open, setopen }) {
                                         <div className="mt-2 text-center">
                                             <form className={`my-6`}>
                                                 <div className="flex items-center justify-between my-2">
-                                                    <p>Food Name - </p>
-                                                    <input value={foodDetails.name} className="py-4  mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
+                                                    <p>Food Name:</p>
+                                                    <div className="py-4 mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" >{foodDetails?.name}</div>
                                                 </div>
 
                                                 <div className="flex items-center justify-between my-2">
-                                                    <p>Quantity - </p>
+                                                    <p>Quantity:</p>
                                                     <div className='flex items-center justify-between'>
-                                                        <div className='text-2xl'>-</div>
-                                                        <input value={quantity} className="py-4 mx-2 text-center w-72 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
-                                                        <div className='text-2xl mr-2 border border-gray-300 p-2 rounded-sm'>+</div>
+                                                        <div onClick={() => {
+                                                            if (orderDetails.quantity == 1) return;
+                                                            setorderDetails({ ...orderDetails, quantity: orderDetails.quantity - 1, price: orderDetails.price*orderDetails.quantity })
+                                                        }} className='cursor-pointer bg-black text-white font-bold text-1xl w-10 ml-5 sm:ml-0 border border-gray-300 p-2 rounded'>➖</div>
+                                                        <input onChange={(e)=>{
+                                                            if(e.target.value<1) return;
+                                                            setorderDetails({ ...orderDetails, quantity: e.target.value ,price: orderDetails.price*orderDetails.quantity })
+                                                        }} value={orderDetails.quantity} className="py-4 mx-2 text-center w-36 sm:w-60 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
+                                                        <div onClick={() => setorderDetails({ ...orderDetails, quantity: orderDetails.quantity + 1, price: orderDetails.price*orderDetails.quantity })}  className='cursor-pointer bg-black text-white font-bold text-2xl w-10 mr-2 border border-gray-300 p-2 rounded'>+</div>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center justify-between my-2">
-                                                    <p>Price Total - </p>
-                                                    <input value={foodDetails.price} className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
+                                                    <p>Price Total:</p>
+                                                    <div className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" >{orderDetails?.price}</div>
                                                 </div>
 
                                             </form>

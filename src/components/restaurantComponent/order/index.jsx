@@ -19,7 +19,7 @@ import { serviceGet } from '../../../utlis/connection/api';
 // import { SignupContext } from '../../../context/signup';
 
 let startOfFoods;
-const Order = () => {
+const Order = ({restaurant}) => {
 
     const profile = useSelector(user);
     startOfFoods = useRef();
@@ -82,8 +82,8 @@ const Order = () => {
     }
     return (
         <div>
+            <OrderModal restaurant={restaurant} foodDetails={foodDetails} open={open} setopen={setopen}/>
             <LapOrder />
-            <OrderModal foodDetails={foodDetails} open={open} setopen={setopen}/>
         </div>
     )
 }
