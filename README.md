@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# Getting Started with Food app 🍕
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was made with love by Samarth Singh and Kanishka Gour.
 
-## Available Scripts
+## Available Feautures
 
 In the project directory, you can run:
 
