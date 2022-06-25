@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const FoodCard = ({ food, setopen, setfoodDetails }) => {
+    
     return (
         <div key={food.id} className="flex flex-col justify-between max-w-72 rounded overflow-hidden shadow-lg my-4">
             <img className="w-full h-56" src={food.photo ? food.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'} alt="Sunset in the mountains" />
@@ -26,6 +27,7 @@ const FoodCard = ({ food, setopen, setfoodDetails }) => {
                     <button onClick={() => {
                         setopen(true)
                         setfoodDetails({
+                            _id: food._id,
                             name: food.name,
                             price: food.price
                         })
@@ -35,6 +37,7 @@ const FoodCard = ({ food, setopen, setfoodDetails }) => {
                     <button onClick={() => {
                         setopen(true)
                         setfoodDetails({
+                            _id: food._id,
                             name: food.name,
                             price: food.price
                         })

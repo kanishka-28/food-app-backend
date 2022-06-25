@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
 
     const cancelButtonRef = useRef(null);
+    const [totalprice, settotalprice] = useState();
     const [orderDetails, setorderDetails] = useState({
         food: foodDetails?._id,
         quantity: 1,
@@ -13,9 +14,17 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
     })
 
     useEffect(() => {
-      setorderDetails({...orderDetails,food:foodDetails?._id,price:foodDetails.price});
-    }, [])
-    
+        settotalprice(foodDetails?.price)
+        console.log(foodDetails, totalprice);
+        setorderDetails({ ...orderDetails, food: foodDetails?._id, price: foodDetails.price });
+    }, [foodDetails])
+
+    const placeOrder=()=>{
+        console.log('====================================');
+        console.log(orderDetails, totalprice);
+        console.log('====================================');
+    }
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setopen}>
@@ -70,22 +79,25 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
                                                     <div className='flex items-center justify-between'>
                                                         <div onClick={() => {
                                                             if (orderDetails.quantity == 1) return;
-                                                            setorderDetails({ ...orderDetails, quantity: orderDetails.quantity - 1, price: orderDetails.price*orderDetails.quantity })
+                                                            setorderDetails({ ...orderDetails, quantity: orderDetails.quantity - 1 });
+                                                            settotalprice(orderDetails.price * (orderDetails.quantity-1));
+                                                            console.log(orderDetails.price, orderDetails.quantity);
                                                         }} className='cursor-pointer bg-black text-white font-bold text-1xl w-10 ml-5 sm:ml-0 border border-gray-300 p-2 rounded'>➖</div>
-                                                        <input onChange={(e)=>{
-                                                            if(e.target.value<1) return;
-                                                            setorderDetails({ ...orderDetails, quantity: e.target.value ,price: orderDetails.price*orderDetails.quantity })
-                                                        }} value={orderDetails.quantity} className="py-4 mx-2 text-center w-36 sm:w-60 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" />
-                                                        <div onClick={() => setorderDetails({ ...orderDetails, quantity: orderDetails.quantity + 1, price: orderDetails.price*orderDetails.quantity })}  className='cursor-pointer bg-black text-white font-bold text-2xl w-10 mr-2 border border-gray-300 p-2 rounded'>+</div>
+                                                        <div className="py-4 mx-2 text-center w-36 sm:w-60 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded">{orderDetails.quantity}</div>
+                                                        <div onClick={() => {
+                                                            setorderDetails({ ...orderDetails, quantity: orderDetails.quantity + 1 });
+                                                            settotalprice(orderDetails.price*(orderDetails.quantity+1));
+                                                            console.log(orderDetails.price, orderDetails.quantity);
+                                                        }} className='cursor-pointer bg-black text-white font-bold text-2xl w-10 mr-2 border border-gray-300 p-2 rounded'>+</div>
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center justify-between my-2">
                                                     <p>Price Total:</p>
-                                                    <div className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" >{orderDetails?.price}</div>
+                                                    <div className="py-4   mx-2 text-center w-3/4 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" >{totalprice}</div>
                                                 </div>
 
                                             </form>
-                                            <button className={`border border-gray-300 font-semibold w-full h-12 bg-megenta-400 text-white`}>Place Order</button>
+                                            <button onClick={placeOrder} className={`border border-gray-300 font-semibold w-full h-12 bg-megenta-400 text-white`}>Place Order</button>
                                         </div>
                                     </div>
                                 </div>

@@ -24,7 +24,11 @@ const Order = ({restaurant}) => {
     const profile = useSelector(user);
     startOfFoods = useRef();
     const [foods, setfoods] = useState([])
-    const [foodDetails, setfoodDetails] = useState([]);
+    const [foodDetails, setfoodDetails] = useState({
+        _id: '',
+        name: '',
+        price: '',
+    });
     const { id } = useParams();
     const [open, setopen] = useState(false)
 
