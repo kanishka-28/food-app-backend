@@ -3,7 +3,7 @@ import express from 'express'
 
 import { OrderModel } from "../../database/allModels";
 import { ValidateUserId } from "../../validation/user";
-import { ValidateOrder } from "../../validation/order";
+import { ValidateOrder, ValidateOrderId } from "../../validation/order";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus"
 
@@ -81,6 +81,38 @@ Router.post("/new/:_id", getUserStatus, async (req, res) => {
         const addNewOrder = await OrderModel.create(req.body);
 
         return res.status(200).json({ order: addNewOrder, success:true });
+
+
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message, success: false });
+    }
+});
+
+/* 
+Route     /update
+descrip   update order status
+params    _id
+access    public
+method    POST
+*/
+Router.put("/update/:_id", getUserStatus, async (req, res) => {
+    try {
+        await ValidateOrderId(req.params);
+        const { _id } = req.params;
+        const {status} = req.body;
+        if (status!=='accepted' || status!=='rejected' || status!=="cancelled") {
+            return res.status(400).send("Invalid Status")
+        }
+        const updatedOrder = await OrderModel.findByIdAndUpdate(_id,{
+            $set:{
+                status
+            }
+        },{
+            new:true
+        })
+
+        return res.status(200).json({ order: updatedOrder, success:true });
 
 
     }
