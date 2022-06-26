@@ -151,7 +151,10 @@ method    GET
 
 Router.get("/forgot-pass", async (req, res) => {
   try {
-    const { email } = req.query;
+    const { email,type } = req.query;
+    if(type!=='user' || type!=='restaurant'){
+      return res.status(400).json({message:"Invalid Params",success:false});
+    }
     await ValidateEmail({email});
     const user = await UserModel.findOne({ email });
     if (!user) {
@@ -171,7 +174,7 @@ Router.get("/forgot-pass", async (req, res) => {
       to: email,
       subject: 'Reset Pass for your Food-App',
       // text: 'That was easy!',
-      html: `<h1>Click on the below link to reset your password</h1><a href="http://localhost:3000/auth/reset?token=${token}">Reset Password Here</a>`
+      html: `<h2>Click on the link below to reset your password</h2><a href="http://localhost:300${type==='user'?'0':'1'}/auth/reset?token=${token}">Reset Password Here</a>`
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
