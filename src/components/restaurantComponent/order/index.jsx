@@ -41,16 +41,8 @@ const Order = ({restaurant}) => {
             dispatch(setloadingFalse());
         }
     }
-    const restaurant_id = useSelector(restaurantId)
-    const orderDetail = useSelector(orderDetails)
-    const total = useSelector(itemTotal)
-    const stat = useSelector(status)
     
     useEffect(() => {
-        console.log(restaurant_id);
-        console.log(orderDetail);
-        console.log(total);
-        console.log(stat);
         getAllFoods();
     }, [])
 

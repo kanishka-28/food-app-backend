@@ -6,11 +6,11 @@ const initialState = {
     user: '',
     restaurant: '',
     orderDetails: [
-        {
-            food: '',
-            quantity: 1,
-            price: 0,
-        }
+        // {
+        //     food: '',
+        //     quantity: 1,
+        //     price: 0,
+        // }
     ],
     itemTotal: 0,
     status: 'pending',
@@ -36,10 +36,29 @@ const cartSlice = createSlice({
             }
             state.itemTotal = state.itemTotal + action.payload.itemTotal
             toast.success('Added to cart');
+        },
+        incrementQuantity(state,action){
+            console.log(state.orderDetails);
+            state.orderDetails.map((item)=>{
+                console.log(item);
+                if(item.food&&item.food==action.payload.food){
+                    item.quantity = item.quantity + 1;
+                    state.itemTotal = state.itemTotal + item.price;
+                }
+            })
+        },
+        decrementQuantity(state,action){
+            state.orderDetails.map((item)=>{
+                if(item?.food&&item.food==action.payload.food){
+                    if(item.quantity==1) return;
+                    item.quantity = item.quantity - 1;
+                    state.itemTotal = state.itemTotal - item.price;
+                }
+            })
         }
     }
 })
 
-export const {addToCart}  = cartSlice.actions;
+export const {addToCart, incrementQuantity, decrementQuantity}  = cartSlice.actions;
 
 export default cartSlice.reducer;
