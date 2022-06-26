@@ -1,12 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Checkout from "../../components/Cart/checkout";
 import Product from "../../components/Cart/product";
 import Navbar from "../../components/Navbar/Navbar";
-const arr = [1, 2, 3, 4, 5];
+import { itemTotal, orderDetails, restaurantId, status } from "../../redux/features/cart/selector/selector";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const restaurant = useSelector(restaurantId)
+  const items = useSelector(orderDetails)
+  const total = useSelector(itemTotal)
+  const stat = useSelector(status)
+
   return (
     <>
       <Navbar />
@@ -15,27 +21,31 @@ const Cart = () => {
           <div className=" w-full lg:w-3/4 bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-              <h2 className="font-semibold text-2xl">3 Items</h2>
+              <h2 className="font-semibold text-2xl">{items?.length}</h2>
             </div>
-            <div className="flex mt-10 mb-5">
-              <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
-                Product Details
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Quantity
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Price
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Total
-              </h3>
-            </div>
+            {
+              items?.length == 0 ? <div className="text-xl font-semibold text-center">Your cart is empty!</div>
+                :
+                <div className="flex mt-10 mb-5">
+                  <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
+                    Product Details
+                  </h3>
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                    Quantity
+                  </h3>
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                    Price
+                  </h3>
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                    Total
+                  </h3>
+                </div>
+            }
             <div className="h-auto max-h-96 w-full overflow-y-auto ">
               {/* <div style={scrollContainer} > */}
               {
-                arr?.map((e, i) => (
-                  <Product key={i} />
+                items?.map((item, i) => (
+                  <Product key={i} item={item} id={restaurant} />
                 ))
               }
             </div>
@@ -54,7 +64,7 @@ const Cart = () => {
               Continue Shopping
             </p>
           </div>
-          <Checkout />
+          <Checkout total={total}/>
         </div>
       </div>
     </>
