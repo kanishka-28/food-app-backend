@@ -35,6 +35,7 @@ const cartSlice = createSlice({
                 state.orderDetails = [...state.orderDetails, action.payload.orderDetails]
             }
             state.itemTotal = state.itemTotal + action.payload.itemTotal
+            toast.success('Added to cart');
         }
     }
 })

@@ -5,6 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/features/cart/slice';
 import { user } from '../../redux/features/auth/selector/selector';
+import toast from 'react-hot-toast';
 
 export default function AddToCartModal({ restaurant, foodDetails, open, setopen }) {
 
@@ -25,6 +26,7 @@ export default function AddToCartModal({ restaurant, foodDetails, open, setopen 
 
     const addToCartHandle=()=>{
         dispatch(addToCart({user: userDetails._id, restaurant: restaurant._id, orderDetails, itemTotal: totalprice}));
+        setopen(false);
     }
 
     return (

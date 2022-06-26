@@ -19,9 +19,7 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
     }, [foodDetails])
 
     const placeOrder=()=>{
-        console.log('====================================');
-        console.log(orderDetails, totalprice);
-        console.log('====================================');
+        setopen(false)
     }
 
     return (
