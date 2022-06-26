@@ -47,10 +47,10 @@ const RestaurantGallery = ({ setType, requiredRestaurant, uploadedImages }) => {
           <div className="text-gray-500 text-sm flex justify-between">
           
             <div className="w-12 h-7 flex gap-1 text-white rounded bg-green-600 font-bold justify-center items-center  mt-2">
-            {requiredRestaurant?.review[0].avgRating ? Math.round(requiredRestaurant?.review[0].avgRating*100)/100 : 0} <AiTwotoneStar className="text-white" />
+            {requiredRestaurant?.review[0]?.avgRating ? Math.round(requiredRestaurant?.review[0]?.avgRating*100)/100 : 0} <AiTwotoneStar className="text-white" />
             </div>
             <div>
-              <div className="text-black mx-2 font-semibold">{requiredRestaurant?.review[0].totalRating ? requiredRestaurant?.review[0].totalRating : 0}</div>
+              <div className="text-black mx-2 font-semibold">{requiredRestaurant?.review[0]?.totalRating ? requiredRestaurant?.review[0].totalRating : 0}</div>
               <div className="border-gray-400 border-b-2 border-dashed mx-2 ">
                 delivery reviews
               </div>
