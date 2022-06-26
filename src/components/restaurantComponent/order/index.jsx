@@ -2,21 +2,15 @@ import React, { useContext } from 'react'
 import { useParams } from "react-router-dom"
 import { GiScooter } from 'react-icons/gi';
 import { BsFillArrowRightCircleFill, BsCompass, BsClock, BsCheckCircleFill } from 'react-icons/bs'
-
-import { Link } from 'react-router-dom';
-
-import { Fragment, useRef, useState, useEffect } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { FcGoogle } from "react-icons/fc"
-import { AiOutlineClose } from "react-icons/ai";
+import { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { user } from '../../../redux/features/auth/selector/selector';
 import OrderModal from '../../Modal/PlaceOrder';
 import FoodCard from '../../Card/FoodCard';
 import { setloadingFalse, setloadingTrue } from '../../../redux/features/Loader/slice';
 import { serviceGet } from '../../../utlis/connection/api';
-// import { orderfood, getfood } from '../../../services/api';
-// import { SignupContext } from '../../../context/signup';
+import AddToCartModal from '../../Modal/AddToCart';
+import { itemTotal, orderDetails, restaurantId, status } from '../../../redux/features/cart/selector/selector';
 
 let startOfFoods;
 const Order = ({restaurant}) => {
@@ -25,12 +19,13 @@ const Order = ({restaurant}) => {
     startOfFoods = useRef();
     const [foods, setfoods] = useState([])
     const [foodDetails, setfoodDetails] = useState({
-        _id: '',
-        name: '',
+        _id  : '',
+        name : '',
         price: '',
     });
     const { id } = useParams();
     const [open, setopen] = useState(false)
+    const [openCart, setopenCart] = useState(false)
 
     const dispatch = useDispatch();
 
@@ -46,9 +41,16 @@ const Order = ({restaurant}) => {
             dispatch(setloadingFalse());
         }
     }
+    const restaurant_id = useSelector(restaurantId)
+    const orderDetail = useSelector(orderDetails)
+    const total = useSelector(itemTotal)
+    const stat = useSelector(status)
     
     useEffect(() => {
-        
+        console.log(restaurant_id);
+        console.log(orderDetail);
+        console.log(total);
+        console.log(stat);
         getAllFoods();
     }, [])
 
@@ -73,7 +75,7 @@ const Order = ({restaurant}) => {
                 <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {foods.length !== 0 ? foods?.map((food) => {
                         return (
-                            <FoodCard key={food._id} food={food} setopen={setopen} setfoodDetails={setfoodDetails}/>
+                            <FoodCard key={food._id} food={food} setopen={setopen} setopenCart={setopenCart} setfoodDetails={setfoodDetails}/>
                         )
                     })
                         : <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
@@ -87,6 +89,7 @@ const Order = ({restaurant}) => {
     return (
         <div>
             <OrderModal restaurant={restaurant} foodDetails={foodDetails} open={open} setopen={setopen}/>
+            <AddToCartModal restaurant={restaurant} foodDetails={foodDetails} open={openCart} setopen={setopenCart}/>
             <LapOrder />
         </div>
     )

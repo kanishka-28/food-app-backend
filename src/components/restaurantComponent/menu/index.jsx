@@ -12,8 +12,8 @@ export const Photo = ({ uploadedImages,ModalState }) => {
   return (
     <div className="bg-white rounded flex flex-wrap justify-evenly pb-6 w-full">
       {
-        uploadedImages?.map((image) => (
-          <div onClick={() => setModalState({ ...modalState, open: true, image: image?.url || image })}  className='cursor-pointer flex m-1 md:m-4'>
+        uploadedImages?.map((image,i) => (
+          <div key={i} onClick={() => setModalState({ ...modalState, open: true, image: image?.url || image })}  className='cursor-pointer flex m-1 md:m-4'>
             <div className='w-full sm:w-48 h-56 md:w-72 rounded shadow-md'>
               <img
                 src={image.url}

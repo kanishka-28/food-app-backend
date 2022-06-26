@@ -2,10 +2,15 @@ import React from 'react'
 import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/features/cart/slice';
+import { user } from '../../redux/features/auth/selector/selector';
 
-export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
+export default function AddToCartModal({ restaurant, foodDetails, open, setopen }) {
 
     const cancelButtonRef = useRef(null);
+    const dispatch = useDispatch();
+    const userDetails = useSelector(user);
     const [totalprice, settotalprice] = useState();
     const [orderDetails, setorderDetails] = useState({
         food: foodDetails?._id,
@@ -18,10 +23,8 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
         setorderDetails({ ...orderDetails, food: foodDetails?._id, price: foodDetails.price });
     }, [foodDetails])
 
-    const placeOrder=()=>{
-        console.log('====================================');
-        console.log(orderDetails, totalprice);
-        console.log('====================================');
+    const addToCartHandle=()=>{
+        dispatch(addToCart({user: userDetails._id, restaurant: restaurant._id, orderDetails, itemTotal: totalprice}));
     }
 
     return (
@@ -86,7 +89,6 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
                                                         <div onClick={() => {
                                                             setorderDetails({ ...orderDetails, quantity: orderDetails.quantity + 1 });
                                                             settotalprice(orderDetails.price*(orderDetails.quantity+1));
-                                                            console.log(orderDetails.price, orderDetails.quantity);
                                                         }} className='cursor-pointer bg-black text-white font-bold text-2xl w-10 mr-2 border border-gray-300 p-2 rounded'>+</div>
                                                     </div>
                                                 </div>
@@ -96,7 +98,7 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
                                                 </div>
 
                                             </form>
-                                            <button onClick={placeOrder} className={`border border-gray-300 font-semibold w-full h-12 bg-megenta-400 text-white`}>Place Order</button>
+                                            <button onClick={addToCartHandle} className={`border border-gray-300 font-semibold w-full h-12 bg-megenta-400 text-white`}>Add To Cart</button>
                                         </div>
                                     </div>
                                 </div>

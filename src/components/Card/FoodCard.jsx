@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { isAuthenticated } from '../../redux/features/auth/selector/selector';
+import {toast} from 'react-hot-toast'
 
-const FoodCard = ({ food, setopen, setfoodDetails }) => {
+const FoodCard = ({ food, setopen,setopenCart, setfoodDetails }) => {
     
+    const [text, settext] = useState('');
+    const isAuth = useSelector(isAuthenticated);
     return (
         <div key={food.id} className="flex flex-col justify-between max-w-72 rounded overflow-hidden shadow-lg my-4">
             <img className="w-full h-56" src={food.photo ? food.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'} alt="Sunset in the mountains" />
@@ -25,7 +30,11 @@ const FoodCard = ({ food, setopen, setfoodDetails }) => {
             </div>
                 <div className="flex justify-evenly flex-wrap">
                     <button onClick={() => {
-                        setopen(true)
+                        if(!isAuth){
+                            toast.error('Login to add item to the cart');
+                            return;
+                        }
+                        setopenCart(true)
                         setfoodDetails({
                             _id: food._id,
                             name: food.name,
@@ -35,6 +44,10 @@ const FoodCard = ({ food, setopen, setfoodDetails }) => {
                         Add To Cart
                     </button>
                     <button onClick={() => {
+                        if(!isAuth){
+                            toast.error('Login to place order');
+                            return;
+                        }
                         setopen(true)
                         setfoodDetails({
                             _id: food._id,
