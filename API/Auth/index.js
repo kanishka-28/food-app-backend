@@ -1,15 +1,16 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
-
-const Router=express.Router();
+import nodemailer from 'nodemailer';
+const Router = express.Router();
 
 //models
-import {UserModel} from "../../database/user/index";
+import { UserModel } from "../../database/user/index";
 import getUserStatus from '../../middlewares/getUserStatus';
 
 //validation
 
-import { ValidateSignup,ValidateSignin } from "../../validation/auth";
+import { ValidateSignup, ValidateSignin, ValidateEmail } from "../../validation/auth";
 
 
 /* 
@@ -21,18 +22,18 @@ method    post
 
 */
 
-Router.get("/loaduser",getUserStatus,async(req,res)=>{
-    try{
-      if(req.user){
-        return res.status(200).json({success:true, user: req.user});
-      }
-      else{
-        throw new Error("Something's Wrong, Try Signing in again");
-      }
-
-    } catch(error){
-        return res.status(500).json({message: error.message, success : false});
+Router.get("/loaduser", getUserStatus, async (req, res) => {
+  try {
+    if (req.user) {
+      return res.status(200).json({ success: true, user: req.user });
     }
+    else {
+      throw new Error("Something's Wrong, Try Signing in again");
+    }
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message, success: false });
+  }
 })
 /* 
 Route     /signup
@@ -43,29 +44,29 @@ method    post
 
 */
 
-Router.post("/signup",async(req,res)=>{
-    try{
-      await ValidateSignup(req.body.credentials);
-      const { email} = req.body.credentials
-      
-      const user = await UserModel.findOne({email})
-      if(!user){
-        let {city} = req.body.credentials;
-        city = city.toLowerCase();
-        const data = {...req.body.credentials,city};
-        //DB
-        const newUser=await UserModel.create(data);
+Router.post("/signup", async (req, res) => {
+  try {
+    await ValidateSignup(req.body.credentials);
+    const { email } = req.body.credentials
 
-        //JWT AUth Token
-        const token = newUser.generateJwtToken();
+    const user = await UserModel.findOne({ email })
+    if (!user) {
+      let { city } = req.body.credentials;
+      city = city.toLowerCase();
+      const data = { ...req.body.credentials, city };
+      //DB
+      const newUser = await UserModel.create(data);
 
-        return res.status(200).json({token, user: newUser, success:true});
-      }
-      throw new Error('User Already Exists');
+      //JWT AUth Token
+      const token = newUser.generateJwtToken();
 
-    } catch(error){
-        return res.status(500).json({message: error.message, success : false});
+      return res.status(200).json({ token, user: newUser, success: true });
     }
+    throw new Error('User Already Exists');
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message, success: false });
+  }
 })
 
 /* 
@@ -77,21 +78,21 @@ method    post
 
 */
 
-Router.post("/signin",async(req,res)=>{
-    try{
-      const {userName, password , email} = req.body.credentials
-        await ValidateSignin(req.body.credentials);
-      
-        let user = await UserModel.findByEmailAndPassword({email, password});
-        user.password = null;
-        //JWT AUth Token
-        const token = user.generateJwtToken();
-       
-        return res.status(200).json({token,success : true , user: user});
+Router.post("/signin", async (req, res) => {
+  try {
+    const { userName, password, email } = req.body.credentials
+    await ValidateSignin(req.body.credentials);
 
-    } catch(error){
-        return res.status(500).json({message: error.message , success: false});
-    }
+    let user = await UserModel.findByEmailAndPassword({ email, password });
+    user.password = null;
+    //JWT AUth Token
+    const token = user.generateJwtToken();
+
+    return res.status(200).json({ token, success: true, user: user });
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message, success: false });
+  }
 })
 
 
@@ -103,8 +104,8 @@ access    public
 method    GET
 */
 
-Router.get("/google",passport.authenticate("google",{
-  scope:[
+Router.get("/google", passport.authenticate("google", {
+  scope: [
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email"
   ],
@@ -119,19 +120,73 @@ method    GET
 
 */
 
-Router.get("/google/callback",passport.authenticate("google",{
-  failureRedirect:"/"
-} ),(req,res)=>{
+Router.get("/google/callback", passport.authenticate("google", {
+  failureRedirect: "/"
+}), (req, res) => {
   try {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');  
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
     const token = req.session.passport.user.token;
     res.redirect(`http://localhost:3000/auth/google/${token}`);
-  //  res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
+    //  res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
   } catch (error) {
-    return res.status(500).json({message: error.message , success: false});
+    return res.status(500).json({ message: error.message, success: false });
   }
-  
+
 });
 
+
+
+
+
+
+
+/* 
+Route     /forget-pass
+descrip   forget pass, so lets change it
+params    email
+access    public
+method    GET
+
+*/
+
+Router.get("/forgot-pass", async (req, res) => {
+  try {
+    const { email } = req.query;
+    await ValidateEmail({email});
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not Found", success: false });
+    }
+    const token = jwt.sign({id:user._id.toString(),email:user.email},'forget-pass',{expiresIn:"10m"});
+    
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'samarthsingh890.ss@gmail.com',
+        pass: 'eolhpypbrobqoubm'
+      }
+    });
+    var mailOptions = {
+      from: 'samarthsingh890.ss@gmail.com',
+      to: email,
+      subject: 'Reset Pass for your Food-App',
+      // text: 'That was easy!',
+      html: `<h1>Click on the below link to reset your password</h1><a href="http://localhost:3000/auth/reset?token=${token}">Reset Password Here</a>`
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    return res.status(200).json({message:"email sent successfully", success:true});
+  } catch (error) {
+    return res.status(500).json({ message: error.message, success: false });
+  }
+
+
+})
+
+
 export default Router;
-//google signup is not there 

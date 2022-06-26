@@ -25,3 +25,12 @@ const Schema = joi.object({
 return Schema.validateAsync(userData);
 
 };
+
+export const ValidateEmail = (data)=>{
+
+  const Schema = joi.object({
+    email: joi.string().email().required()
+  })
+
+  return Schema.validateAsync(data);
+}
