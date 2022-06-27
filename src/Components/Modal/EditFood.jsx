@@ -54,7 +54,8 @@ export default function EditFoodModal({ openEdit, setOpenEdit, food }) {
         setDetails({ ...details, photo: image });
     };
 
-    const handleClick = async () => {
+    const handleClick = async (e) => {
+        e.preventDefault();
         try {
             const res = await servicePut(`food/edit/${food._id}`, { restaurantId: id, foodDetails: details })
             console.log(res);
@@ -109,11 +110,11 @@ export default function EditFoodModal({ openEdit, setOpenEdit, food }) {
                                                 ref={cancelButtonRef}><AiOutlineClose className="w-6" /></button>
                                         </div>
                                         <div className="mt-2">
-                                            <form>
-                                                <input placeholder="Food Name" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, name: e.target.value })}
+                                            <form onSubmit={handleClick}>
+                                                <input required placeholder="Food Name" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, name: e.target.value })}
                                                     value={details.name} />
-                                                <textarea placeholder="Description" className="p-4 my-2 w-full  focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, descript: e.target.value })} value={details.descript} />
-                                                <input placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, category: e.target.value })} value={details.category} />
+                                                <textarea required placeholder="Description" className="p-4 my-2 w-full  focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, descript: e.target.value })} value={details.descript} />
+                                                <input required placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, category: e.target.value })} value={details.category} />
                                                 <div className="flex items-center justify-evenly my-2 w-3/4">
                                                     <p>Is Veg ?</p>
                                                     <input type="checkbox"
@@ -124,7 +125,7 @@ export default function EditFoodModal({ openEdit, setOpenEdit, food }) {
                                                         checked={details.isContainEgg}
                                                         className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onChange={(e) => setDetails({ ...details, isContainEgg: !details.isContainEgg })} value={details.isContainEgg} />
                                                 </div>
-                                                <input type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, price: e.target.value })} value={details.price} />
+                                                <input required type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, price: e.target.value })} value={details.price} />
                                                 <div className="h-96 px-4 bg-white space-y-3 sm:p-6">
                                                     <label className="block text-gray-700 mb-2 ">Food Photo</label>
                                                     <div className="justify-center h-3/4 sm:h-full focus:border-none focus:outline-none focus:ring-1 focus:ring-black border border-gray-300 rounded mt-1 flex items-center">
@@ -154,8 +155,8 @@ export default function EditFoodModal({ openEdit, setOpenEdit, food }) {
                                                         </label>
                                                     </div>
                                                 </div>
+                                            <button type='submit' className='mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] mt-16 text-white flex gap-3 hover:scale-110 ease-in duration-200' ><p>Edit Food</p></button>
                                             </form>
-                                            <button className='mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] mt-16 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={handleClick}><p>Edit Food</p></button>
                                         </div>
                                     </div>
                                 </div>

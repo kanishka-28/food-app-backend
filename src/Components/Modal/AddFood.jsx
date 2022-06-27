@@ -102,17 +102,17 @@ export default function AddFoodModal() {
                                                 ref={cancelButtonRef}><AiOutlineClose className="w-6" /></button>
                                         </div>
                                         <div className="mt-2">
-                                            <form>
-                                                <input placeholder="Food Name" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, name: e.target.value })} />
-                                                <textarea placeholder="Description" className="p-4 my-2 w-full  focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, descript: e.target.value })} />
-                                                <input placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, category: e.target.value })} />
-                                                <div className="flex items-center justify-evenly my-2 w-3/4">
+                                            <form onSubmit={handleClick}>
+                                                <input required placeholder="Food Name" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, name: e.target.value })} />
+                                                <textarea required placeholder="Description" className="p-4 my-2 w-full  focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, descript: e.target.value })} />
+                                                <input required placeholder="Category" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, category: e.target.value })} />
+                                                <div  className="flex items-center justify-evenly my-2 w-3/4">
                                                     <p>Is Veg ?</p>
                                                     <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e) => setDetails({ ...details, isVeg: !details.isVeg })} />
                                                     <p>Is Contain Egg ?</p>
                                                     <input type="checkbox" className="py-4 mx-2 text-center w-6 h-12 focus:border-none focus:outline-none border border-gray-300 rounded cursor-pointer" onClick={(e) => setDetails({ ...details, isContainEgg: !details.isContainEgg })} />
                                                 </div>
-                                                <input type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, price: e.target.value })} />
+                                                <input required type={'number'} placeholder="Price in Rs" className="p-4 my-2 w-full h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded" onChange={(e) => setDetails({ ...details, price: e.target.value })} />
                                                 <div className="h-96 px-4 bg-white space-y-3 sm:p-6">
                                                     <label className="block text-gray-700 mb-2 ">Food Photo</label>
                                                     <div className="justify-center h-3/4 sm:h-full focus:border-none focus:outline-none focus:ring-1 focus:ring-black border border-gray-300 rounded mt-1 flex items-center">
@@ -142,8 +142,8 @@ export default function AddFoodModal() {
                                                         </label>
                                                     </div>
                                                 </div>
+                                            <button className='mt-8 mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] mt-16 text-white flex gap-3 hover:scale-110 ease-in duration-200' type='submit'><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
                                             </form>
-                                            <button className='mt-8 mx-auto py-2 px-10 font-semibold text-center rounded items-center bg-gradient-to-r from-red-500 to-[#fc256f] mt-16 text-white flex gap-3 hover:scale-110 ease-in duration-200' onClick={handleClick}><p>Add Food</p><IoAddOutline size={'1.5rem'} /></button>
                                         </div>
                                     </div>
                                 </div>
