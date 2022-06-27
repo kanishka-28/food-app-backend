@@ -2,7 +2,7 @@
 
 This project was made with love by Samarth Singh and Kanishka Gour.
 
-*Note: You need to give location permission in order to run this app*
+**Note: You need to give location permission in order to run this app**
 
 ## Available Features
 
