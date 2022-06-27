@@ -1,6 +1,6 @@
 # Getting Started with Food app 🍕
 
-This project was made with love by Samarth Singh and Kanishka Gour.
+This project was made with ♥ by Samarth Singh and Kanishka Gour.
 
 **Note: You need to give location permission in order to run this app**
 
