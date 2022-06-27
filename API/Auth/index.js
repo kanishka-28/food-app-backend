@@ -1,7 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import nodemailer from 'nodemailer';
 const Router = express.Router();
 
 //models
