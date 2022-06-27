@@ -4,8 +4,8 @@ export const sendMail = async(email,title="Email from food app",body)=>{
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'samarthsingh890.ss@gmail.com',
-          pass: 'eolhpypbrobqoubm'
+          user: process.env.mailer_mail,
+          pass: process.env.mailer_pass
         }
       });
       var mailOptions = {
