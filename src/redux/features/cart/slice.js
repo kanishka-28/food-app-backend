@@ -28,7 +28,7 @@ const cartSlice = createSlice({
                 state.first = false;
             }
             else if(state.restaurant!==action.payload.restaurant){
-                toast.error("Can't add items from different restaurants");
+                toast.error("You already have dishes from another restaurant in your cart.");
                 return;
             }
             else{
@@ -38,10 +38,9 @@ const cartSlice = createSlice({
             toast.success('Added to cart');
         },
         incrementQuantity(state,action){
-            console.log(state.orderDetails);
-            state.orderDetails.map((item)=>{
-                console.log(item);
-                if(item.food&&item.food==action.payload.food){
+            state.orderDetails.forEach((item)=>{
+                // if(item?.food && item.food==action.payload.food){
+                if(item?.food==action.payload){
                     item.quantity = item.quantity + 1;
                     state.itemTotal = state.itemTotal + item.price;
                 }

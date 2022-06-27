@@ -28,7 +28,7 @@ const Product = ({ item, id }) => {
     }, [])
 
     const onIncrement = () => {
-        console.log('this');
+        
         dispatch(incrementQuantity(item.food));
     }
 
@@ -39,7 +39,7 @@ const Product = ({ item, id }) => {
                 <div className="w-20">
                     <img
                         className="h-24 rounded"
-                        src={food.photo ? food.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'}
+                        src={food?.photo ? food?.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'}
                         alt=""
                     />
                 </div>
