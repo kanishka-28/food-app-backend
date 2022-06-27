@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "  node --exec babel-node index.js && nodemon --exec babel-node index"
+    "start": "nodemon --exec babel-node index && node  index.js "
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.18.5",
     "@babel/node": "^7.16.0",
     "@babel/preset-env": "^7.15.6",
     "nodemon": "^2.0.12"
