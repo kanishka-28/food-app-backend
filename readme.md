@@ -1,4 +1,17 @@
-# how i deployed this NODE JS app using babel
+# This is the backend for our food-app
+
+This app uses custom login as well as google login using passport
+
+Database used : MongoDB
+
+We also used babel for using ES6 syntax
+
+
+
+
+
+
+# How i deployed this NODE JS app using babel
 babel was set up for this repo
 and thus the start script was a bit diff
 so what we did is 
