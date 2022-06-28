@@ -1,19 +1,16 @@
-import React, { useContext, useState } from 'react'
-import { RiStarLine, RiShareForwardFill, RiBookmark3Line, RiDirectionLine } from "react-icons/ri"
+import React from 'react'
+import {  RiShareForwardFill } from "react-icons/ri"
 import { HiOutlineInformationCircle } from "react-icons/hi"
 import { AiTwotoneStar } from "react-icons/ai";
 import { MdArrowRightAlt } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
-import { GiSevenPointedStar } from "react-icons/gi";
 import { FiEdit } from "react-icons/fi";
-import { Photo } from '../restaurantComponent/Photos';
 // import { SignupContext } from '../../context/signup';
 import { Link } from 'react-router-dom'
 import { RWebShare } from "react-web-share";
 import AddFoodModal from '../Modal/AddFood';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../Redux/Features/Food/Slice';
-import { openModal } from '../../Redux/Features/Food/Selector/Selector';
 
 const RestaurantGallery = ({ requiredRestaurant,uploadedImages }) => {
 
