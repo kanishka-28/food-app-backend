@@ -1,7 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import nodemailer from 'nodemailer';
 const Router = express.Router();
 
 //models
@@ -11,6 +10,7 @@ import getUserStatus from '../../middlewares/getUserStatus';
 //validation
 
 import { ValidateSignup, ValidateSignin, ValidateEmail } from "../../validation/auth";
+import { sendMail } from '../../controllers/emailSender';
 
 
 /* 
@@ -152,7 +152,8 @@ method    GET
 Router.get("/forgot-pass", async (req, res) => {
   try {
     const { email,type } = req.query;
-    if(type!=='user' || type!=='restaurant'){
+    // console.log(type);
+    if(type!=='user' && type!=='restaurant'){
       return res.status(400).json({message:"Invalid Params",success:false});
     }
     await ValidateEmail({email});
@@ -162,27 +163,8 @@ Router.get("/forgot-pass", async (req, res) => {
     }
     const token = jwt.sign({id:user._id.toString(),email:user.email},'forget-pass',{expiresIn:"10m"});
     
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'samarthsingh890.ss@gmail.com',
-        pass: 'eolhpypbrobqoubm'
-      }
-    });
-    var mailOptions = {
-      from: 'samarthsingh890.ss@gmail.com',
-      to: email,
-      subject: 'Reset Pass for your Food-App',
-      // text: 'That was easy!',
-      html: `<h2>Click on the link below to reset your password</h2><a href="http://localhost:300${type==='user'?'0':'1'}/auth/reset?token=${token}">Reset Password Here</a>`
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    await sendMail(email,'Reset Pass for your Food-App',`<h4>Someone (hopefully you) has requested a password reset for your Food-app account. Follow the link below to set a new password:</h4><a href="http://localhost:300${type==='user'?'0':'1'}/auth/reset?token=${token}">Reset Password Here</a>`)
+    
     return res.status(200).json({message:"email sent successfully", success:true});
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
