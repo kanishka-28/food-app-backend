@@ -14,7 +14,7 @@ export default function Login() {
   });
 
   const googleLogin = async () => {
-    window.location.replace('http://localhost:4000/auth/google')
+    window.location.replace('https://our-food-app.herokuapp.com/auth/google')
   }
 
   const handleSubmit = async (event) => {
