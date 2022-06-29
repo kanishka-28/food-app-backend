@@ -80,7 +80,8 @@ method    post
 
 Router.post("/signin", async (req, res) => {
   try {
-    const { userName, password, email } = req.body.credentials
+    const { password, email } = req.body.credentials;
+    console.log(password,email);
     await ValidateSignin(req.body.credentials);
 
     let user = await UserModel.findByEmailAndPassword({ email, password });
