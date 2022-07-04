@@ -22,6 +22,7 @@ const Order = ({restaurant}) => {
         _id  : '',
         name : '',
         price: '',
+        photo: '',
     });
     const { id } = useParams();
     const [open, setopen] = useState(false)
@@ -61,7 +62,6 @@ const Order = ({restaurant}) => {
                     {profile?.address &&<div className="flex bg-blue-600 text-white items-center rounded p-3 w-max">
                     <BsCheckCircleFill className="mr-2" />
                         <p>Delivering to : <strong>{profile?.address?.slice(0, 40) + '... ,'} {profile?.city}</strong></p>
-
                     </div>}
                 </div>
                 <div ref={startOfFoods} className='grid xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>

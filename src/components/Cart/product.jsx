@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { incrementQuantity } from '../../redux/features/cart/slice';
 import { allRestaurants } from '../../redux/features/restaurants/selector';
-import { serviceGet } from '../../utlis/connection/api'
 
 const Product = ({ item, id }) => {
 
@@ -11,25 +10,15 @@ const Product = ({ item, id }) => {
     const navigate = useNavigate();
     const restaurants = useSelector(allRestaurants);
     const [restaurant, setrestaurant] = useState(null);
-    const [food, setfood] = useState()
 
-    const getFood = async () => {
-        try {
-            const { food } = await serviceGet(`food/one/${item.food}`);
-            setfood(food);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
+    console.log(item);
     useEffect(() => {
-        getFood();
         setrestaurant(restaurants.filter(e => e._id === id)[0]);
     }, [])
 
     const onIncrement = () => {
         console.log('this');
-        dispatch(incrementQuantity(item.food));
+        dispatch(incrementQuantity(item?.food));
     }
 
     return (
@@ -39,12 +28,12 @@ const Product = ({ item, id }) => {
                 <div className="w-20">
                     <img
                         className="h-24 rounded"
-                        src={food.photo ? food.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'}
+                        src={item?.food?.photo ? item?.food?.photo : 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'}
                         alt=""
                     />
                 </div>
                 <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-md">{food?.name}</span>
+                    <span className="font-bold text-md">{item?.food?.name}</span>
                     <span onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-sm">{restaurant?.name}</span>
                     <a
                         href="#"
