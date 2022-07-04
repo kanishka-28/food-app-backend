@@ -15,12 +15,17 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state,action){
-            state.orderDetails.map((item)=>{
-                if(item.food&&item.food==action.payload.food){
-                    item.quantity = item.quantity + 1;
-                    state.itemTotal = state.itemTotal + item.price;
-                }
-            })
+            const error = {};
+            try {
+                state.orderDetails.forEach((item,i)=>{
+                    if(item?.food._id==action.payload.orderDetails.food._id){
+                        toast.error("This item is already present in your cart.");
+                        throw error;
+                    }
+                })
+            } catch (error) {
+                return;
+            }
             if(state.first){
                 state.user = action.payload.user
                 state.restaurant = action.payload.restaurant
@@ -28,7 +33,7 @@ const cartSlice = createSlice({
                 state.first = false;
             }
             else if(state.restaurant!==action.payload.restaurant){
-                toast.error("Can't add items from different restaurants");
+                toast.error("You already have dishes from another restaurant in your cart.");
                 return;
             }
             else{
@@ -38,19 +43,18 @@ const cartSlice = createSlice({
             toast.success('Added to cart');
         },
         incrementQuantity(state,action){
-            state.orderDetails.map((item)=>{
-                if(item.food&&item.food==action.payload.food._id){
+            state.orderDetails.forEach((item)=>{
+                if(item?.food._id==action.payload){
                     item.quantity = item.quantity + 1;
                     state.itemTotal = state.itemTotal + item.price;
                 }
             })
         },
         decrementQuantity(state,action){
-            state.orderDetails.map((item)=>{
-                if(item?.food&&item.food==action.payload.food._id){
-                    if(item.quantity==1) return;
-                    item.quantity = item.quantity - 1;
-                    state.itemTotal = state.itemTotal - item.price;
+            state.orderDetails.forEach((item)=>{
+                if(item?.food._id==action.payload){
+                    item.quantity = item.quantity + 1;
+                    state.itemTotal = state.itemTotal + item.price;
                 }
             })
         }

@@ -27,7 +27,7 @@ const Cart = () => {
               <h2 className="font-semibold text-2xl">{items?.length}</h2>
             </div>
             {
-              items?.length == 0 ? <div className="text-xl font-semibold text-center">Your cart is empty!</div>
+              items?.length == 0 ? <div className="text-xl font-semibold text-center mt-10">Your cart is empty!</div>
                 :
                 <div className="flex mt-10 mb-5">
                   <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -44,7 +44,7 @@ const Cart = () => {
                   </h3>
                 </div>
             }
-            <div className="h-auto max-h-96 w-full overflow-y-auto ">
+            <div className="h-72 w-full overflow-y-auto ">
               {/* <div style={scrollContainer} > */}
               {
                 items?.map((item, i) => (

@@ -21,7 +21,7 @@ export const useRestaurants = () => {
     dispatch(setloadingTrue());
     try {
       const { restaurants } = await serviceGet(`restaurant?latitude=${loc?.latitude}&longitude=${loc.longitude}&email=${profile?.email}`);
-      console.log(restaurants);
+     
       dispatch(storeRestaurant(restaurants));
     } catch (error) {
       toast.error(error?.response?.data.message);

@@ -11,14 +11,12 @@ const Product = ({ item, id }) => {
     const restaurants = useSelector(allRestaurants);
     const [restaurant, setrestaurant] = useState(null);
 
-    console.log(item);
     useEffect(() => {
         setrestaurant(restaurants.filter(e => e._id === id)[0]);
     }, [])
 
     const onIncrement = () => {
-        console.log('this');
-        dispatch(incrementQuantity(item?.food));
+        dispatch(incrementQuantity(item.food));
     }
 
     return (
