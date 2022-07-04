@@ -21,6 +21,28 @@ const Router = express.Router();
     Method   Get
  */
 
+Router.get("/one/:_id", async (req, res) => {
+   try {
+      const { _id } = req.params;
+     
+      // ValidateRestaurantId({ _id });
+      const food = await FoodModel.findOne({_id });
+      return res.json({ food, success: true });
+   }
+   catch (error) {
+      return res.status(500).json({ message: error.message, success: false });
+   }
+
+});
+
+/* 
+    Route    /
+    Des      Get all foods based on particular restaurant 
+    Params    _id
+    Access    Public
+    Method   Get
+ */
+
 Router.get("/:_id", async (req, res) => {
    try {
       const { _id } = req.params;
