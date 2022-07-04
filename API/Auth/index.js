@@ -80,7 +80,8 @@ method    post
 
 Router.post("/signin", async (req, res) => {
   try {
-    const { userName, password, email } = req.body.credentials
+    const { password, email } = req.body.credentials;
+    console.log(password,email);
     await ValidateSignin(req.body.credentials);
 
     let user = await UserModel.findByEmailAndPassword({ email, password });
@@ -124,9 +125,9 @@ Router.get("/google/callback", passport.authenticate("google", {
   failureRedirect: "/"
 }), (req, res) => {
   try {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.set('Access-Control-Allow-Origin', 'https://our-foodapp.vercel.app/');
     const token = req.session.passport.user.token;
-    res.redirect(`http://localhost:3000/auth/google/${token}`);
+    res.redirect(`https://our-foodapp.vercel.app/auth/google/${token}`);
     //  res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });

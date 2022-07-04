@@ -45,7 +45,7 @@ Router.get('/', async (req, res) => {
             getDistanceFromLatLonInKm(restaurant.mapLocation.latitude, restaurant.mapLocation.longitude, latitude, longitude) < 500// radius of 3 km is too low
          ));
          if (newrestaurants.length === 0) {
-            res.status(404).json({ message: "No restaurants found near you", success: false })
+            return res.status(404).json({ message: "No restaurants found near you", success: false })
          }
          return res.json({ restaurants: newrestaurants, success: true });
       }
