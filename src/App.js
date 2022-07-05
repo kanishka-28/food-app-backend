@@ -38,10 +38,11 @@ function App() {
   useEffect(() => {
     loadUserAbout();
   }, [])
+
   return (
     <>
       {isLoading && (<Loader />)}
-      <div><Toaster /></div>
+      <div><Toaster/></div>
       <Router>
         <ScrollToTop />
         <Routes>
