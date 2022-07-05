@@ -15,7 +15,7 @@ const Checkout = ({payload}) => {
         <div id="summary" className="w-full md:w-1/4 px-8 py-10">
             <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
             <div className="flex justify-between mt-10 mb-5">
-                <span className="font-semibold text-sm uppercase">Items {payload?.orderDetails?.length}</span>
+                <span className="font-semibold text-sm uppercase">Items - {payload?.orderDetails?.length}</span>
                 <span className="font-semibold text-sm">{payload?.itemTotal}</span>
             </div>
             <div>
@@ -30,7 +30,7 @@ const Checkout = ({payload}) => {
             <div className="border-t mt-8">
                 <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                     <span>Total cost</span>
-                    <span>{payload?.total}</span>
+                    <span>{payload?.itemTotal}</span>
                 </div>
                 <button onClick={PlaceOrder} className="bg-zomato-400 rounded font-semibold hover:bg-zomato-500 py-3 text-sm text-white uppercase w-full">
                     Checkout

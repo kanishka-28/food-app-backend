@@ -32,6 +32,7 @@ export default function AddToCartModal({ restaurant, foodDetails, open, setopen 
                 name: foodDetails?.name,
                 photo: foodDetails?.photo,
             },
+            quantity: 1,
             price: foodDetails.price
         });
     }, [foodDetails])
