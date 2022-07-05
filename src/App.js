@@ -36,9 +36,7 @@ function App() {
   useRestaurants();
 
   useEffect(() => {
-
     loadUserAbout();
-
   }, [])
   return (
     <>
