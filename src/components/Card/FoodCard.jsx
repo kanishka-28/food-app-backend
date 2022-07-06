@@ -38,7 +38,8 @@ const FoodCard = ({ food, setopen,setopenCart, setfoodDetails }) => {
                         setfoodDetails({
                             _id: food._id,
                             name: food.name,
-                            price: food.price
+                            price: food.price,
+                            photo: food?.photo,
                         })
                     }} className="hover:scale-110 ease-in duration-200 mb-4 w-28 bg-megenta-400 hover:bg-red-700 text-white font-bold text-sm rounded py-1 px-4">
                         Add To Cart

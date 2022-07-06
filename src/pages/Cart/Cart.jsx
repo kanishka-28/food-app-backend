@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Checkout from "../../components/Cart/checkout";
 import Product from "../../components/Cart/product";
 import Navbar from "../../components/Navbar/Navbar";
+import { user } from "../../redux/features/auth/selector/selector";
 import { itemTotal, orderDetails, restaurantId, status } from "../../redux/features/cart/selector/selector";
 
 const Cart = () => {
+
   const navigate = useNavigate();
-  const restaurant = useSelector(restaurantId)
-  const items = useSelector(orderDetails)
-  const total = useSelector(itemTotal)
-  const stat = useSelector(status)
+  const userDetails = useSelector(user);
+  const restaurant = useSelector(restaurantId);
+  const items = useSelector(orderDetails);
+  const total = useSelector(itemTotal);
+  const stat = useSelector(status);
 
   return (
     <>
@@ -64,7 +67,7 @@ const Cart = () => {
               Continue Shopping
             </p>
           </div>
-          <Checkout total={total}/>
+          <Checkout payload={{user:userDetails._id, restaurant, orderDetails:items, itemTotal:total}}/>
         </div>
       </div>
     </>

@@ -5,13 +5,7 @@ const initialState = {
     first: true,
     user: '',
     restaurant: '',
-    orderDetails: [
-        // {
-        //     food: '',
-        //     quantity: 1,
-        //     price: 0,
-        // }
-    ],
+    orderDetails: [],
     itemTotal: 0,
     status: 'pending',
 }
@@ -21,6 +15,17 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state,action){
+            const error = {};
+            try {
+                state.orderDetails.forEach((item,i)=>{
+                    if(item?.food._id==action.payload.orderDetails.food._id){
+                        toast.error("This item is already present in your cart.");
+                        throw error;
+                    }
+                })
+            } catch (error) {
+                return;
+            }
             if(state.first){
                 state.user = action.payload.user
                 state.restaurant = action.payload.restaurant
@@ -39,19 +44,17 @@ const cartSlice = createSlice({
         },
         incrementQuantity(state,action){
             state.orderDetails.forEach((item)=>{
-                // if(item?.food && item.food==action.payload.food){
-                if(item?.food==action.payload){
+                if(item?.food._id==action.payload){
                     item.quantity = item.quantity + 1;
                     state.itemTotal = state.itemTotal + item.price;
                 }
             })
         },
         decrementQuantity(state,action){
-            state.orderDetails.map((item)=>{
-                if(item?.food&&item.food==action.payload.food){
-                    if(item.quantity==1) return;
-                    item.quantity = item.quantity - 1;
-                    state.itemTotal = state.itemTotal - item.price;
+            state.orderDetails.forEach((item)=>{
+                if(item?.food._id==action.payload){
+                    item.quantity = item.quantity + 1;
+                    state.itemTotal = state.itemTotal + item.price;
                 }
             })
         }
