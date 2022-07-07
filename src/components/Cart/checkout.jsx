@@ -1,11 +1,20 @@
 import React from 'react'
+import toast from 'react-hot-toast';
 
 const Checkout = ({payload}) => {
 
     const PlaceOrder=async()=>{
+        const arr=payload?.orderDetails;
         try {
-            if(payload?.orderDetails?.length==0)
-            console.log(payload);
+            if(payload?.orderDetails?.length==0){
+                toast.error('No item added in your cart.');
+                return;
+            }
+            console.log(arr);
+            arr?.map((data)=>{
+                return data.food = data.food._id;
+            })
+            console.log(arr);
         } catch (error) {
             console.log(error);
         }
