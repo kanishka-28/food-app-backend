@@ -11,7 +11,9 @@ import Loader from "./Components/Loader/Loader";
 import Navbar from "./Components/Navbar/Navbar";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import AuthWrapper from "./pages/Auth/AuthWrapper";
+import ForgetPass from "./pages/Auth/ForgetPass";
 import Login from "./pages/Auth/Login";
+import ResetPass from "./pages/Auth/ResetPass";
 import Signup from "./pages/Auth/Signup";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/Not Found/404";
@@ -36,10 +38,9 @@ function App() {
   useRestaurants();
 
   useEffect(() => {
-
     loadUserAbout();
+  }, []);
 
-  }, [])
   return (
     <>
       {isLoading && (<Loader />)}
@@ -57,6 +58,8 @@ function App() {
           <Route path="/auth" element={<AuthWrapper />} >
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="forget" element={<ForgetPass />} />
+            <Route path="reset" element={<ResetPass />} />
           </Route>
           <Route path="/about" element={<Navbar />} >
             <Route path="orders" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />

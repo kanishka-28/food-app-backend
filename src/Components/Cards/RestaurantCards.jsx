@@ -36,13 +36,13 @@ const RestaurantCards = ({ restaurant }) => {
     return (
         <div className="w-full flex justify-center mt-10 ">
             <div className="sm:w-full md:w-3/4 px-10 md:p-0 flex flex-col sm:flex-row rounded-lg bg-white shadow-lg justify-between relative">
-                <img className="w-full h-40 sm:h-52 object-cover sm:w-40 md:w-64 rounded-t-lg md:rounded-none md:rounded-l-lg" src={restaurant?.coverImage} alt="" />
-                <div className="w-2/3 px-6 flex flex-col justify-evenly">
+                <img className="w-full h-40 sm:h-52 object-cover sm:w-40 md:w-64 rounded-t-lg md:rounded-none md:rounded-l-lg" src={restaurant?.coverImage ? restaurant?.coverImage : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiCuem-at-uRZQ5ft4t24y4-Y7WYTnRHdVjA&usqp=CAU'} alt="" />
+                <div className="w-3/4 px-6 flex flex-col justify-evenly">
                     <h3 className="text-gray-900 font-semibold">{restaurant.name}</h3>
                     <div>
                         <div className='flex items-center gap-3'>
                             <p className="text-gray-700 text-base">
-                                {restaurant.timing}
+                                {restaurant.timing ? restaurant.timing : 'Full time'}
                             </p>
                             <RatingStars value={Math.round(restaurant.reviews[0]?.avgRating)} />
                         </div>

@@ -6,12 +6,13 @@ import RestaurantCards from "../../Components/Cards/RestaurantCards";
 
 import { useSelector } from "react-redux";
 import { allRestaurants } from "../../Redux/Features/Restaurant/Selector/Selector";
+import Footer from "../../Components/Footer/Footer";
 
 const Home = () => {
   const restaurants = useSelector(allRestaurants);
 
   return (
-    <>
+    <div className="h-screen">
       <Navbar />
       <div className="container mx-auto my-6 flex flex-col items-center justify-center">
         <Link
@@ -33,7 +34,8 @@ const Home = () => {
           </div>
         )}
       </div>
-    </>
+      <Footer/>
+    </div>
   );
 };
 
