@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { incrementQuantity } from '../../redux/features/cart/slice';
+import { decrementQuantity, incrementQuantity } from '../../redux/features/cart/slice';
 import { allRestaurants } from '../../redux/features/restaurants/selector';
 
 const Product = ({ item, id }) => {
@@ -16,7 +16,10 @@ const Product = ({ item, id }) => {
     }, [])
 
     const onIncrement = () => {
-        dispatch(incrementQuantity(item.food));
+        dispatch(incrementQuantity(item.food._id));
+    }
+    const onDecrement = () => {
+        dispatch(decrementQuantity(item.food._id));
     }
 
     return (
@@ -43,6 +46,7 @@ const Product = ({ item, id }) => {
             </div>
             <div className="flex justify-center w-1/5">
                 <svg
+                    onClick={onDecrement}
                     className="cursor-pointer fill-current text-gray-600 w-3"
                     viewBox="0 0 448 512"
                 >

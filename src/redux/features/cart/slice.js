@@ -52,9 +52,10 @@ const cartSlice = createSlice({
         },
         decrementQuantity(state,action){
             state.orderDetails.forEach((item)=>{
+                if(item?.quantity == 1) return ;
                 if(item?.food._id==action.payload){
-                    item.quantity = item.quantity + 1;
-                    state.itemTotal = state.itemTotal + item.price;
+                    item.quantity = item.quantity - 1;
+                    state.itemTotal = state.itemTotal - item.price;
                 }
             })
         }
