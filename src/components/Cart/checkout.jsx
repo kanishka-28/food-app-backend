@@ -10,9 +10,10 @@ const Checkout = ({payload}) => {
                 toast.error('No item added in your cart.');
                 return;
             }
-            console.log(arr);
+           
             arr = arr?.map((data)=>{
-                return data.food = data.food._id;
+                // return data.food = data.food._id;
+                return {...data ,food : data.food._id};
             })
             console.log(arr);
         } catch (error) {
