@@ -185,18 +185,7 @@ Router.put('/reset-pass',async (req,res)=>{
     if(user.email!== email){
       return res.status(401).json({message:"Not Authorized", success:false});
     }
-    // let newPass;
-  //   await bcrypt.genSalt(8, (error, salt) => {
-  //     if (error) return next(error);
-  //     //hashing the password
-  //     bcrypt.hash(pass, salt, (error, hash) => {
-  //         if (error) return next(error);
-  //         //assigning hashed password
-  //         newPass = hash;
-  //     })
-
-  // })
-  // console.log(newPass);
+   
   const salt= await bcrypt.genSalt(10);
 
   const secPass= await bcrypt.hash(pass,salt);
@@ -206,7 +195,7 @@ Router.put('/reset-pass',async (req,res)=>{
       new:true,
       upsert:true
     })
-    res.status(200).json({message:"Password changed succesfully",success:true});
+    res.status(200).json({message:"Password changed successfully",success:true});
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
   }
