@@ -52,7 +52,6 @@ zomato.use("/food",Food);
 zomato.use("/menu",Menu);
 zomato.use("/image",Images);
 zomato.use("/review",Reviews);
-//done till here
 zomato.use('/order',Order);
 
 zomato.get("/",(req,res)=> res.json({message: "setup success !!"}));
