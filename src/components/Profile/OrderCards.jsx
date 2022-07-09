@@ -15,7 +15,6 @@ const Product = ({ item, id }) => {
         setrestaurant(restaurants.filter(e => e._id === id)[0]);
     }, [])
 
-
     return (
         <div className="border-2 border-gray-200 p-3 shadow-lg w-72 items-center hover:bg-gray-100 mb-2">
             <div onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-lg">{restaurant?.name}</div>
