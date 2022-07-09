@@ -14,7 +14,10 @@ const Cart = () => {
   const restaurant = useSelector(restaurantId);
   const items = useSelector(orderDetails);
   const total = useSelector(itemTotal);
-  const stat = useSelector(status);
+
+  console.log('====================================');
+  console.log(restaurant,items,total);
+  console.log('====================================');
 
   return (
     <>

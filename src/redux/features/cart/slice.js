@@ -7,7 +7,6 @@ const initialState = {
     restaurant: '',
     orderDetails: [],
     itemTotal: 0,
-    status: 'pending',
 }
 
 const cartSlice = createSlice({
@@ -58,10 +57,16 @@ const cartSlice = createSlice({
                     state.itemTotal = state.itemTotal - item.price;
                 }
             })
+        },
+        initializeCart(state,action){
+            state.first = true;
+            state.restaurant = '';
+            state.orderDetails = [];
+            state.itemTotal = 0;
         }
     }
 })
 
-export const {addToCart, incrementQuantity, decrementQuantity}  = cartSlice.actions;
+export const {addToCart, incrementQuantity, decrementQuantity, initializeCart}  = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -6,6 +6,7 @@ import { user } from '../../redux/features/auth/selector/selector';
 import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
 import { serviceGet } from '../../utlis/connection/api';
 import Review from '../Card/Review';
+import Product from './OrderCards';
 
 const ProfileTab = () => {
   const { tabId } = useParams();
@@ -14,24 +15,39 @@ const ProfileTab = () => {
   const [reviews, setreviews] = useState([]);
   const userDetails = useSelector(user);
 
-  const getAllReviews=async()=>{
+  const getAllReviews = async () => {
     dispatch(setloadingTrue());
     try {
-      const {reviews} = await serviceGet(`review/user/${userDetails._id}`);
-     
+      const { reviews } = await serviceGet(`review/user/${userDetails._id}`);
+
       setreviews(reviews);
     } catch (error) {
       toast.error(error.response.data.message);
     }
-    finally{
+    finally {
+      dispatch(setloadingFalse());
+    }
+  }
+
+  const getMyOrders = async () => {
+    dispatch(setloadingTrue());
+    try {
+      const { orders } = await serviceGet(`order/user/${userDetails._id}`);
+      console.log(orders);
+      setorders(orders);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally {
       dispatch(setloadingFalse());
     }
   }
 
   useEffect(() => {
     getAllReviews();
+    getMyOrders();
   }, [])
-  
+
 
   return (
     <>
@@ -45,8 +61,8 @@ const ProfileTab = () => {
             <Link
               to={"/me/orders"}
               className={` ${tabId == "orders" &&
-                "bg-megenta-100 hover:bg-megenta-300 md:border-l-4 border-b-4 md:border-b-0 border-megenta-400 shadow-lg"
-                } nav-link block font-medium text-md leading-tight uppercase border-x-0 border-t-0 border-b-2  px-6 py-3 my-2  hover:bg-gray-200 `}
+                "bg-megenta-100 hover:bg-megenta-200 md:border-l-4 border-b-4 md:border-b-0 border-megenta-400 shadow-lg"
+                } nav-link block font-medium text-md leading-tight uppercase border-x-0 border-t-0 border-b-2  px-6 py-3 my-2  hover:bg-gray-200`}
               id="tabs-messages-tabVertical"
               data-bs-toggle="pill"
               data-bs-target="#tabs-messagesVertical"
@@ -61,7 +77,7 @@ const ProfileTab = () => {
             <Link
               to={"/me/reviews"}
               className={` ${tabId == "reviews" &&
-                "bg-megenta-100 hover:bg-megenta-300 md:border-l-4 border-b-4 md:border-b-0 border-megenta-400 shadow-lg"
+                "bg-megenta-100 hover:bg-megenta-200 md:border-l-4 border-b-4 md:border-b-0 border-megenta-400 shadow-lg"
                 } nav-link block font-medium leading-tight uppercase border-x-0 border-t-0 border-b-2  px-6 py-3 my-2  hover:bg-gray-200 active`}
               id="tabs-home-tabVertical"
               data-bs-toggle="pill"
@@ -86,9 +102,9 @@ const ProfileTab = () => {
               role="tabpanel"
               aria-labelledby="tabs-home-tabVertical"
             >
-              {reviews.length!==0 ? reviews.map((e,i)=>(
-                <Review key={i}  e={e} />
-              )) : 
+              {reviews.length !== 0 ? reviews.map((e, i) => (
+                <Review key={i} e={e} />
+              )) :
                 <h4>No Reviews</h4>
               }
             </div>
@@ -101,7 +117,13 @@ const ProfileTab = () => {
               role="tabpanel"
               aria-labelledby="tabs-home-tabVertical"
             >
-              My Orders
+              <div className='mb-3 flex flex-wrap justify-evenly'>
+                {orders.length !== 0 ? orders.map((e, i) => (
+                  <Product key={i} item={e} id={e.restaurant} />
+                )) :
+                  <h4>No Orders</h4>
+                }
+              </div>
             </div>
           )}
         </div>
