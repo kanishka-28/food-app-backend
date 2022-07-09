@@ -22,7 +22,6 @@ const Checkout = ({ payload }) => {
                 return { ...data, food: data.food._id };
             })
             payload = await { ...payload, orderDetails: arr }
-
             await servicePost(`order/new/${id}`,payload);
             toast.success('Order has been placed successfully');
             dispatch(initializeCart());

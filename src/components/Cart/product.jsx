@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { decrementQuantity, incrementQuantity } from '../../redux/features/cart/slice';
 import { allRestaurants } from '../../redux/features/restaurants/selector';
+import {ImBin} from 'react-icons/im';
 
 const Product = ({ item, id }) => {
 
@@ -34,13 +35,13 @@ const Product = ({ item, id }) => {
                     />
                 </div>
                 <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-md">{item?.food?.name}</span>
-                    <span onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-sm">{restaurant?.name}</span>
+                    <span className="font-bold text-md m-0 p-0">{item?.food?.name}</span>
+                    <span onClick={() => navigate(`/restaurant/${id}`)} className="p-0 m-0 cursor-pointer text-blue-500 text-sm">{restaurant?.name}</span>
                     <a
                         href="#"
                         className="font-semibold hover:text-red-500 text-gray-500 text-xs"
                     >
-                        Remove
+                        <ImBin color='red' className='mb-1'/>
                     </a>
                 </div>
             </div>

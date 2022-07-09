@@ -59,7 +59,10 @@ const cartSlice = createSlice({
             })
         },
         initializeCart(state,action){
-            state=initialState
+            state.first = true;
+            state.restaurant = '';
+            state.orderDetails = [];
+            state.itemTotal = 0;
         }
     }
 })
