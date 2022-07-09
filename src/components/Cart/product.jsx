@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { decrementQuantity, incrementQuantity } from '../../redux/features/cart/slice';
+import { decrementQuantity, deleteFromCart, incrementQuantity } from '../../redux/features/cart/slice';
 import { allRestaurants } from '../../redux/features/restaurants/selector';
-import {ImBin} from 'react-icons/im';
+import { ImBin } from 'react-icons/im';
 
 const Product = ({ item, id }) => {
 
@@ -22,7 +22,10 @@ const Product = ({ item, id }) => {
     const onDecrement = () => {
         dispatch(decrementQuantity(item.food._id));
     }
-
+    const deleteItem = () => {
+        dispatch(deleteFromCart(item));
+    }
+    
     return (
         <div className="flex items-center hover:bg-gray-100  py-5">
             <div className="flex w-2/5">
@@ -37,12 +40,7 @@ const Product = ({ item, id }) => {
                 <div className="flex flex-col justify-between ml-4 flex-grow">
                     <span className="font-bold text-md m-0 p-0">{item?.food?.name}</span>
                     <span onClick={() => navigate(`/restaurant/${id}`)} className="p-0 m-0 cursor-pointer text-blue-500 text-sm">{restaurant?.name}</span>
-                    <a
-                        href="#"
-                        className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                    >
-                        <ImBin color='red' className='mb-1'/>
-                    </a>
+                    <ImBin onClick={deleteItem} color='red' className='cursor-pointer mb-1' />
                 </div>
             </div>
             <div className="flex justify-center w-1/5">
@@ -71,7 +69,7 @@ const Product = ({ item, id }) => {
                 {item?.price}
             </span>
             <span className="text-center w-1/5 font-semibold text-sm">
-                {item?.quantity*item?.price}
+                {item?.quantity * item?.price}
             </span>
         </div>
     )
