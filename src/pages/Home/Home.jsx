@@ -13,7 +13,9 @@ const Home = () => {
         </div>
         <Outlet />
       </div>
-      <Footer/>
+     
+        <Footer/>
+     
     </div>
   );
 };

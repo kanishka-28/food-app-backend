@@ -3,7 +3,7 @@ import { FaHandPointRight } from 'react-icons/fa'
 
 const Footer = () => {
     return (
-        <div className='sticky bottom-0 top-[100vh]'>
+        <div>
             <footer className="bg-[#000050] text-white w-full">
                 <div className="container px-16 pt-6 md:flex justify-between">
                     <div>
@@ -129,7 +129,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="text-center p-2 m-4 cursor-not-allowed w-fit mx-auto text-gray-400">
+                <div className="text-center p-2  cursor-not-allowed w-fit mx-auto text-gray-400">
                     © 2022 Copyright: Foodie
                 </div>
             </footer>

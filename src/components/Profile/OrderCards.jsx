@@ -15,7 +15,6 @@ const Product = ({ item, id }) => {
         setrestaurant(restaurants.filter(e => e._id === id)[0]);
     }, [])
 
-    console.log(item);
 
     return (
         <div className="border-2 border-gray-200 p-3 shadow-lg w-72 items-center hover:bg-gray-100 mb-2">
@@ -23,8 +22,8 @@ const Product = ({ item, id }) => {
             {item?.orderDetails?.map((data) => (
                 <div className="pt-2">
                     <hr />
-                    <div className="flex flex-col justify-between flex-grow">
-                        <span className="font-bold text-md">{data?.food?.name}Name</span>
+                    <div className="flex items-center gap-2 justify-between">
+                        <span className="font-bold text-md">{data?.food?.name}</span>
                     </div>
                     <div className='flex items-center gap-2 justify-between'>
                         <div className="font-semibold text-sm">

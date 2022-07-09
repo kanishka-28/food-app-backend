@@ -15,10 +15,6 @@ const Cart = () => {
   const items = useSelector(orderDetails);
   const total = useSelector(itemTotal);
 
-  console.log('====================================');
-  console.log(restaurant,items,total);
-  console.log('====================================');
-
   return (
     <>
       <Navbar />
