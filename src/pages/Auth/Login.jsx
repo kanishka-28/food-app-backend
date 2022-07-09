@@ -89,12 +89,20 @@ export default function Login() {
                   <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg" alt="google" />
                   <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
                 </button>
-                <Link
-                  to={"/auth/signup"}
-                  className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
-                >
-                  New user? Create an account
-                </Link>
+                <div className="flex justify-between">
+                  <Link
+                    to={"/auth/signup"}
+                    className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
+                  >
+                    New user? Create an account
+                  </Link>
+                  <Link
+                    to={"/auth/forget"}
+                    className="flex font-semibold text-blue-500 text-sm mt-10 cursor-pointer"
+                  >
+                    Forgot Password!?
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

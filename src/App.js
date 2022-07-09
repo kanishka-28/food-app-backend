@@ -26,6 +26,8 @@ import ScrollToTop from "./utlis/helperFunctions/scrollToTop";
 import { location } from "./redux/features/location/selector";
 import NotFound from "./pages/Not Found/404";
 import { user } from "./redux/features/auth/selector/selector";
+import ForgotPass from "./pages/Auth/forgetPass";
+import ResetPass from "./pages/Auth/ResetPass";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +75,8 @@ function App() {
           </Route>
           <Route path="/auth" element={<AuthWrapper />}>
             <Route path="login" element={<Login />} />
+            <Route path="forget" element={<ForgotPass />} />
+            <Route path="reset" element={<ResetPass />} />
             <Route path="signup" element={<Signup />} />
             <Route path="google/:token" element={<GoogleLogin />} />
           </Route>
