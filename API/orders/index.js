@@ -48,13 +48,13 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateRestaurantId(req.params);
         const { _id } = req.params;
-        const getOrders = await OrderModel.find({
+        const orders = await OrderModel.find({
             restaurant: _id
         }).populate('orderDetails.food');
-        if (!getOrders) {
+        if (!orders) {
             return res.status(404).json({ error: "Orders not found" });
         }
-        return res.status(200).json({ getOrders, success:true });
+        return res.status(200).json({ orders, success:true });
     }
     catch (error) {
         return res.status(500).json({ message: error.message, success: false });
