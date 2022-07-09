@@ -12,7 +12,7 @@ export const ValidateOrder = (orderObj) => {
 
   const Schema = joi.object({
 
-    orderObj: joi.array().items(joi.object({
+   
       user: joi.string().required(),
       restaurant: joi.string().required(),
       orderDetails: joi.object({
@@ -21,7 +21,7 @@ export const ValidateOrder = (orderObj) => {
         price: joi.number().required()
       }),
       itemTotal: joi.number().required(),
-    })),
+   
 
   });
 
