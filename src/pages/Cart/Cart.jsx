@@ -20,7 +20,7 @@ const Cart = () => {
     <>
       <Navbar />
       <div className="w-full lg:w-11/12 mt-2 mx-auto lg:px-28 ">
-        <div className="block md:flex shadow-md ">
+        <div className="flex flex-col-reverse md:flex-row shadow-md ">
           <div className=" w-full lg:w-3/4 bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">Shopping Cart</h1>
@@ -33,13 +33,13 @@ const Cart = () => {
                   <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
                     Product Details
                   </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">
                     Quantity
                   </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">
                     Price
                   </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">
                     Total
                   </h3>
                 </div>
