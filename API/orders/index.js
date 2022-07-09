@@ -72,17 +72,13 @@ method    POST
 Router.post("/new/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateUserId(req.params);
-        await ValidateOrder(req.body);
+        // await ValidateOrder(req.body);
         const { _id } = req.params;
-
         if (req.user._id.toString() !== _id) {
             return res.status(401).send("Not Authorized")
         }
         const addNewOrder = await OrderModel.create(req.body);
-
         return res.status(200).json({ order: addNewOrder, success:true });
-
-
     }
     catch (error) {
         return res.status(500).json({ message: error.message, success: false });
