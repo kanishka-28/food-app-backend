@@ -22,7 +22,7 @@ Router.get("/user/:_id", getUserStatus, async (req, res) => {
     const { _id } = req.params;
     try {
         if (req.user._id.toString() === _id) {
-            const orders = await OrderModel.find({ user: _id });
+            const orders = await OrderModel.find({ user: _id }).populate('foods');
             if (!orders) {
                 return res.status(404).json({ message: "Orders not found", success: false });
             }
@@ -50,7 +50,7 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
         const { _id } = req.params;
         const getOrders = await OrderModel.find({
             restaurant: _id
-        });
+        }).populate('foods');
         if (!getOrders) {
             return res.status(404).json({ error: "Orders not found" });
         }

@@ -1,6 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import bcrypt from "bcryptjs";
+
 const Router = express.Router();
 
 //models
@@ -172,6 +174,31 @@ Router.get("/forgot-pass", async (req, res) => {
   }
 
 
+})
+
+Router.put('/reset-pass',async (req,res)=>{
+  try {
+    const {token, pass} = req.body;
+    const {id, email} = jwt.verify(token,'forget-pass');
+    
+    const user = await UserModel.findById(id);
+    if(user.email!== email){
+      return res.status(401).json({message:"Not Authorized", success:false});
+    }
+   
+  const salt= await bcrypt.genSalt(10);
+
+  const secPass= await bcrypt.hash(pass,salt);
+    const updatedUser =  await UserModel.findByIdAndUpdate(id,{
+      password: secPass
+    },{
+      new:true,
+      upsert:true
+    })
+    res.status(200).json({message:"Password changed successfully",success:true});
+  } catch (error) {
+    return res.status(500).json({ message: error.message, success: false });
+  }
 })
 
 
