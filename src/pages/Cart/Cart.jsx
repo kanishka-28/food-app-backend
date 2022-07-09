@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Checkout from "../../components/Cart/checkout";
@@ -14,10 +14,6 @@ const Cart = () => {
   const restaurant = useSelector(restaurantId);
   const items = useSelector(orderDetails);
   const total = useSelector(itemTotal);
-
-  console.log('====================================');
-  console.log(restaurant,items,total);
-  console.log('====================================');
 
   return (
     <>
@@ -70,7 +66,7 @@ const Cart = () => {
               Continue Shopping
             </p>
           </div>
-          <Checkout payload={{user:userDetails._id, restaurant, orderDetails:items, itemTotal:total}}/>
+          <Checkout payload={{ user: userDetails._id, restaurant, orderDetails: items, itemTotal: total }} />
         </div>
       </div>
     </>
