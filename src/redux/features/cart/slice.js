@@ -63,10 +63,17 @@ const cartSlice = createSlice({
             state.restaurant = '';
             state.orderDetails = [];
             state.itemTotal = 0;
+        },
+        deleteFromCart(state,action){
+            const arr = state.orderDetails.filter((data)=>{
+                return data.food._id !== action.payload.food._id;
+            });
+            state.orderDetails = arr;
+            state.itemTotal = state.itemTotal - (action.payload.price*action.payload.quantity);
         }
     }
 })
 
-export const {addToCart, incrementQuantity, decrementQuantity, initializeCart}  = cartSlice.actions;
+export const {addToCart, incrementQuantity, decrementQuantity, initializeCart, deleteFromCart}  = cartSlice.actions;
 
 export default cartSlice.reducer;
