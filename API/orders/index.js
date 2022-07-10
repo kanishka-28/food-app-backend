@@ -75,7 +75,7 @@ method    POST
 Router.post("/new/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateUserId(req.params);
-        await ValidateOrder(req.body);
+       
         const { _id } = req.params;
         if (req.user._id.toString() !== _id) {
             return res.status(401).send("Not Authorized")
