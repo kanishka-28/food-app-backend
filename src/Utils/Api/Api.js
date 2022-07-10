@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const SERVICE_URL = "https://our-food-app.herokuapp.com";
+// const SERVICE_URL = "https://our-food-app.herokuapp.com";
+const SERVICE_URL = "http://localhost:4000";
 
 export const serviceGet = async (path, headers) => {
     return new Promise((resolve, reject) => {
