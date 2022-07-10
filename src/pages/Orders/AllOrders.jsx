@@ -186,6 +186,9 @@ const AllOrders = () => {
                             {data?.user[0]?.address} <br />
                             {data?.user[0]?.city}
                           </p>
+                          <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                         </div>
                         <GoSmiley
                           size={"2rem"}
@@ -250,10 +253,10 @@ const AllOrders = () => {
                         onClick={async() => {
                           dispatch(setloadingTrue());
                           try {
-                              const {message} = await servicePut(`order/update/${data?._id}`,"rejected")
+                              const {message} = await servicePut(`order/update/${data?._id}`,{status :"rejected"})
                               toast.success("Order Rejected");
                               setpendingorder(pendingorder?.filter(e=> e._id !== data?._id));
-                              setrejectedorder([data, ...rejectedorder]);
+                              setrejectedorder([{...data,status: "rejected"}, ...rejectedorder]);
                           } catch (error) {
                             toast.error(error.response.data.message);
                           }
