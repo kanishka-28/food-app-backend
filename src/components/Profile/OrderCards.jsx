@@ -18,11 +18,11 @@ const Product = ({ item, id }) => {
     return (
         <div className="border-2 border-gray-200 p-3 shadow-lg w-72 items-center hover:bg-gray-100 mb-2">
             <div onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-lg">{restaurant?.name}</div>
-            {item?.orderDetails?.map((data) => (
-                <div className="pt-2">
+            {item?.orderDetails?.map((data,i) => (
+                <div key={i} className="pt-2">
                     <hr />
                     <div className="flex items-center gap-2 justify-between">
-                        <span className="font-bold text-md">{data?.food?.name}</span>
+                        <span className="font-bold text-md">{item?.foodItems[i]?.name}</span>
                     </div>
                     <div className='flex items-center gap-2 justify-between'>
                         <div className="font-semibold text-sm">

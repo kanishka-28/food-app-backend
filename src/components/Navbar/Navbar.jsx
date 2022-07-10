@@ -64,7 +64,7 @@ const ProfileDisclosure = () => {
                 }}
                 className={
                   (active ? "bg-gray-100" : "",
-                  "block px-4 py-3 text-sm text-gray-700 text-lg")
+                  "block px-4 pb-1  text-gray-700 text-lg")
                 }
               >
                 Sign out
