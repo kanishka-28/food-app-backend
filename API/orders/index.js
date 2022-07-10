@@ -6,6 +6,7 @@ import { ValidateUserId } from "../../validation/user";
 import { ValidateOrder, ValidateOrderId } from "../../validation/order";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus"
+import { getOrderDetails } from './helperFunctions';
 
 const Router = express.Router();
 
@@ -22,7 +23,9 @@ Router.get("/user/:_id", getUserStatus, async (req, res) => {
     const { _id } = req.params;
     try {
         if (req.user._id.toString() === _id) {
-            const orders = await OrderModel.find({ user: _id }).populate('orderDetails.food');
+            // const orders = await OrderModel.find({ user: _id }).populate('orderDetails.food');
+            const orders = await getOrderDetails(_id);
+            console.log(orders);
             if (!orders) {
                 return res.status(404).json({ message: "Orders not found", success: false });
             }
