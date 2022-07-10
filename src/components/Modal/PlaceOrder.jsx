@@ -2,10 +2,16 @@ import React from 'react'
 import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from 'react-redux';
+import { user } from '../../redux/features/auth/selector/selector';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { servicePost } from '../../utlis/connection/api';
 
 export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
 
     const cancelButtonRef = useRef(null);
+    const userDetails = useSelector(user);
     const [totalprice, settotalprice] = useState();
     const [orderDetails, setorderDetails] = useState({
         food: foodDetails?._id,
@@ -18,8 +24,16 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
         setorderDetails({ ...orderDetails, food: foodDetails?._id, price: foodDetails.price });
     }, [foodDetails])
 
-    const placeOrder=()=>{
-        setopen(false)
+    const placeOrder = async () => {
+        try {
+            setopen(false)
+            await servicePost(`order/new/${userDetails._id}`, {user: userDetails._id, restaurant: restaurant._id, orderDetails, itemTotal: (orderDetails.quantity * orderDetails.price)});
+            toast.success('Order has been placed successfully')
+        } catch (error) {
+            console.log(error);
+        }
+        finally {
+        }
     }
 
     return (
@@ -77,13 +91,13 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
                                                         <div onClick={() => {
                                                             if (orderDetails.quantity == 1) return;
                                                             setorderDetails({ ...orderDetails, quantity: orderDetails.quantity - 1 });
-                                                            settotalprice(orderDetails.price * (orderDetails.quantity-1));
+                                                            settotalprice(orderDetails.price * (orderDetails.quantity - 1));
                                                             console.log(orderDetails.price, orderDetails.quantity);
                                                         }} className='cursor-pointer bg-black text-white font-bold text-1xl w-10 ml-5 sm:ml-0 border border-gray-300 p-2 rounded'>➖</div>
                                                         <div className="py-4 mx-2 text-center w-36 sm:w-60 h-12 focus:border-none focus:outline-none focus:ring-1 focus:ring-black  border border-gray-300 rounded">{orderDetails.quantity}</div>
                                                         <div onClick={() => {
                                                             setorderDetails({ ...orderDetails, quantity: orderDetails.quantity + 1 });
-                                                            settotalprice(orderDetails.price*(orderDetails.quantity+1));
+                                                            settotalprice(orderDetails.price * (orderDetails.quantity + 1));
                                                             console.log(orderDetails.price, orderDetails.quantity);
                                                         }} className='cursor-pointer bg-black text-white font-bold text-2xl w-10 mr-2 border border-gray-300 p-2 rounded'>+</div>
                                                     </div>

@@ -17,7 +17,7 @@ const AuthWrapper = (props) => {
     } catch (error) {
       console.log(error);
     }
-    finally{
+    finally {
       dispatch(setloadingFalse());
     }
   };
@@ -38,7 +38,7 @@ const AuthWrapper = (props) => {
 
   return (
     <>
-            <div className="w-full flex items-center">
+      <div className="w-full flex items-center">
         <div className="w-full h-screen md:w-1/2 flex items-center bg-auth bg-no-repeat bg-cover md:bg-none ">
           <Outlet />
         </div>

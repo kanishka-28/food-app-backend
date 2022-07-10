@@ -1,33 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/features/auth/slice";
-import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 import { serviceGet } from "../../utlis/connection/api";
 import toast from "react-hot-toast";
 
 export default function ForgotPass() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setemail] = useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      toast.success(`Link to reset password will be sent to ${email}`);
       await serviceGet(`auth/forgot-pass?email=${email}&&type=user`);
-      toast.success(`Link to reset password is sent to ${email}`);
+      navigate('/auth/success')
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="flex  justify-center items-center w-full ">
-      <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
+    <div className="flex justify-center items-center w-full ">
+      <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full lg:mx-8  sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
             <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">
-              <div className="flex  justify-center mb-8">
+              <div className="flex justify-center mb-8">
                 <h3 className="text-2xl leading-6 font-medium text-gray-900 ">
                   Forgot Password
                 </h3>
@@ -51,7 +48,7 @@ export default function ForgotPass() {
                     Send Verification
                   </button>
                 </form>
-               
+
                 <Link
                   to={"/auth/signup"}
                   className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"

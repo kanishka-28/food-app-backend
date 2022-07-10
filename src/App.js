@@ -28,6 +28,7 @@ import NotFound from "./pages/Not Found/404";
 import { user } from "./redux/features/auth/selector/selector";
 import ForgotPass from "./pages/Auth/forgetPass";
 import ResetPass from "./pages/Auth/ResetPass";
+import SuccessTick from "./pages/Auth/EmailSuccess";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ function App() {
             <Route path="forget" element={<ForgotPass />} />
             <Route path="reset" element={<ResetPass />} />
             <Route path="signup" element={<Signup />} />
+            <Route path="success" element={<SuccessTick />} />
             <Route path="google/:token" element={<GoogleLogin />} />
           </Route>
           <Route path="*" element={<NotFound />} />
