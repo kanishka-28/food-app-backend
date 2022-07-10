@@ -6,7 +6,7 @@ import { ValidateUserId } from "../../validation/user";
 import { ValidateOrder, ValidateOrderId } from "../../validation/order";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus"
-import { getOrderDetails } from './helperFunctions';
+import {  getOrderDetailsRestaurant, getOrderDetailsUser } from './helperFunctions';
 
 const Router = express.Router();
 
@@ -24,8 +24,7 @@ Router.get("/user/:_id", getUserStatus, async (req, res) => {
     try {
         if (req.user._id.toString() === _id) {
             // const orders = await OrderModel.find({ user: _id }).populate('orderDetails.food');
-            const orders = await getOrderDetails(_id);
-            console.log(orders);
+            const orders = await getOrderDetailsUser(_id);
             if (!orders) {
                 return res.status(404).json({ message: "Orders not found", success: false });
             }
@@ -51,9 +50,10 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateRestaurantId(req.params);
         const { _id } = req.params;
-        const orders = await OrderModel.find({
-            restaurant: _id
-        }).populate('orderDetails.food');
+        // const orders = await OrderModel.find({
+        //     restaurant: _id
+        // }).populate('orderDetails.food');
+        const orders = await getOrderDetailsRestaurant(_id);
         if (!orders) {
             return res.status(404).json({ error: "Orders not found" });
         }
@@ -100,8 +100,8 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
         await ValidateOrderId(req.params);
         const { _id } = req.params;
         const {status} = req.body;
-        if (status!=='accepted' || status!=='rejected' || status!=="cancelled") {
-            return res.status(400).send("Invalid Status")
+        if (status!=='accepted' && status!=='rejected' && status!=="cancelled") {
+            return res.status(400).json({message :"Invalid Status"})
         }
         const updatedOrder = await OrderModel.findByIdAndUpdate(_id,{
             $set:{
@@ -111,7 +111,7 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
             new:true
         })
 
-        return res.status(200).json({ order: updatedOrder, success:true });
+        return res.status(200).json({ message : "Order updated", success:true });
 
 
     }
