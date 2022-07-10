@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/features/auth/slice";
-import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 import { serviceGet } from "../../utlis/connection/api";
 import toast from "react-hot-toast";
 
 export default function ForgotPass() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setemail] = useState();
 
   const handleSubmit = async (event) => {
@@ -16,8 +12,7 @@ export default function ForgotPass() {
     try {
       toast.success(`Link to reset password will be sent to ${email}`);
       await serviceGet(`auth/forgot-pass?email=${email}&&type=user`);
-      window.open("http://localhost:3000/404", "_self");
-      window.close();
+      navigate('/auth/success')
     } catch (error) {
       console.log(error);
     }
