@@ -166,7 +166,7 @@ Router.get("/forgot-pass", async (req, res) => {
     }
     const token = jwt.sign({id:user._id.toString(),email:user.email},'forget-pass',{expiresIn:"10m"});
     
-    await sendMail(email,'Reset Pass for your Food-App',`<h4>Someone (hopefully you) has requested a password reset for your Food-app account. Follow the link below to set a new password:</h4><a href="http://localhost:300${type==='user'?'0':'1'}/auth/reset?token=${token}">Reset Password Here</a>`)
+    await sendMail(email,'Reset Pass for your Food-App',`<h4>Someone (hopefully you) has requested a password reset for your Food-app account. Follow the link below to set a new password:</h4><a href="https://${type==='user'?'our-foodapp.vercel.app':'restaurant-app-azure.vercel.app'}/auth/reset?token=${token}">Reset Password Here</a>`)
     
     return res.status(200).json({message:"email sent successfully", success:true});
   } catch (error) {
