@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const RestaurantSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    city: { type: String, required: true },
+    city: { type: String, required: true, lowercase:true },
     address: { type: String, required: true },
     mapLocation: {
         latitude: { type: Number, required: true },
