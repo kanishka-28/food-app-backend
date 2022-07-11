@@ -53,6 +53,7 @@ function App() {
           <Route path="/restaurant" >
             <Route path=":id" element={<ProtectedRoute><Restaurant /></ProtectedRoute>} />
             <Route path="add" element={<ProtectedRoute><EditRestaurant /></ProtectedRoute>} />
+            <Route path="orders/:id" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
             <Route path="edit" element={<ProtectedRoute><EditRestaurant edit={true} /></ProtectedRoute>} />
           </Route>
           <Route path="/auth" element={<AuthWrapper />} >
@@ -62,7 +63,6 @@ function App() {
             <Route path="reset" element={<ResetPass />} />
           </Route>
           <Route path="/about" element={<Navbar />} >
-            <Route path="orders" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
             <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           </Route>
           <Route path="*" element={<NotFound />} />
