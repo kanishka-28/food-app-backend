@@ -12,7 +12,6 @@ export const sendMail = async(email,title="Email from food app",body)=>{
         from: 'samarthsingh890.ss@gmail.com',
         to: email,
         subject: title,
-        // text: 'That was easy!',
         html: body
       };
       transporter.sendMail(mailOptions, function(error, info){

@@ -19,6 +19,29 @@ export const getOrderDetailsUser = async (user)=>{
                 }
             },
             {
+                $lookup:{
+                    from:"restaurants",
+                    let:{restaurant: "$restaurant"},
+                    pipeline:[
+                        {
+                            $match:{
+                                $expr:{
+                                    $eq:['$_id',"$$restaurant"]
+                                  }
+                            }
+                        },{
+                            $project:{
+                                name:1
+                            }
+                        }
+                    ],
+                    as:"restaurant"
+                }
+            },
+            {
+                $unwind:"$restaurant"
+            },
+            {
                 $sort:{
                     updatedAt: -1
                 }
