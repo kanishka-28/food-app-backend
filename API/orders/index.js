@@ -1,13 +1,13 @@
 import express from 'express'
 
 
-import { OrderModel } from "../../database/allModels";
+import { OrderModel, RestaurantModel, UserModel } from "../../database/allModels";
 import { ValidateUserId } from "../../validation/user";
 import { ValidateOrder, ValidateOrderId } from "../../validation/order";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import getUserStatus from "../../middlewares/getUserStatus"
-import {  getOrderDetailsRestaurant, getOrderDetailsUser } from './helperFunctions';
-
+import { getOrderDetailsRestaurant, getOrderDetailsUser } from './helperFunctions';
+import { sendMail } from '../../controllers/emailSender';
 const Router = express.Router();
 
 /* 
@@ -57,7 +57,7 @@ Router.get("/res/:_id", getUserStatus, async (req, res) => {
         if (!orders) {
             return res.status(404).json({ error: "Orders not found" });
         }
-        return res.status(200).json({ orders, success:true });
+        return res.status(200).json({ orders, success: true });
     }
     catch (error) {
         return res.status(500).json({ message: error.message, success: false });
@@ -75,13 +75,16 @@ method    POST
 Router.post("/new/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateUserId(req.params);
-       
+
         const { _id } = req.params;
         if (req.user._id.toString() !== _id) {
             return res.status(401).send("Not Authorized")
         }
         const addNewOrder = await OrderModel.create(req.body);
-        return res.status(200).json({ order: addNewOrder, success:true });
+        const restaurant = await RestaurantModel.findById(req.body.restaurant);
+        const { email } = await UserModel.findById(restaurant.user);
+        await sendMail(email, 'Incoming order for you!!', `<h4>A new Order has arrived at your Restaurant, ${restaurant.name}:</h4><a href="https://restaurant-app-azure.vercel.app/restaurant/orders/${req.body.restaurant}">Manage it here</a>`)
+        return res.status(200).json({ order: addNewOrder, success: true });
     }
     catch (error) {
         return res.status(500).json({ message: error.message, success: false });
@@ -99,19 +102,30 @@ Router.put("/update/:_id", getUserStatus, async (req, res) => {
     try {
         await ValidateOrderId(req.params);
         const { _id } = req.params;
-        const {status} = req.body;
-        if (status!=='accepted' && status!=='rejected' && status!=="cancelled") {
-            return res.status(400).json({message :"Invalid Status"})
+        const { status } = req.body;
+        if (status !== 'accepted' && status !== 'rejected' && status !== "cancelled") {
+            return res.status(400).json({ message: "Invalid Status" })
         }
-        const updatedOrder = await OrderModel.findByIdAndUpdate(_id,{
-            $set:{
+
+        const updatedOrder = await OrderModel.findByIdAndUpdate(_id, {
+            $set: {
                 status
             }
-        },{
-            new:true
+        }, {
+            new: true
         })
 
-        return res.status(200).json({ message : "Order updated", success:true });
+        const user = await UserModel.findById(updatedOrder.user);
+        const restaurant = await RestaurantModel.findById(updatedOrder.restaurant);
+        const { email } = await UserModel.findById(restaurant.user);
+        if (status == "cancelled") {
+            await sendMail(email, 'Order Cancelled!!', `<h4>One of your  Orders has been cancelled by the user, ${user.userName}:</h4><a href="https://restaurant-app-azure.vercel.app/restaurant/orders/${updatedOrder.restaurant}">Check here</a>`)
+
+        }
+        else if(status=="accepted" || status=="rejected"){
+            await sendMail(user.email, `Order ${status}!!`, `<h4>Your Order has been ${status} by the the Restaurant, ${restaurant.name}:</h4><a href="https://our-foodapp.vercel.app/me/orders">Check here</a>`)
+        }
+        return res.status(200).json({ message: "Order updated", success: true });
 
 
     }
