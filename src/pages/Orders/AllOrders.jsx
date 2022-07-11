@@ -228,6 +228,9 @@ const AllOrders = () => {
                         {data?.user[0]?.address} <br />
                         {data?.user[0]?.city}
                       </p>
+                      <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                     </div>
                     <div className="flex gap-8">
                       <button
@@ -301,6 +304,9 @@ const AllOrders = () => {
                         {data?.user[0]?.address} <br />
                         {data?.user[0]?.city}
                       </p>
+                      <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                     </div>
                   </div>
                   else {
