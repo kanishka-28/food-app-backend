@@ -12,6 +12,7 @@ import {
 } from "../../Redux/Features/Loader/Slice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import Navbar from "../../Components/Navbar/Navbar";
 
 const AllOrders = () => {
   const [openTab, setOpenTab] = React.useState("D");
@@ -61,6 +62,7 @@ const AllOrders = () => {
 
   return (
     <>
+    <Navbar/>
       <div className=" md:w-3/4 mx-auto py-2 flex flex-col md:flex-row items-center gap-4 ">
         <h1 className="text-6xl font-bold text-center md:w-3/5 ">
           <span className="text-red-400">Orders for </span>{" "}
@@ -160,7 +162,7 @@ const AllOrders = () => {
               </a>
             </li>
           </ul>
-          <div className="mt-10 ">
+          <div className="mt-10 max-h-[600px] overflow-y-auto no-scrollbar">
             <div className={openTab === "D" ? "block" : "hidden"} id="link1">
               {acceptedorder?.length !== 0 ? (
                 acceptedorder?.map((data, i) => (
