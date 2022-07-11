@@ -7,7 +7,7 @@ export const resizeFile = (file) =>
       600,
       600,
       file.type.split('/')[1],
-      10,
+      20,
       0,
       (uri) => {
         resolve(uri);
