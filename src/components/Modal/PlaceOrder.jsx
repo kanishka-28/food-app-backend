@@ -7,12 +7,14 @@ import { user } from '../../redux/features/auth/selector/selector';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { servicePost } from '../../utlis/connection/api';
-
+import { setloadingFalse, setloadingTrue } from '../../redux/features/Loader/slice';
+import { useDispatch } from 'react-redux';
 export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
 
     const cancelButtonRef = useRef(null);
     const userDetails = useSelector(user);
     const [totalprice, settotalprice] = useState();
+    const dispatch = useDispatch();
     const [orderDetails, setorderDetails] = useState({
         food: foodDetails?._id,
         quantity: 1,
@@ -25,6 +27,7 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
     }, [foodDetails])
 
     const placeOrder = async () => {
+        dispatch(setloadingTrue());
         try {
             setopen(false)
             await servicePost(`order/new/${userDetails._id}`, {user: userDetails._id, restaurant: restaurant._id, orderDetails, itemTotal: (orderDetails.quantity * orderDetails.price)});
@@ -33,6 +36,7 @@ export default function OrderModal({ restaurant, foodDetails, open, setopen }) {
             console.log(error);
         }
         finally {
+            dispatch(setloadingFalse());
         }
     }
 

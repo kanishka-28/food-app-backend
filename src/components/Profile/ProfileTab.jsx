@@ -33,7 +33,7 @@ const ProfileTab = () => {
     dispatch(setloadingTrue());
     try {
       const { orders } = await serviceGet(`order/user/${userDetails._id}`);
-      console.log(orders);
+      
       setorders(orders);
     } catch (error) {
       toast.error(error.response.data.message);
