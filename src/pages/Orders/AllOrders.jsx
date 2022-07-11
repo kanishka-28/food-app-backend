@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { GiScooter, GiCampCookingPot, GiDiamondsSmile } from "react-icons/gi";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { GoSmiley } from "react-icons/go";
+import { IoMdSad } from "react-icons/io";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { serviceGet, servicePut } from "../../Utils/Api/Api";
 import {
@@ -11,6 +12,7 @@ import {
 } from "../../Redux/Features/Loader/Slice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import Navbar from "../../Components/Navbar/Navbar";
 
 const AllOrders = () => {
   const [openTab, setOpenTab] = React.useState("D");
@@ -60,6 +62,7 @@ const AllOrders = () => {
 
   return (
     <>
+    <Navbar/>
       <div className=" md:w-3/4 mx-auto py-2 flex flex-col md:flex-row items-center gap-4 ">
         <h1 className="text-6xl font-bold text-center md:w-3/5 ">
           <span className="text-red-400">Orders for </span>{" "}
@@ -159,7 +162,7 @@ const AllOrders = () => {
               </a>
             </li>
           </ul>
-          <div className="mt-10 ">
+          <div className="mt-10 max-h-[600px] overflow-y-auto no-scrollbar">
             <div className={openTab === "D" ? "block" : "hidden"} id="link1">
               {acceptedorder?.length !== 0 ? (
                 acceptedorder?.map((data, i) => (
@@ -228,6 +231,9 @@ const AllOrders = () => {
                         {data?.user[0]?.address} <br />
                         {data?.user[0]?.city}
                       </p>
+                      <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                     </div>
                     <div className="flex gap-8">
                       <button
@@ -301,7 +307,17 @@ const AllOrders = () => {
                         {data?.user[0]?.address} <br />
                         {data?.user[0]?.city}
                       </p>
+                      <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                     </div>
+                    <p className="text-red-600 font-bold">Rejected</p>
+
+                    <IoMdSad
+                          size={"2rem"}
+                          color={"red"}
+                          className="mr-4"
+                        />
                   </div>
                   else {
                     <div className="lg:w-3/4 bg-red-200 flex justify-between  border-b border-gray-200 shadow-lg p-2 align-center my-8">
@@ -320,7 +336,9 @@ const AllOrders = () => {
                         {data?.user[0]?.address} <br />
                         {data?.user[0]?.city} 
                       </p>
-                      
+                      <h4>
+                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                          </h4>
                     </div>
                     <p className="text-red-600 font-bold">Cancelled</p>
                   </div>

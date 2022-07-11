@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { signup } from "../../Redux/Features/Auth/Slice";
 import { useDispatch } from "react-redux";
 import SignupForm from "../../Components/Form/Signup";
+import { setloadingTrue } from "../../Redux/Features/Loader/Slice";
 // import { useDispatch } from "react-redux";
 // import { signup } from "../../redux/features/auth/slice";
 
@@ -28,6 +29,7 @@ export default function Signup() {
     else {
       delete data.cnfpass;
       data.status = "user";
+      dispatch(setloadingTrue());
       dispatch(signup(data));
       navigate('/home');
     }
