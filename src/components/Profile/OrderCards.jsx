@@ -14,6 +14,7 @@ const Product = ({ item, id }) => {
         try {
             await servicePut(`order/update/${item._id}`, {status: 'cancelled'})
             toast.success('Order cancelled successfully');
+            item.status= 'cancelled';
         } catch (error) {
             toast.error(error.response.data.message);
         }
