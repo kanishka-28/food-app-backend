@@ -10,11 +10,11 @@ export default function ForgotPass() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      toast.success(`Link to reset password will be sent to ${email}`);
       await serviceGet(`auth/forgot-pass?email=${email}&&type=user`);
+      toast.success(`Link to reset password will be sent to ${email}`);
       navigate('/auth/success')
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 

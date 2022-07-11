@@ -36,7 +36,7 @@ const ProfileDisclosure = () => {
                to={"/me"}
                 className={
                   (active ? "bg-gray-100" : "",
-                  " px-4 py-3 text-sm text-gray-700 w-full text-lg")
+                  " px-4 py-3  text-gray-700 w-full text-lg")
                 }
               >
                 My Profile
@@ -49,7 +49,7 @@ const ProfileDisclosure = () => {
                to={"/cart"}
                 className={
                   (active ? "bg-gray-100" : "",
-                  "block md:hidden px-4 py-3 text-sm text-gray-700 text-lg")
+                  "block md:hidden px-4 py-3  text-gray-700 text-lg")
                 }
               >
                 My Cart
@@ -64,7 +64,7 @@ const ProfileDisclosure = () => {
                 }}
                 className={
                   (active ? "bg-gray-100" : "",
-                  "block px-4 pb-1  text-gray-700 text-lg")
+                  "block px-4 pb-1 md:pt-2 text-gray-700 text-lg")
                 }
               >
                 Sign out
