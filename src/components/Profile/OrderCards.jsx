@@ -6,7 +6,6 @@ import { allRestaurants } from '../../redux/features/restaurants/selector';
 
 const Product = ({ item, id }) => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const restaurants = useSelector(allRestaurants);
     const [restaurant, setrestaurant] = useState(null);
@@ -16,9 +15,12 @@ const Product = ({ item, id }) => {
     }, [])
 
     return (
-        <div className="border-2 border-gray-200 p-3 shadow-lg w-72 items-center hover:bg-gray-100 mb-2">
-            <div onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-lg">{restaurant?.name}</div>
-            {item?.orderDetails?.map((data,i) => (
+        <div className="border-2 rounded-md border-gray-200 p-3 shadow-lg w-72 items-center hover:bg-gray-100 mb-2">
+            <div className='flex justify-between'>
+                <div onClick={() => navigate(`/restaurant/${id}`)} className="cursor-pointer text-red-500 text-lg">{restaurant?.name}</div>
+                <div className={`cursor-pointer rounded-full font-semibold ${item?.status=='pending' && 'bg-yellow-500'} ${item?.status=='accepted' && 'bg-green-500'} ${item?.status=='rejected' && 'bg-red-500'} px-2`}>{item?.status}</div>
+            </div>
+            {item?.orderDetails?.map((data, i) => (
                 <div key={i} className="pt-2">
                     <hr />
                     <div className="flex items-center gap-2 justify-between">
