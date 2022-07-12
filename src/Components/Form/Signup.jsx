@@ -7,6 +7,7 @@ const SignupForm = ({data, setdata, handleSubmit}) => {
     const [showPass, setshowPass] = useState(false);
 
     return (
+        <>
         <div className="mt-3 w-full text-center mr-0 md:mr-4 mb-8 ">
             <div className="flex  justify-center mb-8">
                 <h3 className="text-2xl leading-6 font-medium text-gray-900">
@@ -117,6 +118,8 @@ const SignupForm = ({data, setdata, handleSubmit}) => {
                 </Link>
             </div>
         </div>
+           
+        </>
     )
 }
 
