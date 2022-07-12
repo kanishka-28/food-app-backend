@@ -10,6 +10,7 @@ import {
 import Loader from "./Components/Loader/Loader";
 import Navbar from "./Components/Navbar/Navbar";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import SuccessTick from "./pages/Auth/Success";
 import AuthWrapper from "./pages/Auth/AuthWrapper";
 import ForgetPass from "./pages/Auth/ForgetPass";
 import Login from "./pages/Auth/Login";
@@ -26,6 +27,7 @@ import { loading } from "./Redux/Features/Loader/Selector/Selector";
 import { setloadingTrue } from "./Redux/Features/Loader/Slice";
 import { useRestaurants } from "./Utils/Functions/getRestaurants";
 import ScrollToTop from "./Utils/Functions/ScrollToTop";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +63,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="forget" element={<ForgetPass />} />
             <Route path="reset" element={<ResetPass />} />
+            <Route path="success" element={<SuccessTick />} />
           </Route>
           <Route path="/about" element={<Navbar />} >
             <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

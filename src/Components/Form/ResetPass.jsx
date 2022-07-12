@@ -47,8 +47,8 @@ const ResetPassForm = ({ data, setdata, handleSubmit }) => {
                 type={!showCnfPass ? "password" : "text"}
                 placeholder="Confirm New Password"
                 className="text-center  w-full h-12 "
-                onChange={(e) => setdata({ ...data, password: e.target.value })}
-                value={data.password}
+                onChange={(e) => setdata({ ...data, cnfPass: e.target.value })}
+                value={data.cnfPass}
               />
               <div
                 className="cursor-pointer px-2"
@@ -70,14 +70,13 @@ const ResetPassForm = ({ data, setdata, handleSubmit }) => {
               Change Password
             </button>
           </form>
-          <Link
-            to={"/auth/signup"}
-            className="flex font-semibold text-zomato-500 text-sm mt-10 cursor-pointer"
-          >
-            New user? Create an account
-          </Link>
+
         </div>
       </div>
+         
+          <Link to={'/'} className='p-4 bg-blue-500 rounded-lg text-white font-semibold'>
+            Go back
+        </Link>
     </div>
   );
 };
