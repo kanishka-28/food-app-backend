@@ -1,25 +1,31 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "../../Redux/Features/Auth/Slice";
+import { Link,useNavigate } from "react-router-dom";
+import { serviceGet } from "../../Utils/Api/Api";
+import toast from "react-hot-toast";
+
 import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 import ForgetPassForm from "../../Components/Form/ForgetPass";
+import { useDispatch } from "react-redux";
 
 export default function ForgetPass() {
- 
+ const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [data, setdata] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setemail] = useState();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(setloadingTrue());
-    await dispatch(login(data))
-    dispatch(setloadingFalse());
-    navigate('/home');
+    try {
+      await serviceGet(`auth/forgot-pass?email=${email}&&type=restaurant`);
+      toast.success(`Link to reset password will be sent to ${email}`);
+      navigate('/auth/success')
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally{
+      dispatch(setloadingFalse());
+    }
   };
 
   return (
@@ -27,7 +33,7 @@ export default function ForgetPass() {
       <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg mx-4 w-full    ">
         <div className="bg-white px-4 pt-5 ">
           <div className="sm:flex sm:items-start ">
-            <ForgetPassForm data={data} setdata={setdata} handleSubmit={handleSubmit}/>
+            <ForgetPassForm email={email} setemail={setemail} handleSubmit={handleSubmit}/>
           </div>
         </div>
       </div>

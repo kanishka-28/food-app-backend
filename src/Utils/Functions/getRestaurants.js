@@ -20,8 +20,8 @@ export const useRestaurants = () => {
      
         dispatch(storeAllRestaurants(restaurants));
       } catch (error) {
-        console.log( error?.response?.data?.message );
-        // toast.error(error?.response?.data?.message)
+        // console.log( error?.response?.data?.message );
+        toast.error(error?.response?.data?.message)
       }
       finally {
         dispatch(setloadingFalse());
@@ -29,7 +29,7 @@ export const useRestaurants = () => {
     }
   
     useEffect(() => {
-      if (ready  ) {
+      if (ready) {
         getAllRestaurants();
       }
     }, [ready,user])

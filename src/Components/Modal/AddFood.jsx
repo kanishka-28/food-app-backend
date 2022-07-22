@@ -47,7 +47,8 @@ export default function AddFoodModal() {
         setDetails({ ...details, photo: image });  
     };
 
-    const handleClick = async () => {
+    const handleClick = async (e) => {
+        e.preventDefault();
         try {
             const res = await servicePost(`food/add/${id}`, details)
             console.log(res);

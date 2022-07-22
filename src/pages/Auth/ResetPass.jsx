@@ -1,25 +1,43 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/Features/Auth/Slice";
 import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 import ResetPassForm from "../../Components/Form/ResetPass";
+import toast from "react-hot-toast";
+import { servicePut } from "../../Utils/Api/Api";
 
 export default function ResetPass() {
  
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const query = new URLSearchParams(location.search);
+  const token = query.get('token')
+  const [showNewPass, setshowNewPass] = useState(false);
+  const [showCnfPass, setshowCnfPass] = useState(false);
   const [data, setdata] = useState({
-    email: "",
     password: "",
+    cnfPass: "",
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(setloadingTrue());
-    await dispatch(login(data))
-    dispatch(setloadingFalse());
-    navigate('/home');
+    if (data.password !== data.cnfPass) {
+      toast.error(`Password and confirm password should match`);
+      return;
+    }
+    if (data.password.length < 8) {
+      toast.error(`Password length should be greater than 7`);
+      return;
+    }
+    try {
+      await servicePut(`auth/reset-pass`, { token, pass: data.password });
+      toast.success(`Password reset successfully`);
+      navigate('/auth/login');
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
@@ -29,6 +47,7 @@ export default function ResetPass() {
           <div className="sm:flex sm:items-start ">
             <ResetPassForm data={data} setdata={setdata} handleSubmit={handleSubmit}/>
           </div>
+          
         </div>
       </div>
     </div>

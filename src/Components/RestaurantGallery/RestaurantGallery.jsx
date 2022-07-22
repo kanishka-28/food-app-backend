@@ -82,7 +82,7 @@ const RestaurantGallery = ({ requiredRestaurant,uploadedImages }) => {
                             </div>
                         </RWebShare>
                     </div>
-                    <Link to={'/about/orders'}>
+                    <Link state={{requiredRestaurant}} to={`/restaurant/orders/${requiredRestaurant?._id}`}>
                         <button className='cursor-pointer px-3 h-10 text-center rounded  py-1 bg-white flex justify-center items-center gap-2 hover:scale-110 ease-in duration-200 bg-gradient-to-r from-[#ff7f7f] to-[#fc5184]text-white'><p>Go To My Orders</p><MdArrowRightAlt size={'2rem'} /></button>
                     </Link>
                 </div>

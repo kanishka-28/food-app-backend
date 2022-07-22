@@ -18,7 +18,6 @@ export default function Login() {
     event.preventDefault();
     dispatch(setloadingTrue());
     await dispatch(login(data))
-    dispatch(setloadingFalse());
     navigate('/home');
   };
 
