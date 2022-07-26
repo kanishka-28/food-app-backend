@@ -9,14 +9,14 @@ const Footer = () => {
                     <div>
                         <div className="mb-6">
                             <h4>
-                                Want to add your own resraurant !
+                                Explore all restaurants near you!
                             </h4>
                         </div>
                         <div className="flex items-center gap-3 mb-6">
                             <FaHandPointRight size={'2rem'} color='red' />
                             <h3 onClick={() => {
                                 window.open(
-                                    `https://restaurant-app-azure.vercel.app/`,
+                                    `https://our-foodapp.vercel.app/home/delivery`,
                                     "_blank"
                                 );
                             }} className="cursor-pointer hover:text-megenta-500">
