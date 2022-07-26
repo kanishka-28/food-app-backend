@@ -44,7 +44,7 @@ const RestaurantCards = ({ restaurant }) => {
                             <p className="text-gray-700 text-base">
                                 {restaurant.timing ? restaurant.timing : 'Full time'}
                             </p>
-                            <RatingStars value={Math.round(restaurant.reviews[0]?.avgRating)} />
+                            <RatingStars value={Math.round(restaurant?.reviews?.size==1 &&restaurant?.reviews[0]?.avgRating)} />
                         </div>
                         <p className="text-gray-500 text-base">
                             {restaurant.address}
