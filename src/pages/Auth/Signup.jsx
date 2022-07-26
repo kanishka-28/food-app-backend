@@ -44,12 +44,12 @@ export default function Signup() {
               handleSubmit={handleSubmit}
             />
           </div>
-          <Link
+          {/* <Link
             to={"/"}
             className="p-4 bg-blue-500 rounded-lg text-white font-semibold"
           >
             Go back
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

@@ -69,9 +69,9 @@ const LoginForm = ({ data, setdata, handleSubmit }) => {
                 </div>
         </div>
       </div>
-        <Link to={'/'} className='p-4 bg-blue-500 rounded-lg text-white font-semibold'>
+        {/* <Link to={'/'} className='p-4 bg-blue-500 rounded-lg text-white font-semibold'>
             Go back
-        </Link>
+        </Link> */}
     </div>
   );
 };
