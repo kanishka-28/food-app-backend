@@ -24,7 +24,7 @@ Router.get('/', async (req, res) => {
    try {
       const { latitude, longitude, email } = req.query;
       let user;
-      if (email !== undefined) {
+      if (email) {
          user = await UserModel.findOne({ email });
       }
       if (user?.city) {
@@ -33,24 +33,27 @@ Router.get('/', async (req, res) => {
          // const restaurants = await RestaurantModel.find({ city }).select("-menuImage -photos").sort({ updatedAt: -1 });
          const restaurants = await getRestaurantFromCity(city);
          if (restaurants.length === 0) {
-            res.status(404).json({ message: "No restaurants found near you", success: false })
+            return res.status(404).json({ message: "No restaurants found near you", success: false })
          }
          return res.status(200).json({ restaurants, success: true });
       }
       else {
          // const restaurants = await RestaurantModel.find().select("-menuImage -photos").sort({ updatedAt: -1 });
          const restaurants = await getRestaurantFromLocation();
-
          const newrestaurants = restaurants.filter(restaurant => (
             getDistanceFromLatLonInKm(restaurant.mapLocation.latitude, restaurant.mapLocation.longitude, latitude, longitude) < 500// radius of 3 km is too low
-         ));
-         if (newrestaurants.length === 0) {
+            ));
+           
+            if (newrestaurants.length === 0) {
             return res.status(404).json({ message: "No restaurants found near you", success: false })
-         }
-         return res.json({ restaurants: newrestaurants, success: true });
+            }
+          
+         return res.status(200).json({ restaurants: newrestaurants, success: true });
       }
+     
    }
    catch (error) {
+      console.log(error.message);
       return res.status(500).json({ message: error.message, success: false });
    }
 })
