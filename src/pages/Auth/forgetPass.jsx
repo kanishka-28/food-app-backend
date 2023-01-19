@@ -2,19 +2,24 @@ import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { serviceGet } from "../../utlis/connection/api";
 import toast from "react-hot-toast";
-
+import { useDispatch } from "react-redux";
+import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
 export default function ForgotPass() {
   const navigate = useNavigate();
   const [email, setemail] = useState();
-
+  const dispatch = useDispatch()
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(setloadingTrue());
     try {
       await serviceGet(`auth/forgot-pass?email=${email}&&type=user`);
       toast.success(`Link to reset password will be sent to ${email}`);
       navigate('/auth/success')
     } catch (error) {
       toast.error(error.response.data.message);
+    }
+    finally{
+      dispatch(setloadingFalse());
     }
   };
 
