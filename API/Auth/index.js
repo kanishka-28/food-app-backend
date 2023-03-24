@@ -130,7 +130,7 @@ Router.get("/google/callback", passport.authenticate("google", {
   try {
     res.set('Access-Control-Allow-Origin', 'https://our-foodapp.vercel.app/');
     const token = req.session.passport.user.token;
-    res.redirect(`https://food-app-backend-production-81c6.up.railway.app/auth/google/${token}`);
+    res.redirect(`https://our-foodapp.vercel.app/auth/google/${token}`);
     //  res.json({token: req.session.passport.user.token, success:true, user: req.session.passport.user.user});
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
