@@ -73,7 +73,6 @@ export const signup = createAsyncThunk("auth/signup", async (values) => {
         const res = await servicePost('auth/signup', { credentials: { ...values } })
         const { user, token, success } = res
         if (success) {
-
             const { userName = '' } = user
             toast.success(`Hey ${userName} Welcome `, {
                 duration: 4000

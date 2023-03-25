@@ -23,7 +23,7 @@ export default function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (data.password !== data.cnfpass) {
-      toast.error("Password Not Equal");
+      toast.error("Password and confirm password should match.");
     } else {
       delete data.cnfpass;
       data.status = "user";
