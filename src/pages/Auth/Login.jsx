@@ -14,7 +14,7 @@ export default function Login() {
   });
 
   const googleLogin = async () => {
-    window.location.replace('https://our-food-app.herokuapp.com/auth/google')
+    window.location.replace('https://food-app-backend-production-81c6.up.railway.app/auth/google')
   }
 
   const handleSubmit = async (event) => {
