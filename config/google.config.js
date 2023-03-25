@@ -11,7 +11,7 @@ export default (passport)=>{
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://our-food-app.herokuapp.com/auth/google/callback"
+            callbackURL: "https://food-app-backend-production-81c6.up.railway.app/auth/google/callback"
         },
         async (accessToken, refreshToken, profile, done)=>{
             //creating a new user 
