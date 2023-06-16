@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVICE_URL = "https://food-app-backend-production-81c6.up.railway.app";
+const SERVICE_URL = "https://food-app-backend-production-060c.up.railway.app";
 // const SERVICE_URL = "https://our-food-app.herokuapp.com";
 // const SERVICE_URL = "http://localhost:4000";
 
