@@ -14,7 +14,7 @@ export default function Login() {
   });
 
   const googleLogin = async () => {
-    window.location.replace('https://food-app-backend-production-81c6.up.railway.app/auth/google')
+    window.location.replace('https://food-app-backend-production-060c.up.railway.app/auth/google')
   }
 
   const handleSubmit = async (event) => {
