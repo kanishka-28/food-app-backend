@@ -19,7 +19,6 @@ const ProfileTab = () => {
     dispatch(setloadingTrue());
     try {
       const { reviews } = await serviceGet(`review/user/${userDetails._id}`);
-
       setreviews(reviews);
     } catch (error) {
       toast.error(error.response.data.message);
