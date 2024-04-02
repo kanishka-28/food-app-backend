@@ -1,5 +1,5 @@
 import express from "express";
-import { ReviewModal } from "../../database/reviews";
+import { ReviewModal } from "../../models/reviews";
 import { ValidateRestaurantId } from "../../validation/restaurant";
 import { ValidateUserId } from "../../validation/user";
 import getUserStatus from "../../middlewares/getUserStatus";

@@ -111,11 +111,11 @@ Router.get('/user', getUserStatus, async (req, res) => {
    }
 })
 /* 
-    Route    /:id
-    Des      Get particular Restaurant details on id
-    Params    id
-    Access    Public
-    Method   Get
+   Route    /:id
+   Des      Get particular Restaurant details on id
+   Params   id
+   Access   Public
+   Method   Get
  */
 
 Router.get('/:id', async (req, res) => {
@@ -178,7 +178,6 @@ Router.post("/addrest", getUserStatus, async (req, res) => {
       data.city = data.city.toLowerCase();
       if (data.user == req.user._id.toString()) {
          const check = await RestaurantModel.find({ user: req.user._id, name: req.body.name, city: req.body.city });
-
          if (check.length !== 0) {
             return res.status(409).json({ message: "restaurant already exists", success: false })
          }
@@ -188,7 +187,6 @@ Router.post("/addrest", getUserStatus, async (req, res) => {
       else {
          throw new Error("Not authorized");
       }
-
    }
    catch (error) {
       return res.status(500).json({ message: error.message, success: false });

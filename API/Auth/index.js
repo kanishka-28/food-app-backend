@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 const Router = express.Router();
 
 //models
-import { UserModel } from "../../database/user/index";
+import { UserModel } from "../../models/user/index";
 import getUserStatus from '../../middlewares/getUserStatus';
 
 //validation
@@ -134,7 +134,6 @@ Router.get("/google/callback", passport.authenticate("google", {
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
   }
-
 });
 
 

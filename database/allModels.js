@@ -1,8 +1,8 @@
-import {FoodModel} from "./food"
-import {OrderModel} from "./order";
-import {RestaurantModel} from "./restaurant";
-import {UserModel} from "./user";
-import {ReviewModal} from "./reviews";
+import {FoodModel} from "../models/food"
+import {OrderModel} from "../models/order";
+import {RestaurantModel} from "../models/restaurant";
+import {UserModel} from "../models/user";
+import {ReviewModal} from "../models/reviews";
 
 
 

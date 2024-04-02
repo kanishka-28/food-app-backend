@@ -1,7 +1,7 @@
 //Libraries
 
 import express from 'express';
-import { RestaurantModel } from '../../database/restaurant';
+import { RestaurantModel } from '../../models/restaurant';
 import getUserStatus from '../../middlewares/getUserStatus';
 
 //databse model

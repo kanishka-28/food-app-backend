@@ -1,5 +1,5 @@
 import { verify } from "jsonwebtoken";
-import { UserModel } from "../database/user";
+import { UserModel } from "../models/user";
 
 const getUserStatus = async (req, res, next) => {
 
