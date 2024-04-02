@@ -30,9 +30,7 @@ export default function RestaurantDetailsForm({
     })
     if (navigator.geolocation) {
     dispatch(setloadingTrue());
-        
       await navigator.geolocation.getCurrentPosition(showPos, showErr);
-  
       function showPos(position) {
         toast.success("Location Found", {
           icon: '🍔'
