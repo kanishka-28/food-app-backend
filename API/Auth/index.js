@@ -61,6 +61,7 @@ Router.post("/signup", async (req, res) => {
       //JWT AUth Token
       const token = newUser.generateJwtToken();
 
+      // return res.status(200).json({ token, success: true, user: user });
       return res.status(200).json({ token, user: newUser, success: true });
     }
     throw new Error('User Already Exists');
@@ -83,9 +84,8 @@ method    post
 
 Router.post("/signin", async (req, res) => {
   try {
-    const { password, email } = req.body.credentials;
-    await ValidateSignin(req.body.credentials);
-
+    const { password, email } = req.body.credentials; 
+    // await ValidateSignin(req.body.credentials);
     let user = await UserModel.findByEmailAndPassword({ email, password });
     user.password = null;
     //JWT AUth Token

@@ -5,7 +5,7 @@ export const ValidateSignup = (userData) => {
   const Schema = joi.object({
     userName: joi.string(),
     email: joi.string().email(),
-    password: joi.string(),
+    password: joi.string().min(5).required(),
     address: joi.string(),
     city: joi.string(),
     status: joi.string(),
@@ -18,7 +18,7 @@ export const ValidateSignin = (userData) => {
 
 const Schema = joi.object({
   userName: joi.string(),
-  password: joi.string().min(5).required(),
+  password: joi.string().required,
   email : joi.string().required()
 });
 
