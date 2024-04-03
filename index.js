@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from 'helmet';
 import passport from 'passport'
+import serverless from 'serverless-http'
 
 //config 
 import googleAuthConfig from "./config/google.config";
@@ -17,11 +18,11 @@ import Images from "./API/RestaurantPhotos";
 import Reviews from "./API/Review";
 //env variable
 require("dotenv").config();
-
 //database connection
 import ConnectDB from "./database/connection";
 import routeConfig from "./config/route.config";
 
+const Router = express.Router();
 
 const zomato = express();
 zomato.use(express.json({ limit: '50mb' }));
@@ -76,3 +77,6 @@ zomato.listen(PORT, () =>
         console.log("Server is up and running"))
         .catch(() => console.log("DB connection failed"))
 );
+
+zomato.use('/.netlify/functions/api', Router);
+module.exports.handler = serverless(zomato);
