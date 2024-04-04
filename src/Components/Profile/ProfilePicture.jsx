@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { servicePut } from "../../Utils/Api/Api";
+import { servicePut } from "../../Utils/Api/api";
 import { updateUser } from "../../Redux/Features/Auth/Slice";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";

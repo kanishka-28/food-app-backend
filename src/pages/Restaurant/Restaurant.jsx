@@ -5,7 +5,7 @@ import FoodTab from "../../Components/FoodTab";
 import Navbar from "../../Components/Navbar/Navbar";
 import RestaurantGallery from "../../Components/RestaurantGallery/RestaurantGallery";
 import { allRestaurants } from "../../Redux/Features/Restaurant/Selector/Selector";
-import { serviceGet } from "../../Utils/Api/Api";
+import { serviceGet } from "../../Utils/Api/api";
 import TabComponent from "./TabComponents";
 
 const Restaurant = () => {

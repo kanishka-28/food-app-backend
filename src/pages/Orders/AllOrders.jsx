@@ -5,7 +5,7 @@ import { IoTrashBinSharp } from "react-icons/io5";
 import { GoSmiley } from "react-icons/go";
 import { IoMdSad } from "react-icons/io";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { serviceGet, servicePut } from "../../Utils/Api/Api";
+import { serviceGet, servicePut } from "../../Utils/Api/api";
 import {
   setloadingFalse,
   setloadingTrue,
@@ -31,7 +31,7 @@ const AllOrders = () => {
       const { orders } = await serviceGet(`order/res/${id}`);
       console.log(orders);
       setorder(orders);
-     
+
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -39,55 +39,54 @@ const AllOrders = () => {
     }
   };
 
-  
-  useEffect(() => {
-    setacceptedorder(order?.filter(e=>e.status=='accepted'));
-      setrejectedorder(order?.filter(e=>e.status=='rejected' || e.status=='cancelled'));
-      setpendingorder(order?.filter(e=>(e.status=='pending')));
-  }, [order])
-  
 
   useEffect(() => {
-   console.log(acceptedorder);
+    setacceptedorder(order?.filter(e => e.status == 'accepted'));
+    setrejectedorder(order?.filter(e => e.status == 'rejected' || e.status == 'cancelled'));
+    setpendingorder(order?.filter(e => (e.status == 'pending')));
+  }, [order])
+
+
+  useEffect(() => {
+    console.log(acceptedorder);
   }, [acceptedorder])
-  
+
   useEffect(() => {
     if (!state?.requiredRestaurant) {
       navigate("/");
     }
     getOrders();
 
- 
+
   }, []);
 
   return (
     <>
-    <Navbar/>
-      <div className=" md:w-3/4 mx-auto py-2 flex flex-col md:flex-row items-center gap-4 ">
-        <h1 className="text-6xl font-bold text-center md:w-3/5 ">
-          <span className="text-red-400">Orders for </span>{" "}
+      <Navbar />
+      <div className=" md:w-3/4 py-2 flex flex-col md:flex-row items-center gap-4 ">
+        <h4 className="text-2xl pr-8 font-bold text-center md:w-3/5 ">
+          <span className="">Orders for </span>{" "}
           {state?.requiredRestaurant?.name}
-        </h1>
+        </h4>
         <div className="flex justify-center">
-          <img
+          {/* <img
             src={state?.requiredRestaurant?.coverImage}
             alt="restaurant image"
             className="rounded-lg object-cover"
-          />
+          /> */}
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center  mx-auto md:w-3/4 ">
+      <div className="flex flex-wrap justi md:w-3/4 ">
         <div className=" w-full ">
           <ul
-            className="flex justify-center gap-8 md:gap-20 mb-0 text-xl pt-6 text-gray-500 overflow-x-auto no-scrollbar"
+            className="flex justify-evenly gap-8 md:gap-20 mb-0 text-xl pt-6 text-gray-500 overflow-x-auto no-scrollbar"
             role="tablist"
           >
             <li
-              className={`hover:text-zomato-500 text-center pb-2 ${
-                openTab === "D" &&
+              className={`hover:text-zomato-500 text-center pb-2 ${openTab === "D" &&
                 "text-zomato-400 border-b-2 border-zomato-400"
-              }`}
+                }`}
             >
               <a
                 className={
@@ -110,10 +109,9 @@ const AllOrders = () => {
               </a>
             </li>
             <li
-              className={`hover:text-zomato-500 text-center pb-2 ${
-                openTab === "P" &&
+              className={`hover:text-zomato-500 text-center pb-2 ${openTab === "P" &&
                 "text-zomato-400 border-b-2 border-zomato-400"
-              }`}
+                }`}
             >
               <a
                 className={
@@ -136,10 +134,9 @@ const AllOrders = () => {
               </a>
             </li>
             <li
-              className={`hover:text-zomato-500 text-center pb-2 ${
-                openTab === "R" &&
+              className={`hover:text-zomato-500 text-center pb-2 ${openTab === "R" &&
                 "text-zomato-400 border-b-2 border-zomato-400"
-              }`}
+                }`}
             >
               <a
                 className={
@@ -166,43 +163,43 @@ const AllOrders = () => {
             <div className={openTab === "D" ? "block" : "hidden"} id="link1">
               {acceptedorder?.length !== 0 ? (
                 acceptedorder?.map((data, i) => (
-                 
-                      <div
-                        key={data}
-                        className="bg-green-200 my-2 mx-auto lg:w-3/4 flex justify-between border-b border-gray-200 shadow-lg px-2 align-center py-6"
-                      >
-                        <div >
-                          <div className="max-h-20 overflow-y-auto no-scrollbar ">
-                          {data?.orderDetails?.map((v, i) => (
-                            <h4 key={i}>
-                              {data?.foodItems[i].name}{" "}
-                              <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
-                            </h4>
-                          ))}
-                          </div>
-                          
-                          <h4 className="font-semibold">
-                            Total - ₹ {data?.itemTotal}
+
+                  <div
+                    key={data}
+                    className="bg-green-200 my-2 mx-auto lg:w-3/4 flex justify-between border-b border-gray-200 shadow-lg px-2 align-center py-6"
+                  >
+                    <div >
+                      <div className="max-h-20 overflow-y-auto no-scrollbar ">
+                        {data?.orderDetails?.map((v, i) => (
+                          <h4 key={i}>
+                            {data?.foodItems[i].name}{" "}
+                            <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
                           </h4>
-                          <p className="text-gray-600">
-                            Delivering To - {data?.user[0]?.userName} <br />
-                            {data?.user[0]?.address} <br />
-                            {data?.user[0]?.city}
-                          </p>
-                          <h4>
-                            Ordered at - {new Date(data?.createdAt).toDateString()}
-                          </h4>
-                        </div>
-                        <GoSmiley
-                          size={"2rem"}
-                          color={"green"}
-                          className="mr-4"
-                        />
+                        ))}
                       </div>
-                   
+
+                      <h4 className="font-semibold">
+                        Total - ₹ {data?.itemTotal}
+                      </h4>
+                      <p className="text-gray-600">
+                        Delivering To - {data?.user[0]?.userName} <br />
+                        {data?.user[0]?.address} <br />
+                        {data?.user[0]?.city}
+                      </p>
+                      <h4>
+                        Ordered at - {new Date(data?.createdAt).toDateString()}
+                      </h4>
+                    </div>
+                    <GoSmiley
+                      size={"2rem"}
+                      color={"green"}
+                      className="mr-4"
+                    />
+                  </div>
+
                 ))
               ) : (
-                <div className="text-center bg-yellow-100 border border-dashed border-gray-400 p-2 ">
+                <div className="text-center bg-yellow-100 border border-dashed border-gray-400 p-2 mx-auto md:w-3/4 ">
                   this restaurant does not have any delivered orders
                 </div>
               )}
@@ -215,14 +212,14 @@ const AllOrders = () => {
                     className="bg-yellow-100 my-2 mx-auto lg:w-3/4 flex justify-between items-center border-b border-gray-200 shadow-lg px-2 align-center py-6"
                   >
                     <div>
-                    <div className="max-h-20 overflow-y-auto no-scrollbar ">
-                          {data?.orderDetails?.map((v, i) => (
-                            <h4 key={i}>
-                              {data?.foodItems[i].name}{" "}
-                              <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
-                            </h4>
-                          ))}
-                          </div>
+                      <div className="max-h-20 overflow-y-auto no-scrollbar ">
+                        {data?.orderDetails?.map((v, i) => (
+                          <h4 key={i}>
+                            {data?.foodItems[i].name}{" "}
+                            <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
+                          </h4>
+                        ))}
+                      </div>
                       <h4 className="font-semibold">
                         Total - ₹ {data?.itemTotal}
                       </h4>
@@ -232,22 +229,22 @@ const AllOrders = () => {
                         {data?.user[0]?.city}
                       </p>
                       <h4>
-                            Ordered at - {new Date(data?.createdAt).toDateString()}
-                          </h4>
+                        Ordered at - {new Date(data?.createdAt).toDateString()}
+                      </h4>
                     </div>
                     <div className="flex gap-8">
                       <button
-                        onClick={async() => {
+                        onClick={async () => {
                           dispatch(setloadingTrue());
                           try {
-                              const {message} = await servicePut(`order/update/${data?._id}`,{status :"accepted"})
-                              toast.success("Order Accepted");
-                              setpendingorder(pendingorder?.filter(e=> e._id !== data?._id));
-                              setacceptedorder([data, ...acceptedorder]);
+                            const { message } = await servicePut(`order/update/${data?._id}`, { status: "accepted" })
+                            toast.success("Order Accepted");
+                            setpendingorder(pendingorder?.filter(e => e._id !== data?._id));
+                            setacceptedorder([data, ...acceptedorder]);
                           } catch (error) {
                             toast.error(error.response.data.message);
                           }
-                          finally{
+                          finally {
                             dispatch(setloadingFalse());
                           }
                         }}
@@ -256,17 +253,17 @@ const AllOrders = () => {
                         Accept Order
                       </button>
                       <button
-                        onClick={async() => {
+                        onClick={async () => {
                           dispatch(setloadingTrue());
                           try {
-                              const {message} = await servicePut(`order/update/${data?._id}`,{status :"rejected"})
-                              toast.success("Order Rejected");
-                              setpendingorder(pendingorder?.filter(e=> e._id !== data?._id));
-                              setrejectedorder([{...data,status: "rejected"}, ...rejectedorder]);
+                            const { message } = await servicePut(`order/update/${data?._id}`, { status: "rejected" })
+                            toast.success("Order Rejected");
+                            setpendingorder(pendingorder?.filter(e => e._id !== data?._id));
+                            setrejectedorder([{ ...data, status: "rejected" }, ...rejectedorder]);
                           } catch (error) {
                             toast.error(error.response.data.message);
                           }
-                          finally{
+                          finally {
                             dispatch(setloadingFalse());
                           }
                         }}
@@ -278,74 +275,74 @@ const AllOrders = () => {
                   </div>
                 ))
               ) : (
-                <div className="flex justify-between items-center bg-yellow-100 border border-dashed border-gray-400 p-2 align-center">
-                  this restaurant does not have any pending orders
+                <div className="text-center bg-yellow-100 border border-dashed border-gray-400 p-2 mx-auto md:w-3/4 ">
+                  This restaurant does not have any pending orders
                 </div>
               )}
-              
+
             </div>
             <div className={openTab === "R" ? "block" : "hidden"} id="link1">
               {rejectedorder.length !== 0 ? (
                 rejectedorder.map((data) => {
-                  if(data.status === "rejected")
-                  return  <div
-                    key={data}
-                    className="bg-red-200 my-2 mx-auto lg:w-3/4 flex justify-between border-b border-gray-200 shadow-lg px-2 align-center py-6"
-                  >
-                    <div>
-                      {data?.orderDetails?.map((v, i) => (
-                        <h4>
-                          {data?.foodItems[i].name}{" "}
-                          <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
-                        </h4>
-                      ))}
-                      <h4 className="font-semibold">
-                        Total - ₹ {data?.itemTotal}
-                      </h4>
-                      <p className="text-gray-600">
-                        Delivering To - {data?.user[0]?.userName} <br />
-                        {data?.user[0]?.address} <br />
-                        {data?.user[0]?.city}
-                      </p>
-                      <h4>
-                            Ordered at - {new Date(data?.createdAt).toDateString()}
+                  if (data.status === "rejected")
+                    return <div
+                      key={data}
+                      className="bg-red-200 my-2 mx-auto lg:w-3/4 flex justify-between border-b border-gray-200 shadow-lg px-2 align-center py-6"
+                    >
+                      <div>
+                        {data?.orderDetails?.map((v, i) => (
+                          <h4>
+                            {data?.foodItems[i].name}{" "}
+                            <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span>
                           </h4>
-                    </div>
-                    <p className="text-red-600 font-bold">Rejected</p>
+                        ))}
+                        <h4 className="font-semibold">
+                          Total - ₹ {data?.itemTotal}
+                        </h4>
+                        <p className="text-gray-600">
+                          Delivering To - {data?.user[0]?.userName} <br />
+                          {data?.user[0]?.address} <br />
+                          {data?.user[0]?.city}
+                        </p>
+                        <h4>
+                          Ordered at - {new Date(data?.createdAt).toDateString()}
+                        </h4>
+                      </div>
+                      <p className="text-red-600 font-bold">Rejected</p>
 
-                    <IoMdSad
-                          size={"2rem"}
-                          color={"red"}
-                          className="mr-4"
-                        />
-                  </div>
+                      <IoMdSad
+                        size={"2rem"}
+                        color={"red"}
+                        className="mr-4"
+                      />
+                    </div>
                   else {
                     <div className="lg:w-3/4 bg-red-200 flex justify-between  border-b border-gray-200 shadow-lg p-2 align-center my-8">
-                     <div>
-                      {
-                        data?.orderDetails?.map((v,i)=>
-                          <h4>{data?.foodItems[i].name} <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span></h4>
-                        )
-                      }
-                      <h4 className="font-semibold">
-                         Total - ₹ {data?.itemTotal}
-                        
-                      </h4>
-                      <p className="text-gray-600">
-                        Delivering To - {data?.user[0]?.userName} <br />
-                        {data?.user[0]?.address} <br />
-                        {data?.user[0]?.city} 
-                      </p>
-                      <h4>
-                            Ordered at - {new Date(data?.createdAt).toDateString()}
-                          </h4>
+                      <div>
+                        {
+                          data?.orderDetails?.map((v, i) =>
+                            <h4>{data?.foodItems[i].name} <span className="font-semibold">{`${v?.quantity} X ${v.price}`}</span></h4>
+                          )
+                        }
+                        <h4 className="font-semibold">
+                          Total - ₹ {data?.itemTotal}
+
+                        </h4>
+                        <p className="text-gray-600">
+                          Delivering To - {data?.user[0]?.userName} <br />
+                          {data?.user[0]?.address} <br />
+                          {data?.user[0]?.city}
+                        </p>
+                        <h4>
+                          Ordered at - {new Date(data?.createdAt).toDateString()}
+                        </h4>
+                      </div>
+                      <p className="text-red-600 font-bold">Cancelled</p>
                     </div>
-                    <p className="text-red-600 font-bold">Cancelled</p>
-                  </div>
                   }
                 })
               ) : (
-                <div className="text-center bg-yellow-100 border border-dashed border-gray-400 p-2 ">
+                <div className="text-center bg-yellow-100 border border-dashed border-gray-400 p-2 mx-auto md:w-3/4 ">
                   No Rejected Order
                 </div>
               )}

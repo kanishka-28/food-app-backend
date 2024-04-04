@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 import { isReady,getUser, isAuthenticated } from "../../Redux/Features/Auth/Selector/Selector";
 import { storeAllRestaurants } from "../../Redux/Features/Restaurant/Slice";
-import { serviceGet } from "../Api/Api";
+import { serviceGet } from "../Api/api";
 
 export const useRestaurants = () => {
   

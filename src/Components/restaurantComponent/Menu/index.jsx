@@ -6,7 +6,7 @@ import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
-import { serviceGet, servicePut } from '../../../Utils/Api/Api';
+import { serviceGet, servicePut } from '../../../Utils/Api/api';
 import { resizeFile } from '../../../Utils/Functions/imageResizer';
 import FullImageModal from '../../Modal/Fullimage';
 

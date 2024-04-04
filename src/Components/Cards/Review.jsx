@@ -1,7 +1,7 @@
 import React from 'react'
 import RatingStars from '../Stars/RatingStars'
 import { ImBin } from 'react-icons/im'
-import { serviceDelete } from '../../Utils/Api/Api'
+import { serviceDelete } from '../../Utils/Api/api'
 import {toast} from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { setloadingFalse, setloadingTrue } from '../../Redux/Features/Loader/Slice'

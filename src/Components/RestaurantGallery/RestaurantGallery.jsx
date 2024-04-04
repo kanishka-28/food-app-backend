@@ -50,6 +50,7 @@ const RestaurantGallery = ({ requiredRestaurant,uploadedImages }) => {
                             <FiEdit /><p>Edit</p>
                         </Link>
                     </div>
+                    {console.log(requiredRestaurant)}
                     <div className="text-gray-500 text-sm flex justify-between">
                         <div className="w-12 h-7 flex gap-1 text-white rounded bg-green-600 font-bold justify-center items-center  mt-2">{Number(requiredRestaurant?.reviews[0]?.avgRating.toFixed(1))}<AiTwotoneStar className="text-white" /></div>
                         <div>

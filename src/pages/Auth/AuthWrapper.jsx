@@ -13,7 +13,7 @@ const AuthWrapper = (props) => {
   const getImage = async () => {
     dispatch(setloadingTrue());
     try {
-      const { data } = await axios.get('https://foodish-api.herokuapp.com/api');
+      const { data } = await axios.get('https://foodish-api.com/api/');
       setimg(data.image);
     } catch (error) {
       console.log(error);
@@ -33,12 +33,9 @@ const AuthWrapper = (props) => {
   return (
     <>
       <div className='w-full flex items-center' >
-        <div className='w-full h-screen md:w-1/2 flex items-center bg-auth bg-no-repeat bg-cover md:bg-none ' >
+        <div style={{backgroundImage: `url(${img})`}} className='w-full h-screen flex items-center bg-auth bg-no-repeat bg-cover ' >
           {/* outlet basically lets us use children in nested routing */}
           <Outlet />
-        </div>
-        <div className='hidden md:block w-3/4 h-screen' >
-          <img src={img} className='w-full h-full' />
         </div>
       </div>
     </>

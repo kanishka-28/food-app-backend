@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 import { IoCheckmarkDoneOutline } from 'react-icons/io5';
 import { GiTireIronCross } from 'react-icons/gi'
 import { useDispatch, useSelector } from 'react-redux'
-import { servicePut } from '../../../Utils/Api/Api';
+import { servicePut } from '../../../Utils/Api/api';
 import { useParams } from 'react-router-dom';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';
 import { ImBin } from 'react-icons/im';

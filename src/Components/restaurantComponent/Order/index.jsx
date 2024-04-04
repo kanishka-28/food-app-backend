@@ -11,7 +11,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import AddFoodModal from '../../Modal/AddFood';
 import FoodCards from '../../Cards/FoodCards';
 import EditFoodModal from '../../Modal/EditFood';
-import { serviceGet } from '../../../Utils/Api/Api';
+import { serviceGet } from '../../../Utils/Api/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../../Redux/Features/Food/Selector/Selector';
 import { setloadingFalse, setloadingTrue } from '../../../Redux/Features/Loader/Slice';

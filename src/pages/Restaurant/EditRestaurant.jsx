@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Redux/Features/Auth/Selector/Selector";
-import { servicePost, servicePut } from "../../Utils/Api/Api";
+import { servicePost, servicePut } from "../../Utils/Api/api";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RestaurantDetailsForm from "../../Components/Form/RestaurantDetails";

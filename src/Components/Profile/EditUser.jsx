@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../Redux/Features/Auth/Slice';
 import { setloadingFalse, setloadingTrue } from '../../Redux/Features/Loader/Slice';
-import { servicePut } from '../../Utils/Api/Api';
+import { servicePut } from '../../Utils/Api/api';
 
 const EditUser = ({ profile, setedit }) => {
 

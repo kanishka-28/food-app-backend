@@ -5,7 +5,7 @@ import { login } from "../../Redux/Features/Auth/Slice";
 import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";
 import ResetPassForm from "../../Components/Form/ResetPass";
 import toast from "react-hot-toast";
-import { servicePut } from "../../Utils/Api/Api";
+import { servicePut } from "../../Utils/Api/api";
 
 export default function ResetPass() {
  

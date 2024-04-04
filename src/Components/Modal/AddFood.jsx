@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineClose } from "react-icons/ai";
 import { IoAddOutline } from 'react-icons/io5';
-import { servicePost } from '../../Utils/Api/Api';
+import { servicePost } from '../../Utils/Api/api';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';

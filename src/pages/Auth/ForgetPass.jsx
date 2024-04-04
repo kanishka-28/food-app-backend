@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import { serviceGet } from "../../Utils/Api/Api";
+import { serviceGet } from "../../Utils/Api/api";
 import toast from "react-hot-toast";
 
 import { setloadingFalse, setloadingTrue } from "../../Redux/Features/Loader/Slice";

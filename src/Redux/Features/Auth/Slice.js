@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { serviceGet, servicePost } from "../../../Utils/Api/Api";
+import { serviceGet, servicePost } from "../../../Utils/Api/api";
 import { setHeader, deleteHeader } from "../../../Utils/Api/Header";
 
 const initialState = {

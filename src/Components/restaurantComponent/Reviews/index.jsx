@@ -8,7 +8,7 @@ import {
   setloadingFalse,
   setloadingTrue,
 } from "../../../Redux/Features/Loader/Slice";
-import { serviceGet } from "../../../Utils/Api/Api";
+import { serviceGet } from "../../../Utils/Api/api";
 import Review from "../../Cards/Review";
 
 const Reviews = () => {
