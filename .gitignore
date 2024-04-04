@@ -5,3 +5,5 @@ package-lock.json
 .env
 
 /Utils/AWS
+# Local Netlify folder
+.netlify
