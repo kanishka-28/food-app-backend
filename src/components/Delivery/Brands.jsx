@@ -11,7 +11,7 @@ const Brands = () => {
             </div>
         </div>
         <div>
-            <h1 className="font-semibold text-xl">Top Brands For You</h1><br/>
+            <h1 className="md:mt-10 font-semibold text-xl">Top Brands For You</h1><br/>
         </div>
         <div>
             <BrandsCategory/>

@@ -4,6 +4,8 @@ import { serviceGet } from "../../utlis/connection/api";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
+
+
 export default function ForgotPass() {
   const navigate = useNavigate();
   const [email, setemail] = useState();

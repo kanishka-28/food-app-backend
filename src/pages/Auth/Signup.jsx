@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { signup } from "../../redux/features/auth/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { login, signup } from "../../redux/features/auth/slice";
 import { setloadingFalse, setloadingTrue } from "../../redux/features/Loader/slice";
+import { isAuthenticated } from '../../redux/features/auth/selector/selector';
 
 export default function Signup() {
   const [showPass, setshowPass] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [data, setdata] = useState({
     userName: "",
     email: "",
@@ -20,21 +22,17 @@ export default function Signup() {
   });
 
 
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (data.password !== data.cnfpass) {
-      toast.error("Password Not Equal");
-    }
-    else {
-      delete data.cnfpass;
-      dispatch(setloadingTrue());
-      // console.log(data);
-      dispatch(signup(data));
+    // if (data.password !== data.cnfpass) {
+    //   toast.error("Password Not Equal");
+    // }
+    // else {
+      delete data.cnfpass; 
+      dispatch(setloadingTrue()); 
+      await dispatch(signup(data)); 
       dispatch(setloadingFalse());
-      navigate('/home/delivery');
-    }
+    // }
 
     // const form_data = new FormData(event.target);
     // let values = {};
@@ -48,14 +46,13 @@ export default function Signup() {
   };
 
   //   const isAuthenticated = useSelector(authState)
-
+  // const auth = useSelector(isAuthenticated);
   //   useEffect(()=>{
-  //     if (isAuthenticated) navigate('/');
-  //   },[isAuthenticated, navigate])
+  //     if (auth) navigate('/');
+  //   },[auth])
 
   return (
     <div className="flex justify-center w-full">
-
       <div className=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden border-2 border-dashed border-gray-300 shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:pl-0 md:pl-10">
         <div className="bg-white px-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start ">

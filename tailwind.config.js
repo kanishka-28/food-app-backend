@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'auth': "url('https://picsum.photos/200')"
+        'auth': "url('https://picsum.photos/800/800')"
       },
       fontFamily: {
         'display': ['Okra'],

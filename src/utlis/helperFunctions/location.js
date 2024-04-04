@@ -49,7 +49,7 @@ export const getLocation = async ( dispatch ) => {
   })
   if (navigator.geolocation) {
 
-    await navigator.tion.getCurrentPosition(showPos, showErr);
+    await navigator.geolocation.getCurrentPosition(showPos, showErr);
 
     function showPos(position) {
       toast.success("Location Found", {

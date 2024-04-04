@@ -44,7 +44,7 @@ const LaptopDelivery = () => {
     arrows: true,
     autoplay: true,
     // centerMode: true,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     infinite: true,
     nextArrow: <NextArrow />,
@@ -65,11 +65,11 @@ const LaptopDelivery = () => {
         <Slider {...settingsLg}>
           {
             images.map((image) => (
-              <div key={image} className='px-1 outline-0 h-64'>
+              <div key={image} className='px-1 outline-0'>
                 <img
                   src={image}
                   alt="Burger"
-                  className="w-full h-full rounded"
+                  className="w-48 h-48 rounded"
                 />
               </div>
             ))

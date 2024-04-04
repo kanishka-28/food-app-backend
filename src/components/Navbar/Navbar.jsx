@@ -128,10 +128,8 @@ const Nav = () => {
         {
           !auth ?
           <div className="flex gap-5 mr-8">
-            
-            <Link to="/auth/login">Log In</Link>
-            
-            <Link to="/auth/signup">Sign Up</Link>
+            <Link to="/auth/login">Log In</Link> 
+            <Link to="/auth/signup">Sign Up</Link> 
           </div>
           :
           <div className="flex gap-16">

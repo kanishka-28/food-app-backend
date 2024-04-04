@@ -1,9 +1,17 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { capitalize } from '../../utlis/helperFunctions/Capitalise';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const FoodCards = ({restaurant}) => {
     
+    useEffect(() => {
+        setorders(Math.floor(Math.random() * (1000 - 100 + 1)) + 100);
+    }, [])
+    
+    const [orders, setorders] = useState()
+
     const {name, city, coverImage,_id:id,review} = restaurant;
     return (
         <div className="w-full  h-auto my-4 rounded-lg shadow-lg relative pb-2 md:pb-0 ">
@@ -29,7 +37,7 @@ const FoodCards = ({restaurant}) => {
             <div className="flex justify-evenly m-2 pb-2">
                 <img src="https://b.zmtcdn.com/data/o2_assets/4bf016f32f05d26242cea342f30d47a31595763089.png"
                     alt="uparrow" className="w-8 h-8" />
-                <p className="text-gray-600 font-small">+6200 order placed from here recently</p>
+                <p className="text-gray-600 font-small">+{orders} order placed from here recently</p>
                 <img src="https://b.zmtcdn.com/data/o2_assets/0b07ef18234c6fdf9365ad1c274ae0631612687510.png"
                     alt="uparrow" className="w-16 h-8" />
             </div>
