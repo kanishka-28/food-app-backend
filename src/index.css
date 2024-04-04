@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-display;
+  }
+}
+
+@layer utilities { 
+  /* Chrome, Safari and Opera */ 
+  .no-scrollbar::-webkit-scrollbar { 
+    display: none; 
+  } 
+ 
+  .no-scrollbar { 
+    -ms-overflow-style: none; /* IE and Edge */ 
+    scrollbar-width: none; /* Firefox */ 
+  } 
+}
+
+@layer base {
+    h1 {
+      @apply text-5xl;
+      @apply font-semibold;
+    }
+    h2 {
+      @apply text-4xl;
+      @apply font-semibold;
+    }
+    h3 {
+      @apply text-3xl;
+      @apply font-semibold;
+    }
+    h4 {
+      @apply text-2xl;
+    }
+    h4 {
+      @apply text-xl;
+    }
+    /* ... */
+  }
+
+ 
