@@ -5,7 +5,14 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Users"
     },
-    restaurant: { type: mongoose.Types.ObjectId, ref: "Restaurants" },
+    restaurant: { 
+        type: mongoose.Types.ObjectId, 
+        ref: "Restaurants" 
+    },
+    kitchen: { 
+        type: mongoose.Types.ObjectId, 
+        ref: "Kitchens" 
+    },
     orderDetails: [
         {
             food: { type: mongoose.Types.ObjectId, ref: "Foods" },
@@ -17,7 +24,7 @@ const OrderSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['pending', 'cancelled', 'rejected', 'accepted'],
-        default:'pending',
+        default: 'pending',
         required: true
     }
 },

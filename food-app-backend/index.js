@@ -12,10 +12,12 @@ import Auth from "./API/Auth";
 import User from "./API/User";
 import Restaurant from './API/Restaurant';
 import Food from "./API/Food";
-import Menu from "./API/Menu";
+import Menu from "./API/Menu";  
 import Order from "./API/orders";
 import Images from "./API/RestaurantPhotos";
 import Reviews from "./API/Review";
+import Kitchens from "./API/Kitchen";
+
 //env variable
 require("dotenv").config();
 //database connection
@@ -24,13 +26,13 @@ import routeConfig from "./config/route.config";
 
 const Router = express.Router();
 
-const zomato = express();
-zomato.use(express.json({ limit: '50mb' }));
-zomato.use(express.urlencoded({ extended: true, limit: '10mb' }));
-// zomato.use(cors());
-zomato.use(helmet());
-zomato.use(passport.initialize());
-zomato.use(passport.session());
+const foodie = express();
+foodie.use(express.json({ limit: '50mb' }));
+foodie.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// foodie.use(cors());
+foodie.use(helmet());
+foodie.use(passport.initialize());
+foodie.use(passport.session());
 
 // const cors = require('cors');
 const corsOptions = {
@@ -40,7 +42,7 @@ const corsOptions = {
   };
   
 //   app.use(cors(corsOptions));
-zomato.use(cors(corsOptions));
+foodie.use(cors(corsOptions));
 
 //passport configuration
 
@@ -50,19 +52,20 @@ routeConfig(passport);
 
 
 //for application routes
-//localhost:4000/auth/signup
+//localhost:4000/auth/signup 
 
-zomato.use("/auth", Auth);
-zomato.use('/user', User);
-zomato.use("/restaurant", Restaurant);
-zomato.use("/food", Food);
-zomato.use("/menu", Menu);
-zomato.use("/image", Images);
-zomato.use("/review", Reviews);
-zomato.use('/order', Order);
+foodie.use("/auth", Auth);
+foodie.use('/user', User);
+foodie.use("/restaurant", Restaurant);
+foodie.use("/food", Food);
+foodie.use("/menu", Menu);
+foodie.use("/image", Images);
+foodie.use("/review", Reviews);
+foodie.use('/order', Order);
+foodie.use('/kitchen', Kitchens);
 
 
-zomato.get("/", (req, res) => {
+foodie.get("/", (req, res) => {
     res.json({ message: "setup success !!" })
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -72,11 +75,11 @@ zomato.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 4000
-zomato.listen(PORT, () =>
+foodie.listen(PORT, () =>
     ConnectDB().then(() =>
         console.log("Server is up and running"))
         .catch(() => console.log("DB connection failed"))
 );
 
-zomato.use('/.netlify/functions/api', Router);
-module.exports.handler = serverless(zomato);
+foodie.use('/.netlify/functions/api', Router);
+module.exports.handler = serverless(foodie);

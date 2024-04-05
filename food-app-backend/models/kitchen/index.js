@@ -5,10 +5,10 @@ const KitchenSchema = new mongoose.Schema({
     name: { type: String, required: true },
     city: { type: String, required: true, lowercase:true },
     address: { type: String, required: true },
-    // mapLocation: {
-    //     latitude: { type: Number, required: true },
-    //     longitude: { type: Number, required: true }
-    // },
+    mapLocation: {
+        latitude: { type: Number, required: true },
+        longitude: { type: Number, required: true }
+    },
     timing: { type: String },
     contactNumber: { type: Number },
     // brand: { type: String },

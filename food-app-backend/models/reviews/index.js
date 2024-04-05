@@ -10,7 +10,12 @@ const ReviewSchema = new mongoose.Schema({
     restaurant: {
         type: mongoose.Types.ObjectId,
         ref: "Restaurants",
-        required:true
+        // required:true
+    },
+    kitchen: {
+        type: mongoose.Types.ObjectId,
+        ref: "Kitchens",
+        // required:true
     },
     rating: {
         type :Number,
