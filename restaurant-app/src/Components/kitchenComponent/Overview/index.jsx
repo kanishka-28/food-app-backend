@@ -21,7 +21,7 @@ const OverviewMd = () => {
     }
     const copy = () => {
         setColor("text-green-500")
-        navigator.clipboard.writeText(requiredRestaurant?.address + " " + requiredRestaurant?.city);
+        navigator.clipboard.writeText(requiredRestaurant.address + " " + requiredRestaurant.city);
         setTimeout(() => (
             setColor("text-gray-500")
         ), [1000])
@@ -89,12 +89,12 @@ const OverviewMd = () => {
                             </div>
                         </div>
                         <div className="my-2 mx-8">
-                            <h5 className="text-gray-600 mb-4">{requiredRestaurant?.address} {requiredRestaurant?.city}</h5>
+                            <h5 className="text-gray-600 mb-4">{requiredRestaurant.address} {requiredRestaurant.city}</h5>
                             <div className="flex">
                                 <button onClick={copy} className={` w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white flex justify-center items-center gap-2 cursor-pointer ${color}`} id="copy"><FiCopy className="w-5 h-5" /><p>Copy</p></button>
                                 <button onClick={() => {
                                     window.open(
-                                        `https://www.google.com/maps/@${requiredRestaurant?.mapLocation.latitude},${requiredRestaurant?.mapLocation.longitude},19z`,
+                                        `https://www.google.com/maps/@${requiredRestaurant.mapLocation.latitude},${requiredRestaurant.mapLocation.longitude},19z`,
                                         "_blank"
                                     );
                                 }} className="w-32 h-10 text-center m-1 rounded-lg border-gray-400 border py-1 bg-white text-red-500 flex justify-center items-center gap-2"><RiDirectionLine className="w-5 h-5" /><p>Direction</p></button>

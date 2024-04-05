@@ -5,7 +5,6 @@ import { Navigate} from 'react-router-dom';
 import { isAuthenticated, isReady } from '../../Redux/Features/Auth/Selector/Selector';
 
 
-
 const ProtectedRoute = ({ children }) => {
     const auth = useSelector(isAuthenticated);
     const ready = useSelector(isReady);
@@ -17,7 +16,6 @@ const ProtectedRoute = ({ children }) => {
             return <Navigate to={"/auth/login"} replace />
         }
     }
-   
 }
 
 

@@ -14,44 +14,14 @@ const ProfilePicture = ({ profile }) => {
   const dispatch = useDispatch();
 
   const handleImageUpload = async (e) => {
-    // dispatch(setloadingTrue());
-    // const file = e.target.files[0];
-    // console.log(file);
-    // var reader = new FileReader();
-    // let base64String = `data:${file.type};base64,`;
-    // reader.onload = async function () {
-    //   base64String += reader.result.replace("data:", "").replace(/^.+,/, "");
-    //   //   console.log(base64String);
-    //   const data = {
-    //     _userId: profile._id,
-    //     userData: {
-    //       profilePic: base64String,
-    //     },
-    //   };
-    //   try {
-    //     const { user } = await servicePut("user/update", data);
-    //     dispatch(updateUser(user));
-    //     toast.success("Profile updated successfully", {
-    //       icon: "🍕",
-    //     });
-    //   } catch (error) {
-    //     toast.error("Sorry, try again later");
-    //   }
-    //   finally{
-    //     dispatch(setloadingFalse());
-    //   }
-    // };
-    // reader.readAsDataURL(file);
     dispatch(setloadingTrue());
-    try {
-      const file = e.target.files[0];
-      if (file.size > 5000000) {
-        toast("Image size should be less than 5 MB");
-        return;
-      }
-
+    try { 
+      const file = e.target.files[0]; 
+      if (file.size > 5000000) { 
+        toast("Image size should be less than 5 MB"); 
+        return; 
+      } 
       const image = await resizeFile(file);
-
       const data = {
         _userId: profile._id,
         userData: {

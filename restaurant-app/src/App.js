@@ -27,6 +27,9 @@ import { loading } from "./Redux/Features/Loader/Selector/Selector";
 import { setloadingTrue } from "./Redux/Features/Loader/Slice";
 import { useRestaurants } from "./Utils/Functions/getRestaurants";
 import ScrollToTop from "./Utils/Functions/ScrollToTop";
+import { useKitchens } from "./Utils/Functions/getKitchens";
+import EditKitchen from "./pages/Kitchen/EditKitchen";
+import Kitchen from "./pages/Kitchen/Kitchen";
 
 
 function App() {
@@ -38,6 +41,7 @@ function App() {
   };
 
   useRestaurants();
+  useKitchens();
 
   useEffect(() => {
     loadUserAbout();
@@ -57,6 +61,12 @@ function App() {
             <Route path="add" element={<ProtectedRoute><EditRestaurant /></ProtectedRoute>} />
             <Route path="orders/:id" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
             <Route path="edit" element={<ProtectedRoute><EditRestaurant edit={true} /></ProtectedRoute>} />
+          </Route>
+          <Route path="/kitchen" >
+            <Route path=":id" element={<ProtectedRoute><Kitchen /></ProtectedRoute>} />
+            <Route path="add" element={<ProtectedRoute><EditKitchen /></ProtectedRoute>} />
+            <Route path="orders/:id" element={<ProtectedRoute><AllOrders /></ProtectedRoute>} />
+            <Route path="edit" element={<ProtectedRoute><EditKitchen edit={true} /></ProtectedRoute>} />
           </Route>
           <Route path="/auth" element={<AuthWrapper />} >
             <Route path="login" element={<Login />} />

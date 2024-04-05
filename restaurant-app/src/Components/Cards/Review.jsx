@@ -11,6 +11,7 @@ const Review = ({ e,toggle, settoggle }) => {
 
     const reviewId = e._id;
     const dispatch = useDispatch();
+    
     const deleteReview = async (e) => {
         e.preventDefault();
         dispatch(setloadingTrue());
