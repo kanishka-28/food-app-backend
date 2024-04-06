@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const KitchenSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    city: { type: String, required: true, lowercase:true },
+    city: { type: String, required: true, lowercase: true },
     address: { type: String, required: true },
     mapLocation: {
         latitude: { type: Number, required: true },
@@ -15,7 +15,7 @@ const KitchenSchema = new mongoose.Schema({
     website: { type: String },
     limit: { type: Number },
     // amenities: [{ type: String }],
-    reviews: [{ type: String }],
+    reviews: { type: [String], default: [] },
     menuImage: [{
         url: { type: String, }
     }],

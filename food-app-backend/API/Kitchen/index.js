@@ -34,7 +34,7 @@ Router.get('/', async (req, res) => {
          return res.status(200).json({ kitchens, success: true });
       }
       else {
-         const kitchens = await KitchenModel.find({ city: city });
+         const kitchens = await KitchenModel.find();
          if (kitchens.length === 0) {
             return res.status(404).json({ message: "No kitchens found", success: false })
          }
